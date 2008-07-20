@@ -1,0 +1,57 @@
+{% extends "frontpage/base.html" %}
+
+{% block title %}kayıt@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+
+{% block body %}
+	<div id="centered_body_container">
+		<form id="login_form" name="login_form" method="post">
+			<table id="login_form_inputs">
+			{% for field in form %}
+				<tr>
+					<td>{{ field.label_tag }}</td>
+					<td></td>
+					<td>{{ field }}</td>
+					{% if form.errors %}
+					<td class="field_errors">{{ field.errors }}</td>
+					{% endif %}
+				</tr>
+			{% endfor %}
+			</table>
+
+			<table id="login_form_table">
+				<tr>
+					<td>
+						<div id="registration_captcha">
+							<img id="captcha_image" src="{{ captcha }}" title="captcha">
+							<br>
+							<a href="#" title="yeni bir captcha için tıklayın.." class="gray_link" onclick="getNewCaptcha(); return false;">[yenile]</a>
+							<input id="registration_captcha_textbox" name="registration_captcha" type="text" size="6" maxlength="6" />
+							<input id="captcha_id" name="captcha_id" type="hidden" />
+						</div>
+					</td>
+					{% if error %}
+					<td>
+						<div id="login_form_errors">{{ error }}</div>
+					</td>
+					{% endif %}
+				</tr>
+			</table>
+		</form>
+
+		<div id="login_form_buttons">
+			<button id="entry_comment_submit">yolla</button>
+			&nbsp;&nbsp;
+			<button id="entry_comment_clear">temizle</button>
+		</div>
+	</div>
+
+	<script language="javascript">
+		$("#entry_comment_submit").click(function() {
+			$("#login_form").submit();
+		});
+		$("#entry_comment_clear").click(function() {
+			$("#login_form :input[id!='captcha_id']").val("")
+		});
+		$("#captcha_id").val($("#captcha_image").attr('src').split('/')[3].split('.')[0]);
+	</script>
+{% endblock %}

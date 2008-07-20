@@ -1,0 +1,86 @@
+{% extends "frontpage/base.html" %}
+
+{% load frontpage_filters %}
+{% load blog_filters %}
+
+{% block title %}ana sayfa@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+
+{% block body %}
+	<div id="body_left">
+		<div id="main_menu">
+			<ul>
+				{% with mainpage.links_set|order_by:"level" as links %}
+					{% for link in links %}
+						{% if link.target %}
+							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.." target="_blank"><img src="{{ link.get_image_url }}" border="0"></a></li>
+						{% else %}
+							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.."><img src="{{ link.get_image_url }}" border="0"></a></li>
+						{% endif %}
+					{% endfor %}
+				{% endwith %}
+			</ul>
+		</div>
+	</div>
+	<div id="body_right">
+		<div id="body_title">
+			{{ mainpage.content_title|safe }}
+		</div>
+		{{ mainpage.content|safe }}
+		<div id="main_rss_box">
+			<a href="#" title="gerenk yok ama rss üzerinden okumak isterseniz tıklayın.. :)" onclick="location.href='{{ mainpage.rss_url }}'; return false;">
+				<div id="rss_logo"></div>
+			</a>
+			<div id="main_rss_title">
+				{{ mainpage.rss_title|safe }}
+			</div>
+			<div id="main_rss_body">
+				<table id="main_rss_table" border="0" cellpadding="0" cellspacing="0">
+					<thead>
+						<tr>
+							<th class="main_rss_title">Başlık</th>
+							<th class="main_rss_datetime">Tarih</th>
+							<th class="main_rss_comment">Yorum</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for entry in entries %}
+							<tr>
+								<td class="main_rss_title">
+									<a href="{{ entry.get_url }}" 
+										title="yazıyı okumak için tıkla.." class="link">{{ entry.title }}
+									</a>
+								</td>
+								<td class="main_rss_datetime">
+									<a href="/blog/archives/{{ entry.datetime.year }}/{{ entry.datetime.month }}/{{ entry.datetime.day }}/" 
+										title='{{ entry.datetime|date:"d.m.Y" }} tarihindeki yazıları okumak için tıkla..' class="link">
+										{{ entry.datetime|date:"d.m.Y" }}
+									</a>
+								</td>
+								<td class="main_rss_comment">
+									<a href="{{ entry.get_url }}#comments" 
+										title="bu yazıya yapılan yorumları okumak için tıkla.." class="link">
+										{{ entry.published_comments.count }}
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script language="">
+		var rows = document.getElementById('main_rss_table').rows;
+		for (var i=0; i<rows.length; i++) {
+			if (i==0 || i==1) {
+				continue;
+			} else {
+				if (i % 2 == 0) {
+					rows[i].bgColor = '#e5e5e5';
+				}
+			}
+		}
+	</script>
+
+{% endblock %}

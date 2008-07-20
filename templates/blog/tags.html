@@ -1,0 +1,9 @@
+{% load blog_filters %}
+
+{% construct_tag_cloud %}
+
+{% for tag in tagcloud %}
+<a href="/blog/tags/{{ tag.name }}" class="tag_cloud_item" 
+	style="font-size: {{ tag.font_size }}" 
+	title="{{ tag.name }} ile etiketlenmiş yazıları görmek için tıklayın..">{{ tag.name }}</a>
+{% endfor %}

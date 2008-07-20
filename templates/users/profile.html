@@ -1,0 +1,172 @@
+{% extends "frontpage/base.html" %}
+
+{% load blog_filters %}
+
+{% block title %}profilim@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+
+{% block body %}
+	{% include "blog/sidebar.html" %}
+
+	{# including iBox to show dialog boxes #}
+	<script type="text/javascript" src="/media/js/ibox/ibox.js"></script>
+	<script type="text/javascript">
+		iBox.setPath('/media/js/ibox/');
+		iBox.close_label = "X"
+	</script>
+	<link rel="stylesheet" href="/media/js/ibox/skins/darkbox/darkbox.css" 
+		type="text/css" media="screen" />
+
+	{# a hidden layer to include gravatar form #}
+	<div id="gravatar_form">
+		aşağıdaki forma e-posta adresinizi yazarak gravatar hesabınızdaki öntanımlı avatar'ınızı raptiye hesabınız 
+		için kullanabilirsiniz.
+		<br><br>
+		raptiye içerisinde gravatar'lar için belirlenmiş öntanımlı boyut 50 px'dir.
+		<br><br>
+		<label for="gravatar_email">e-posta:</label>
+		<input id="gravatar_email" type="text" />
+		<button id="get_gravatar"></button>
+	</div>
+
+	<div id="blog_container">
+		<form id="login_form" name="login_form" method="post">
+			<table id="login_form_inputs">
+				<tr>
+					<td id="profile_user_info_box" rowspan="8">
+						<div id="profile_avatar">
+							<img width="50" height="50" src="{{ request.user.get_profile.avatar }}" title="avatar of {{ request.user.username }}">
+						</div>
+						<div id="profile_text">
+							<strong>{{ request.user.username }}</strong>
+							<br>
+							({{ request.user.get_full_name }})
+							<br><br>
+							<strong>Üyelik Tarihi:</strong> {{ request.user.date_joined|date:"d.m.Y" }}
+						</div>
+					</td>
+				</tr>
+			{% for field in form %}
+				<tr>
+					{% ifnotequal field.name "username" %}
+						<td>{{ field.label_tag }}</td>
+					{% endifnotequal %}
+					<td></td>
+					{% ifequal field.name "avatar" %}
+						<td>{{ field }} 
+							<a href="#gravatar_form" title="gravatar'ımı kullanmak istiyorum!" rel="ibox&width=350&height=140"><img 
+								src="/media/images/gravatar.jpg" align="absmiddle" border="0"></a>
+						</td>
+					{% else %}
+						<td>{{ field }}</td>
+					{% endifequal %}
+					{% if form.errors %}
+						<td class="field_errors">{{ field.errors }}</td>
+					{% endif %}
+				</tr>
+			{% endfor %}
+			</table>
+		</form>
+
+		<div style="text-align: center;">
+			<div id="login_form_buttons">
+				<button id="entry_comment_submit">yolla</button>
+				&nbsp;&nbsp;
+				<button id="entry_comment_clear">temizle</button>
+			</div>
+		</div>
+
+		<div class="profile_user_information">
+			<h3>en son yorumlarınız</h3>
+			<br>
+			<table id="latest_comments" class="profile_info_table">
+				<tr>
+					<th>yazı başlığı</th>
+					<th width="100">yorum tarihi</th>
+					<th width="100">yorum adedi</th>
+				</tr>
+				{% for comment in latest_comments %}
+				<tr>
+					<td><a href="{{ comment.entry.get_url }}" 
+							title="yazıyı okumak için tıkla.." class="ulink">{{ comment.entry.title }}</a></td>
+					<td class="aligncenter">{{ comment.datetime|date:"d.m.Y" }}</td>
+					<td class="aligncenter">{{ comment.entry.comments_set.count }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+
+		<div class="profile_user_information">
+			<h3>takip ettikleriniz</h3>
+			<br>
+			<table id="watched_comments" class="profile_info_table">
+				<tr>
+					<th>yazı başlığı</th>
+					<th width="100">hareketler</th>
+				</tr>
+				{% for comment in watched_comments %}
+				<tr>
+					<td><a href="{{ comment.entry.get_url }}" 
+							title="yazıyı okumak için tıklayın.." class="ulink">{{ comment.entry.title }}</a></td>
+					<td class="aligncenter">
+						<a href="#" title="bu yazıyı takip etmek istemiyorsanız tıklayın.." 
+							onclick="remove_notification({{ comment.id }}); return false;" class="ulink">takip etme</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+	<script language="javascript">
+		$("#get_gravatar").click(function() {
+			// requesting the gravatar url
+			$.post("{{ request.path }}gravatar/", {"email": $("#gravatar_email").val()}, function(resp) {
+				$("#profile_avatar img").attr("src", resp);
+				$("#id_avatar").val(resp);
+				iBox.hide();
+			});
+		});
+		$("#entry_comment_submit").click(function() {
+			$("#login_form").submit();
+		});
+		$("#entry_comment_clear").click(function() {
+			$("#login_form :input[id!='id_username']").val("")
+		});
+		function remove_notification(id) {
+			// cleaning the table
+			$("#watched_comments td").each(function() {
+				$(this).remove();
+			});
+			$.get("{{ request.path }}notification/remove/", {"id": id}, function(resp) {
+				// populate the list again..
+				if (resp.status == 1) {
+					alert("error");
+				} else {
+					var list = resp;
+					$(list).each(function() {
+						$("<tr>").append(
+							$("<td>").append(
+								$("<a>").attr({
+									"href": this.url,
+									"title": "yazıyı okumak için tıklayın..",
+									"class": "ulink"
+								}).text(this.title)
+							)
+						).append(
+							$("<td class='aligncenter'>").append(
+								$("<a>").attr({
+									"href": "#",
+									"title": "bu yazıyı takip etmek istemiyorsanız tıklayın..",
+									"class": "ulink"
+								}).text("takip etme").click(function() {
+									remove_notification(this.id);
+									return false;
+								})
+							)
+						).appendTo($("#watched_comments"));
+					});
+				}
+			}, "json");
+		}
+	</script>
+{% endblock %}

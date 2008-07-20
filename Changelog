@@ -1,0 +1,314 @@
+2008-07-20  Alper KANAT  <alperkanat@gmail.com>
+
+	* Committing the project to its own server for the first time..
+
+2008-07-16  Alper KANAT  <alperkanat@gmail.com>
+
+	* extra/tag_cloud.py: Fixed a small bug that occurs when a small number of
+	tags exist.
+	* templates/users/profile.html: Profile avatar shows the gravatar when
+	gravatar url entered.
+
+2008-07-08  Alper KANAT  <alperkanat@gmail.com>
+
+	* extra/tag_cloud.py: Fixed a small bug that occurs when no tag exist.
+	* settings_.py: Forgot to add tags app and DEFAULT_AVATAR variable to
+	settings.py
+
+2008-07-05  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, blog/templatetags/blog_filters.py,
+	templates/blog/homepage.html, templates/blog/pagination.html: Pagination
+	works very well now..
+
+2008-07-04  Alper KANAT  <alperkanat@gmail.com>
+
+	* extra/search.py, extra/messages.py, blog/views.py, blog/urls.py,
+	templates/blog/sidebar.html: Search works! :)
+
+2008-07-02  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/badges, templates/blog/supported.html: All badges are now
+	stored on the localhost.. Some of them are renewed and some are deleted..
+	* media/js/ibox: iBox is used for JS dialogs.. Nice :)
+	* media/css/style.css, users/views.py, users/urls.py,
+	templates/users/profile.html: Profile is complete now!
+	* extra/gravatar.py: Will include all methods for gravatar support..
+
+2008-07-01  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/gravatar.jpg: Gravatar support is being added.. (jQuery UI)
+	* media/css/style.css, templates/users/profile.html, users/urls.py,
+	users/views.py: Information tables in profile works great now..
+	* REQUIREMENTS: python-simplejson added as a dependency.. (converting
+	python objects directly to json)
+
+2008-06-30  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/calendar_today.png, blog/templatetags/blog_filters.py,
+	extra/webcal.py, extra/mail.py, extra/messages.py: Calendar also shows
+	current date and profiles can save information now..
+	* media/css/style.css, users/views.py, templates/users/profile.html:
+	Adding latest comments and subscribed entries to the profile page..
+	* templates/blog/comments.html: Fixed an issue..
+
+2008-06-26  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, templates/users/profile.html,
+	templates/blog/sidebar.html, users/urls.py, users/views.py: Profile page
+	partially works now..
+	* users/models.py: Default avatar image is defined in settings file
+	instead of in a view..
+	* extra/messages.py: New message for user profiles..
+	* blog/views.py: Archive links in calendar works now.. But pagination is
+	needed..
+	* blog/templatetags/blog_filters.py, extra/webcal.py: Locale settings in
+	calendar works fine now..
+	* templates/blog/calendar.html: Deleted.
+	* templates/blog/sidebar.html: Since calendar.html was only 2 lines, I
+	placed its content here.
+
+2008-06-25  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, extra/webcal.py, blog/templatetags/blog_filters.py,
+	templates/blog/calendar.html, templates/blog/sidebar.html: can now output
+	a good looking calendar... the only problem about it is that it prints the
+	day names and month in english.. gotta solve that.. some css modifications
+	can also be done..
+
+2008-06-23  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, blog/templatetags/blog_filters.py,
+	extra/tag_cloud.py, templates/blog/tags.html, templates/blog/sidebar.html:
+	Enabled tags in sidebar and now it works fine.. Also fixed some css issues
+	in the sidebar..
+	* extra/webcal.py, templates/blog/calendar.html: Calendar is almost done..
+
+2008-06-22  Alper KANAT  <alperkanat@gmail.com>
+
+	* extra/tag_cloud.py: Creating a dictionary of tags with font sizes is
+	working fine now.. :) I'm going to construct the cloud now..
+
+2008-06-20  Alper KANAT  <alperkanat@gmail.com>
+
+	* users/views.py, blog/views.py, blog/templatetags/blog_filters.py,
+	frontpage/views.py, frontpage/templatetags/frontpage_filters.py,
+	templates/blog/contact.html, templates/frontpage/base.html: Some code
+	cleanup.. Using template tags instead of embedding objects into template..
+	* extra/messages.py, blog/views.py, blog/models.py, blog/urls.py, urls.py,
+	tags/: tags application is added.. it works great! now it's time for the
+	tag cloud..
+	* media/css/style.css: Changed the font color of the whole site.. It looks
+	a lot better now.. Also added a few classes for registration..
+	* media/js/raptiye.js, templates/blog/comments.html: Removed getNewCaptcha() 
+	to here since it's a global function..
+	* users/views.py, users/urls.py, extra/mail.py,
+	templates/users/activation.html, templates/users/registration.html:
+	Registration works very well now.. Need to add some control for essential
+	fields like username..
+	* extra/messages.py: Some messages like registration successful etc. are
+	here..
+	* comments/views.py: Unnecessary @login_required annotation..
+	* templates/blog/homepage.html: The messages like registration successful
+	etc. are not shown on their own page, but on the index page of the blog..
+	This results a lot better..
+	* templates/blog/sidebar.html, users/views.py: Login, Logout calls cen be
+	redirected to anywhere now..
+
+2008-06-17  Alper KANAT  <alperkanat@gmail.com>
+
+	* users/views.py, users/models.py, extra/mail.py: Registration works now
+	but more tests needs to be done and the success page is still a TODO..
+	* users/views.py: Some improvements for registration.. More will be
+	added..
+	* settings_.py, settings.py: The first file is added as a template for the
+	project since the original one shouldn't exist in code base because of the
+	passwords etc.. The template will be tidied once the project becomes
+	stable.
+
+2008-06-14  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, users/models.py, users/urls.py, users/forms.py,
+	extra/filters.py, templates/users/registration.html: Registration is 
+	partially ok now.. Captcha and reg. success page are left..
+	* media/js/raptiye.js, settings.py, comments/views.py,
+	templates/blog/comments.html: Fixed a bug in comments section..
+
+2008-06-08  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/giris.png, media/css/style.css,
+	templates/blog/sidebar.html, users/urls.py, users/views.py: Users can
+	login and logout from the sidebar of the blog now..
+	* templates/users/login.html: Added error section to display error
+	messages.
+	* templates/blog/comments.html: Redirection occurs when the users clicks
+	login in some parts of the page like comments section..
+
+2008-06-05  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, users/views.py, users/models.py, users/urls.py,
+	users/forms.py, urls.py, templates/users, templates/users/login.html:
+	Login form added. A few more things need to be done about this..
+	* blog/views.py: A tweak for captcha is made..
+	* comments/views.py: @login_required decorator is added..
+
+2008-06-04  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/js/raptiye.js: Moved a function into a template.. This file will
+	include common js code..
+	* blog/models.py, blog/templatetags/blog_filters.py,
+	frontpage/templatetags/frontpage_filters.py, templates/blog/homepage.html,
+	templates/blog/comments.html, templates/frontpage/homepage.html: The
+	templatetag 'published' is replaced by a method in the model.. The code is
+	cleaner now..
+	* TODO: removed unnecessary TODO file..
+	* comments/views.py, comments/models.py: Added limitations for comments
+	app to avoid some type of attacks.. (i don't expect much by the way..)
+	* settings.py: added new variables..
+	* media/temp: This directory will lead to /tmp/
+	* media/css/style.css, media/fonts, media/fonts/astonish.ttf,
+	media/js/raptiye.js, comments/views.py, comments/urls.py, settings.py,
+	urls.py, templates/blog/comments.html, blog/views.py: Comments now work
+	fine with the captcha support..
+	* blog/models.py: Correction for datetime field in admin panel..
+	* blog/templatetags/blog_filters.py: A new templatetag for published
+	comments is added.
+	* extra/astonish.ttf: Fonts will be included in /media/fonts/ as of now..
+	* extra/captcha_test.py, extra/captcha.py: Captcha class is now complete..
+	* media/temp, extra/captcha.py, extra/captcha_test.py: Wrote a captcha
+	class to generate captcha images.. Run captcha_test.py to test it.. The
+	captcha files will be save to /media/temp/ directory..
+	* blog/models.py: Added comments_enabled column to let the author
+	enable/disable comments section for every blog entry..
+	* settings.py: Created a setting for saving captcha images directory..
+
+2008-06-02  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/default_avatar.png, comments/views.py: Added a default
+	avatar for users those doesn't use gravatars..
+	* users/: New app is added for user profiles..
+	* blog/views.py: Since it's almost impossible for the visitors to know
+	about new entries, I allowed future posts just for detailed view. This is
+	because of the tz errors I get..
+	* extra/: new python package for implementing my own classes like captcha
+	creation and management..
+	* settings.py: New apps users and comments are enabled..
+
+2008-06-01  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/galeri.png, media/images/gunluk.png,
+	media/images/hakkinda.png, frontpage/models.py: The images for links will
+	be uploaded to /media/images/upload/ after now..
+	* media/css/style.css, templates/blog/comments.html: Some comments app
+	related changes..
+	* comments/models.py: Avatars will be bundled to user profile not comments
+	app..
+	* settings.py: 2 new variables are added..
+	* media/images/false.gif, media/images/true.gif, media/images/loader.gif,
+	media/css/style.css, templates/blog/comments.html,
+	templates/blog/homepage.html, templates/frontpage/homepage.html: Comments
+	part is now half functioning.. Need a login form, profile page and the
+	rest now..
+	* media/js/jquery-1.2.6.min.js: Added jQuery's new version to the
+	project..
+	* media/js/raptiye.js: Added some new functions..
+	* blog/views.py, frontpage/views.py: Added new functionality for
+	comments..
+	* settings.py: Removed unnecessary lines..
+
+2008-05-26  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/comment_ok.png, media/css/style.css,
+	templates/blog/comments.html, templates/blog/detail.html: Comments page is 
+	added to detail page of entries.. There's only dumb design text right now.. 
+	So more development is needed..
+	* settings.py, comments/: Added a new comments app.. I'm writing this 
+	instead of using the bundled one.. I have a more customized and simplier 
+	implementation..
+
+2008-05-25  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css: Removed some unnecessary css code and added new
+	styles..
+	* blog/views.py: Added new method for detailed entries..
+	* blog/models.py: Added new method for sluggy url..
+	* blog/templatetags: Added templatetags like truncating entry content by
+	some value.. these are for frontend generally..
+	* templates/blog/detail.html, blog/urls.py: entries can be seen in 
+	detailed view now.. comment link is added too..
+	* settings.py: some new settings are added..
+	* templates/blog/homepage.html, templates/blog/supported.html,
+	templates/frontpage/homepage.html, templates/frontpage/base.html: Some
+	enhancement done during the development process..
+
+2008-05-24  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/tag_cloud.png, media/images/rss_widget.png,
+	media/images/supported.png: using a background widget title instead..
+	* media/images/links.png, media/images/contact.png,
+	media/images/cloud.png, media/images/support.png,
+	media/images/widget_title.png, media/images/friends.png,
+	media/images/rss_feed.png: Added new widget title images..
+	* templates/blog/contact.html: Last part of sidebar (before surveys) is
+	added..
+	* blog/views.py, templates/blog/sidebar.html: Added new widgets to sidebar
+	as well as age calculation..
+	* templates/blog/supported.html, media/css/style.css: Fixed link borders
+	which look a lot nicer now..
+
+2008-05-21  Alper KANAT  <alperkanat@gmail.com>
+
+	* REQUIREMENTS: requirements are added..
+	* media/css/style.css: Some CSS tweak..
+	* blog/views.py, blog/models.py, blog/urls.py: entries doesn't get
+	affected by time issues now.. (need pytz library) now all content comes
+	from views..
+
+2008-05-05  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/tag_cloud.png, media/images/calendar.png,
+	media/images/rss_widget.png, media/images/supported.png: Added for new
+	sidebar widgets..
+	* media/css/style.css, templates/blog/feedburner.html,
+	templates/blog/supported.html, templates/blog/sidebar.html,
+	templates/blog/calendar.html, templates/frontpage/base.html: New widgets
+	are being added..
+
+2008-05-04  Alper KANAT  <alperkanat@gmail.com>
+
+	* templates/blog/sidebar.html: Added the search and calendar widgets..
+	* templates/blog/calendar.html, media/images/calendar.png: Calendar
+	widget.. Needs a lot more coding..
+	* media/images/search.png, media/images/search-active.png,
+	media/css/style.css, media/js/raptiye.js: Search widget.. Design
+	complete.. Need backend coding..
+	* media/js/jquery.js, media/js/jquery-1.2.3.min.js: latest jquery version
+	is included with this revision.. and a generic soft link is assigned too..
+	* templates/frontpage/base.html: js libs are added..
+
+2008-04-30  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/entry_footer_middle.png,
+	media/images/entry_footer_right.png, media/images/entry_footer_left.png:
+	Added for entry footer part..
+	* media/images/upload: new directory added for multimedia uploading
+	through admin panel
+	* media/css/style.css, blog/models.py, frontpage/models.py,
+	templates/blog/homepage.html: blog is evolving..
+	* blog/urls.py: deleted paginated_by for now since it can't read the
+	pagination value from settings file..
+	* TODO: a todo file added..
+
+2008-04-29  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/entry_datetime.png: Will be used for datetime field in
+	blog page..
+	* media/css/style.css, blog/models.py, blog/urls.py,
+	templates/blog/homepage.html, templates/blog/sidebar.html: Started to
+	design the blog page.. Some little changes in the model and urls is made
+	too..
+	* raptiye: The database shouldn't be placed in the code base..
+
+2008-04-29  Alper KANAT  <alperkanat@gmail.com>
+
+	* initial checkout

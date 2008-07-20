@@ -1,0 +1,43 @@
+{% extends "frontpage/base.html" %}
+
+{% block title %}günlük@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+
+{% block body %}
+	{% include "blog/sidebar.html" %}
+	<div id="blog_container">
+		<a href="javascript: history.back()" title="önceki sayfaya dönmek için tıklayın.." class="gray_link">&laquo; geri</a>
+		<br><br>
+		<div class="entry">
+			<div class="entry_header">
+				<div class="entry_date">
+					<div class="entry_date_day">{{ entry.datetime|date:"d" }}</div>
+					<div class="entry_date_month">{{ entry.datetime|date:"M" }}</div>
+					<div class="entry_date_year">{{ entry.datetime|date:"Y" }}</div>
+					<div class="entry_date_time">Saat: {{ entry.datetime|date:"H:i" }}</div>
+				</div>
+				<div class="entry_header_body">
+					<div class="entry_title">
+						{{ entry.title }}
+					</div>
+					<div class="entry_tags">
+						<strong>etiketler:</strong>
+						{# loop for tags start #}
+							<a href="/blog/tags/raptiye/" title="raptiye ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">
+								raptiye
+							</a>
+						{# loop for tags end #}
+					</div>
+				</div>
+			</div>
+			<div class="entry_body">
+				{% ifnotequal entry.image "" %}
+					<img src="{{ entry.get_image_url }}" class="{{ entry.image_class }}">
+				{% endifnotequal %}
+				<p align="justify">
+					{{ entry.content }}
+				</p>
+			</div>
+			{% include "blog/comments.html" %}
+		</div>
+	</div>
+{% endblock %}
