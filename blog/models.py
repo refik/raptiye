@@ -20,10 +20,10 @@ class Entry(models.Model):
 	image_class = models.CharField(u"Image Class", default="entry_image_left", help_text="The class of image.. (css)", max_length=20)
 	tags = models.ManyToManyField(Tag, blank=True, verbose_name="Etiketler", related_name="entries")
 	sticky = models.BooleanField(u"Sticky", default=False)
-	language = models.CharField(u"Language", choices=settings.LANGUAGES, default="tr", radio_admin=True, max_length=2)
+	language = models.CharField(u"Language", choices=settings.LANGUAGES, default="tr", max_length=2)
 	published = models.BooleanField(u"Published", default=False)
 	comments_enabled = models.BooleanField(u"Comments Enabled", default=True)
-	slug = models.SlugField(u"URL", prepopulate_from=("title",), max_length=100)
+	slug = models.SlugField(u"URL", max_length=100)
 
 	def __unicode__(self):
 		return self.title
@@ -62,18 +62,3 @@ class Entry(models.Model):
 		ordering = ["title"]
 		verbose_name = "entry"
 		verbose_name_plural = "entries"
-	
-	class Admin:
-		fields = (
-			(None, {
-				"fields": ("title", "datetime", "content", "image", "image_class", "tags",
-					("comments_enabled", "sticky", "published"), "language", "slug"),
-			}),
-		)
-		date_hierarchy = "datetime"
-		list_display = ("title", "get_datetime", "sticky", "published", "get_entry_url", "delete_entry")
-		list_filter = ("published", "sticky")
-		list_per_page = settings.ADMIN_LIST_PER_PAGE
-		ordering = ("-datetime", "title")
-		search_fields = ("title", "content", "tags__name")
-		save_as = True

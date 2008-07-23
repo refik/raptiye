@@ -1,12 +1,15 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
+from django.contrib import admin
+
+admin.autodiscover()
 
 urlpatterns = patterns('',
 	# main page
 	(r'^$', 'raptiye.frontpage.views.index'),
 
 	# admin page
-	(r'^admin/', include('django.contrib.admin.urls')),
+	(r'^admin/(.*)', admin.site.root),
 
 	# blog page
 	(r'^blog/', include('raptiye.blog.urls')),

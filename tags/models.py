@@ -12,6 +12,3 @@ class Tag(models.Model):
 		verbose_name = "Etiket"
 		verbose_name_plural = "Etiketler"
 		ordering = ["name"]
-	
-	class Admin:
-		pass

@@ -1,3 +1,14 @@
+2008-07-23  Alper KANAT  <alperkanat@gmail.com>
+
+	* blog/admin.py, frontpage/admin.py, comments/admin.py, tags/admin.py:
+	Created admin interfaces for some of the applications.. class Admin in
+	models.py is no longer used..
+	* blog/models.py, frontpage/models.py, comments/models.py, tags/models.py:
+	Removed some obsolote code that has been changed with the admin
+	interface..
+	* urls.py: Admin site is now imported from elsewhere..
+	* raptiye: This shouldn't be in the code base..
+	
 2008-07-20  Alper KANAT  <alperkanat@gmail.com>
 
 	* Committing the project to its own server for the first time..

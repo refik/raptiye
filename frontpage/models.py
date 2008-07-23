@@ -24,13 +24,10 @@ class FrontPage(models.Model):
 	rss_url = models.CharField(u"RSS URL", max_length=200, blank=True, help_text="Optional.. HTML can also be used..")
 	rss_limit = models.IntegerField(u"RSS News Limit", blank=True, default=5, help_text="Optional.. HTML can also be used..")
 	footer = models.TextField(u"Footer", help_text="Footer of the Main Page.. HTML can be used..")
-	language = models.CharField(u"Language", choices=settings.LANGUAGES, default="tr", radio_admin=True, max_length=2)
+	language = models.CharField(u"Language", choices=settings.LANGUAGES, default="tr", max_length=2)
 
 	def __unicode__(self):
 		return u"%s - %s" % (self.title, self.subtitle)
-	
-	class Admin:
-		pass
 	
 	class Meta:
 		verbose_name = u"FrontPage"
