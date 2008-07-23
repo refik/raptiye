@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 from raptiye.blog.models import Entry
 
@@ -16,7 +17,7 @@ class EntryAdmin(admin.ModelAdmin):
 	ordering = ("-datetime", "title")
 	search_fields = ("title", "content", "tags__name")
 	save_as = True
-	radio_fields = {'language', admin.HORIZONTAL}
+	radio_fields = {'language': admin.HORIZONTAL}
 	prepopulated_fields = {"slug": ("title",)}
 
 admin.site.register(Entry, EntryAdmin)

@@ -1,5 +1,9 @@
 2008-07-23  Alper KANAT  <alperkanat@gmail.com>
 
+	* blog/admin.py, comments/admin.py: Corrected some syntax errors and
+	missing imports..
+	* frontpage/admin.py, frontpage/models.py: Forgot to add the inline forms
+	for the links model..
 	* blog/admin.py, frontpage/admin.py, comments/admin.py, tags/admin.py:
 	Created admin interfaces for some of the applications.. class Admin in
 	models.py is no longer used..
