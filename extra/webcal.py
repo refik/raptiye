@@ -9,13 +9,16 @@ class WebCalendar():
 	some objects if the object has a datetime field.
 	"""
 
-	def __init__(self, year, month, day, object=None, datetime_field=""):
+	def __init__(self, year, month, day, object=None, datetime_field='', locale=''):
 		self.year = year
 		self.month = month
 		self.day = day
 		self.object = object
 		self.datetime_field = datetime_field
-		self.calendar = calendar.LocaleTextCalendar()
+		if locale == '':
+			self.calendar = calendar.LocaleTextCalendar()
+		else:
+			self.calendar = calendar.LocaleTextCalendar(0, locale)
 			
 	def get_year(self):
 		return self.year

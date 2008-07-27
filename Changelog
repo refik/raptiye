@@ -1,3 +1,9 @@
+2008-07-28  Alper KANAT  <alperkanat@gmail.com>
+
+	* blog/templatetags/blog_filters.py, extra/webcal.py: LocaleTextCalendar 
+	can take locale as an extra parameter so that it works correct on almost
+	every platform.
+
 2008-07-23  Alper KANAT  <alperkanat@gmail.com>
 
 	* blog/admin.py, comments/admin.py: Corrected some syntax errors and
