@@ -3,7 +3,7 @@
 <div id="sidebar_container">
 	<div class="widget">
 		<div id="search">
-			<form id="search_form" name="search_form" method="get" action="/blog/search">
+			<form id="search_form" name="search_form" method="get" action="{% url blog_search %}">
 				<input id="search_box" name="keywords" type="text" />
 			</form>
 		</div>
@@ -97,16 +97,16 @@
 				<div id="user_box">
 					{% if request.user.is_authenticated %}
 						{% if request.user.is_superuser %}
-							&raquo; <a href="/admin/" title="yönetim paneline gitmek için tıklayın.." class="link">yönetim paneli</a>
+							&raquo; <a href="{% url admin_page %}" title="yönetim paneline gitmek için tıklayın.." class="link">yönetim paneli</a>
 							<br>
 						{% endif %}
-						&raquo; <a href="/users/{{ request.user.username }}/profile/" title="profilinizi görmek ve değiştirmek için tıklayın.." class="link">profilim</a>
+						&raquo; <a href="{% url profile_page request.user.username %}" title="profilinizi görmek ve değiştirmek için tıklayın.." class="link">profilim</a>
 						<br>
-						&raquo; <a href="/users/logout/?next={{ request.path }}" title="çıkış yapmak için tıklayın.." class="link">çıkış</a>
+						&raquo; <a href="{% url logout_page %}?next={{ request.path }}" title="çıkış yapmak için tıklayın.." class="link">çıkış</a>
 					{% else %}
-						&raquo; <a href="/users/register/" title="raptiye'ye kaydolmak için tıklayın.." class="link">kaydol</a>
+						&raquo; <a href="{% url registration %}" title="raptiye'ye kaydolmak için tıklayın.." class="link">kaydol</a>
 						<br>
-						&raquo; <a href="/users/login/?next={{ request.path }}" title="raptiye hesabınızla giriş yapmak için tıklayın.." class="link">giriş</a>
+						&raquo; <a href="{% url login_page %}?next={{ request.path }}" title="raptiye hesabınızla giriş yapmak için tıklayın.." class="link">giriş</a>
 					{% endif %}
 				</div>
 			</div>

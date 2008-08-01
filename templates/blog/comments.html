@@ -58,9 +58,9 @@
 {% else %}
 <div id="entry_comment_write">
 	<div id="entry_comment_login">
-		Yorum yapabilmek için <a href="/users/register/?next={{ request.path }}" class="ulink" 
+		Yorum yapabilmek için <a href="{% url registration %}?next={{ request.path }}" class="ulink" 
 			title="kayıt olmak için tıklayın..">kayıt</a> olmalısınız. Eğer zaten kayıtlı
-		iseniz <a href="/users/login/?next={{ request.path }}" class="ulink"
+		iseniz <a href="{% url login_page %}?next={{ request.path }}" class="ulink"
 			title="raptiye'ye kayıt olmak için tıklayın..">buraya</a> 
 		tıklayarak giriş yapabilirsiniz.
 	</div>
@@ -71,7 +71,7 @@
 	$("#entry_comment_submit").click(function() {
 		// controlling the form fields
 		var entry_id = {{ entry.id }};
-		var url = "/comment/sent/";
+		var url = "{% url comment_sent %}";
 		var captcha_id = $("#captcha_image").attr('src').split('/')[3].split('.')[0];
 		var query = $("#entry_comment_write :input").serialize() + "&captcha_id=" + captcha_id + "&entry_id=" + entry_id;
 		toggleForm("#entry_comment_write");

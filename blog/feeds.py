@@ -16,7 +16,7 @@ class LatestEntries(Feed):
 		description = ''
 	
 	def item_link(self, item):
-		return item.get_url()
+		return item.get_full_url()
 	
 	def item_pubdate(self, item):
 		return item.datetime

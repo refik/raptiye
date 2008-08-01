@@ -1,5 +1,14 @@
 2008-08-02  Alper KANAT  <alperkanat@gmail.com>
 
+	* users/urls.py, blog/urls.py, urls.py, comments/urls.py: Modified the url
+	mappers to automatically resolve urls and not to hardcode them..
+	* blog/models.py: A method that was used to construct the full url of a blog
+	post is removed.
+	* templates/users/profile.html, templates/blog/tags.html,
+	templates/blog/detail.html, templates/blog/comments.html,
+	templates/blog/homepage.html, templates/blog/sidebar.html,
+	templates/frontpage/homepage.html, templates/frontpage/base.html: Replaced
+	all hardcoded URL's with the automatically resolved variables..
 	* media/css/style.css, blog/admin.py, blog/models.py,
 	templates/blog/detail.html, templates/blog/homepage.html: There is no longer
 	image related fields in blog models..

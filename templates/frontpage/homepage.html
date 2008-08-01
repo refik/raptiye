@@ -3,7 +3,7 @@
 {% load frontpage_filters %}
 {% load blog_filters %}
 
-{% block title %}ana sayfa@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+{% block title %}ana sayfa@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
 
 {% block body %}
 	<div id="body_left">
@@ -46,18 +46,18 @@
 						{% for entry in entries %}
 							<tr>
 								<td class="main_rss_title">
-									<a href="{{ entry.get_url }}" 
+									<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" 
 										title="yazıyı okumak için tıkla.." class="link">{{ entry.title }}
 									</a>
 								</td>
 								<td class="main_rss_datetime">
-									<a href="/blog/archives/{{ entry.datetime.year }}/{{ entry.datetime.month }}/{{ entry.datetime.day }}/" 
+									<a href="{% url entries_on_date entry.datetime.year,entry.datetime.month,entry.datetime.day %}" 
 										title='{{ entry.datetime|date:"d.m.Y" }} tarihindeki yazıları okumak için tıkla..' class="link">
 										{{ entry.datetime|date:"d.m.Y" }}
 									</a>
 								</td>
 								<td class="main_rss_comment">
-									<a href="{{ entry.get_url }}#comments" 
+									<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}#comments" 
 										title="bu yazıya yapılan yorumları okumak için tıkla.." class="link">
 										{{ entry.published_comments.count }}
 									</a>

@@ -4,17 +4,17 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('raptiye.users.views',
 	# register page
-	(r'^register/$', 'register'),
+	url(r'^register/$', 'register', name='registration'),
 	# login page
-	(r'^login/$', 'user_login'),
+	url(r'^login/$', 'user_login', name='login_page'),
 	# logout page
-	(r'^logout/$', 'user_logout'),
+	url(r'^logout/$', 'user_logout', name='logout_page'),
 	# activation page
-	(r'^(?P<username>[\w\d]+)/activate/(?P<key>[\w\d]+)/$', 'activation'),
+	url(r'^(?P<username>[\w\d]+)/activate/(?P<key>[\w\d]+)/$', 'activation', name='activation_page'),
 	# gravatar request
-	(r'^(?P<username>[\w\d]+)/profile/gravatar/$', 'gravatar'),
+	url(r'^(?P<username>[\w\d]+)/profile/gravatar/$', 'gravatar', name='gravatar_request'),
 	# profile page
-	(r'^(?P<username>[\w\d]+)/profile/$', 'profile'),
+	url(r'^(?P<username>[\w\d]+)/profile/$', 'profile', name='profile_page'),
 	# profile page notification removal
-	(r'^(?P<username>[\w\d]+)/profile/notification/remove/$', 'notification_remove'),
+	url(r'^(?P<username>[\w\d]+)/profile/notification/remove/$', 'notification_remove', name='notification_removal'),
 )

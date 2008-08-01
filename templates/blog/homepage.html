@@ -9,7 +9,7 @@
 	<div id="blog_container">
 		{% ifnotequal sticky "" %}
 		<div class="blog_sticky_post">
-			{{ sticky|safe }}
+			{{ sticky|safe }}
 		</div>
 		{% endifnotequal %}
 		{% for entry in entry_list %}
@@ -23,14 +23,14 @@
 				</div>
 				<div class="entry_header_body">
 					<div class="entry_title">
-						<a href="{{ entry.get_url }}" title="yazının devamını okumak için tıklayın.." class="link">
+						<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
 							{{ entry.title }}
 						</a>
 					</div>
 					<div class="entry_tags">
 						<strong>etiketler:</strong>
 						{% for tag in entry.tags.all %}
-						<a href="/blog/tags/{{ tag }}/" title="{{ tag }} ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">{{ tag }}</a>
+						<a href="{% url entries_with_tag tag %}" title="{{ tag }} ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">{{ tag }}</a>
 						{% endfor %}
 					</div>
 				</div>
@@ -40,7 +40,7 @@
 					{{ entry.content|cut_text_by:1000 }}
 					{% if entry.content|is_text_larger_than:1000 %}
 						<br><br>
-						<a href="{{ entry.get_url }}" title="yazının devamını okumak için tıklayın.." class="link">
+						<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
 							Yazının devamını okumak için tıklayın..
 						</a>
 						<br>
@@ -52,11 +52,11 @@
 				<div class="entry_footer_middle">
 					<div class="entry_footer_text">
 						{% ifequal entry.published_comments.count 0 %}
-							<a href="{{ entry.get_url }}#comments" title="ilk yorumu yapmak için tıklayın.." class="white_link">
+							<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}#comments" title="ilk yorumu yapmak için tıklayın.." class="white_link">
 								Yorum Yok
 							</a>
 						{% else %}
-							<a href="{{ entry.get_url }}#comments" title="yorum yapmak için tıklayın.." class="white_link">
+							<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}#comments" title="yorum yapmak için tıklayın.." class="white_link">
 								{{ entry.published_comments.count }} Yorum
 							</a>
 						{% endifequal %}

@@ -4,7 +4,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('raptiye.comments.views',
 	# comment is sent
-	(r'^sent/$', 'comment_sent'),
+	url(r'^sent/$', 'comment_sent', name='comment_sent'),
 	# new captcha is requested
-	(r'^new_captcha/$', 'new_captcha'),
+	url(r'^new_captcha/$', 'new_captcha', name='new_captcha'),
 )

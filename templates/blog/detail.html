@@ -22,7 +22,7 @@
 					<div class="entry_tags">
 						<strong>etiketler:</strong>
 						{% for tag in entry.tags.all %}
-						<a href="/blog/tags/{{ tag }}/" title="{{ tag }} ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">{{ tag }}</a>
+						<a href="{% url entries_with_tag tag %}/" title="{{ tag }} ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">{{ tag }}</a>
 						{% endfor %}
 					</div>
 				</div>

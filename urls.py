@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 	(r'^$', 'raptiye.frontpage.views.index'),
 
 	# admin page
-	(r'^admin/(.*)', admin.site.root),
+	url(r'^admin/(.*)', admin.site.root, name='admin_page'),
 
 	# blog page
 	(r'^blog/', include('raptiye.blog.urls')),
@@ -23,7 +23,7 @@ urlpatterns = patterns('',
 	(r'^comment/', include('raptiye.comments.urls')),
 
 	# feed related stuff
-	(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
+	url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, 'rss_feed'),
 
 	# users related stuff like login, register
 	(r'^users/', include('raptiye.users.urls')),
