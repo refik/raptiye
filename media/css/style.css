@@ -296,31 +296,6 @@ input[type="text"]:focus, input[type="password"]:focus {
 	padding-top: 20px;
 }
 
-.entry_image {
-	margin-right: 20px;
-	margin-bottom: 20px;
-}
-
-.entry_image_left {
-	display: inline;
-	float: left;
-	margin-right: 20px;
-	margin-bottom: 20px;
-}
-
-.entry_image_right {
-	display: inline;
-	float: right;
-	margin-left: 20px;
-	margin-bottom: 20px;
-}
-
-.entry_image_center {
-	display: block;
-	margin: 0 auto;
-	margin-bottom: 10px;
-}
-
 .entry_footer {
 	clear: both;
 	padding-top: 10px;

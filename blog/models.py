@@ -13,11 +13,10 @@ class Entry(models.Model):
 	can be either in Turkish or English due to the choices
 	in settings.
 	"""
+
 	title = models.CharField(u"Title", help_text="Required", max_length=80)
 	datetime = models.DateTimeField(u"Publish On", help_text="Required")
 	content = models.TextField(u"Content", help_text="Required.. HTML Allowed..")
-	image = models.ImageField(u"Content Image", help_text="Optional", blank=True, upload_to="images/upload/")
-	image_class = models.CharField(u"Image Class", default="entry_image_left", help_text="The class of image.. (css)", max_length=20)
 	tags = models.ManyToManyField(Tag, blank=True, verbose_name="Etiketler", related_name="entries")
 	sticky = models.BooleanField(u"Sticky", default=False)
 	language = models.CharField(u"Language", choices=settings.LANGUAGES, default="tr", max_length=2)
@@ -34,7 +33,12 @@ class Entry(models.Model):
 
 	def get_url(self):
 		dt = self.datetime
-		return "/blog/" + "/".join([dt.year.__str__(), dt.month.__str__(), dt.day.__str__()]) + "/" + self.slug
+		return "/blog/%s" % "/".join([dt.year.__str__(), dt.month.__str__(), dt.day.__str__()]) + "/" + self.slug
+	
+	def get_full_url(self):
+		site_url = Site.objects.get_current().domain
+		dt = self.datetime
+		return "http://%s/blog/%s" % (site_url, "/".join([dt.year.__str__(), dt.month.__str__(), dt.day.__str__()]) + "/" + self.slug)
 	
 	def get_datetime(self):
 		return self.datetime.strftime("%d.%m.%Y @ %H:%M")

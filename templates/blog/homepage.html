@@ -36,9 +36,6 @@
 				</div>
 			</div>
 			<div class="entry_body">
-				{% ifnotequal entry.image "" %}
-					<img src="{{ entry.get_image_url }}" class="{{ entry.image_class }}">
-				{% endifnotequal %}
 				<p align="justify">
 					{{ entry.content|cut_text_by:1000 }}
 					{% if entry.content|is_text_larger_than:1000 %}

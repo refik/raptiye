@@ -6,7 +6,7 @@ class EntryAdmin(admin.ModelAdmin):
 	model = Entry
 	fieldsets = (
 		(None, {
-			"fields": ("title", "datetime", "content", "image", "image_class", "tags",
+			"fields": ("title", "datetime", "content", "tags",
 				("comments_enabled", "sticky", "published"), "language", "slug"),
 		}),
 	)

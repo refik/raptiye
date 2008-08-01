@@ -21,18 +21,13 @@
 					</div>
 					<div class="entry_tags">
 						<strong>etiketler:</strong>
-						{# loop for tags start #}
-							<a href="/blog/tags/raptiye/" title="raptiye ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">
-								raptiye
-							</a>
-						{# loop for tags end #}
+						{% for tag in entry.tags.all %}
+						<a href="/blog/tags/{{ tag }}/" title="{{ tag }} ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">{{ tag }}</a>
+						{% endfor %}
 					</div>
 				</div>
 			</div>
 			<div class="entry_body">
-				{% ifnotequal entry.image "" %}
-					<img src="{{ entry.get_image_url }}" class="{{ entry.image_class }}">
-				{% endifnotequal %}
 				<p align="justify">
 					{{ entry.content }}
 				</p>
