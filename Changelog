@@ -1,3 +1,16 @@
+2008-08-03  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/content_title.png, media/images/rss_title.png: Recreated
+	thinner versions which look a lot nicer..
+	* media/images/rss_title_en.png, media/images/content_title_en.png,
+	media/images/subtitle_en.png: Translated images for English homepage..
+	* blog/views.py: get_latest_entries_list and get_latest_entries are
+	multilingual now..
+	* frontpage/views.py, frontpage/templatetags/frontpage_filters.py, urls.py,
+	templates/frontpage/base_en.html, templates/frontpage/base.html,
+	templates/frontpage/homepage.html, templates/frontpage/homepage_en.html:
+	Multilingual homepages work fine now..
+	
 2008-08-02  Alper KANAT  <alperkanat@gmail.com>
 
 	* users/urls.py, blog/urls.py, urls.py, comments/urls.py: Modified the url

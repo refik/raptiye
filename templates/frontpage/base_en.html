@@ -1,6 +1,6 @@
 {% load frontpage_filters %}
 
-{% get_mainpage tr %}
+{% get_mainpage en %}
 
 <html>
 	<head>
@@ -18,16 +18,16 @@
 				<div id="site_title">{{ mainpage.title_html|safe }}</div>
 				<div id="site_subtitle">{{ mainpage.subtitle_html|safe }}</div>
 			</div>
-			{% ifnotequal request.path "/" %}
+			{% ifnotequal request.path "/en/" %}
 			<div id="tabbed_menu">
 				{% with mainpage.links_set|order_by:"level" as links %}
 				<ul>
-					<li><a href="/" title="ana sayfa için tıklayın.." class="link">ana sayfa</a></li>
+					<li><a href="/en/" title="click here for the main page.." class="link">main page</a></li>
 					{% for link in links %}
 						{% if link.target %}
-							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.." target="_blank" class="link">{{ link.title|lower }}</a></li>
+							<li><a href="{{ link.url }}" title="Click here for {{ link.title|lower }}.." target="_blank" class="link">{{ link.title|lower }}</a></li>
 						{% else %}
-							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.." class="link">{{ link.title|lower }}</a></li>
+							<li><a href="{{ link.url }}" title="Click here for {{ link.title|lower }}.." class="link">{{ link.title|lower }}</a></li>
 						{% endif %}
 					{% endfor %}
 				</ul>
@@ -41,7 +41,7 @@
 		</div>
 		<div id="footer">
 			<div id="logos">
-				<a href="http://www.djangoproject.com" title="Django hakkında bilgi almak için tıklayın.." target="_blank"><img src="/media/images/django.gif" border="0"></a><br><a href="http://www.python.org" title="Python hakkında bilgi almak için tıklayın.." target="_blank"><img src="/media/images/python.png" border="0"></a>
+				<a href="http://www.djangoproject.com" title="Click here to learn more about Django Web Framework.." target="_blank"><img src="/media/images/django.gif" border="0"></a><br><a href="http://www.python.org" title="Click here to learn more about Python.." target="_blank"><img src="/media/images/python.png" border="0"></a>
 			</div>
 			<div id="footer_text">
 				{{ mainpage.footer|safe }}

@@ -12,6 +12,9 @@ feeds = {
 urlpatterns = patterns('',
 	# main page
 	(r'^$', 'raptiye.frontpage.views.index'),
+	
+	# main page in English
+	(r'^en/$', 'raptiye.frontpage.views.index', {'lang': 'en'}),
 
 	# admin page
 	url(r'^admin/(.*)', admin.site.root, name='admin_page'),

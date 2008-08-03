@@ -43,8 +43,11 @@ def search(request, template="blog/homepage.html"):
 	else:
 		return get_latest_entries(request, SEARCH_FAILED)
 
-def get_latest_entries_list():
-	return Entry.objects.filter(published=True, datetime__lte=datetime.now(tz)).order_by("-datetime")
+def get_latest_entries_list(lang=""):
+	if lang is "":
+		return Entry.objects.filter(published=True, datetime__lte=datetime.now(tz)).order_by("-datetime")
+	else:
+		return Entry.objects.filter(published=True, datetime__lte=datetime.now(tz), language=lang).order_by("-datetime")
 
 def get_entries_for_day(request, year, month, day):
 	"Displays all posts for a specific day"
@@ -96,10 +99,10 @@ def get_post(request, year, month, day, slug):
 	}
 	return object_detail(request, **entry)
 
-def get_latest_entries(request, sticky=""):
+def get_latest_entries(request, sticky="", lang="", template_name="blog/homepage.html"):
 	entry_list = {
-		"queryset": get_latest_entries_list(),
-		"template_name": "blog/homepage.html",
+		"queryset": get_latest_entries_list(lang),
+		"template_name": template_name,
 		"template_object_name" : "entry",
 		"paginate_by": settings.ENTRIES_PER_PAGE,
 		"extra_context" : {

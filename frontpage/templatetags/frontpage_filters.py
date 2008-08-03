@@ -10,7 +10,15 @@ def order_by(value, arg):
 
 @register.tag
 def get_mainpage(parser, token):
-	fp = FrontPage.objects.get(pk=1)
+	tag_name, lang = token.split_contents()
+	
+	fp = None
+	
+	if FrontPage.objects.filter(language=lang).count() == 1:
+		fp = FrontPage.objects.get(language=lang)
+	else:
+		fp = FrontPage.objects.get(language='tr')
+	
 	return MainPageNode(fp)
 
 class MainPageNode(template.Node):

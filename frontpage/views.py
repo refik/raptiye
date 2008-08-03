@@ -4,12 +4,11 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from raptiye.blog.views import get_latest_entries_list
 
-def index(request, template_name='frontpage/homepage.html'):
-	# getting latest blog entries (with limit in settings)
-	entries = get_latest_entries_list()
-	# put them together into a dict
+def index(request, lang='', template_name='frontpage/homepage.html'):
 	dict = {
-		'entries': entries
+		'entries': get_latest_entries_list(lang),
 	}
-	# now we have everything.. let's show it..
-	return render_to_response(template_name, dict, context_instance=RequestContext(request))
+	if lang is '':
+		return render_to_response(template_name, dict, context_instance=RequestContext(request))
+	else:
+		return render_to_response('frontpage/homepage_en.html', dict, context_instance=RequestContext(request))
