@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 from raptiye.frontpage.models import FrontPage
 
 register = template.Library()
@@ -28,3 +29,11 @@ class MainPageNode(template.Node):
 	def render(self, context):
 		context['mainpage'] = self.fp
 		return ""
+
+@register.filter
+def language_trim(value):
+	'Removes the leading language part of the URL'
+	leading_codes = '/'
+	for lang in settings.LANGUAGES:
+		leading_codes += lang[0]
+	return value.lstrip(leading_codes)

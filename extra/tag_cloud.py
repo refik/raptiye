@@ -13,8 +13,8 @@ class TagCloud():
 	MIN_FONT_RANGE = 10
 	TAG_CLOUD = []
 
-	def __init__(self):
-		self.construct_cloud()
+	def __init__(self, lang='tr'):
+		self.construct_cloud(lang)
 	
 	def get_tag_cloud(self):
 		return self.TAG_CLOUD
@@ -46,7 +46,7 @@ class TagCloud():
 	def set_min_count(self, value):
 		self.MIN_USED_TAG_COUNT = value
 	
-	def construct_cloud(self):
+	def construct_cloud(self, lang='tr'):
 		# clearing tag cloud
 		self.empty_tag_cloud()
 		freq = []
@@ -54,8 +54,10 @@ class TagCloud():
 			if tag.entries.count() == 0:
 				continue
 			else:
-				self.TAG_CLOUD.append({"name": tag.name, "font_size": tag.entries.count()})
-				freq.append(tag.entries.count())
+				entry_counter_for_language = tag.entries.filter(language=lang).count()
+				if entry_counter_for_language > 0:
+					self.TAG_CLOUD.append({"name": tag.name, "font_size": entry_counter_for_language})
+					freq.append(entry_counter_for_language)
 
 		# control to take care when no tags exist..
 		if freq.__len__() == 0:

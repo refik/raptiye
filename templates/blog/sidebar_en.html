@@ -12,10 +12,10 @@
 		<div class="widget_box">
 			<div class="widget_title">
 				<img src="/media/images/calendar.png" align="absmiddle">
-				{% get_month_and_year %}
+				{% get_month_and_year "en" %}
 			</div>
 			<div class="widget_body">
-				{% construct_calendar %}
+				{% construct_calendar "en" %}
 			</div>
 		</div>
 	</div>
@@ -23,10 +23,10 @@
 		<div class="widget_box">
 			<div class="widget_title">
 				<img src="/media/images/rss_feed.png" align="absmiddle">
-				rss takibi
+				via rss
 			</div>
 			<div class="widget_body">
-				<span class="widget_small">{{ mainpage.title }}'yi rss beslemesi üzerinden<br>takip etmek için aşağıdaki bağlantıya<br>tıklayabilirsiniz.</span>
+				<span class="widget_small">click the below link<br>to read {{ mainpage.title }} via rss</span>
 				<br><br>
 				{% include "blog/feedburner.html" %}
 			</div>
@@ -36,10 +36,10 @@
 		<div class="widget_box">
 			<div class="widget_title">
 				<img src="/media/images/cloud.png" align="absmiddle">
-				etiket bulutu
+				tag cloud
 			</div>
 			<div class="widget_body">
-				{% include "blog/tags.html" %}
+				{% include "blog/tags_en.html" %}
 			</div>
 		</div>
 	</div>
@@ -47,10 +47,10 @@
 		<div class="widget_box">
 			<div class="widget_title">
 				<img src="/media/images/support.png" align="absmiddle">
-				destekliyorum!
+				supported!
 			</div>
 			<div class="widget_body">
-				{% include "blog/supported.html" %}
+				{% include "blog/supported_en.html" %}
 			</div>
 		</div>
 	</div>
@@ -58,10 +58,10 @@
 		<div class="widget_box">
 			<div class="widget_title">
 				<img src="/media/images/friends.png" align="absmiddle">
-				arkadaşlar
+				friends
 			</div>
 			<div class="widget_body">
-				buraya da arkadaşlar gelsin bari..
+				links of the friends come here..
 			</div>
 		</div>
 	</div>
@@ -69,10 +69,10 @@
 		<div class="widget_box">
 			<div class="widget_title">
 				<img src="/media/images/links.png" align="absmiddle">
-				girilesiceler
+				links
 			</div>
 			<div class="widget_body">
-				bunlar da girilesi siteler olsa gerek..
+				here are some other links..
 			</div>
 		</div>
 	</div>
@@ -80,10 +80,10 @@
 		<div class="widget_box">
 			<div class="widget_title">
 				<img src="/media/images/contact.png" align="absmiddle">
-				iletişim
+				contact
 			</div>
 			<div class="widget_body">
-				{% include "blog/contact.html" %}
+				{% include "blog/contact_en.html" %}
 			</div>
 		</div>
 	</div>
@@ -91,22 +91,22 @@
 		<div class="widget_box">
 			<div class="widget_title">
 				<img src="/media/images/giris.png" align="absmiddle">
-				üyelik girişi
+				user panel
 			</div>
 			<div class="widget_body">
 				<div id="user_box">
 					{% if request.user.is_authenticated %}
 						{% if request.user.is_superuser %}
-							&raquo; <a href="{% url admin_page %}" title="yönetim paneline gitmek için tıklayın.." class="link">yönetim paneli</a>
+							&raquo; <a href="{% url admin_page %}" title="click here to go to the administration panel.." class="link">administration panel</a>
 							<br>
 						{% endif %}
-						&raquo; <a href="{% url profile_page request.user.username %}" title="profilinizi görmek ve değiştirmek için tıklayın.." class="link">profilim</a>
+						&raquo; <a href="{% url profile_page request.user.username %}" title="click here to see and change your profile settings.." class="link">my profile</a>
 						<br>
-						&raquo; <a href="{% url logout_page %}?next={{ request.path }}" title="çıkış yapmak için tıklayın.." class="link">çıkış</a>
+						&raquo; <a href="{% url logout_page %}?next={{ request.path }}" title="click here to logout your account.." class="link">logout</a>
 					{% else %}
-						&raquo; <a href="{% url registration %}" title="{{ mainpage.title }}'ye kaydolmak için tıklayın.." class="link">kaydol</a>
+						&raquo; <a href="{% url registration %}" title="click here to register for an account over {{ mainpage.title }}.." class="link">registration</a>
 						<br>
-						&raquo; <a href="{% url login_page %}?next={{ request.path }}" title="{{ mainpage.title }} hesabınızla giriş yapmak için tıklayın.." class="link">giriş</a>
+						&raquo; <a href="{% url login_page %}?next={{ request.path }}" title="click here to login your {{ mainpage.title }} account.." class="link">login</a>
 					{% endif %}
 				</div>
 			</div>
@@ -121,7 +121,7 @@
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
 		// fill search box
-		$("#search_box").val("arama kutusu");
+		$("#search_box").val("search box");
 		$("#search_box").focus(function() {
 			// clear the search box
 			$("#search_box").val("");

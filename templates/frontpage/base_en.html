@@ -18,6 +18,18 @@
 				<div id="site_title">{{ mainpage.title_html|safe }}</div>
 				<div id="site_subtitle">{{ mainpage.subtitle_html|safe }}</div>
 			</div>
+			<div id="language_bar">
+				<div id="turkish">
+					<a href="/tr/{{ request.path|language_trim }}" title="türkçe raptiye için buraya tıklayın..">
+						<img src="/media/images/turkish.png" border="0">
+					</a>
+				</div>
+				<div id="english">
+					<a href="/en/{{ request.path|language_trim }}" title="click here for raptiye in english..">
+						<img src="/media/images/english.png" border="0">
+					</a>
+				</div>
+			</div>
 			{% ifnotequal request.path "/en/" %}
 			<div id="tabbed_menu">
 				{% with mainpage.links_set|order_by:"level" as links %}

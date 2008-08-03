@@ -18,22 +18,36 @@
 				<div id="site_title">{{ mainpage.title_html|safe }}</div>
 				<div id="site_subtitle">{{ mainpage.subtitle_html|safe }}</div>
 			</div>
-			{% ifnotequal request.path "/" %}
-			<div id="tabbed_menu">
-				{% with mainpage.links_set|order_by:"level" as links %}
-				<ul>
-					<li><a href="/" title="ana sayfa için tıklayın.." class="link">ana sayfa</a></li>
-					{% for link in links %}
-						{% if link.target %}
-							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.." target="_blank" class="link">{{ link.title|lower }}</a></li>
-						{% else %}
-							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.." class="link">{{ link.title|lower }}</a></li>
-						{% endif %}
-					{% endfor %}
-				</ul>
-				{% endwith %}
+			<div id="language_bar">
+				<div id="turkish">
+					<a href="/tr/{{ request.path|language_trim }}" title="türkçe raptiye için buraya tıklayın..">
+						<img src="/media/images/turkish.png" border="0">
+					</a>
+				</div>
+				<div id="english">
+					<a href="/en/{{ request.path|language_trim }}" title="click here for raptiye in english..">
+						<img src="/media/images/english.png" border="0">
+					</a>
+				</div>
 			</div>
-			<div id="header_bottom"></div>
+			{% ifnotequal request.path "/" %}
+				{% ifnotequal request.path "/tr/" %}
+				<div id="tabbed_menu">
+					{% with mainpage.links_set|order_by:"level" as links %}
+					<ul>
+						<li><a href="/" title="ana sayfa için tıklayın.." class="link">ana sayfa</a></li>
+						{% for link in links %}
+							{% if link.target %}
+								<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.." target="_blank" class="link">{{ link.title|lower }}</a></li>
+							{% else %}
+								<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.." class="link">{{ link.title|lower }}</a></li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+					{% endwith %}
+				</div>
+				<div id="header_bottom"></div>
+				{% endifnotequal %}
 			{% endifnotequal %}
 		</div>
 		<div id="body">

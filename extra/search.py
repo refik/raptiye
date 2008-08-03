@@ -12,8 +12,9 @@ class SearchAgainstEntries():
 	latest post will be the first one in the list..
 	"""
 
-	def __init__(self, keywords=""):
+	def __init__(self, keywords="", lang='tr'):
 		self.keyword_list = keywords.split(" ")
+		self.lang = lang
 	
 	def get_keyword_list(self):
 		return self.keyword_list
@@ -24,11 +25,11 @@ class SearchAgainstEntries():
 
 		q_list = []
 
-		# creating a list of Q objects
+		# creating a list of Q objects
 		for keyword in self.get_keyword_list():
 			q_list.append(Q(title__icontains=keyword) | Q(content__icontains=keyword) | Q(tags__name__iexact=keyword))
 
 		# creating an OR'ed Q from the list
 		final_q = reduce(operator.or_, q_list)
 
-		return Entry.objects.filter(final_q).order_by("-datetime").distinct()
+		return Entry.objects.filter(final_q, language=self.lang).order_by("-datetime").distinct()
