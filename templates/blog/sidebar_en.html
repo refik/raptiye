@@ -3,7 +3,7 @@
 <div id="sidebar_container">
 	<div class="widget">
 		<div id="search">
-			<form id="search_form" name="search_form" method="get" action="{% url blog_search %}">
+			<form id="search_form" name="search_form" method="get" action="{% url english_blog_search %}">
 				<input id="search_box" name="keywords" type="text" />
 			</form>
 		</div>
@@ -133,7 +133,7 @@
 		// blur = unfocus
 		$("#search_box").blur(function() {
 			// reinitialize the search box
-			$("#search_box").val("arama kutusu");
+			$("#search_box").val("search box");
 			// set to font color to gray
 			$("#search_box").css("color", "#b5b5b5");
 			// change the background

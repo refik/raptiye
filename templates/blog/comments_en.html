@@ -7,7 +7,7 @@
 		<tr>
 			<td class="entry_comment_info_box">
 				<div class="entry_comment_avatar">
-					<img src="{{ comment.author.get_profile.avatar }}" title="{{ comment.author }} kullanıcısının avatarı">
+					<img src="{{ comment.author.get_profile.avatar }}" title="avatar of {{ comment.author }}">
 				</div>
 				<div class="entry_comment_info">
 					{{ comment.author }}
@@ -33,7 +33,7 @@
 		<textarea id="entry_comment_textarea" name="comment_body"></textarea>
 		<br>
 		<input id="entry_comment_notification" name="notification" type="checkbox" value="1">
-			Bu yazıdaki değişikliklerden beni haberdar et
+			Notify me for the new comments of this blog entry
 		</input>
 	</div>
 	<div id="entry_comment_write_right">
@@ -41,16 +41,16 @@
 			<div id="captcha_box">
 				<img id="captcha_image" src="{{ captcha }}" title="captcha">
 				<br>
-				<a href="#" title="yeni bir captcha için tıklayın.." class="gray_link" onclick="getNewCaptcha(); return false;">[yenile]</a>
+				<a href="#" title="click here for a new captcha.." class="gray_link" onclick="getNewCaptcha(); return false;">[renew]</a>
 				<input id="entry_comment_write_captcha_textbox" name="comment_captcha" type="text" size="6" maxlength="6" />
 			</div>
 		</div>
 		<div id="sending_comment" style="display: none;">
-			<img src="/media/images/loader.gif" align="absmiddle"> Yollanıyor...
+			<img src="/media/images/loader.gif" align="absmiddle"> Sending...
 		</div>
 		<div id="entry_comment_buttons">
-			<button id="entry_comment_submit">yolla</button>
-			<button id="entry_comment_clear">temizle</button>
+			<button id="entry_comment_submit">send</button>
+			<button id="entry_comment_clear">clear</button>
 		</div>
 		<div id="comment_error" style="display: none;"></div>
 	</div>
@@ -58,11 +58,8 @@
 {% else %}
 <div id="entry_comment_write">
 	<div id="entry_comment_login">
-		Yorum yapabilmek için <a href="{% url registration %}?next={{ request.path }}" class="ulink" 
-			title="kayıt olmak için tıklayın..">kayıt</a> olmalısınız. Eğer zaten kayıtlı
-		iseniz <a href="{% url login_page %}?next={{ request.path }}" class="ulink"
-			title="hesabınıza giriş yapmak için tıklayın..">buraya</a> 
-		tıklayarak giriş yapabilirsiniz.
+		You have to <a href="{% url english_registration %}?next={{ request.path }}" class="ulink" 
+			title="click here to register..">register</a> in order to comment on this blog entry. If you're already a registered user, please <a href="{% url english_login_page %}?next={{ request.path }}" class="ulink" title="click here to login..">login</a>.
 	</div>
 </div>
 {% endif %}

@@ -1,3 +1,12 @@
+2008-08-05  Alper KANAT  <alperkanat@gmail.com>
+
+	* blog/views.py, blog/en-urls.py, extra/messages.py,
+	templates/blog/tags_en.html, templates/blog/detail_en.html,
+	templates/blog/comments.html, templates/blog/sidebar_en.html,
+	templates/blog/comments_en.html, templates/blog/homepage_en.html,
+	en-urls.py: Still working on multilingual site.. There are still many things
+	to work on such as registration, profile..
+	
 2008-08-04  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/images/turkish.png, media/images/lang_selection.png,

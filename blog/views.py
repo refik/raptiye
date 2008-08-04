@@ -3,7 +3,6 @@
 from pytz import timezone
 from datetime import datetime
 from django.conf import settings
-from django.http import HttpResponse
 from django.views.generic.list_detail import object_list
 from django.views.generic.date_based import object_detail, archive_day
 from raptiye.blog.models import Entry
@@ -15,38 +14,45 @@ from raptiye.tags.models import Tag
 # creating a pytz info object for true utc time..
 tz = timezone(settings.TIME_ZONE)
 
-def search(request, lang='tr', template="blog/homepage.html"):
+def search(request, lang='tr', template_name="blog/homepage.html"):
 	"Search against all entries using the given keywords"
 
 	if request.method == "GET" and request.GET.has_key("keywords"):
 		keywords = request.GET["keywords"]
+		
+		if keywords.__len__() == 0:
+			return get_latest_entries(request, MSG[lang]['SEARCH_NO_ITEM'], 
+				lang='en', template_name='blog/homepage_en.html')
+		
 		keyword_list = keywords.split(" ")
-
-		search = SearchAgainstEntries(keywords)
+		
+		search = SearchAgainstEntries(keywords, lang)
 		result = search.result()
 
 		if result.__len__() == 0:
-			return get_latest_entries(request, MSG[lang]['SEARCH_NO_ITEM'])
+			return get_latest_entries(request, MSG[lang]['SEARCH_NO_ITEM'], 
+				lang='en', template_name='blog/homepage_en.html')
 		else:
 			entry_list = {
 				"queryset": result,
-				"template_name": "blog/homepage.html",
+				"template_name": template_name,
 				"template_object_name" : "entry",
 				"paginate_by": settings.ENTRIES_PER_PAGE,
 				"extra_context" : {
-					"sticky" : u"<strong><i>%s</i></strong> %s içeren yazılar (%d) görüntüleniyor.." % (keywords if keyword_list.__len__() == 1 else ", ".join(keyword_list), 
-						"kelimesini" if keyword_list.__len__() == 1 else "kelimelerini", result.__len__()),
+					"sticky" : MSG[lang]['SEARCH_SUCCESS'] % (keywords if keyword_list.__len__() == 1 else ", ".join(keyword_list), 
+						MSG[lang]['SEARCH_KEYWORD'] if keyword_list.__len__() == 1 else MSG[lang]['SEARCH_KEYWORD_PLURAL'], result.__len__()),
 				}
 			}
 
 			return object_list(request, **entry_list)
 	else:
-		return get_latest_entries(request, MSG[lang]['SEARCH_FAILED'])
+		return get_latest_entries(request, MSG[lang]['SEARCH_NO_ITEM'], 
+			lang='en', template_name='blog/homepage_en.html')
 
 def get_latest_entries_list(lang="tr"):
 	return Entry.objects.filter(published=True, datetime__lte=datetime.now(tz), language=lang).order_by("-datetime")
 
-def get_entries_for_day(request, year, month, day, lang='tr'):
+def get_entries_for_day(request, year, month, day, lang='tr', template_name="blog/homepage.html"):
 	"Displays all posts for a specific day"
 
 	extra_context = {
@@ -55,7 +61,7 @@ def get_entries_for_day(request, year, month, day, lang='tr'):
 
 	entry = {
 		"queryset" : get_latest_entries_list(lang),
-		"template_name": "blog/homepage.html",
+		"template_name": template_name,
 		"template_object_name": "entry",
 		"year": year,
 		"month": month,
@@ -68,7 +74,7 @@ def get_entries_for_day(request, year, month, day, lang='tr'):
 	}
 	return archive_day(request, **entry)
 
-def get_post(request, year, month, day, slug, lang='tr'):
+def get_post(request, year, month, day, slug, lang='tr', template_name="blog/detail.html"):
 	"Displays a specific post"
 
 	captcha = None
@@ -81,7 +87,7 @@ def get_post(request, year, month, day, slug, lang='tr'):
 	
 	entry = {
 		"queryset" : get_latest_entries_list(lang),
-		"template_name": "blog/detail.html",
+		"template_name": template_name,
 		"template_object_name": "entry",
 		"year": year,
 		"month": month,
@@ -109,7 +115,7 @@ def get_latest_entries(request, sticky="", lang="tr", template_name="blog/homepa
 
 	return object_list(request, **entry_list)
 
-def get_entries_for_tag(request, tag, lang='tr'):
+def get_entries_for_tag(request, tag, lang='tr', template_name="blog/homepage.html"):
 	# let's see if there's a tag with that name
 	if Tag.objects.filter(name=tag).count() == 1:
 		# found the tag, can continue
@@ -117,12 +123,12 @@ def get_entries_for_tag(request, tag, lang='tr'):
 		entries = t.entries.filter(language=lang)
 		entry_list = {
 			"queryset": entries,
-			"template_name": "blog/homepage.html",
+			"template_name": template_name,
 			"template_object_name": "entry",
 			"paginate_by": settings.ENTRIES_PER_PAGE,
 			"extra_context" : {
-				"sticky" : MSG['tr']['TAGS_SUCCESS'] % (tag, entries.count()),
+				"sticky" : MSG[lang]['TAGS_SUCCESS'] % (tag, entries.count()),
 			}
 		}
 		return object_list(request, **entry_list)
-	return get_latest_entries(request, MSG['tr']['TAGS_ERROR'] % (u"etiket hatalı mı ne?", u"aradığınız etikete şu anda ulaşılamıyor.. etiket kapalı ya da kapsama alanı dışında.."))
+	return get_latest_entries(request, MSG[lang]['TAGS_ERROR'])
