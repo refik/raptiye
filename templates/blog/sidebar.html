@@ -97,7 +97,7 @@
 				<div id="user_box">
 					{% if request.user.is_authenticated %}
 						{% if request.user.is_superuser %}
-							&raquo; <a href="{% url admin_page %}" title="yönetim paneline gitmek için tıklayın.." class="link">yönetim paneli</a>
+							&raquo; <a href="/admin" title="yönetim paneline gitmek için tıklayın.." class="link">yönetim paneli</a>
 							<br>
 						{% endif %}
 						&raquo; <a href="{% url profile_page request.user.username %}" title="profilinizi görmek ve değiştirmek için tıklayın.." class="link">profilim</a>

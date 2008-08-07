@@ -58,6 +58,6 @@ class Links(models.Model):
 		return u"%s (%s)" % (self.title, self.url)
 	
 	class Meta:
-		ordering = ["-level", "-title"]
+		ordering = ["level", "title"]
 		verbose_name = u"Link"
 		verbose_name_plural = u"Links"
