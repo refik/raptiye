@@ -1,6 +1,6 @@
 {% load blog_filters %}
 
-{% construct_tag_cloud tr %}
+{% construct_tag_cloud %}
 
 {% for tag in tagcloud %}
 <a href="{% url entries_with_tag tag.name %}" class="tag_cloud_item" 

@@ -27,7 +27,7 @@
 		</div>
 		{{ mainpage.content|safe }}
 		<div id="main_rss_box">
-			<a href="{{ mainpage.rss_url }}" title="gerenk yok ama rss üzerinden okumak isterseniz tıklayın.. :)">
+			<a href="#" title="gerenk yok ama rss üzerinden okumak isterseniz tıklayın.. :)" onclick="location.href='{{ mainpage.rss_url }}'; return false;">
 				<div id="rss_logo"></div>
 			</a>
 			<div id="main_rss_title">

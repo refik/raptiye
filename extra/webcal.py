@@ -9,7 +9,7 @@ class WebCalendar():
 	some objects if the object has a datetime field.
 	"""
 
-	def __init__(self, year, month, day, object=None, datetime_field='', locale='', lang_field='', lang='tr'):
+	def __init__(self, year, month, day, object=None, datetime_field='', locale=''):
 		self.year = year
 		self.month = month
 		self.day = day
@@ -19,15 +19,7 @@ class WebCalendar():
 			self.calendar = calendar.LocaleTextCalendar()
 		else:
 			self.calendar = calendar.LocaleTextCalendar(0, locale)
-		self.lang_field = lang_field
-		self.lang = lang
-	
-	def get_lang_field(self):
-		return self.lang_field
-	
-	def get_lang(self):
-		return self.lang
-	
+			
 	def get_year(self):
 		return self.year
 
@@ -42,6 +34,12 @@ class WebCalendar():
 
 	def get_datetime_field(self):
 		return self.datetime_field
+
+	def set_object(self, object):
+		self.object = object
+	
+	def set_datetime_field(self, datetime_field):
+		self.datetime_field = datetime_field
 	
 	def render(self, table_id="", link_path="", link_title="", link_class=""):
 		html = "<table id='%s'>" % table_id
@@ -63,7 +61,6 @@ class WebCalendar():
 							self.get_datetime_field() + "__year": self.get_year(),
 							self.get_datetime_field() + "__month": self.get_month(),
 							self.get_datetime_field() + "__day": day,
-							self.get_lang_field(): self.get_lang(),
 						}
 						if self.get_object().objects.filter(**filters).count() > 0:
 							if day == self.get_day():

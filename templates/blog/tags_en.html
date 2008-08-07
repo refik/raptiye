@@ -1,9 +1,0 @@
-{% load blog_filters %}
-
-{% construct_tag_cloud en %}
-
-{% for tag in tagcloud %}
-<a href="{% url english_entries_with_tag tag.name %}" class="tag_cloud_item" 
-	style="font-size: {{ tag.font_size }}" 
-	title="click here to read entries that are tagged with {{ tag.name }}..">{{ tag.name }}</a>
-{% endfor %}

@@ -26,7 +26,7 @@
 				rss takibi
 			</div>
 			<div class="widget_body">
-				<span class="widget_small">{{ mainpage.title }}'yi rss beslemesi üzerinden<br>takip etmek için aşağıdaki bağlantıya<br>tıklayabilirsiniz.</span>
+				<span class="widget_small">raptiye'yi rss beslemesi üzerinden<br>takip etmek için aşağıdaki bağlantıya<br>tıklayabilirsiniz.</span>
 				<br><br>
 				{% include "blog/feedburner.html" %}
 			</div>
@@ -104,9 +104,9 @@
 						<br>
 						&raquo; <a href="{% url logout_page %}?next={{ request.path }}" title="çıkış yapmak için tıklayın.." class="link">çıkış</a>
 					{% else %}
-						&raquo; <a href="{% url registration %}" title="{{ mainpage.title }}'ye kaydolmak için tıklayın.." class="link">kaydol</a>
+						&raquo; <a href="{% url registration %}" title="raptiye'ye kaydolmak için tıklayın.." class="link">kaydol</a>
 						<br>
-						&raquo; <a href="{% url login_page %}?next={{ request.path }}" title="{{ mainpage.title }} hesabınızla giriş yapmak için tıklayın.." class="link">giriş</a>
+						&raquo; <a href="{% url login_page %}?next={{ request.path }}" title="raptiye hesabınızla giriş yapmak için tıklayın.." class="link">giriş</a>
 					{% endif %}
 				</div>
 			</div>
@@ -117,31 +117,3 @@
 <div style="display: none;">
 	<img src="/media/images/search-active.png" />
 </div>
-
-<script type="text/javascript" charset="utf-8">
-	$(document).ready(function() {
-		// fill search box
-		$("#search_box").val("arama kutusu");
-		$("#search_box").focus(function() {
-			// clear the search box
-			$("#search_box").val("");
-			// set the font color to black
-			$("#search_box").css("color", "black");
-			// change the background
-			$("#search").css("background", "transparent url(/media/images/search-active.png) top left no-repeat");
-		});
-		// blur = unfocus
-		$("#search_box").blur(function() {
-			// reinitialize the search box
-			$("#search_box").val("arama kutusu");
-			// set to font color to gray
-			$("#search_box").css("color", "#b5b5b5");
-			// change the background
-			$("#search").css("background", "transparent url(/media/images/search.png) top left no-repeat");
-		});
-		$("#search_box").keydown(function(e) {
-			if (e.keyCode == 13)
-				$("#search_form").submit();
-		});
-	});
-</script>

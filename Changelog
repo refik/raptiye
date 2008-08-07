@@ -1,44 +1,8 @@
-2008-08-05  Alper KANAT  <alperkanat@gmail.com>
+2008-08-08  Alper KANAT  <alperkanat@gmail.com>
 
-	* blog/views.py, blog/en-urls.py, extra/messages.py,
-	templates/blog/tags_en.html, templates/blog/detail_en.html,
-	templates/blog/comments.html, templates/blog/sidebar_en.html,
-	templates/blog/comments_en.html, templates/blog/homepage_en.html,
-	en-urls.py: Still working on multilingual site.. There are still many things
-	to work on such as registration, profile..
-	
-2008-08-04  Alper KANAT  <alperkanat@gmail.com>
+	* Reverting all changes for multilingual raptiye.. Instead I'm going to use
+	Django's i18n abilities..
 
-	* media/images/turkish.png, media/images/lang_selection.png,
-	media/images/english.png, media/css/style.css,
-	templates/frontpage/base.html: added language selection bar..
-	* media/images/content_title_en.png: made it thinner..
-	* media/js/raptiye.js, extra/webcal.py, extra/tag_cloud.py, extra/search.py,
-	blog/views.py, blog/templatetags/blog_filters.py, frontpage/views.py,
-	frontpage/templatetags/frontpage_filters.py, templates/blog/contact_en.html,
-	templates/blog/tags.html, templates/blog/tags_en.html,
-	templates/blog/detail.html, templates/blog/homepage_en.html,
-	templates/blog/supported_en.html, templates/blog/sidebar.html,
-	templates/blog/sidebar_en.html, templates/frontpage/base_en.html,
-	templates/frontpage/base.html: multilingual support is getting better..
-	* extra/messages.py: made it like a dictionary which uses the keys to
-	seperate different messages of different languages..
-	* tr-urls.py, urls.py, en-urls.py: Seperated the urls.py into smaller parts
-	which means a lot more flexibility for the url mapping..
-	
-2008-08-03  Alper KANAT  <alperkanat@gmail.com>
-
-	* media/images/content_title.png, media/images/rss_title.png: Recreated
-	thinner versions which look a lot nicer..
-	* media/images/rss_title_en.png, media/images/content_title_en.png,
-	media/images/subtitle_en.png: Translated images for English homepage..
-	* blog/views.py: get_latest_entries_list and get_latest_entries are
-	multilingual now..
-	* frontpage/views.py, frontpage/templatetags/frontpage_filters.py, urls.py,
-	templates/frontpage/base_en.html, templates/frontpage/base.html,
-	templates/frontpage/homepage.html, templates/frontpage/homepage_en.html:
-	Multilingual homepages work fine now..
-	
 2008-08-02  Alper KANAT  <alperkanat@gmail.com>
 
 	* users/urls.py, blog/urls.py, urls.py, comments/urls.py: Modified the url

@@ -7,7 +7,7 @@
 		<tr>
 			<td class="entry_comment_info_box">
 				<div class="entry_comment_avatar">
-					<img src="{{ comment.author.get_profile.avatar }}" title="{{ comment.author }} kullanıcısının avatarı">
+					<img src="{{ comment.author.get_profile.avatar }}" title="avatar of {{ comment.author }}">
 				</div>
 				<div class="entry_comment_info">
 					{{ comment.author }}
@@ -61,7 +61,7 @@
 		Yorum yapabilmek için <a href="{% url registration %}?next={{ request.path }}" class="ulink" 
 			title="kayıt olmak için tıklayın..">kayıt</a> olmalısınız. Eğer zaten kayıtlı
 		iseniz <a href="{% url login_page %}?next={{ request.path }}" class="ulink"
-			title="hesabınıza giriş yapmak için tıklayın..">buraya</a> 
+			title="raptiye'ye kayıt olmak için tıklayın..">buraya</a> 
 		tıklayarak giriş yapabilirsiniz.
 	</div>
 </div>
