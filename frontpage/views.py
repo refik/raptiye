@@ -7,7 +7,7 @@ from raptiye.blog.views import get_latest_entries_list
 def index(request, template_name='frontpage/homepage.html'):
 	# getting latest blog entries (with limit in settings)
 	entries = get_latest_entries_list()
-	# put them together into a dict
+	# put them together into a dict
 	dict = {
 		'entries': entries
 	}

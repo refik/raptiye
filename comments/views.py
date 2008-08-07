@@ -11,7 +11,7 @@ from raptiye.blog.models import Entry
 from raptiye.comments.models import Comments
 from raptiye.extra.captcha import Captcha
 
-# creating a pytz info object for true utc time..
+# creating a pytz info object for true utc time..
 tz = timezone(settings.TIME_ZONE)
 
 def new_captcha(request):

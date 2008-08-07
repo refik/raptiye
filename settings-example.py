@@ -36,7 +36,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/tunix/projects/raptiye/media/'
+MEDIA_ROOT = '/Users/alperkanat/Projects/raptiye/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -63,6 +63,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
+	'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'raptiye.urls'
@@ -71,20 +72,21 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	"/home/tunix/projects/raptiye/templates/",
+	"/Users/alperkanat/Projects/raptiye/templates/",
 )
 
 INSTALLED_APPS = (
 	'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+	'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',
-	'raptiye.frontpage',
 	'raptiye.blog',
 	'raptiye.comments',
-	'raptiye.users',
+	'raptiye.frontpage',
 	'raptiye.tags',
+	'raptiye.users',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -124,3 +126,9 @@ EMAIL_INFO_ADDRESS_EN = ""
 
 # default avatar for all users..
 DEFAULT_AVATAR = "/media/images/default_avatar.png"
+
+# LOCALE settings may differ on different platforms
+LOCALES = {
+	'tr': 'tr_TR.utf-8',
+	'en': 'en_US.utf-8',
+}

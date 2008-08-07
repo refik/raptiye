@@ -25,7 +25,7 @@ def is_text_larger_than(value, arg):
 
 @register.simple_tag
 def calculate_age():
-	# creating a pytz info object for true utc time..
+	# creating a pytz info object for true utc time..
 	tz = timezone(settings.TIME_ZONE)
 	# my birth
 	birth = datetime(1984, 05, 16, 10, 00, 00, 00, tz)
@@ -48,20 +48,20 @@ class TagCloudNode(template.Node):
 @register.simple_tag
 def get_month_and_year():
 	from calendar import LocaleTextCalendar
-	# creating a pytz info object for true utc time..
+	# creating a pytz info object for true utc time..
 	tz = timezone(settings.TIME_ZONE)
 	now = datetime.now(tz)
-	calendar = LocaleTextCalendar(0, settings.LOCALE)
+	calendar = LocaleTextCalendar(0, settings.LOCALES['tr'])
 	return "%s" % calendar.formatmonthname(now.year, now.month, 0)
 
 @register.simple_tag
 def construct_calendar():
 	from raptiye.blog.models import Entry
 	from raptiye.extra.webcal import WebCalendar
-	# creating a pytz info object for true utc time..
+	# creating a pytz info object for true utc time..
 	tz = timezone(settings.TIME_ZONE)
 	now = datetime.now(tz)
-	wc = WebCalendar(now.year, now.month, now.day, Entry, "datetime", settings.LOCALE)
+	wc = WebCalendar(now.year, now.month, now.day, Entry, "datetime", settings.LOCALES['tr'])
 	return wc.render("calendar_box", "/blog", u"bu tarihte yazılmış yazıları görmek için tıklayın..", "ulink")
 
 @register.inclusion_tag('blog/pagination.html', takes_context=True)

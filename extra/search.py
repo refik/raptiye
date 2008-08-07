@@ -24,7 +24,7 @@ class SearchAgainstEntries():
 
 		q_list = []
 
-		# creating a list of Q objects
+		# creating a list of Q objects
 		for keyword in self.get_keyword_list():
 			q_list.append(Q(title__icontains=keyword) | Q(content__icontains=keyword) | Q(tags__name__iexact=keyword))
 

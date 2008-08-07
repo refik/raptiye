@@ -2,7 +2,19 @@
 
 	* Reverting all changes for multilingual raptiye.. Instead I'm going to use
 	Django's i18n abilities..
-
+	* media/images/rss_title_en.png, media/images/content_title_en.png, 
+	media/images/subtitle_en.png, blog/en-urls.py,
+	templates/blog/contact_en.html, templates/blog/tags_en.html,
+	templates/blog/detail_en.html, templates/blog/sidebar_en.html,
+	templates/blog/homepage_en.html, templates/blog/supported_en.html,
+	templates/blog/comments_en.html, templates/frontpage/base_en.html,
+	templates/frontpage/homepage_en.html, tr-urls.py, en-urls.py: Deleted all
+	left English files..
+	* settings-example.py: Added new parts..
+	* blog/views.py, blog/templatetags/blog_filters.py, extra/search.py,
+	extra/search.py, comments/views.py, frontpage/views.py: Modified and fixed
+	some parts..
+	
 2008-08-02  Alper KANAT  <alperkanat@gmail.com>
 
 	* users/urls.py, blog/urls.py, urls.py, comments/urls.py: Modified the url

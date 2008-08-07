@@ -12,7 +12,7 @@ from raptiye.extra.messages import TAGS_SUCCESS, TAGS_ERROR, SEARCH_FAILED, SEAR
 from raptiye.extra.search import SearchAgainstEntries
 from raptiye.tags.models import Tag
 
-# creating a pytz info object for true utc time..
+# creating a pytz info object for true utc time..
 tz = timezone(settings.TIME_ZONE)
 
 def search(request, template="blog/homepage.html"):
@@ -74,7 +74,7 @@ def get_post(request, year, month, day, slug):
 	captcha = None
 	extra_context = {}
 
-	# don't create captcha if the user is not authenticated
+	# don't create captcha if the user is not authenticated
 	if request.user.is_authenticated():
 		captcha = create_captcha()
 		extra_context["captcha"] = captcha
