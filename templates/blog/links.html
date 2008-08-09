@@ -1,0 +1,25 @@
+{% load blog_filters %}
+
+{% for category in link_category %}
+<div class="widget">
+	<div class="widget_box">
+		<div class="widget_title">
+			<img src="{{ category.image }}" align="absmiddle">
+			{{ category.title }}
+		</div>
+		<div class="widget_body">
+			<div class="link_box">
+				{% for link in category.links.all %}
+					{% if link.window %}
+						<a href="{{ link.url }}" title="{{ link.description }}" class="link" target="_blank">
+					{% else %}
+						<a href="{{ link.url }}" title="{{ link.description }}" class="link">
+					{% endif %}
+						&raquo; {{ link.title }}
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}

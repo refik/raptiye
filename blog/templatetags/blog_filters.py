@@ -87,3 +87,13 @@ def paginator(context, adjacent_pages=2):
         'show_first': 1 not in page_numbers,
         'show_last': context['pages'] not in page_numbers,
     }
+
+@register.inclusion_tag('blog/links.html')
+def links():
+	'Adds all link categories and their links to the context..'
+	
+	from raptiye.links.models import LinkCategories
+	
+	return {
+		'link_category': LinkCategories.objects.all(),
+	}

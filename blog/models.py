@@ -17,7 +17,7 @@ class Entry(models.Model):
 	title = models.CharField(u"Title", help_text="Required", max_length=80)
 	datetime = models.DateTimeField(u"Publish On", help_text="Required")
 	content = models.TextField(u"Content", help_text="Required.. HTML Allowed..")
-	tags = models.ManyToManyField(Tag, blank=True, verbose_name="Etiketler", related_name="entries")
+	tags = models.ManyToManyField(Tag, verbose_name="tags", related_name="entries")
 	sticky = models.BooleanField(u"Sticky", default=False)
 	language = models.CharField(u"Language", choices=settings.LANGUAGES, default="tr", max_length=2)
 	published = models.BooleanField(u"Published", default=False)

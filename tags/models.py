@@ -3,12 +3,12 @@
 from django.db import models
 
 class Tag(models.Model):
-	name = models.CharField(u"Etiket İsmi", max_length=30, unique=True)
+	name = models.CharField(u"Tag Name", max_length=30, unique=True)
 
 	def __unicode__(self):
 		return self.name
 
 	class Meta:
-		verbose_name = "Etiket"
-		verbose_name_plural = "Etiketler"
+		verbose_name = "Tag"
+		verbose_name_plural = "Tags"
 		ordering = ["name"]

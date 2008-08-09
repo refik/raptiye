@@ -1,3 +1,13 @@
+2008-08-10  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, templates/blog/links.html,
+	templates/blog/sidebar.html, blog/templatetags/blog_filters.py,
+	tags/models.py, links/admin.py: Links application works very well now.. It
+	also has tags support!
+	* links/views.py, tags/views.py: No need for these..
+	* blog/models.py: All entries (more specifically all objects that have a
+	relation with tags) should have at least 1 tag..
+	
 2008-08-08  Alper KANAT  <alperkanat@gmail.com>
 
 	* links/: New application for sidebar links is added.

@@ -54,28 +54,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="widget">
-		<div class="widget_box">
-			<div class="widget_title">
-				<img src="/media/images/friends.png" align="absmiddle">
-				arkadaşlar
-			</div>
-			<div class="widget_body">
-				buraya da arkadaşlar gelsin bari..
-			</div>
-		</div>
-	</div>
-	<div class="widget">
-		<div class="widget_box">
-			<div class="widget_title">
-				<img src="/media/images/links.png" align="absmiddle">
-				girilesiceler
-			</div>
-			<div class="widget_body">
-				bunlar da girilesi siteler olsa gerek..
-			</div>
-		</div>
-	</div>
+	{# gets all the link categories and their links and adds them to the context #}
+	{% links %}
 	<div class="widget">
 		<div class="widget_box">
 			<div class="widget_title">
