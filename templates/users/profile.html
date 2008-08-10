@@ -6,16 +6,15 @@
 
 {% block body %}
 	{% include "blog/sidebar.html" %}
-
+	
 	{# including iBox to show dialog boxes #}
 	<script type="text/javascript" src="/media/js/ibox/ibox.js"></script>
 	<script type="text/javascript">
 		iBox.setPath('/media/js/ibox/');
 		iBox.close_label = "X"
 	</script>
-	<link rel="stylesheet" href="/media/js/ibox/skins/darkbox/darkbox.css" 
-		type="text/css" media="screen" />
-
+	<link rel="stylesheet" href="/media/js/ibox/skins/darkbox/darkbox.css" type="text/css" media="screen" />
+	
 	{# a hidden layer to include gravatar form #}
 	<div id="gravatar_form">
 		aşağıdaki forma e-posta adresinizi yazarak gravatar hesabınızdaki öntanımlı avatar'ınızı raptiye hesabınız 
@@ -37,7 +36,7 @@
 							<img width="50" height="50" src="{{ request.user.get_profile.avatar }}" title="avatar of {{ request.user.username }}">
 						</div>
 						<div id="profile_text">
-							<strong>{{ request.user.username }}</strong>
+							<strong>{{request.user.username }}</strong>
 							<br>
 							({{ request.user.get_full_name }})
 							<br><br>
@@ -45,7 +44,7 @@
 						</div>
 					</td>
 				</tr>
-			{% for field in form %}
+			{%for field in form %}
 				<tr>
 					{% ifnotequal field.name "username" %}
 						<td>{{ field.label_tag }}</td>
@@ -65,15 +64,15 @@
 				</tr>
 			{% endfor %}
 			</table>
-		</form>
-
-		<div style="text-align: center;">
-			<div id="login_form_buttons">
-				<button id="entry_comment_submit">yolla</button>
-				&nbsp;&nbsp;
-				<button id="entry_comment_clear">temizle</button>
+			
+			<div style="text-align: center;">
+				<div id="login_form_buttons">
+					<button id="entry_comment_submit">yolla</button>
+					&nbsp;&nbsp;
+					<button id="entry_comment_clear">temizle</button>
+				</div>
 			</div>
-		</div>
+		</form>
 
 		<div class="profile_user_information">
 			<h3>en son yorumlarınız</h3>

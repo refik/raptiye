@@ -6,7 +6,7 @@
 	<div id="centered_body_container">
 		<form id="login_form" name="login_form" method="post">
 			<table id="login_form_inputs">
-			{% for field in form %}
+			{%for field in form %}
 				<tr>
 					<td>{{ field.label_tag }}</td>
 					<td></td>
@@ -36,13 +36,13 @@
 					{% endif %}
 				</tr>
 			</table>
+			
+			<div id="login_form_buttons">
+				<button id="entry_comment_submit">yolla</button>
+				&nbsp;&nbsp;
+				<button id="entry_comment_clear">temizle</button>
+			</div>
 		</form>
-
-		<div id="login_form_buttons">
-			<button id="entry_comment_submit">yolla</button>
-			&nbsp;&nbsp;
-			<button id="entry_comment_clear">temizle</button>
-		</div>
 	</div>
 
 	<script language="javascript">

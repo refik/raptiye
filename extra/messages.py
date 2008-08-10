@@ -5,6 +5,8 @@ Includes some messages like successfull
 registration, activation etc..
 """
 
+COMMENTS_WARNING = u'Yorumunuz onaylandıktan sonra yayınlanacaktır. İlginiz için teşekkürler!'
+
 SEARCH_FAILED = u"""
 <h2>arama başarısız</h2>
 <br>

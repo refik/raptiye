@@ -8,9 +8,9 @@
 	{% endif %}
 	{% for num in page_numbers %}
 		{% ifequal num page %}
-			<span class="pagination_current" title="Şu anda bu sayfa görüntüleniyor..">{{ num }}</span>
+			<span class="pagination_current" title="Şu anda bu sayfa görüntüleniyor..">{{ num }}</span>
 		{% else %}
-			<a href="?page={{ num }}" class="pagination_link" title="{{ num }}. sayfaya gitmek için tıklayın..">{{ num }}</a>
+			<a href="?page={{ num }}" class="pagination_link" title="{{ num }}. sayfaya gitmek için tıklayın..">{{ num }}</a>
 		{% endifequal %}
 	{% endfor %}
 	{% if has_next %}

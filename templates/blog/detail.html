@@ -1,5 +1,7 @@
 {% extends "frontpage/base.html" %}
 
+{% load blog_filters %}
+
 {% block title %}günlük@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
 
 {% block body %}
@@ -32,6 +34,27 @@
 					{{ entry.content }}
 				</p>
 			</div>
+			<div class="entry_footer">
+				<div class="entry_footer_left"></div>
+				<div class="entry_footer_middle">
+					<div class="entry_footer_text">
+						{% ifequal entry.published_comments.count 0 %}
+							<a href="#comments" title="ilk yorumu yapmak için tıklayın.." class="white_link">
+								Yorum Yok
+							</a>
+						{% else %}
+							<a href="#comments" title="yorum yapmak için tıklayın.." class="white_link">
+								{{ entry.published_comments.count }} Yorum
+							</a>
+						{% endifequal %}
+					</div>
+					<div class="entry_footer_buttons">
+						{% include "blog/widgets.html" %}
+					</div>
+				</div>
+				<div class="entry_footer_right"></div>
+			</div>
+			<br><br><br>
 			{% include "blog/comments.html" %}
 		</div>
 	</div>

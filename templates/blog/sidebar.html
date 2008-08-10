@@ -22,8 +22,12 @@
 	<div class="widget">
 		<div class="widget_box">
 			<div class="widget_title">
-				<img src="/media/images/rss_feed.png" align="absmiddle">
+				{% spaceless %}
+				<a href="{{ mainpage.rss_url }}" title="yeni günlük yazılarını rss üzerinden takip edebilmek için tıklayın..">
+					<img src="/media/images/rss_feed.png" align="absmiddle" border="0">
+				</a>
 				rss takibi
+				{% endspaceless %}
 			</div>
 			<div class="widget_body">
 				<span class="widget_small">raptiye'yi rss beslemesi üzerinden<br>takip etmek için aşağıdaki bağlantıya<br>tıklayabilirsiniz.</span>

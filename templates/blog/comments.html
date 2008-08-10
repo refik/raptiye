@@ -1,28 +1,32 @@
+{% load comment_filters %}
+
 <a name="comments"></a>
 
-{% for comment in entry.published_comments %}
-<div class="entry_comments_container">
-	<div class="comment_ok"></div>
-	<table class="entry_comment" cellpadding="0" cellspacing="0" border="0">
-		<tr>
-			<td class="entry_comment_info_box">
-				<div class="entry_comment_avatar">
-					<img src="{{ comment.author.get_profile.avatar }}" title="avatar of {{ comment.author }}">
-				</div>
-				<div class="entry_comment_info">
-					{{ comment.author }}
-					<div class="entry_comment_datetime">{{ comment.datetime|date:"d.m.Y, H:i" }}</div>
-				</div>
-			</td>
-			<td class="entry_comment_content_box">
-				<p align="justify">
-					{{ comment.content }}
-				</p>
-			</td>
-		</tr>
-	</table>
+<div id="comment_layer">
+	{% for comment in entry.published_comments %}
+	<div class="entry_comments_container">
+		<div class="comment_ok"></div>
+		<table class="entry_comment" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="entry_comment_info_box">
+					<div class="entry_comment_avatar">
+						<img src="{{ comment.author.get_profile.avatar }}" title="{{ comment.author }} kullanıcısının avatarı">
+					</div>
+					<div class="entry_comment_info">
+						{{ comment.author }}
+						<div class="entry_comment_datetime">{{ comment.datetime|date:"d.m.Y, H:i" }}</div>
+					</div>
+				</td>
+				<td class="entry_comment_content_box">
+					<p align="justify">
+						{{ comment.content }}
+					</p>
+				</td>
+			</tr>
+		</table>
+	</div>
+	{% endfor %}
 </div>
-{% endfor %}
 
 {% if entry.comments_enabled %}
 <input id="disableForm" type="hidden" value="0" />
@@ -69,7 +73,7 @@
 
 <script language="javascript">
 	$("#entry_comment_submit").click(function() {
-		// controlling the form fields
+		// TODO: controlling the form fields
 		var entry_id = {{ entry.id }};
 		var url = "{% url comment_sent %}";
 		var captcha_id = $("#captcha_image").attr('src').split('/')[3].split('.')[0];
@@ -77,6 +81,11 @@
 		toggleForm("#entry_comment_write");
 		$("#sending_comment").slideToggle();
 		$.post(url, query, function(resp) {
+			// show the newly added comment if submission is successfull..
+			if (resp.status == 0) {
+				// inserting the comment to the comment layer..
+				insertComment2Layer($('#entry_comment_textarea').val());
+			}
 			$("#sending_comment").slideToggle();
 			toggleForm("#entry_comment_write");
 			// clearing comment form
@@ -89,6 +98,52 @@
 		clearCommentForm();
 		$("#comment_error").slideUp("slow");
 	});
+	
+	function insertComment2Layer (text) {
+		var dt = new Date();
+		var day = dt.getDate() < 10 ? '0' + dt.getDate() : dt.getDate();
+		var month = dt.getMonth() < 10 ? '0' + dt.getMonth() : dt.getMonth();
+		var year = dt.getFullYear();
+		var hour = dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours();
+		var minutes = dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes();
+		var datetime = day + '.' + month + '.' + year + ', ' + hour + ':' + minutes;
+		var WARNING = '{% show_warning %}';
+		
+		$('<div>').addClass('entry_comments_container').append(
+			$('<div>').addClass('comment_ok')
+		).append(
+			$('<table>').addClass('entry_comment').attr({
+				'cellpadding': '0',
+				'cellspacing': '0',
+				'border': '0'
+			}).append(
+				$('<tr>').append(
+					$('<td>').addClass('entry_comment_info_box').append(
+						$('<div>').addClass('entry_comment_avatar').append(
+							$('<img>').attr({
+								'src': '{{ request.user.get_profile.avatar|safe }}',
+								'title': '{{ request.user.username }} kullanıcısının avatarı'
+							})
+						)
+					).append(
+						$('<div>').addClass('entry_comment_info').html('{{ request.user.username }}').append(
+							$('<div>').addClass('entry_comment_datetime').html(datetime)
+						)
+					)
+				).append(
+					$('<td>').addClass('entry_comment_content_box').append(
+						$('<p>').attr('align', 'justify').html(
+							// if the user doesn't have a published comment before
+							// his comment will not be published until an admin marks it
+							// as published.. so informing the user about this..
+							({{ request.user|has_published_comment }}) ? text : "<span class='warning'>" + WARNING + "</span><br><br>" + text
+						)
+					)
+				)
+			)
+		).prependTo($('#comment_layer'));
+	}
+	
 	function showStatusMessage(resp) {
 		// reset status
 		$("#comment_error").slideUp("slow", function() {

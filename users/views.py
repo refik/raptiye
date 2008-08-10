@@ -37,7 +37,7 @@ def notification_remove(request, username):
 			comment.save()
 			try:
 				user = User.objects.get(username=username)
-				watched_comments = user.comments_set.order_by("-datetime").filter(notification=True)
+				watched_comments = user.comments.order_by("-datetime").filter(notification=True)
 				list = []
 				for comment in watched_comments:
 					list.append({"id": comment.id, "title": comment.entry.title, "url": comment.entry.get_url()})
@@ -63,8 +63,8 @@ def profile(request, username, template="users/profile.html"):
 			form = ProfileForm(request.POST)
 			extra_context = {
 				"form" : form,
-				"latest_comments": user.comments_set.order_by("-datetime")[:5],
-				"watched_comments": user.comments_set.order_by("-datetime").filter(notification=True)[:5],
+				"latest_comments": user.comments.order_by("-datetime")[:5],
+				"watched_comments": user.comments.order_by("-datetime").filter(notification=True)[:5],
 			}
 			if form.is_valid():
 				if form.cleaned_data["password"] != user.password[:10]:
@@ -112,8 +112,8 @@ def profile(request, username, template="users/profile.html"):
 			form = ProfileForm(user_info)
 			extra_context = {
 				"form" : form,
-				"latest_comments": user.comments_set.order_by("-datetime")[:5],
-				"watched_comments": user.comments_set.order_by("-datetime").filter(notification=True)[:5],
+				"latest_comments": user.comments.order_by("-datetime")[:5],
+				"watched_comments": user.comments.order_by("-datetime").filter(notification=True)[:5],
 			}
 		return render_to_response(template, extra_context, context_instance=RequestContext(request))
 	else:
@@ -176,7 +176,7 @@ def register(request, template="users/registration.html"):
 							new_user.is_active = False
 							new_user.save()
 							# creating a user profile with an activation key
-							new_user.userprofile_set.create()
+							new_user.profile.create()
 							# creating activation key
 							profile = new_user.get_profile()
 							profile.activation_key = create_activation_key()

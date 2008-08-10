@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from raptiye.blog.models import Entry
 
 class Comments(models.Model):
-	entry = models.ForeignKey(Entry, verbose_name=u"Entry")
-	author = models.ForeignKey(User, verbose_name=u"Author")
+	entry = models.ForeignKey(Entry, related_name='comments', verbose_name=u"Entry")
+	author = models.ForeignKey(User, related_name='comments', verbose_name=u"Author")
 	datetime = models.DateTimeField(auto_now_add=True)
 	content = models.TextField(u"Comment")
 	published = models.BooleanField(u"Published", default=False)

@@ -52,7 +52,7 @@ def comment_sent(request):
 				c.author = request.user
 				c.content = request.POST["comment_body"]
 				# checking if the user has a published comment before
-				if request.user.comments_set.filter(published=True).count() > 0:
+				if request.user.comments.filter(published=True).count() > 0:
 					c.published = True
 				# if notification is true
 				if test(request.POST, "notification"):

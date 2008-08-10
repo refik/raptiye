@@ -5,23 +5,23 @@
 {% block body %}
 	<div id="centered_body_container">
 		<form id="login_form" name="login_form" method="post">
-		{% for field in form %}
-			<div class="login_form_line">
-				<div class="login_form_label">{{ field.label_tag }}</div>
-				<div class="login_form_input">{{ field }}</div>
+			{%for field in form %}
+				<div class="login_form_line">
+					<div class="login_form_label">{{ field.label_tag }}</div>
+					<div class="login_form_input">{{ field }}</div>
+				</div>
+			{% endfor %}
+
+			{% if error %}
+			<div id="login_form_errors">{{ error }}</div>
+			{% endif %}
+
+			<div id="login_form_buttons">
+				<button id="entry_comment_submit">yolla</button>
+				&nbsp;&nbsp;
+				<button id="entry_comment_clear">temizle</button>
 			</div>
-		{% endfor %}
 		</form>
-
-		{% if error %}
-		<div id="login_form_errors">{{ error }}</div>
-		{% endif %}
-
-		<div id="login_form_buttons">
-			<button id="entry_comment_submit">yolla</button>
-			&nbsp;&nbsp;
-			<button id="entry_comment_clear">temizle</button>
-		</div>
 	</div>
 
 	<script language="javascript">
