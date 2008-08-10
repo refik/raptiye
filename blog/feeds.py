@@ -22,4 +22,9 @@ class LatestEntries(Feed):
 		return item.datetime
 	
 	def items(self):
+		try:
+			fp = FrontPage.objects.get(pk=1)
+			return get_latest_entries_list()[:fp.rss_limit]
+		except FrontPage.DoesNotExist:
+			pass
 		return get_latest_entries_list()[:10]

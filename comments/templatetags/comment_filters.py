@@ -7,10 +7,10 @@ register = template.Library()
 
 @register.filter
 def has_published_comment(user):
-	if user.comments.filter(published=True).count() > 0:
-		return 1
-	else:
-		return 0
+	if user.is_authenticated():
+		if user.comments.filter(published=True).count() > 0:
+			return 1
+	return 0
 
 @register.simple_tag
 def show_warning():

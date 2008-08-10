@@ -17,20 +17,10 @@
 			{% endif %}
 
 			<div id="login_form_buttons">
-				<button id="entry_comment_submit">yolla</button>
+				<button id="entry_comment_submit" type="submit">yolla</button>
 				&nbsp;&nbsp;
-				<button id="entry_comment_clear">temizle</button>
+				<button id="entry_comment_clear" type="reset">temizle</button>
 			</div>
 		</form>
 	</div>
-
-	<script language="javascript">
-		$("#entry_comment_submit").click(function() {
-			$("#login_form").submit();
-		});
-		$("#entry_comment_clear").click(function() {
-			$("#id_username").val("");
-			$("#id_password").val("");
-		});
-	</script>
 {% endblock %}

@@ -9,12 +9,12 @@
 	<div id="body_left">
 		<div id="main_menu">
 			<ul>
-				{% with mainpage.links_set|order_by:"level" as links %}
+				{% with mainpage.links|order_by:"level" as links %}
 					{% for link in links %}
 						{% if link.target %}
-							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.." target="_blank"><img src="{{ link.get_image_url }}" border="0"></a></li>
+							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.." target="_blank"><img src="{{ link.image.url }}" border="0"></a></li>
 						{% else %}
-							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.."><img src="{{ link.get_image_url }}" border="0"></a></li>
+							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.."><img src="{{ link.image.url }}" border="0"></a></li>
 						{% endif %}
 					{% endfor %}
 				{% endwith %}
@@ -27,7 +27,7 @@
 		</div>
 		{{ mainpage.content|safe }}
 		<div id="main_rss_box">
-			<a href="#" title="gerenk yok ama rss üzerinden okumak isterseniz tıklayın.. :)" onclick="location.href='{{ mainpage.rss_url }}'; return false;">
+			<a href="{{ mainpage.rss_url }}" title="gerenk yok ama rss üzerinden okumak isterseniz tıklayın.. :)">
 				<div id="rss_logo"></div>
 			</a>
 			<div id="main_rss_title">

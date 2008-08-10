@@ -38,20 +38,16 @@
 			</table>
 			
 			<div id="login_form_buttons">
-				<button id="entry_comment_submit">yolla</button>
+				<button id="entry_comment_submit" type="submit">yolla</button>
 				&nbsp;&nbsp;
-				<button id="entry_comment_clear">temizle</button>
+				<button id="entry_comment_clear" type="reset">temizle</button>
 			</div>
 		</form>
 	</div>
 
 	<script language="javascript">
-		$("#entry_comment_submit").click(function() {
-			$("#login_form").submit();
+		$(function() {
+			$("#captcha_id").val($("#captcha_image").attr('src').split('/')[3].split('.')[0]);
 		});
-		$("#entry_comment_clear").click(function() {
-			$("#login_form :input[id!='captcha_id']").val("")
-		});
-		$("#captcha_id").val($("#captcha_image").attr('src').split('/')[3].split('.')[0]);
 	</script>
 {% endblock %}

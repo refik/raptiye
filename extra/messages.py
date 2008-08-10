@@ -5,6 +5,8 @@ Includes some messages like successfull
 registration, activation etc..
 """
 
+ENTRIES_ON_DATE = u"bu tarihte yazılmış yazıları görmek için tıklayın.."
+
 COMMENTS_WARNING = u'Yorumunuz onaylandıktan sonra yayınlanacaktır. İlginiz için teşekkürler!'
 
 SEARCH_FAILED = u"""

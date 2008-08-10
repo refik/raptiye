@@ -132,3 +132,5 @@ LOCALES = {
 	'tr': 'tr_TR.utf-8',
 	'en': 'en_US.utf-8',
 }
+
+VERSION = '1.0'

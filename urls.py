@@ -23,7 +23,7 @@ urlpatterns = patterns('',
 	(r'^comment/', include('raptiye.comments.urls')),
 
 	# feed related stuff
-	url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, 'rss_feed'),
+	url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, name='rss_feed'),
 
 	# users related stuff like login, register
 	(r'^users/', include('raptiye.users.urls')),

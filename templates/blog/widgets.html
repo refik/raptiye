@@ -1,3 +1,5 @@
+{% load blog_filters %}
+
 {% spaceless %}
 <a href="http://www.linkedin.com/shareArticle?mini=true&url={{ entry.get_full_url }}&title={{ entry.title }}&summary={{ entry.content|cut_text_by:1000 }}&source=http://raptiye.org" target="_blank"
 	title="linkedin sayfamı ziyaret etmek için tıklayın..">

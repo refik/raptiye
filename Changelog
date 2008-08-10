@@ -1,5 +1,26 @@
 2008-08-11  Alper KANAT  <alperkanat@gmail.com>
 
+	* templates/frontpage/homepage.html: image fields in models no longer have
+	get_image_url method.. we have object.image.url instead..
+	* media/js/raptiye.js: I just learned that I don't have to use
+	document.ready and can use $() instead.. (thanks to jquery)
+	* settings-example.py: Added a VERSION variable..
+	* blog/templatetags/blog_filters.py, extra/messages.py: Unicode and messages
+	improvement..
+	* blog/feeds.py: blog feed now cares about the setting i enter through the
+	admin panel..
+	* extra/webcal.py: one little code improvement and several unicode changes..
+	* templates/users/profile.html, templates/users/login.html,
+	templates/users/registration.html: some bugs in the forms are fixed.
+	* comments/templatetags/comment_filters.py: fixed a bug..
+	* frontpage/models.py, templates/frontpage/homepage.html,
+	templates/frontpage/base.html: assigned a name for the relation between frontpage
+	and links..
+	* templates/blog/detail.html: blog_filters no longer needed here..
+	* templates/blog/widgets.html: blog_filters are needed here..
+	* templates/blog/sidebar.html: fix for using url naming instead of using a
+	manager method..
+	* urls.py: little improvement for url naming..
 	* media/images/linkedin.png, media/images/technorati.png,
 	media/images/delicious.gif, media/images/mylinkedin.png,
 	media/images/stumbleupon.png, media/images/lastfm.png,

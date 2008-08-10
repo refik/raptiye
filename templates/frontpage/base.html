@@ -20,7 +20,7 @@
 			</div>
 			{% ifnotequal request.path "/" %}
 			<div id="tabbed_menu">
-				{% with mainpage.links_set|order_by:"level" as links %}
+				{% with mainpage.links|order_by:"level" as links %}
 				<ul>
 					<li><a href="/" title="ana sayfa için tıklayın.." class="link">ana sayfa</a></li>
 					{% for link in links %}

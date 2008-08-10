@@ -15,7 +15,7 @@ class WebCalendar():
 		self.day = day
 		self.object = object
 		self.datetime_field = datetime_field
-		if locale == '':
+		if not locale:
 			self.calendar = calendar.LocaleTextCalendar()
 		else:
 			self.calendar = calendar.LocaleTextCalendar(0, locale)
@@ -42,19 +42,19 @@ class WebCalendar():
 		self.datetime_field = datetime_field
 	
 	def render(self, table_id="", link_path="", link_title="", link_class=""):
-		html = "<table id='%s'>" % table_id
+		html = u"<table id='%s'>" % table_id
 		# creating the header part
-		html += "<tr>"
+		html += u"<tr>"
 		# printing days' name 3 chars long
 		for i in range(7):
-			html += "<th>%s</th>" % self.calendar.formatweekday(i, 3).lower()
-		html += "</tr>"
+			html += u"<th>%s</th>" % self.calendar.formatweekday(i, 3).lower()
+		html += u"</tr>"
 		# creating the rest of the table
 		for week in self.calendar.monthdayscalendar(self.get_year(), self.get_month()):
-			html += "<tr>"
+			html += u"<tr>"
 			for day in week:
 				if day == 0:
-					html += "<td></td>"
+					html += u"<td></td>"
 				else:
 					if self.get_object() is not None and self.get_datetime_field() is not None:
 						filters = {
@@ -64,21 +64,21 @@ class WebCalendar():
 						}
 						if self.get_object().objects.filter(**filters).count() > 0:
 							if day == self.get_day():
-								html += "<td class='today'><a href='%s/%d/%d/%d/' title='%s' class='%s'>%d</a></td>" % (link_path, self.get_year(), 
-										self.get_month(), day, link_title, link_class, day)
+								html += u"<td class='today'><a href='%s/%d/%d/%d/' title='%s' class='%s'>%d</a></td>" % (link_path, self.get_year(), 
+									self.get_month(), day, link_title, link_class, day)
 							else:
-								html += "<td><a href='%s/%d/%d/%d/' title='%s' class='%s'>%d</a></td>" % (link_path, self.get_year(), 
-										self.get_month(), day, link_title, link_class, day)
+								html += u"<td><a href='%s/%d/%d/%d/' title='%s' class='%s'>%d</a></td>" % (link_path, self.get_year(), 
+									self.get_month(), day, link_title, link_class, day)
 						else:
 							if day == self.get_day():
-								html += "<td class='today'>%d</td>" % day
+								html += u"<td class='today'>%d</td>" % day
 							else:
-								html += "<td>%d</td>" % day
+								html += u"<td>%d</td>" % day
 					else:
 						if day == self.get_day():
-							html += "<td class='today'>%d</td>" % day
+							html += u"<td class='today'>%d</td>" % day
 						else:
-							html += "<td>%d</td>" % day
-			html += "</tr>"
-		html += "</table>"
+							html += u"<td>%d</td>" % day
+			html += u"</tr>"
+		html += u"</table>"
 		return html

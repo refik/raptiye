@@ -52,17 +52,18 @@ def get_month_and_year():
 	tz = timezone(settings.TIME_ZONE)
 	now = datetime.now(tz)
 	calendar = LocaleTextCalendar(0, settings.LOCALES['tr'])
-	return "%s" % calendar.formatmonthname(now.year, now.month, 0)
+	return u"%s" % calendar.formatmonthname(now.year, now.month, 0)
 
 @register.simple_tag
 def construct_calendar():
 	from raptiye.blog.models import Entry
 	from raptiye.extra.webcal import WebCalendar
+	from raptiye.extra.messages import ENTRIES_ON_DATE
 	# creating a pytz info object for true utc time..
 	tz = timezone(settings.TIME_ZONE)
 	now = datetime.now(tz)
 	wc = WebCalendar(now.year, now.month, now.day, Entry, "datetime", settings.LOCALES['tr'])
-	return wc.render("calendar_box", "/blog", u"bu tarihte yazılmış yazıları görmek için tıklayın..", "ulink")
+	return wc.render("calendar_box", "/blog", ENTRIES_ON_DATE, "ulink")
 
 @register.inclusion_tag('blog/pagination.html', takes_context=True)
 def paginator(context, adjacent_pages=2):

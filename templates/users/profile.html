@@ -1,7 +1,5 @@
 {% extends "frontpage/base.html" %}
 
-{% load blog_filters %}
-
 {% block title %}profilim@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
 
 {% block body %}
@@ -44,7 +42,7 @@
 						</div>
 					</td>
 				</tr>
-			{%for field in form %}
+			{% for field in form %}
 				<tr>
 					{% ifnotequal field.name "username" %}
 						<td>{{ field.label_tag }}</td>
@@ -67,9 +65,9 @@
 			
 			<div style="text-align: center;">
 				<div id="login_form_buttons">
-					<button id="entry_comment_submit">yolla</button>
+					<button id="entry_comment_submit" type='submit'>yolla</button>
 					&nbsp;&nbsp;
-					<button id="entry_comment_clear">temizle</button>
+					<input id="entry_comment_clear" type='button' value='temizle'></button>
 				</div>
 			</div>
 		</form>
@@ -88,7 +86,7 @@
 					<td><a href="{% url blog_entry comment.entry.datetime.year,comment.entry.datetime.month,comment.entry.datetime.day,comment.entry.slug %}" 
 							title="yazıyı okumak için tıkla.." class="ulink">{{ comment.entry.title }}</a></td>
 					<td class="aligncenter">{{ comment.datetime|date:"d.m.Y" }}</td>
-					<td class="aligncenter">{{ comment.entry.comments_set.count }}</td>
+					<td class="aligncenter">{{ comment.entry.comments.count }}</td>
 				</tr>
 				{% endfor %}
 			</table>
@@ -125,12 +123,9 @@
 				iBox.hide();
 			});
 		});
-		$("#entry_comment_submit").click(function() {
-			$("#login_form").submit();
-		});
-		$("#entry_comment_clear").click(function() {
-			$("#login_form :input[id!='id_username']").val("")
-		});
+		$('#entry_comment_clear').click(function() {
+			$('#login_form_inputs :input:visible').val('');
+		})
 		function remove_notification(id) {
 			// cleaning the table
 			$("#watched_comments td").each(function() {

@@ -46,7 +46,7 @@ class Links(models.Model):
 	frontpage. Because of the design limitations, creating
 	only 4-5 links is adviced..!
 	"""
-	page = models.ForeignKey(FrontPage)
+	page = models.ForeignKey(FrontPage, related_name='links')
 	title = models.CharField(u"Link Name", core=True, max_length=30)
 	# url is defined as CharField since it doesn't accept urls like /blog
 	url = models.CharField(u"URL", help_text="Can be relative link like /blog", max_length=20)

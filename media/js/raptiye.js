@@ -39,7 +39,7 @@ function getNewCaptcha() {
 	}, "json");
 }
 
-$(document).ready(function() {
+$(function() {
 	// fill search box
 	$("#search_box").val("arama kutusu");
 	$("#search_box").focus(function() {
