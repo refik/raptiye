@@ -7,22 +7,6 @@ from django.conf import settings
 
 register = template.Library()
 
-@register.filter
-def cut_text_by(value, arg):
-	"Returns the text that's been truncated by arg"
-	if value.__len__() > 1000:
-		return value[:arg] + " [...]"
-	else:
-		return value
-
-@register.filter
-def is_text_larger_than(value, arg):
-	"Returns true if larger, false otherwise"
-	if value.__len__() > arg:
-		return True
-	else:
-		return False
-
 @register.simple_tag
 def calculate_age():
 	# creating a pytz info object for true utc time..

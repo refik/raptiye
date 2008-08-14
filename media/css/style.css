@@ -710,6 +710,21 @@ input[type="text"]:focus, input[type="password"]:focus {
 	background-color: #ffc7f5;
 }
 
+.ps_error {
+	margin: 0 auto;
+	width: 450px;
+}
+
+.ps_error h2 {
+	display: inline;
+	margin-left: 10px;
+}
+
+.ps_error_content {
+	text-align: left;
+	margin-left: 10px;
+}
+
 .today {
 	background: transparent url(/media/images/calendar_today.png) top right no-repeat;
 }

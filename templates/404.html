@@ -1,0 +1,20 @@
+{% extends "frontpage/base.html" %}
+
+{% load frontpage_filters %}
+{% load blog_filters %}
+
+{% block title %}hata@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+
+{% block body %}
+	<div class="ps_error">
+		<img src="/media/images/warning.png" align="absmiddle">
+		<h2>genel kültür sayfasına hoş geldiniz..</h2>
+		<br><br><br>
+		<div class="ps_error_content">
+			<h3>başlık</h3>
+			<br>
+			{# TODO: loop dönsün burda.. #}
+			<li>içerik</li>
+		</div>
+	</div>
+{% endblock %}

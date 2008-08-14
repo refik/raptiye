@@ -53,40 +53,39 @@ SECRET_KEY = '=qz$*=u$3(9d%mhi(y)(ur&v)vg&!tw#m0_&xjr%p_$ksh61jq'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
+	'django.template.loaders.filesystem.load_template_source',
+	'django.template.loaders.app_directories.load_template_source',
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.doc.XViewMiddleware',
+	'django.middleware.common.CommonMiddleware',
+	'django.contrib.sessions.middleware.SessionMiddleware',
+	'django.contrib.auth.middleware.AuthenticationMiddleware',
+	'django.middleware.doc.XViewMiddleware',
 	'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 )
 
 ROOT_URLCONF = 'raptiye.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 	"/Users/alperkanat/Projects/raptiye/templates/",
 )
 
 INSTALLED_APPS = (
 	'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
+	'django.contrib.auth',
+	'django.contrib.contenttypes',
 	'django.contrib.redirects',
-    'django.contrib.sessions',
-    'django.contrib.sites',
+	'django.contrib.sessions',
+	'django.contrib.sites',
+	'django.contrib.flatpages',
 	'raptiye.blog',
 	'raptiye.comments',
 	'raptiye.frontpage',
 	'raptiye.tags',
 	'raptiye.users',
+	'raptiye.links',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -114,7 +113,7 @@ CAPTCHA_PENALTY = 10
 
 # MAIL SETTINGS (needs to be changed..)
 EMAIL_HOST = ""
-#EMAIL_PORT = 
+# EMAIL_PORT = 
 EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = ""
 EMAIL_SUBJECT_PREFIX = u""
@@ -122,7 +121,7 @@ EMAIL_USE_TLS = False
 EMAIL_FAIL_SILENCE = False
 # this address is used for notifications
 EMAIL_INFO_ADDRESS_TR = ""
-EMAIL_INFO_ADDRESS_EN = ""
+# EMAIL_INFO_ADDRESS_EN = ""
 
 # default avatar for all users..
 DEFAULT_AVATAR = "/media/images/default_avatar.png"

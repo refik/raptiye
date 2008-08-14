@@ -1,0 +1,10 @@
+{% extends "frontpage/base.html" %}
+
+{% load frontpage_filters %}
+{% load blog_filters %}
+
+{% block title %}{{ flatpage.title }}@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+
+{% block body %}
+	{{ flatpage.content }}
+{% endblock %}

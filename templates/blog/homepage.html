@@ -37,14 +37,12 @@
 			</div>
 			<div class="entry_body">
 				<p align="justify">
-					{{ entry.content|cut_text_by:1000 }}
-					{% if entry.content|is_text_larger_than:1000 %}
-						<br><br>
-						<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
-							Yazının devamını okumak için tıklayın..
-						</a>
-						<br>
-					{% endif %}	
+					{{ entry.content|striptags|linebreaksbr|truncatewords_html:150 }}
+					<br><br>
+					<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
+						Yazının devamını okumak için tıklayın..
+					</a>
+					<br>
 				</p>
 			</div>
 			<div class="entry_footer">

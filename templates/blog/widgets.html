@@ -1,7 +1,7 @@
 {% load blog_filters %}
 
 {% spaceless %}
-<a href="http://www.linkedin.com/shareArticle?mini=true&url={{ entry.get_full_url }}&title={{ entry.title }}&summary={{ entry.content|cut_text_by:1000 }}&source=http://raptiye.org" target="_blank"
+<a href="http://www.linkedin.com/shareArticle?mini=true&url={{ entry.get_full_url }}&title={{ entry.title }}&summary={{ entry.content|truncatewords_html:150 }}&source=http://raptiye.org" target="_blank"
 	title="linkedin sayfamı ziyaret etmek için tıklayın..">
 	<img src="/media/images/linkedin.png" border="0">
 </a>
@@ -9,7 +9,7 @@
 <script type="text/javascript">
 	digg_url = '{{ entry.get_full_url }}';
 	digg_title = '{{ entry.title }}';
-	digg_bodytext = '{{ entry.content|cut_text_by:1000|escapejs }}';
+	digg_bodytext = '{{ entry.content|truncatewords_html:150|escapejs }}';
 	digg_media = 'news';
 	digg_topic = 'software';
 	digg_skin = 'icon';

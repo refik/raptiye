@@ -23,14 +23,13 @@ urlpatterns = patterns('',
 	(r'^comment/', include('raptiye.comments.urls')),
 
 	# feed related stuff
-	url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, name='rss_feed'),
+	url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, name="rss_feed"),
 
 	# users related stuff like login, register
 	(r'^users/', include('raptiye.users.urls')),
 )
 
 # should be deleted in the production phase
-if settings.DEBUG:
-	urlpatterns += patterns('',
-		(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-	)
+urlpatterns += patterns('',
+	(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+)

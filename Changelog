@@ -1,3 +1,19 @@
+2008-08-15  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, templates/500.html, templates/404.html: error pages
+	will have interesting messages soon..
+	* settings-example.py: Disabled some settings and added new applications..
+	* blog/templatetags/blog_filters.py: 2 of the filters were unnecessary since
+	Django does those natively..
+	* templates/blog/detail.html, templates/blog/homepage.html,
+	templates/blog/widgets.html, templates/feeds/latest_description.html:
+	Changes for Django's native filters and some bug fixes like url pattern
+	naming..
+	* emplates/flatpages/: flatpages like about can be created now..
+	* users/forms.py: newforms and oldforms are gone in Django.. hail the new
+	king: forms!
+	* urls.py: Little and temporary changes..
+	
 2008-08-11  Alper KANAT  <alperkanat@gmail.com>
 
 	* templates/frontpage/homepage.html: image fields in models no longer have

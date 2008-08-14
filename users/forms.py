@@ -1,6 +1,6 @@
 #-*- encoding: utf-8 -*-
 
-from django import newforms as forms
+from django import forms
 
 class LoginForm(forms.Form):
 	username = forms.CharField(label="Kullanıcı Adı")
