@@ -1,6 +1,5 @@
 #-*- encoding: utf-8 -*-
 
-from pytz import timezone
 from datetime import datetime
 from django.conf import settings
 from django.http import HttpResponse
@@ -11,9 +10,6 @@ from raptiye.comments.views import create_captcha
 from raptiye.extra.messages import TAGS_SUCCESS, TAGS_ERROR, SEARCH_FAILED, SEARCH_NO_ITEM
 from raptiye.extra.search import SearchAgainstEntries
 from raptiye.tags.models import Tag
-
-# creating a pytz info object for true utc time..
-tz = timezone(settings.TIME_ZONE)
 
 def search(request, template="blog/homepage.html"):
 	"Search against all entries using the given keywords"
@@ -44,7 +40,7 @@ def search(request, template="blog/homepage.html"):
 		return get_latest_entries(request, SEARCH_FAILED)
 
 def get_latest_entries_list():
-	return Entry.objects.filter(published=True, datetime__lte=datetime.now(tz)).order_by("-datetime")
+	return Entry.objects.filter(published=True, datetime__lte=datetime.now()).order_by("-datetime")
 
 def get_entries_for_day(request, year, month, day):
 	"Displays all posts for a specific day"

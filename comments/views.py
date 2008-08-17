@@ -2,7 +2,6 @@
 
 from datetime import datetime
 from os import path
-from pytz import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -11,26 +10,23 @@ from raptiye.blog.models import Entry
 from raptiye.comments.models import Comments
 from raptiye.extra.captcha import Captcha
 
-# creating a pytz info object for true utc time..
-tz = timezone(settings.TIME_ZONE)
-
 def new_captcha(request):
 	# set session variable to avoid attacks
 	# when the user exceeds 10 captcha's limit 
 	# it has to wait 10 minutes
-	now = datetime.now(tz)
+	now = datetime.now()
 	if request.session.__contains__("captcha_counter") and request.session.__contains__("captcha_datetime"):
 		if request.session["captcha_counter"] == settings.CAPTCHA_RENEWAL_LIMIT:
 			if (now - request.session["captcha_datetime"]).seconds/60 > settings.CAPTCHA_PENALTY:
 				# resetting datetime of captcha
-				request.session["captcha_datetime"] = datetime.now(tz)
+				request.session["captcha_datetime"] = datetime.now()
 			else:
 				return HttpResponse("<response><status>1</status><error>işlem başarısız..</error></response>")
 		request.session["captcha_counter"] += 1
-		request.session["captcha_datetime"] = datetime.now(tz)
+		request.session["captcha_datetime"] = datetime.now()
 	else:
 		request.session["captcha_counter"] = 1
-		request.session["captcha_datetime"] = datetime.now(tz)
+		request.session["captcha_datetime"] = datetime.now()
 	# create a new captcha and send back its url
 	captcha = create_captcha()
 	return HttpResponse("<response><status>0</status><captcha>" + captcha + "</captcha></response>")

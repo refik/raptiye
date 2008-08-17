@@ -1,6 +1,5 @@
 #-*- encoding: utf-8 -*-
 
-from pytz import timezone
 from datetime import datetime
 from django import template
 from django.conf import settings
@@ -9,11 +8,9 @@ register = template.Library()
 
 @register.simple_tag
 def calculate_age():
-	# creating a pytz info object for true utc time..
-	tz = timezone(settings.TIME_ZONE)
 	# my birth
-	birth = datetime(1984, 05, 16, 10, 00, 00, 00, tz)
-	return (datetime.now(tz) - birth).days/365
+	birth = datetime(1984, 05, 16, 10, 00, 00, 00)
+	return (datetime.now() - birth).days/365
 
 @register.tag
 def construct_tag_cloud(parser, token):
@@ -32,9 +29,7 @@ class TagCloudNode(template.Node):
 @register.simple_tag
 def get_month_and_year():
 	from calendar import LocaleTextCalendar
-	# creating a pytz info object for true utc time..
-	tz = timezone(settings.TIME_ZONE)
-	now = datetime.now(tz)
+	now = datetime.now()
 	calendar = LocaleTextCalendar(0, settings.LOCALES['tr'])
 	return u"%s" % calendar.formatmonthname(now.year, now.month, 0)
 
@@ -43,9 +38,7 @@ def construct_calendar():
 	from raptiye.blog.models import Entry
 	from raptiye.extra.webcal import WebCalendar
 	from raptiye.extra.messages import ENTRIES_ON_DATE
-	# creating a pytz info object for true utc time..
-	tz = timezone(settings.TIME_ZONE)
-	now = datetime.now(tz)
+	now = datetime.now()
 	wc = WebCalendar(now.year, now.month, now.day, Entry, "datetime", settings.LOCALES['tr'])
 	return wc.render("calendar_box", "/blog", ENTRIES_ON_DATE, "ulink")
 
