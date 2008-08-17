@@ -1,3 +1,17 @@
+2008-08-18  Alper KANAT  <alperkanat@gmail.com>
+
+	* settings-example.py: Reenabled english info e-mail address and added a new
+	setting.. (ANONYMOUS_PASSWORD)
+	* extra/initials.py: does the initial work necessary after the deployment
+	for the first time.. the methods in this file are called inside manage.py..
+	* comments/admin.py, comments/models.py, templates/blog/comments.html: Some
+	changes are made to make raptiye work with old comments that have been
+	committed by the visitors earlier.. new raptiye won't let users comment
+	until they register as users..
+	* users/views.py: corrected the comment line..
+	* templates/blog/sidebar.html: fixed a bug in the reverse url pattern
+	resolution..
+	
 2008-08-17  Alper KANAT  <alperkanat@gmail.com>
 
 	* REQUIREMENTS, blog/views.py, blog/templatetags/blog_filters.py,

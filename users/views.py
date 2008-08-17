@@ -167,7 +167,7 @@ def register(request, template="users/registration.html"):
 						# registering the user
 						try:
 							# the following line creates the user directly, it doesn't wait
-							# wait for a save().. but firstname, lastname and activeness need
+							# for a save().. but firstname, lastname and activeness need
 							# to be saved
 							new_user = User.objects.create_user(username, email, password)
 							new_user.first_name = name

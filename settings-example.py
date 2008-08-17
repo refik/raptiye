@@ -121,7 +121,7 @@ EMAIL_USE_TLS = False
 EMAIL_FAIL_SILENCE = False
 # this address is used for notifications
 EMAIL_INFO_ADDRESS_TR = ""
-# EMAIL_INFO_ADDRESS_EN = ""
+EMAIL_INFO_ADDRESS_EN = ""
 
 # default avatar for all users..
 DEFAULT_AVATAR = "/media/images/default_avatar.png"
@@ -133,3 +133,5 @@ LOCALES = {
 }
 
 VERSION = '1.0'
+
+ANONYMOUS_PASSWORD = ""

@@ -10,10 +10,20 @@
 			<tr>
 				<td class="entry_comment_info_box">
 					<div class="entry_comment_avatar">
-						<img src="{{ comment.author.get_profile.avatar }}" title="{{ comment.author }} kullanıcısının avatarı">
+						<img src="{{ comment.author.get_profile.avatar }}" title="{{ comment.author.username }} kullanıcısının avatarı">
 					</div>
 					<div class="entry_comment_info">
-						{{ comment.author }}
+						{% ifnotequal comment.author.get_profile.web_site "" %}
+							<a href="{{ comment.author.get_profile.web_site }}" title="{{ comment.author.username }} adlı kullanıcıya ait web sayfasını görüntülemek için tıklayın.." target="_blank">
+						{% endifnotequal %}
+						{% ifequal comment.author.username "anonymous" %}
+								{{ comment.anonymous_author }}
+						{% else %}
+								{{ comment.author.username }}
+						{% endifequal %}
+						{% ifnotequal comment.author.get_profile.web_site "" %}
+							</a>
+						{% endifnotequal %}
 						<div class="entry_comment_datetime">{{ comment.datetime|date:"d.m.Y, H:i" }}</div>
 					</div>
 				</td>
