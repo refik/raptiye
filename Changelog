@@ -1,5 +1,6 @@
 2008-08-18  Alper KANAT  <alperkanat@gmail.com>
 
+	* extra/initials.py: converted the code to a class..
 	* settings-example.py: Reenabled english info e-mail address and added a new
 	setting.. (ANONYMOUS_PASSWORD)
 	* extra/initials.py: does the initial work necessary after the deployment
