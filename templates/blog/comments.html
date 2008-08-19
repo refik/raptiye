@@ -45,10 +45,12 @@
 <div id="entry_comment_write">
 	<div id="entry_comment_write_left">
 		<textarea id="entry_comment_textarea" name="comment_body"></textarea>
+		{% if entry|check_if_user_subscribed:user %}
 		<br>
 		<input id="entry_comment_notification" name="notification" type="checkbox" value="1">
 			Bu yazıdaki değişikliklerden beni haberdar et
 		</input>
+		{% endif %}
 	</div>
 	<div id="entry_comment_write_right">
 		<div id="entry_comment_write_captcha">
@@ -91,15 +93,17 @@
 		toggleForm("#entry_comment_write");
 		$("#sending_comment").slideToggle();
 		$.post(url, query, function(resp) {
+			// show new captcha
+			getNewCaptcha();
 			// show the newly added comment if submission is successfull..
 			if (resp.status == 0) {
 				// inserting the comment to the comment layer..
 				insertComment2Layer($('#entry_comment_textarea').val());
+				// clearing comment form
+				clearCommentForm();
 			}
 			$("#sending_comment").slideToggle();
 			toggleForm("#entry_comment_write");
-			// clearing comment form
-			clearCommentForm();
 			// showing status
 			showStatusMessage(resp);
 		}, "json");

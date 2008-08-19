@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from raptiye.blog.models import Entry
 from raptiye.comments.models import Comments
 from raptiye.extra.captcha import Captcha
+from raptiye.extra.messages import *
 
 def new_captcha(request):
 	# set session variable to avoid attacks
@@ -33,6 +34,8 @@ def new_captcha(request):
 
 @login_required
 def comment_sent(request):
+	from raptiye.extra.mail import send_comment_notification
+	
 	# checking if the user is authenticated
 	if request.user.is_authenticated():
 		# checking POST data
@@ -55,6 +58,8 @@ def comment_sent(request):
 					c.notification = True
 				# saving comment
 				c.save()
+				# now let's mail the people who wants a notification for this entry
+				send_comment_notification(c.entry)
 				return HttpResponse("<response><status>0</status><success>yorumunuz gönderildi..</success></response>")
 			else:
 				return HttpResponse('<response><status>1</status><error>captcha hatalı</error></response>')

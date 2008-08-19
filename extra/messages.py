@@ -50,7 +50,7 @@ Kullanıcı hesabınız başarıyla aktive edildi. Artık raptiye'deki yazılara
 """
 
 ACTIVATION_ERROR = u"""
-<h2>%s</h2>
+<h2>aktivasyon hatası</h2>
 <br>
 %s
 <br><br>

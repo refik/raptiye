@@ -80,7 +80,7 @@ def profile(request, username, template="users/profile.html"):
 					# mailing user for activation
 					site = Site.objects.get(pk=1)
 					send_mail(ACTIVATION_SUBJECT, 
-							ACTIVATION_BODY % (site.name, site.domain, user.username, profile.activation_key, site.name), 
+							ACTIVATION_BODY % (site.name, site.domain, user.username, profile.activation_key), 
 							settings.EMAIL_INFO_ADDRESS_TR, [user.email,], 
 							fail_silently=settings.EMAIL_FAIL_SILENCE,
 							auth_user=settings.EMAIL_HOST_USER, 
@@ -124,7 +124,7 @@ def activation(request, username, key):
 		user = User.objects.get(username=username)
 		if user.is_active:
 			# the user is already active..
-			return get_latest_entries(request, ACTIVATION_ERROR % ("aktivasyon hatası", "Hesabını aktive etmeye çalıştığınız kullanıcı zaten aktif ya da kullandığınız aktivasyon kodu geçersiz.."))
+			return get_latest_entries(request, ACTIVATION_ERROR % u"Hesabını aktive etmeye çalıştığınız kullanıcı zaten aktif ya da kullandığınız aktivasyon kodu geçersiz..")
 		else:
 			# get the profile of user
 			profile = user.get_profile()
@@ -133,10 +133,10 @@ def activation(request, username, key):
 				user.save()
 			else:
 				# keys doesn't match
-				return get_latest_entries(request, ACTIVATION_ERROR % ("aktivasyon hatası", "Kullandığınız aktivasyon kodu geçersiz ya da hatalı.."))
+				return get_latest_entries(request, ACTIVATION_ERROR % u"Kullandığınız aktivasyon kodu geçersiz ya da hatalı..")
 	else:
 		# the user cannot be found..
-		return get_latest_entries(request, ACTIVATION_ERROR % ("aktivasyon hatası", "Hesabını aktive etmeye çalıştığınız kullanıcı adı ya da kullandığınız aktivasyon kodu hatalı.."))
+		return get_latest_entries(request, ACTIVATION_ERROR % u"Hesabını aktive etmeye çalıştığınız kullanıcı adı ya da kullandığınız aktivasyon kodu hatalı..")
 
 	return get_latest_entries(request, ACTIVATION_SUCCESS)
 

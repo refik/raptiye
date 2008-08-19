@@ -2,6 +2,21 @@
 
 from django.conf import settings
 
+COMMENT_NOTIFICATION_SUBJECT = u"yorum bekçisinden haberiniz var!"
+
+COMMENT_NOTIFICATION_MESSAGE = u"""
+Merhaba,
+
+Bu e-posta'yı \"%s\" adlı yazıya yeni bir yorum yazıldığı için alıyorsunuz. İlgili 
+yazıya ait yorumlardan artık haberdar olmak istemiyorsanız profil ayarlarını 
+ziyaret etmenizde fayda var. Yazılanları okumak için aşağıdaki adrese 
+tıklayabilirsiniz.
+
+%s
+
+raptiye yorum bekçisi
+"""
+
 REGISTER_SUBJECT = settings.EMAIL_SUBJECT_PREFIX + u"yeni kullanıcı kaydı"
 REGISTER_BODY = u"""
 Merhaba,
@@ -33,6 +48,15 @@ Söz konusu hesabınız, üç gün içinde aktivasyon gerçekleşmemesi durumund
 olacaktır.
 
 """
+
+def send_comment_notification(entry):
+	from django.core.mail import send_mass_mail
+	
+	messages = [(COMMENT_NOTIFICATION_SUBJECT, COMMENT_NOTIFICATION_MESSAGE % (entry.title, entry.get_full_url()),
+		settings.EMAIL_INFO_ADDRESS_TR, [comment.author.email])
+		for comment in entry.comments.filter(notification=True)]
+	
+	send_mass_mail(messages, settings.EMAIL_FAIL_SILENCE)
 
 def create_activation_key():
 	from random import sample

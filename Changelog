@@ -1,3 +1,17 @@
+2008-08-20  Alper KANAT  <alperkanat@gmail.com>
+
+	* extra/mail.py, comments/views.py: notification e-mails implemented..
+	* comments/admin.py: comments can be filtered due to notification status
+	now..
+	* comments/templatetags/comment_filters.py: if a user has subscribed to a
+	blog entry before, he shouldn't subscribe again.. created a filter for that
+	purpose..
+	* templates/blog/comments.html: uses the above filter.. there are also some
+	usability improvements..
+	* extra/messages.py: some string improvement..
+	* users/views.py: corrected a bug that throws an exception when a mail is
+	sent to the user upon profile activation..
+	
 2008-08-18  Alper KANAT  <alperkanat@gmail.com>
 
 	* extra/initials.py: converted the code to a class..
