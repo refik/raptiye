@@ -11,7 +11,7 @@ feeds = {
 
 urlpatterns = patterns('',
 	# main page
-	(r'^$', 'raptiye.frontpage.views.index'),
+	url(r'^$', 'raptiye.frontpage.views.index', name="homepage"),
 
 	# admin page
 	url(r'^admin/(.*)', admin.site.root, name='admin_page'),

@@ -7,11 +7,22 @@
 {% block body %}
 	{% include "blog/sidebar.html" %}
 	<div id="blog_container">
-		{% ifnotequal sticky "" %}
+		{% if messages %}
 		<div class="blog_sticky_post">
-			{{ sticky|safe }}
+			{% for message in messages %}
+				{{ message|safe }}
+			{% endfor %}
 		</div>
-		{% endifnotequal %}
+		{% endif %}
+		
+		{% if session_messages %}
+			<div class="blog_sticky_post">
+				{% for message in session_messages %}
+					{{ message|safe }}
+				{% endfor %}
+			</div>
+		{% endif %}
+		
 		{% for entry in entry_list %}
 		<div class="entry">
 			<div class="entry_header">

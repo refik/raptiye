@@ -1,0 +1,25 @@
+TODO
+
+--- PROJECT TOOLS ---
+
+	* Trac
+
+
+--- ADMIN ---
+
+	* Every admin page has easy to use controls like delete, link, etc..
+	* It'd be nice if I can change the level attributes with widgets..
+	* Some design and AJAX touch would also be nice..
+
+
+--- OTHER PARTS ---
+
+	* i18n support
+	* Theme support
+	
+
+--- STUPID CODE REMOVALS ---
+
+	* NEVER RENDER AFTER A POST! REDIRECT INSTEAD!
+	* USE SESSION (FOR ANONYMOUS USERS) AND MESSAGE FRAMEWORK
+	OF DJANGO TO SHOW NOTIFICATION MESSAGES TO THE USER!

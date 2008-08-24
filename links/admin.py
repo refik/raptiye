@@ -8,8 +8,7 @@ class LinkCategoriesAdmin(admin.ModelAdmin):
 	search_fields = ['title']
 
 class LinksAdmin(admin.ModelAdmin):
-	# TODO: add tags here..
-	list_display = ('title', 'description', 'go_to_url', 'category', 'window')
+	list_display = ('title', 'description', 'go_to_url', 'get_linked_category', 'get_tags_for_link', 'window')
 	list_filter = ('category', 'window')
 	search_fields = ['title', 'category__title', 'description', 'tags__name']
 

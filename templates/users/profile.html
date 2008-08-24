@@ -26,6 +26,13 @@
 	</div>
 
 	<div id="blog_container">
+		{% if messages %}
+		<div class="blog_sticky_post">
+			{% for message in messages %}
+				{{ message|safe }}
+			{% endfor %}
+		</div>
+		{% endif %}
 		<form id="login_form" name="login_form" method="post">
 			<table id="login_form_inputs">
 				<tr>
@@ -119,7 +126,7 @@
 			// requesting the gravatar url
 			$.post("{% url gravatar_request request.user.username %}", {"email": $("#gravatar_email").val()}, function(resp) {
 				$("#profile_avatar img").attr("src", resp);
-				$("#id_avatar").val(resp);
+				$("#avatar").val(resp);
 				iBox.hide();
 			});
 		});

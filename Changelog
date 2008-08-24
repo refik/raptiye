@@ -1,3 +1,19 @@
+2008-08-24  Alper KANAT  <alperkanat@gmail.com>
+
+	* links/admin.py, links/models.py: Admin page of links now have its
+	categories linked for filtering..
+	* settings-example.py, REQUIREMENTS, blog/views.py,
+	templates/users/profile.html, templates/blog/homepage.html, users/views.py:
+	Messages and Session Messages are being used instead of the notification
+	implementation I've written before..
+	* templates/users/profile.html: Corrected a little bug in it..
+	* templates/blog/comments.html: Corrected a little bug in it..
+	* users/models.py, TODO: Added a new job before release since this is also a
+	major enhancement..
+	* users/forms.py: custom validation for name and surname fields
+	implemented.. All strings are encoded to unicode btw..
+	* urls.py: Added url pattern name..
+	
 2008-08-20  Alper KANAT  <alperkanat@gmail.com>
 
 	* extra/mail.py, comments/views.py: notification e-mails implemented..

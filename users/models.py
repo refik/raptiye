@@ -7,6 +7,7 @@ class UserProfile(models.Model):
 	avatar = models.URLField(u"Avatar", default=settings.DEFAULT_AVATAR)
 	web_site = models.URLField(u"Web Site", blank=True)
 	activation_key = models.CharField(u"Aktivasyon Kodu", max_length=100, blank=True)
+	last_modified = models.DateTimeField(u"Last Modified Date", auto_now=True)
 
 	def __unicode__(self):
 		return "User Profile of %s" % self.user.username

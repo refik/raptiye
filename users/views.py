@@ -1,10 +1,12 @@
 #-*- encoding: utf-8 -*-
 
+from contrib.session_messages import create_message
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -26,6 +28,7 @@ def gravatar(request, username):
 	return HttpResponse(get_gravatar(email, "http://" + site.domain + settings.DEFAULT_AVATAR))
 
 def notification_remove(request, username):
+	# TODO: try to replace the below HttpResponse lines.. :)
 	# will return json object if the operation is successfull
 	import simplejson
 
@@ -95,21 +98,23 @@ def profile(request, username, template="users/profile.html"):
 				profile.save()
 				if logoutUser:
 					logout(request)
-				# returning back to the profile page with notification
-				return get_latest_entries(request, PROFILE_SUCCESS)
+				# leaving message to the user
+				user.message_set.create(message=PROFILE_SUCCESS)
+				# redirecting back to the profile page
+				return HttpResponseRedirect(reverse("profile_page", args=[user.username]))
 			else:
 				return render_to_response(template, extra_context, context_instance=RequestContext(request))
 		else:
-			user_info = {
-				"username": user.username,
-				"password": user.password[:10],
-				"name": user.first_name,
-				"surname": user.last_name,
-				"email": user.email,
-				"avatar": "" if user.get_profile().avatar == settings.DEFAULT_AVATAR else user.get_profile().avatar,
-				"website": user.get_profile().web_site,
-			}
-			form = ProfileForm(user_info)
+			form = ProfileForm(initial={
+					"username": user.username,
+					"password": user.password[:10],
+					"name": user.first_name,
+					"surname": user.last_name,
+					"email": user.email,
+					"avatar": "" if user.get_profile().avatar == settings.DEFAULT_AVATAR else user.get_profile().avatar,
+					"website": user.get_profile().web_site,
+				},
+				auto_id=True)
 			extra_context = {
 				"form" : form,
 				"latest_comments": user.comments.order_by("-datetime")[:5],
@@ -126,6 +131,7 @@ def activation(request, username, key):
 			# the user is already active..
 			return get_latest_entries(request, ACTIVATION_ERROR % u"Hesabını aktive etmeye çalıştığınız kullanıcı zaten aktif ya da kullandığınız aktivasyon kodu geçersiz..")
 		else:
+			# TODO: check if activation code is valid or not due to the date..
 			# get the profile of user
 			profile = user.get_profile()
 			if profile.activation_key == key:
@@ -189,8 +195,10 @@ def register(request, template="users/registration.html"):
 									fail_silently=settings.EMAIL_FAIL_SILENCE,
 									auth_user=settings.EMAIL_HOST_USER, 
 									auth_password=settings.EMAIL_HOST_PASSWORD)
-							# redirecting the user to success page
-							return get_latest_entries(request, REG_SUCCESS)
+							# leaving the "anonymous" user a new message..
+							create_message(request, REG_SUCCESS)
+							# redirecting the user to homepage
+							return HttpResponseRedirect(reverse("blog"))
 						except IntegrityError:
 							# there's already a user with that name
 							# normally this part shouldn't be invoked
@@ -221,7 +229,7 @@ def user_logout(request):
 	if request.GET.has_key('next'):
 		return HttpResponseRedirect(request.GET["next"])
 	else:
-		return HttpResponseRedirect("/")
+		return HttpResponseRedirect(reverse("homepage"))
 
 def user_login(request, template="users/login.html"):
 	if request.method == "POST":
@@ -244,7 +252,7 @@ def user_login(request, template="users/login.html"):
 					# to where it has originally came from..
 					if request.GET.has_key('next'):
 						return HttpResponseRedirect(request.GET["next"])
-					return HttpResponseRedirect('/')
+					return HttpResponseRedirect(reverse("homepage"))
 				else:
 					# account disabled, redirecting to login page
 					extra_context["error"] = u"Kullanıcı hesabınızı aktifleştirmeden kullanamazsınız."

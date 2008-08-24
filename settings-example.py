@@ -86,6 +86,9 @@ INSTALLED_APPS = (
 	'raptiye.tags',
 	'raptiye.users',
 	'raptiye.links',
+	# the following app(s) aren't mandatory and will be removed
+	# when django has the functionality
+	'contrib.session_messages',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -93,7 +96,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.core.context_processors.debug",
 	"django.core.context_processors.i18n",
 	"django.core.context_processors.media",
-	"django.core.context_processors.request"
+	"django.core.context_processors.request",
+	"contrib.session_messages.context_processors.session_messages",
 )
 
 ADMIN_LIST_PER_PAGE = 20

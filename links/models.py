@@ -37,6 +37,16 @@ class Links(models.Model):
 	go_to_url.allow_tags = True
 	go_to_url.short_description = u'URL'
 	
+	def get_linked_category(self):
+		return "<a href='?q=%s' title='click here to filter the links by this category..'>%s</a>" % (self.category, self.category)
+	get_linked_category.allow_tags = True
+	get_linked_category.short_description = u"Category"
+	
+	def get_tags_for_link(self):
+		return ", ".join("<a href='?q=%s' title='click here to filter the links by this tag..'>%s</a>" % (tag.name, tag.name) for tag in self.tags.all())
+	get_tags_for_link.allow_tags = True
+	get_tags_for_link.short_description = u"Tags of Link"
+	
 	class Meta:
 		verbose_name = u'Link'
 		verbose_name_plural = u'Links'

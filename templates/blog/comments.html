@@ -10,7 +10,7 @@
 			<tr>
 				<td class="entry_comment_info_box">
 					<div class="entry_comment_avatar">
-						<img src="{{ comment.author.get_profile.avatar }}" title="{{ comment.author.username }} kullanıcısının avatarı">
+						<img src="{{ comment.author.get_profile.avatar }}" title="{{ comment.author.username }} kullanıcısının avatarı" width="50" height="50">
 					</div>
 					<div class="entry_comment_info">
 						{% ifnotequal comment.author.get_profile.web_site "" %}
@@ -85,7 +85,6 @@
 
 <script language="javascript">
 	$("#entry_comment_submit").click(function() {
-		// TODO: controlling the form fields
 		var entry_id = {{ entry.id }};
 		var url = "{% url comment_sent %}";
 		var captcha_id = $("#captcha_image").attr('src').split('/')[3].split('.')[0];
@@ -136,7 +135,9 @@
 						$('<div>').addClass('entry_comment_avatar').append(
 							$('<img>').attr({
 								'src': '{{ request.user.get_profile.avatar|safe }}',
-								'title': '{{ request.user.username }} kullanıcısının avatarı'
+								'title': '{{ request.user.username }} kullanıcısının avatarı',
+								'width': '50',
+								'height': '50'
 							})
 						)
 					).append(
