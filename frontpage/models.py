@@ -47,7 +47,7 @@ class Links(models.Model):
 	only 4-5 links is adviced..!
 	"""
 	page = models.ForeignKey(FrontPage, related_name='links')
-	title = models.CharField(u"Link Name", core=True, max_length=30)
+	title = models.CharField(u"Link Name", max_length=30)
 	# url is defined as CharField since it doesn't accept urls like /blog
 	url = models.CharField(u"URL", help_text="Can be relative link like /blog", max_length=20)
 	image = models.ImageField(u"Image", upload_to="images/upload")

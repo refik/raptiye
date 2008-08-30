@@ -1,3 +1,22 @@
+2008-08-30  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/poll.png, polls/, templates/blog/poll.html: Adding a new
+	application for creating polls on raptiye..
+	* media/css/style.css, templates/blog/poll.html, templates/blog/links.html,
+	templates/blog/contact.html: Generalized the CSS file for some classes and
+	ids..
+	* extra/wordpress.py: Adding the importer of Wordpress database..
+	* REQUIREMENTS: python-simplejson is no longer a dependency since Django has
+	it bundled in the package..
+	* extra/messages.py, users/views.py: Removed some hardcoded messages and
+	moved them into message.py
+	* comments/models.py: added field for author's ip for each comment.. i'm not
+	implementing it for a while..
+	* frontpage/models.py: core argument inside the constructor of a model is
+	obsolote in Django, so I removed it..
+	* templates/404.html: Removed the terms application for now.. Will add it
+	maybe some day..
+
 2008-08-24  Alper KANAT  <alperkanat@gmail.com>
 
 	* links/admin.py, links/models.py: Admin page of links now have its

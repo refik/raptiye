@@ -57,6 +57,10 @@ ACTIVATION_ERROR = u"""
 İlginiz için teşekkürler..!
 """
 
+ALREADY_ACTIVE = u"Hesabını aktive etmeye çalıştığınız kullanıcı zaten aktif ya da kullandığınız aktivasyon kodu geçersiz.."
+ACTIVE_NONUSER = u"Hesabını aktive etmeye çalıştığınız kullanıcı adı ya da kullandığınız aktivasyon kodu hatalı.."
+INVALID_ACTIVATION_CODE = u"Kullandığınız aktivasyon kodu geçersiz ya da hatalı.."
+
 TAGS_SUCCESS = u"%s ile etiketlenmiş yazılar (%d) görüntüleniyor.."
 
 TAGS_ERROR = u"""

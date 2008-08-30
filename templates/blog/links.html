@@ -8,7 +8,7 @@
 			{{ category.title }}
 		</div>
 		<div class="widget_body">
-			<div class="link_box">
+			<div class="widget_on_left">
 				{% for link in category.links.all %}
 					{% if link.window %}
 						<a href="{{ link.url }}" title="{{ link.description }}" class="link" target="_blank">

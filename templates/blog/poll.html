@@ -1,0 +1,35 @@
+{% if poll %}
+<div class="widget">
+	<div class="widget_box">
+		<div class="widget_title">
+			<img src="/media/images/poll.png" align="absmiddle">
+			Anket
+		</div>
+		<div class="widget_body">
+			<div class="widget_on_left">
+				<strong>&raquo;</strong> {{ poll.question }}
+				<div class="poll_choices">
+					{% for choice in poll.choices.all %}
+						<li><strong>&raquo;</strong> {{ choice.choice }}</li>
+					{% endfor %}
+				</div>
+				<div id="loading" style="display: none; margin-top: 15px; text-align: center;">
+					<img src="/media/images/loader.gif" align="absmiddle" style="margin-right: 5px">
+					Sonuçlar Alınıyor...
+				</div>
+				<div id="poll_submit_button">
+					<button id="poll_submit">gönder</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+<script language="javascript">
+	$("#poll_submit").click(function() {
+		$(".poll_choices").slideToggle()
+		$("#poll_submit_button").slideToggle()
+		$("#loading").slideToggle()
+	});
+</script>

@@ -532,18 +532,28 @@ input[type="text"]:focus, input[type="password"]:focus {
 	font-size: 10px;
 }
 
-#contact_box {
-	margin-left: 15px;
-	text-align: left;
-}
-
-#user_box {
-	margin-left: 15px;
-	text-align: left;
-}
-
 #support_badges a {
 	text-decoration: none;
+}
+
+.widget_on_left {
+	margin-left: 15px;
+	text-align: left;
+}
+
+.poll_choices {
+	margin-top: 15px;
+	margin-left: 10px;
+}
+
+.poll_choices li {
+	list-style: none;
+	margin-bottom: 2px;
+}
+
+#poll_submit {
+	display: block;
+	margin: 15px auto 0 auto;
 }
 
 #centered_body_container {
@@ -727,11 +737,6 @@ input[type="text"]:focus, input[type="password"]:focus {
 
 .today {
 	background: transparent url(/media/images/calendar_today.png) top right no-repeat;
-}
-
-.link_box {
-	text-align: left;
-	margin-left: 15px;
 }
 
 .aligncenter {

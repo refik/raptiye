@@ -1,4 +1,4 @@
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -86,6 +86,7 @@ INSTALLED_APPS = (
 	'raptiye.tags',
 	'raptiye.users',
 	'raptiye.links',
+	'raptiye.polls',
 	# the following app(s) aren't mandatory and will be removed
 	# when django has the functionality
 	'contrib.session_messages',

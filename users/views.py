@@ -28,9 +28,8 @@ def gravatar(request, username):
 	return HttpResponse(get_gravatar(email, "http://" + site.domain + settings.DEFAULT_AVATAR))
 
 def notification_remove(request, username):
-	# TODO: try to replace the below HttpResponse lines.. :)
 	# will return json object if the operation is successfull
-	import simplejson
+	from django.utils import simplejson
 
 	if request.method == "GET" and request.GET.has_key("id"):
 		id = request.GET["id"]
@@ -38,17 +37,14 @@ def notification_remove(request, username):
 			comment = Comments.objects.get(id=id)
 			comment.notification = False
 			comment.save()
-			try:
-				user = User.objects.get(username=username)
-				watched_comments = user.comments.order_by("-datetime").filter(notification=True)
-				list = []
-				for comment in watched_comments:
-					list.append({"id": comment.id, "title": comment.entry.title, "url": comment.entry.get_url()})
-				# returning json rep. of list
-				return HttpResponse(simplejson.dumps(list))
-			except User.DoesNotExist:
-				return HttpResponse("<resp><status>1</status></resp>")
-		except Comments.DoesNotExist:
+			user = User.objects.get(username=username)
+			watched_comments = user.comments.order_by("-datetime").filter(notification=True)
+			list = []
+			for comment in watched_comments:
+				list.append({"id": comment.id, "title": comment.entry.title, "url": comment.entry.get_url()})
+			# returning json rep. of list
+			return HttpResponse(simplejson.dumps(list))
+		except:
 			return HttpResponse("<resp><status>1</status></resp>")
 	else:
 		return HttpResponse("<resp><status>1</status></resp>")
@@ -125,24 +121,31 @@ def profile(request, username, template="users/profile.html"):
 		return get_latest_entries(request, PROFILE_ACCOUNT_ERROR)
 
 def activation(request, username, key):
+	from datetime import datetime
+	
 	if User.objects.filter(username=username).count() == 1:
 		user = User.objects.get(username=username)
 		if user.is_active:
 			# the user is already active..
-			return get_latest_entries(request, ACTIVATION_ERROR % u"Hesabını aktive etmeye çalıştığınız kullanıcı zaten aktif ya da kullandığınız aktivasyon kodu geçersiz..")
+			return get_latest_entries(request, ACTIVATION_ERROR % ALREADY_ACTIVE)
 		else:
-			# TODO: check if activation code is valid or not due to the date..
 			# get the profile of user
 			profile = user.get_profile()
+			delta = datetime.now() - profile.last_modified
+			
+			if delta.days > 3:
+				# 3 days passed.. don't activate the user..
+				return get_latest_entries(request, ACTIVATION_ERROR % ACTIVE_NONUSER)
+				
 			if profile.activation_key == key:
 				user.is_active = True
 				user.save()
 			else:
 				# keys doesn't match
-				return get_latest_entries(request, ACTIVATION_ERROR % u"Kullandığınız aktivasyon kodu geçersiz ya da hatalı..")
+				return get_latest_entries(request, ACTIVATION_ERROR % INVALID_ACTIVATION_CODE)
 	else:
 		# the user cannot be found..
-		return get_latest_entries(request, ACTIVATION_ERROR % u"Hesabını aktive etmeye çalıştığınız kullanıcı adı ya da kullandığınız aktivasyon kodu hatalı..")
+		return get_latest_entries(request, ACTIVATION_ERROR % ACTIVE_NONUSER)
 
 	return get_latest_entries(request, ACTIVATION_SUCCESS)
 
