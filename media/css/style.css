@@ -29,6 +29,28 @@ input[type="text"]:focus, input[type="password"]:focus {
 	padding: 1px;
 }
 
+a {
+	color: #46494D;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+img {
+	border: none;
+}
+
+blockquote {
+	margin-top: 15px;
+	padding-left: 30px;
+	background-color: #f0f0f0;
+	border: 1px dashed #d9d9d9;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 #karalama {
 	background: transparent url('/media/images/karalama.png') left top no-repeat;
 }
@@ -287,13 +309,22 @@ input[type="text"]:focus, input[type="password"]:focus {
 .entry_tags {
 	float: left;
 	width: 100%;
-	font-size: 14px;
+	font-size: 12px;
 	color: gray;
+}
+
+.entry_tags a {
+	margin-right: 7px;
 }
 
 .entry_body {
 	clear: both;
 	padding-top: 20px;
+}
+
+.entry_body ol {
+	padding-left: 20px;
+	list-style-position: inside;
 }
 
 .entry_footer {

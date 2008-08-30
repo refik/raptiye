@@ -11,5 +11,5 @@ def poll():
 	from raptiye.polls.models import Poll
 	
 	return {
-		'poll': Poll.objects.latest(),
+		'poll': None if Poll.objects.count() == 0 else Poll.objects.latest(),
 	}

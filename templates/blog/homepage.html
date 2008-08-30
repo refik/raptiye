@@ -9,17 +9,13 @@
 	<div id="blog_container">
 		{% if messages %}
 		<div class="blog_sticky_post">
-			{% for message in messages %}
-				{{ message|safe }}
-			{% endfor %}
+			{{ messages|safe }}
 		</div>
 		{% endif %}
 		
 		{% if session_messages %}
 			<div class="blog_sticky_post">
-				{% for message in session_messages %}
-					{{ message|safe }}
-				{% endfor %}
+				{{ session_messages|safe }}
 			</div>
 		{% endif %}
 		
@@ -48,7 +44,7 @@
 			</div>
 			<div class="entry_body">
 				<p align="justify">
-					{{ entry.content|striptags|linebreaksbr|truncatewords_html:150 }}
+					{{ entry.content|safe|linebreaksbr|truncatewords_html:150 }}
 					<br><br>
 					<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
 						Yazının devamını okumak için tıklayın..

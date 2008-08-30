@@ -3,13 +3,15 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from raptiye.blog.views import get_latest_entries_list
+from raptiye.frontpage.models import FrontPage
 
 def index(request, template_name='frontpage/homepage.html'):
+	fp = FrontPage.objects.get(pk=1)
 	# getting latest blog entries (with limit in settings)
 	entries = get_latest_entries_list()
 	# put them together into a dict
 	dict = {
-		'entries': entries
+		'entries': entries[:fp.rss_limit]
 	}
 	# now we have everything.. let's show it..
 	return render_to_response(template_name, dict, context_instance=RequestContext(request))

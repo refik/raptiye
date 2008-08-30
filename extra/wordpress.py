@@ -75,24 +75,29 @@ dc.execute(query)
 result = dc.fetchall()
 # Creating tag objects
 for row in result:
-	row[0]
+	Tag.objects.create(name=row[0])
 
-# # Getting blog entries with tags related..
-# query = "select %s from %s where post_status='publish'" % (", ".join(posts["fields"]), posts["table"])
-# dc.execute(query)
-# result = dc.fetchall()
-# # Creating entry objects
-# for row in result:
-# 	e = Entry()
-# 	e.id = row[0]
-# 	e.datetime = row[1]
-# 	e.content = row[2]
-# 	e.title = row[3]
-# 	e.published = True
-# 	e.comments_enabled = row[4] == "open" ? True : False
-# 	e.slug = slugify(e.title)
-# 	# getting all tags for entry
-# 	subquery = """select terms.name 
-# 		from wp_terms terms, wp_term_relationships relations, wp_term_taxonomy taxonomy 
-# 		where relations.object_id=%d and relations.term_taxonomy_id=taxonomy.term_taxonomy_id 
-# 			and terms.term_id=taxonomy.term_id""" % e.id
+# Getting blog entries with tags related..
+query = "select %s from %s where post_status='publish'" % (", ".join(posts["fields"]), posts["table"])
+dc.execute(query)
+result = dc.fetchall()
+# Creating entry objects
+for row in result:
+	e = Entry()
+	e.id = row[0]
+	e.datetime = row[1]
+	e.content = row[2]
+	e.title = row[3]
+	e.published = True
+	e.comments_enabled = True if row[4] == "open" else False
+	e.slug = slugify(e.title)
+	# getting all tags for entry
+	subquery = """select terms.name 
+		from wp_terms terms, wp_term_relationships relations, wp_term_taxonomy taxonomy 
+		where relations.object_id=%d and relations.term_taxonomy_id=taxonomy.term_taxonomy_id 
+			and terms.term_id=taxonomy.term_id""" % e.id
+	dc.execute(subquery)
+	tags_of_entry = dc.fetchall()
+	for tag in tags_of_entry:
+		e.tags.add(Tag.objects.get(name=tag[0]))
+	e.save()

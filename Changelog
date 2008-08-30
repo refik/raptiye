@@ -1,3 +1,22 @@
+2008-08-31  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/twitter.png, templates/blog/contact.html: added twitter page
+	link..
+	* media/css/style.css: fixed many css issues I saw after getting the real
+	data from wordpress blog..
+	* extra/tag_cloud.py: Tag cloud is correctly calculated now.. Should try
+	with little numbers of tags too..
+	* blog/urls.py: URL pattern resolving now works for more tags that have / or
+	. characters in it..
+	* frontpage/views.py: Frontpage now shows correct number of entries in the
+	RSS feed section..
+	* polls/templatetags/poll_filters.py: Fixed a bug that occurs when there's
+	no poll available..
+	* templates/blog/homepage.html: There'll always be just 1 message available
+	so changed the notification that way.. Also fixed a bug that prevents HTML
+	tags being rendered..
+	* templates/blog/widgets.html: corrected a typo..
+	
 2008-08-30  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/images/poll.png, polls/, templates/blog/poll.html: Adding a new
