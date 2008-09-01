@@ -1,5 +1,7 @@
 2008-09-01  Alper KANAT  <alperkanat@gmail.com>
 
+	* templates/blog/links.html, templates/blog/comments.html: Fixed some layout
+	problems..
 	* media/css/style.css, polls/views.py, polls/templatetags/poll_filters.py,
 	polls/urls.py, templates/blog/poll.html, templates/blog/sidebar.html: polls
 	application is now complete..
