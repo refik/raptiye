@@ -1,3 +1,7 @@
+{% load poll_filters %}
+
+{% poll %}
+
 {% if poll %}
 <div class="widget">
 	<div class="widget_box">
@@ -8,18 +12,27 @@
 		<div class="widget_body">
 			<div class="widget_on_left">
 				<strong>&raquo;</strong> {{ poll.question }}
-				<div class="poll_choices">
-					{% for choice in poll.choices.all %}
-						<li><strong>&raquo;</strong> {{ choice.choice }}</li>
-					{% endfor %}
-				</div>
 				<div id="loading" style="display: none; margin-top: 15px; text-align: center;">
 					<img src="/media/images/loader.gif" align="absmiddle" style="margin-right: 5px">
 					Sonuçlar Alınıyor...
 				</div>
+				{% if request.session.poll_submitted %}
+				<div id="poll_results" style="display: none;"></div>
+				{% else %}
+				<div class="poll_choices">
+					<input name="poll" type="hidden" value="{{ poll.id }}" />
+					{% for choice in poll.choices.all %}
+						<li>
+							<input name="poll_answer" type="radio" value="{{ choice.id }}" style="margin-bottom: 5px" />
+							{{ choice.choice }}
+						</li>
+					{% endfor %}
+				</div>
+				<div id="poll_results" style="display: none;"></div>
 				<div id="poll_submit_button">
 					<button id="poll_submit">gönder</button>
 				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
@@ -27,9 +40,86 @@
 {% endif %}
 
 <script language="javascript">
-	$("#poll_submit").click(function() {
-		$(".poll_choices").slideToggle()
-		$("#poll_submit_button").slideToggle()
+	var layer = $("#poll_results")
+	
+	function calculateGraphWidth(vote, data) {
+		var vote_sum = 0
+	
+		for (i=0; i<data.length; i++)
+			vote_sum += data[i].votes
+	
+		return vote*55/vote_sum
+	}
+
+	function drawGraph(data) {
+		var graph = $("<table>").attr("width", "180px")
+		for (var i in data) {
+			graph.append($("<tr>").append(
+				$("<td>").html("<strong>&raquo;</strong> " + data[i].name + ": ").attr("width", "100px")
+			).append(
+				$("<td>").attr("width", "5px")
+			).append(
+				$("<td>").append(
+					$("<div>").css({
+						"background-color": "#f0f0f0",
+						"border": "1px solid #d9d9d9",
+						"width": calculateGraphWidth(data[i].votes, data),
+						"height": "12px"
+					}).html("&nbsp;")
+				)
+			).append(
+				$("<td>").css({
+					"width": "20px",
+					"text-align": "right"
+				}).text("(" + data[i].votes + ")")
+			))
+		}
+		graph.appendTo(layer)
 		$("#loading").slideToggle()
+		layer.slideToggle()
+	}
+	
+	{% if request.session.poll_submitted %}
+	var query = "poll={{ poll.id }}"
+	var url = "{% url polls %}"
+	$.post(url, query, function(resp) {
+		$(".poll_choices").slideToggle()
+		$("#loading").slideToggle()
+		if (!resp.status) {
+			drawGraph(resp.result)
+		} else {
+			$("<div>").css({
+				"padding": "5px",
+				"text-align": "center",
+				"background-color": "#f0f0f0",
+				"border": "1px solid #d9d9d9"
+			}).text(resp.error).appendTo(layer)
+			$("#loading").slideToggle()
+			layer.slideToggle()
+		}
+	}, "json")
+	{% else %}
+	$("#poll_submit").click(function() {
+		// sending the answers
+		var query = $(".poll_choices :input").serialize()
+		var url = "{% url polls %}"
+		$.post(url, query, function(resp) {
+			$(".poll_choices").slideToggle()
+			$("#poll_submit_button").slideToggle()
+			$("#loading").slideToggle()
+			if (!resp.status) {
+				drawGraph(resp.result)
+			} else {
+				$("<div>").css({
+					"padding": "5px",
+					"text-align": "center",
+					"background-color": "#f0f0f0",
+					"border": "1px solid #d9d9d9"
+				}).text(resp.error).appendTo(layer)
+				$("#loading").slideToggle()
+				layer.slideToggle()
+			}
+		}, "json")
 	});
+	{% endif %}
 </script>

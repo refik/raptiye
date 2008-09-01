@@ -582,6 +582,10 @@ blockquote {
 	margin-bottom: 2px;
 }
 
+#poll_results {
+	margin-top: 15px;
+}
+
 #poll_submit {
 	display: block;
 	margin: 15px auto 0 auto;

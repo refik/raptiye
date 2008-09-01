@@ -49,9 +49,12 @@ tags = {"table": "wp_terms", "fields": ("name",)}
 # import starts after this point..
 
 import sys
+from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-from raptiye.tags.models import Tag
 from raptiye.blog.models import Entry
+from raptiye.comments.models import Comments
+from raptiye.links.models import *
+from raptiye.tags.models import Tag
 
 try:
 	import MySQLdb
@@ -60,28 +63,43 @@ except ImportError:
 	sys.exit(1)
 
 # trying to connect to the development MySQL server
+print "Connecting to the MySQL database...",
 try:
 	devs = MySQLdb.connect(host=DEV_SERVER_HOST, port=DEV_SERVER_PORT, user=DEV_SERVER_USERNAME, passwd=DEV_SERVER_PASSWD, db=DEV_SERVER_DBNAME, charset=DEV_SERVER_CHARSET)
 except MySQLdb.OperationalError:
 	print "Cannot connect to development MySQL server.."
+	sys.exit(1)
+print "done!"
+
+try:
+	anonymous = User.objects.get(username="anonymous")
+except User.DoesNotExist:
+	print "Anonymous user doesn't exist. Make sure you've ran Initials() before.."
 	sys.exit(1)
 
 # creating cursor for development server
 dc = devs.cursor()
 
 # Getting tags..
+print "Getting tags...",
 query = "select %s from %s" % (", ".join(tags["fields"]), tags["table"])
 dc.execute(query)
 result = dc.fetchall()
+print "done!"
+print "Creating tag objects...",
 # Creating tag objects
 for row in result:
 	Tag.objects.create(name=row[0])
+print "done!"
 
 # Getting blog entries with tags related..
+print "Getting blog entries with tags related...",
 query = "select %s from %s where post_status='publish'" % (", ".join(posts["fields"]), posts["table"])
 dc.execute(query)
 result = dc.fetchall()
+print "done!"
 # Creating entry objects
+print "Creating blog entries (with tags and comments) and this process may take long...",
 for row in result:
 	e = Entry()
 	e.id = row[0]
@@ -92,12 +110,58 @@ for row in result:
 	e.comments_enabled = True if row[4] == "open" else False
 	e.slug = slugify(e.title)
 	# getting all tags for entry
-	subquery = """select terms.name 
+	tags_subquery = """select terms.name 
 		from wp_terms terms, wp_term_relationships relations, wp_term_taxonomy taxonomy 
 		where relations.object_id=%d and relations.term_taxonomy_id=taxonomy.term_taxonomy_id 
 			and terms.term_id=taxonomy.term_id""" % e.id
-	dc.execute(subquery)
+	dc.execute(tags_subquery)
 	tags_of_entry = dc.fetchall()
+	# associating tags with entry
 	for tag in tags_of_entry:
 		e.tags.add(Tag.objects.get(name=tag[0]))
 	e.save()
+	# getting all comments for entry
+	comments_subquery = "select %s from %s where comment_post_ID=%d and comment_approved != 'spam'" % (", ".join(comments["fields"]), comments["table"], e.id)
+	dc.execute(comments_subquery)
+	comments_of_entry = dc.fetchall()
+	# creating and associating comments with entry
+	# all comments belong to anonymous user.. so please make
+	# sure that you've ran Initials() before!
+	if comments_of_entry.__len__() > 0:
+		for comment in comments_of_entry:
+			c = Comments()
+			c.entry = e
+			c.author = anonymous
+			c.anonymous_author = comment[0]
+			c.anonymous_author_email = comment[1]
+			c.anonymous_author_web_site = comment[2]
+			c.datetime = comment[3]
+			c.content = comment[4]
+			c.published = True if comment[5] == "1" else False
+			c.save()
+print "done!"
+
+# Creating link categories (hardcode)
+print "Creating link categories (hardcode)...",
+LinkCategories.objects.create(title=u"Arkadaşlar", image=u"/media/images/friends.png", level=1)
+LinkCategories.objects.create(title=u"Girilesiceler", image=u"/media/images/links.png", level=2)
+
+# Getting links
+print "Getting links...",
+query = "select %s from %s" % (", ".join(links["fields"]), links["table"])
+dc.execute(query)
+result = dc.fetchall()
+print "done!"
+print "Creating link objects...",
+for row in result:
+	link = Links()
+	link.url = row[0]
+	link.title = row[1]
+	link.window = row[2]
+	link.category = LinkCategories.objects.get(title=links_dict[row[3].__str__()])
+	link.description = row[4]
+	link.save()
+print "done!"
+
+print "Everything is successfull.. :) You're on your lucky day.. Exiting.."
+sys.exit(0)

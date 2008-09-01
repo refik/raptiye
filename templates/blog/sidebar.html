@@ -19,9 +19,7 @@
 			</div>
 		</div>
 	</div>
-	{# gets the latest poll available and add it to the context #}
-	{% load poll_filters %}
-	{% poll %}
+	{% include "blog/poll.html" %}
 	<div class="widget">
 		<div class="widget_box">
 			<div class="widget_title">

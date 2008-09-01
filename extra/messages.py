@@ -68,3 +68,5 @@ TAGS_ERROR = u"""
 <br>
 %s
 """
+
+POLL_ERROR = u"Anket oylamasında hata oluştu! Lütfen daha sonra tekrar deneyin.."

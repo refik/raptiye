@@ -4,12 +4,19 @@ from django import template
 
 register = template.Library()
 
-@register.inclusion_tag('blog/poll.html')
-def poll():
-	'Adds all link categories and their links to the context..'
-	
+@register.tag
+def poll(parser, token):
 	from raptiye.polls.models import Poll
 	
-	return {
-		'poll': None if Poll.objects.count() == 0 else Poll.objects.latest(),
-	}
+	if Poll.objects.count():
+		return PollNode(Poll.objects.latest())
+	else:
+		return PollNode(None)
+
+class PollNode(template.Node):
+	def __init__(self, poll):
+		self.poll = poll
+
+	def render(self, context):
+		context["poll"] = self.poll
+		return ""

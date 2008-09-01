@@ -1,3 +1,17 @@
+2008-09-01  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, polls/views.py, polls/templatetags/poll_filters.py,
+	polls/urls.py, templates/blog/poll.html, templates/blog/sidebar.html: polls
+	application is now complete..
+	* settings-example.py: changed the release scheme.. will release raptiye
+	with a beta status..
+	* extra/wordpress.py: importer's daily wtf code is now complete..
+	* extra/messages.py: added a new message for polls app..
+	* comments/views.py: comments can save the datetime now.. was saving the
+	datetime of creation before.. i did this because of older comments in
+	wordpress database..
+	* comments/models.py: author's ip can be empty or null..
+	
 2008-08-31  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/images/twitter.png, templates/blog/contact.html: added twitter page

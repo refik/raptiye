@@ -50,6 +50,7 @@ def comment_sent(request):
 				c.entry = Entry.objects.get(id=request.POST["entry_id"])
 				c.author = request.user
 				c.content = request.POST["comment_body"]
+				c.datetime = datetime.now()
 				# checking if the user has a published comment before
 				if request.user.comments.filter(published=True).count() > 0:
 					c.published = True
