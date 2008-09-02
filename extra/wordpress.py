@@ -157,7 +157,7 @@ for row in result:
 	link = Links()
 	link.url = row[0]
 	link.title = row[1]
-	link.window = row[2]
+	link.window = True if row[2] == '_blank' else False
 	link.category = LinkCategories.objects.get(title=links_dict[row[3].__str__()])
 	link.description = row[4]
 	link.save()

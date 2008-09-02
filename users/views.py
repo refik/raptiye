@@ -51,7 +51,7 @@ def notification_remove(request, username):
 	return HttpResponse("<resp><status>0</status></resp>")
 
 def profile(request, username, template="users/profile.html"):
-	if request.user.is_authenticated and request.user.username == username:
+	if request.user.is_authenticated() and request.user.username == username:
 		# sometimes we need to log the user out
 		logoutUser = False
 		# getting the user information
@@ -118,7 +118,10 @@ def profile(request, username, template="users/profile.html"):
 			}
 		return render_to_response(template, extra_context, context_instance=RequestContext(request))
 	else:
-		return get_latest_entries(request, PROFILE_ACCOUNT_ERROR)
+		# leaving the "anonymous" user a new message..
+		create_message(request, PROFILE_ACCOUNT_ERROR)
+		# redirecting the user to homepage
+		return HttpResponseRedirect(reverse("blog"))
 
 def activation(request, username, key):
 	from datetime import datetime

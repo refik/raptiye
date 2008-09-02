@@ -1,3 +1,8 @@
+2008-09-02  Alper KANAT  <alperkanat@gmail.com>
+
+	* extra/wordpress.py: Fixed some importer bug..
+	* users/views.py: Fixed a bug that I discovered by chance..
+	
 2008-09-01  Alper KANAT  <alperkanat@gmail.com>
 
 	* templates/blog/links.html, templates/blog/comments.html: Fixed some layout
