@@ -28,7 +28,7 @@ function toggleForm(layer) {
  */
 function getNewCaptcha() {
 	$.get("/comment/new_captcha/", "", function(resp) {
-		if (resp.status == "1") {
+		if (resp.status) {
 			showStatusMessage(resp);
 		} else {
 			// replace the captcha

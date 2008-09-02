@@ -122,6 +122,12 @@
 	</div>
 
 	<script language="javascript">
+		// listen the event of enter key to submit gravatar..
+		$("#gravatar_email").keypress(function(e) {
+			if (e.which == 13) {
+				$("#get_gravatar").click()
+			}
+		})
 		$("#get_gravatar").click(function() {
 			// requesting the gravatar url
 			$.post("{% url gravatar_request request.user.username %}", {"email": $("#gravatar_email").val()}, function(resp) {
@@ -140,7 +146,7 @@
 			});
 			$.get("{% url notification_removal request.user.username %}", {"id": id}, function(resp) {
 				// populate the list again..
-				if (resp.status == 1) {
+				if (resp.status) {
 					alert("error");
 				} else {
 					var list = resp;

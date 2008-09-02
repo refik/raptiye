@@ -6,10 +6,15 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.utils import simplejson
 from raptiye.blog.models import Entry
 from raptiye.comments.models import Comments
 from raptiye.extra.captcha import Captcha
 from raptiye.extra.messages import *
+
+resp = {
+	"status": 0,
+}
 
 def new_captcha(request):
 	# set session variable to avoid attacks
@@ -22,7 +27,9 @@ def new_captcha(request):
 				# resetting datetime of captcha
 				request.session["captcha_datetime"] = datetime.now()
 			else:
-				return HttpResponse("<response><status>1</status><error>işlem başarısız..</error></response>")
+				resp["status"] = 1
+				resp["error"] = u"işlem başarısız.."
+				return HttpResponse(simplejson.dumps(resp))
 		request.session["captcha_counter"] += 1
 		request.session["captcha_datetime"] = datetime.now()
 	else:
@@ -30,7 +37,8 @@ def new_captcha(request):
 		request.session["captcha_datetime"] = datetime.now()
 	# create a new captcha and send back its url
 	captcha = create_captcha()
-	return HttpResponse("<response><status>0</status><captcha>" + captcha + "</captcha></response>")
+	resp["captcha"] = captcha
+	return HttpResponse(simplejson.dumps(resp))
 
 @login_required
 def comment_sent(request):
@@ -61,14 +69,18 @@ def comment_sent(request):
 				c.save()
 				# now let's mail the people who wants a notification for this entry
 				send_comment_notification(c.entry)
-				return HttpResponse("<response><status>0</status><success>yorumunuz gönderildi..</success></response>")
+				resp["success"] = u"yorumunuz gönderildi.."
+				return HttpResponse(simplejson.dumps(resp))
 			else:
-				return HttpResponse('<response><status>1</status><error>captcha hatalı</error></response>')
+				resp["error"] = u"captcha hatalı"
+				return HttpResponse(simplejson.dumps(resp))
 		else:
-			return HttpResponse('<response><status>1</status><error>işlem başarısız</error></response>')
+			resp["error"] = u"işlem başarısız"
+			return HttpResponse(simplejson.dumps(resp))
 	else:
 		# if the user is anonymous
-		return HttpResponse('<response><status>1</status><error>giriş yapılmamış</error></response>')
+		resp["error"] = u"giriş yapılmamış"
+		return HttpResponse(simplejson.dumps(resp))
 
 def create_captcha():
 	c = Captcha(path.join(settings.MEDIA_ROOT, settings.TEMP_MEDIA_PREFIX))

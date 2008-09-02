@@ -1,3 +1,14 @@
+2008-09-03  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/js/raptiye.js, comments/views.py, users/views.py,
+	templates/users/profile.html, templates/blog/comments.html: Removed all
+	hardcoded stupid lines within ajax responses..
+	* blog/views.py, templates/blog/homepage.html: Changed all messages into a
+	tuple since I have to loop over the messages to read them..
+	* extra/wordpress.py: changed the database name to wordpress..
+	* templates/users/profile.html: gravatar popup now works with enter key..
+	* users/views.py: fixed a bug that was a really stupid mistake..
+	
 2008-09-02  Alper KANAT  <alperkanat@gmail.com>
 
 	* extra/wordpress.py: Fixed some importer bug..

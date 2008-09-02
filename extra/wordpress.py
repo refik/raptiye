@@ -28,7 +28,7 @@ DEV_SERVER_HOST = "localhost"
 DEV_SERVER_PORT = 3306
 DEV_SERVER_USERNAME = "raptiye"
 DEV_SERVER_PASSWD = "test"
-DEV_SERVER_DBNAME = "raptiye"
+DEV_SERVER_DBNAME = "wordpress"
 DEV_SERVER_CHARSET = "utf8"
 
 # Fields for each WordPress table

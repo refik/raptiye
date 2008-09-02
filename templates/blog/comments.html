@@ -95,7 +95,7 @@
 			// show new captcha
 			getNewCaptcha();
 			// show the newly added comment if submission is successfull..
-			if (resp.status == 0) {
+			if (!resp.status) {
 				// inserting the comment to the comment layer..
 				insertComment2Layer($('#entry_comment_textarea').val());
 				// clearing comment form
@@ -163,11 +163,11 @@
 		// reset status
 		$("#comment_error").slideUp("slow", function() {
 			$("#comment_error").text("");
-			if (resp.status == "1") {
+			if (resp.status) {
 				$("#comment_error").text(resp.error);
 				$("#comment_error").css('background-color', 'red');
 				$("#comment_error").slideDown('slow');
-			} else if (resp.status == "0") {
+			} else {
 				$("#comment_error").text(resp.success);
 				$("#comment_error").css('background-color', 'green');
 				$("#comment_error").slideDown('slow');

@@ -9,13 +9,17 @@
 	<div id="blog_container">
 		{% if messages %}
 		<div class="blog_sticky_post">
-			{{ messages|safe }}
+			{% for message in messages %}
+				{{ message|safe }}
+			{% endfor %}
 		</div>
 		{% endif %}
 		
 		{% if session_messages %}
 			<div class="blog_sticky_post">
-				{{ session_messages|safe }}
+			{% for message in session_messages %}
+				{{ message|safe }}
+			{% endfor %}
 			</div>
 		{% endif %}
 		

@@ -30,6 +30,10 @@ def gravatar(request, username):
 def notification_remove(request, username):
 	# will return json object if the operation is successfull
 	from django.utils import simplejson
+	
+	resp = {
+		"status": 0,
+	}
 
 	if request.method == "GET" and request.GET.has_key("id"):
 		id = request.GET["id"]
@@ -45,10 +49,12 @@ def notification_remove(request, username):
 			# returning json rep. of list
 			return HttpResponse(simplejson.dumps(list))
 		except:
-			return HttpResponse("<resp><status>1</status></resp>")
+			resp["status"] = 1
+			return HttpResponse(simplejson.dumps(resp))
 	else:
-		return HttpResponse("<resp><status>1</status></resp>")
-	return HttpResponse("<resp><status>0</status></resp>")
+		resp["status"] = 1
+		return HttpResponse(simplejson.dumps(resp))
+	return HttpResponse(simplejson.dumps(resp))
 
 def profile(request, username, template="users/profile.html"):
 	if request.user.is_authenticated() and request.user.username == username:
@@ -66,8 +72,9 @@ def profile(request, username, template="users/profile.html"):
 				"watched_comments": user.comments.order_by("-datetime").filter(notification=True)[:5],
 			}
 			if form.is_valid():
-				if form.cleaned_data["password"] != user.password[:10]:
-					user.set_password(form.cleaned_data["password"])
+				password = form.cleaned_data["password"]
+				if password != "" and not user.check_password(password):
+					user.set_password(password)
 					logoutUser = True
 				user.first_name = form.cleaned_data["name"]
 				user.last_name = form.cleaned_data["surname"]
@@ -103,7 +110,6 @@ def profile(request, username, template="users/profile.html"):
 		else:
 			form = ProfileForm(initial={
 					"username": user.username,
-					"password": user.password[:10],
 					"name": user.first_name,
 					"surname": user.last_name,
 					"email": user.email,

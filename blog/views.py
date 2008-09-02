@@ -30,8 +30,8 @@ def search(request, template="blog/homepage.html"):
 				"template_object_name" : "entry",
 				"paginate_by": settings.ENTRIES_PER_PAGE,
 				"extra_context" : {
-					"messages" : u"<strong><i>%s</i></strong> %s içeren yazılar (%d) görüntüleniyor.." % (keywords if keyword_list.__len__() == 1 else ", ".join(keyword_list), 
-						"kelimesini" if keyword_list.__len__() == 1 else "kelimelerini", result.__len__()),
+					"messages" : (u"<strong><i>%s</i></strong> %s içeren yazılar (%d) görüntüleniyor.." % (keywords if keyword_list.__len__() == 1 else ", ".join(keyword_list), 
+						"kelimesini" if keyword_list.__len__() == 1 else "kelimelerini", result.__len__()),),
 				}
 			}
 
@@ -46,7 +46,7 @@ def get_entries_for_day(request, year, month, day):
 	"Displays all posts for a specific day"
 
 	extra_context = {
-		"messages": u"%s.%s.%s tarihinde yazılmış yazılar görüntüleniyor.." % (day, month, year),
+		"messages": (u"%s.%s.%s tarihinde yazılmış yazılar görüntüleniyor.." % (day, month, year),),
 	}
 
 	entry = {
@@ -112,7 +112,7 @@ def get_entries_for_tag(request, tag):
 			"template_object_name": "entry",
 			"paginate_by": settings.ENTRIES_PER_PAGE,
 			"extra_context" : {
-				"messages" : TAGS_SUCCESS % (tag, t.entries.count()),
+				"messages" : (TAGS_SUCCESS % (tag, t.entries.count()),),
 			}
 		}
 		return object_list(request, **entry_list)
