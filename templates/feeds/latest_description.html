@@ -1,1 +1,1 @@
-{{ obj.content|truncatewords_html:150|safe|linebreaksbr }}
+{{ obj.content|striptags|truncatewords:150|safe|linebreaksbr }}

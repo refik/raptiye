@@ -1,4 +1,4 @@
-debugging = true;
+debugging = false;
 
 function debug(msg) {
 	if (debugging) {

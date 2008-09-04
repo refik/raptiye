@@ -4,16 +4,12 @@ from django.contrib.syndication.feeds import Feed
 from raptiye.blog.views import get_latest_entries_list
 from raptiye.frontpage.models import FrontPage
 
-class LatestEntries(Feed):
-	try:
-		fp = FrontPage.objects.get(pk=1)
-		title = fp.title
-		link = '/blog/'
-		description = fp.subtitle
-	except FrontPage.DoesNotExist:
-		title = ''
-		link = ''
-		description = ''
+class RSSLatestEntries(Feed):
+	fp = FrontPage.objects.get(pk=1)
+	title = fp.title
+	link = '/blog/'
+	description = fp.subtitle
+	language = u"en"
 	
 	def item_link(self, item):
 		return item.get_full_url()
@@ -22,9 +18,5 @@ class LatestEntries(Feed):
 		return item.datetime
 	
 	def items(self):
-		try:
-			fp = FrontPage.objects.get(pk=1)
-			return get_latest_entries_list()[:fp.rss_limit]
-		except FrontPage.DoesNotExist:
-			pass
-		return get_latest_entries_list()[:10]
+		fp = FrontPage.objects.get(pk=1)
+		return get_latest_entries_list()[:fp.rss_limit]

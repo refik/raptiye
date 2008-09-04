@@ -22,7 +22,7 @@ class FrontPage(models.Model):
 	content = models.TextField(u"Content Body", help_text="Required.. HTML can also be used..")
 	rss_title = models.CharField(u"RSS Title", max_length=100, blank=True, help_text="Optional.. HTML can also used..")
 	rss_url = models.CharField(u"RSS URL", max_length=200, blank=True, help_text="Optional.. HTML can also be used..")
-	rss_limit = models.IntegerField(u"RSS News Limit", blank=True, default=5, help_text="Optional.. HTML can also be used..")
+	rss_limit = models.IntegerField(u"RSS News Limit", blank=True, default=10, help_text="Optional.. HTML can also be used..")
 	footer = models.TextField(u"Footer", help_text="Footer of the Main Page.. HTML can be used..")
 	language = models.CharField(u"Language", choices=settings.LANGUAGES, default="tr", max_length=2)
 

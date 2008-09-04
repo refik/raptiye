@@ -1,3 +1,14 @@
+2008-09-05  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/js/raptiye.js: Closed the debugging mode of JS..
+	* blog/feeds.py: No need to have try-except in the blocks because raptiye
+	doesn't work without the frontpage..
+	* frontpage/models.py: Change default limit of rss from 5 to 10..
+	* templates/frontpage/base.html: closing the meta tag..
+	* templates/feeds/latest_title.html,
+	templates/feeds/latest_description.html: some rss validation improvement..
+	* urls.py: changed the rss feed name..
+	
 2008-09-04  Alper KANAT  <alperkanat@gmail.com>
 
 	* settings-example.py, extra/initials.py: removed english mail address..

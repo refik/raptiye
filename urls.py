@@ -1,12 +1,12 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 from django.contrib import admin
-from raptiye.blog.feeds import LatestEntries
+from raptiye.blog.feeds import *
 
 admin.autodiscover()
 
 feeds = {
-	'latest': LatestEntries,
+	'latest': RSSLatestEntries,
 }
 
 urlpatterns = patterns('',
