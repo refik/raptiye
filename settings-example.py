@@ -89,7 +89,7 @@ INSTALLED_APPS = (
 	'raptiye.polls',
 	# the following app(s) aren't mandatory and will be removed
 	# when django has the functionality
-	'contrib.session_messages',
+	'raptiye.session_messages',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -98,7 +98,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.core.context_processors.i18n",
 	"django.core.context_processors.media",
 	"django.core.context_processors.request",
-	"contrib.session_messages.context_processors.session_messages",
+	"raptiye.session_messages.context_processors.session_messages",
 )
 
 ADMIN_LIST_PER_PAGE = 20
@@ -116,16 +116,17 @@ CAPTCHA_RENEWAL_LIMIT = 10
 # how many minutes of penaly will be applied..
 CAPTCHA_PENALTY = 10
 
+# this address is used for notifications
+EMAIL_INFO_ADDRESS_TR = "bilgi@raptiye.org"
+
 # MAIL SETTINGS (needs to be changed..)
 EMAIL_HOST = ""
 # EMAIL_PORT = 
-EMAIL_HOST_USER = ""
+EMAIL_HOST_USER = EMAIL_INFO_ADDRESS_TR
 EMAIL_HOST_PASSWORD = ""
-EMAIL_SUBJECT_PREFIX = u""
+EMAIL_SUBJECT_PREFIX = u"[raptiye] "
 EMAIL_USE_TLS = False
 EMAIL_FAIL_SILENCE = False
-# this address is used for notifications
-EMAIL_INFO_ADDRESS_TR = ""
 
 # default avatar for all users..
 DEFAULT_AVATAR = "/media/images/default_avatar.png"

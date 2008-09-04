@@ -1,5 +1,11 @@
 2008-09-05  Alper KANAT  <alperkanat@gmail.com>
 
+	* settings-example.py, extra/messages.py, users/views.py: bundled
+	session_messages app into raptiye.. this saves a lot of time for me on the
+	production server..
+	* blog/feeds.py, templates/frontpage/base.html, urls.py: raptiye now also
+	has atom feed.. :)
+	* comments/views.py: fixed a bug for comments..
 	* media/js/raptiye.js: Closed the debugging mode of JS..
 	* blog/feeds.py: No need to have try-except in the blocks because raptiye
 	doesn't work without the frontpage..

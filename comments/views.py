@@ -12,11 +12,10 @@ from raptiye.comments.models import Comments
 from raptiye.extra.captcha import Captcha
 from raptiye.extra.messages import *
 
-resp = {
-	"status": 0,
-}
-
 def new_captcha(request):
+	resp = {
+		"status": 0,
+	}
 	# set session variable to avoid attacks
 	# when the user exceeds 10 captcha's limit 
 	# it has to wait 10 minutes
@@ -43,6 +42,10 @@ def new_captcha(request):
 @login_required
 def comment_sent(request):
 	from raptiye.extra.mail import send_comment_notification
+	
+	resp = {
+		"status": 0,
+	}
 	
 	# checking if the user is authenticated
 	if request.user.is_authenticated():
@@ -72,13 +75,16 @@ def comment_sent(request):
 				resp["success"] = u"yorumunuz gönderildi.."
 				return HttpResponse(simplejson.dumps(resp))
 			else:
+				resp["status"] = 1
 				resp["error"] = u"captcha hatalı"
 				return HttpResponse(simplejson.dumps(resp))
 		else:
+			resp["status"] = 1
 			resp["error"] = u"işlem başarısız"
 			return HttpResponse(simplejson.dumps(resp))
 	else:
 		# if the user is anonymous
+		resp["status"] = 1
 		resp["error"] = u"giriş yapılmamış"
 		return HttpResponse(simplejson.dumps(resp))
 
