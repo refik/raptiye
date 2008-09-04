@@ -25,7 +25,7 @@ class Initials():
 		"""
 		from django.conf import settings
 		from django.contrib.auth.models import User
-		user = User.objects.create_user("anonymous", settings.EMAIL_INFO_ADDRESS_EN, settings.ANONYMOUS_PASSWORD)
+		user = User.objects.create_user("anonymous", settings.EMAIL_INFO_ADDRESS_TR, settings.ANONYMOUS_PASSWORD)
 		user.first_name = "Anonymous"
 		user.last_name = "User"
 		user.save()

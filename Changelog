@@ -1,5 +1,6 @@
 2008-09-04  Alper KANAT  <alperkanat@gmail.com>
 
+	* settings-example.py, extra/initials.py: removed english mail address..
 	* extra/messages.py, blog/views.py, users/views.py: Corrected bugs that my
 	friends are talking about.. Added a function to handle messaging to the
 	user..
