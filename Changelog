@@ -1,3 +1,12 @@
+2008-09-04  Alper KANAT  <alperkanat@gmail.com>
+
+	* extra/messages.py, blog/views.py, users/views.py: Corrected bugs that my
+	friends are talking about.. Added a function to handle messaging to the
+	user..
+	* templates/blog/detail.html: thanks to Ozan GÜVEN, the detail page now
+	shows the title of the entry as page title..
+	* users/forms.py: thanks to Ozan GÜVEN, username validation is added..
+	
 2008-09-03  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/js/raptiye.js, comments/views.py, users/views.py,

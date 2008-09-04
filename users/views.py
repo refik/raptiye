@@ -136,7 +136,8 @@ def activation(request, username, key):
 		user = User.objects.get(username=username)
 		if user.is_active:
 			# the user is already active..
-			return get_latest_entries(request, ACTIVATION_ERROR % ALREADY_ACTIVE)
+			set_user_message(request, ACTIVATION_ERROR % ALREADY_ACTIVE)
+			return get_latest_entries(request)
 		else:
 			# get the profile of user
 			profile = user.get_profile()
@@ -144,19 +145,24 @@ def activation(request, username, key):
 			
 			if delta.days > 3:
 				# 3 days passed.. don't activate the user..
-				return get_latest_entries(request, ACTIVATION_ERROR % ACTIVE_NONUSER)
+				set_user_message(request, ACTIVATION_ERROR % ACTIVE_NONUSER)
+				return get_latest_entries(request)
 				
 			if profile.activation_key == key:
 				user.is_active = True
 				user.save()
 			else:
 				# keys doesn't match
-				return get_latest_entries(request, ACTIVATION_ERROR % INVALID_ACTIVATION_CODE)
+				set_user_message(request, ACTIVATION_ERROR % INVALID_ACTIVATION_CODE)
+				return get_latest_entries(request)
 	else:
 		# the user cannot be found..
-		return get_latest_entries(request, ACTIVATION_ERROR % ACTIVE_NONUSER)
-
-	return get_latest_entries(request, ACTIVATION_SUCCESS)
+		set_user_message(request, ACTIVATION_ERROR % ACTIVE_NONUSER)
+		return get_latest_entries(request)
+	
+	set_user_message(request, ACTIVATION_SUCCESS)
+	
+	return get_latest_entries(request)
 
 def register(request, template="users/registration.html"):
 	# creating a captcha image

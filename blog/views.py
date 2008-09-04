@@ -7,7 +7,7 @@ from django.views.generic.list_detail import object_list
 from django.views.generic.date_based import object_detail, archive_day
 from raptiye.blog.models import Entry
 from raptiye.comments.views import create_captcha
-from raptiye.extra.messages import TAGS_SUCCESS, TAGS_ERROR, SEARCH_FAILED, SEARCH_NO_ITEM
+from raptiye.extra.messages import *
 from raptiye.extra.search import SearchAgainstEntries
 from raptiye.tags.models import Tag
 
@@ -22,7 +22,8 @@ def search(request, template="blog/homepage.html"):
 		result = search.result()
 
 		if result.__len__() == 0:
-			return get_latest_entries(request, SEARCH_NO_ITEM)
+			set_user_message(request, SEARCH_NO_ITEM)
+			return get_latest_entries(request)
 		else:
 			entry_list = {
 				"queryset": result,
@@ -37,7 +38,8 @@ def search(request, template="blog/homepage.html"):
 
 			return object_list(request, **entry_list)
 	else:
-		return get_latest_entries(request, SEARCH_FAILED)
+		set_user_message(request, SEARCH_FAILED)
+		return get_latest_entries(request)
 
 def get_latest_entries_list():
 	return Entry.objects.filter(published=True, datetime__lte=datetime.now()).order_by("-datetime")
@@ -116,4 +118,7 @@ def get_entries_for_tag(request, tag):
 			}
 		}
 		return object_list(request, **entry_list)
-	return get_latest_entries(request, TAGS_ERROR % (u"etiket hatalı mı ne?", u"aradığınız etikete şu anda ulaşılamıyor.. etiket kapalı ya da kapsama alanı dışında.."))
+		
+	set_user_message(request, TAGS_ERROR)
+		
+	return get_latest_entries(request)

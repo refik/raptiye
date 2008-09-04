@@ -6,6 +6,13 @@ from django import forms
 class LoginForm(forms.Form):
 	username = forms.CharField(label=u"Kullanıcı Adı")
 	password = forms.CharField(label=u"Şifre", widget=forms.PasswordInput)
+	
+	def clean_username(self):
+		u"A username must include only ASCII characters and numbers.."
+		pattern = re.compile(u"[^a-zA-Z0-9]")
+		if pattern.search(self.cleaned_data["username"]):
+			raise forms.ValidationError(u"Kullanıcı ismi yalnızca harf ve rakamlardan oluşabilir.")
+		return self.cleaned_data["username"]
 
 class RegistrationForm(LoginForm):
 	name = forms.CharField(label=u"Ad", min_length=2, max_length=30)

@@ -5,6 +5,16 @@ Includes some messages like successfull
 registration, activation etc..
 """
 
+def set_user_message(request, message):
+	from contrib.session_messages import create_message
+	
+	if request.user.is_authenticated():
+		# leaving message to the user
+		request.user.message_set.create(message=message)
+	else:
+		# leaving the "anonymous" user a new message..
+		create_message(request, message)
+
 ENTRIES_ON_DATE = u"bu tarihte yazılmış yazıları görmek için tıklayın.."
 
 COMMENTS_WARNING = u'Yorumunuz onaylandıktan sonra yayınlanacaktır. İlginiz için teşekkürler!'
@@ -64,9 +74,9 @@ INVALID_ACTIVATION_CODE = u"Kullandığınız aktivasyon kodu geçersiz ya da ha
 TAGS_SUCCESS = u"%s ile etiketlenmiş yazılar (%d) görüntüleniyor.."
 
 TAGS_ERROR = u"""
-<h2>%s</h2>
+<h2>etiket hatalı mı ne?</h2>
 <br>
-%s
+aradığınız etikete şu anda ulaşılamıyor.. etiket kapalı ya da kapsama alanı dışında..
 """
 
 POLL_ERROR = u"Anket oylamasında hata oluştu! Lütfen daha sonra tekrar deneyin.."
