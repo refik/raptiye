@@ -1,5 +1,6 @@
 2008-09-05  Alper KANAT  <alperkanat@gmail.com>
 
+	* session_messages: added..
 	* settings-example.py, extra/messages.py, users/views.py: bundled
 	session_messages app into raptiye.. this saves a lot of time for me on the
 	production server..
