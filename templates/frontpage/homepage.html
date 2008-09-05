@@ -46,7 +46,7 @@
 						{% for entry in entries %}
 							<tr>
 								<td class="main_rss_title">
-									<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" 
+									<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}" 
 										title="yazıyı okumak için tıkla.." class="link">{{ entry.title }}
 									</a>
 								</td>
@@ -57,7 +57,7 @@
 									</a>
 								</td>
 								<td class="main_rss_comment">
-									<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}#comments" 
+									<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}#comments" 
 										title="bu yazıya yapılan yorumları okumak için tıkla.." class="link">
 										{{ entry.published_comments.count }}
 									</a>

@@ -1,3 +1,13 @@
+2008-09-06  Alper KANAT  <alperkanat@gmail.com>
+
+	* blog/models.py, extra/webcal.py, templates/users/profile.html,
+	templates/blog/homepage.html, templates/frontpage/homepage.html: All
+	datetime objects shows two digit months and days now..
+	* extra/messages.py: corrected a typo..
+	* templates/blog/feedburner.html: feedburner has the new feed now..
+	* templates/blog/sidebar.html, templates/frontpage/base.html: all rss feed
+	links comes from the frontpage model now..
+	
 2008-09-05  Alper KANAT  <alperkanat@gmail.com>
 
 	* blog/feeds.py: trying to change the locale to make it valid for RFC..

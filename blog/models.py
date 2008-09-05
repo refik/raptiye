@@ -34,7 +34,7 @@ class Entry(models.Model):
 	def get_full_url(self):
 		site_url = Site.objects.get_current().domain
 		dt = self.datetime
-		return "http://%s/blog/%s" % (site_url, "/".join([dt.year.__str__(), dt.month.__str__(), dt.day.__str__()]) + "/" + self.slug)
+		return "http://%s/blog/%s/%s/" % (site_url, self.datetime.strftime("%Y/%m/%d"), self.slug)
 	
 	def get_datetime(self):
 		return self.datetime.strftime("%d.%m.%Y @ %H:%M")
@@ -42,7 +42,8 @@ class Entry(models.Model):
 	get_datetime.short_description = "Event Published On"
 
 	def get_entry_url(self):
-		entry_url = "/%s/%s/" % (self.datetime.strftime("%Y/%m/%d"), self.slug)
+		site_url = Site.objects.get_current().domain
+		entry_url = "http://%s/blog/%s/%s/" % (site_url, self.datetime.strftime("%Y/%m/%d"), self.slug)
 		return "<a href='%s' title='Click here to read the entry..' target='_blank'>%s</a>" % (entry_url, entry_url)
 	
 	get_entry_url.short_description = "URL of Entry"

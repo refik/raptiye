@@ -90,7 +90,7 @@
 				</tr>
 				{% for comment in latest_comments %}
 				<tr>
-					<td><a href="{% url blog_entry comment.entry.datetime.year,comment.entry.datetime.month,comment.entry.datetime.day,comment.entry.slug %}" 
+					<td><a href="{% url blog_entry comment.entry.datetime.year,comment.entry.datetime|date:"m",comment.entry.datetime|date:"d",comment.entry.slug %}" 
 							title="yazıyı okumak için tıkla.." class="ulink">{{ comment.entry.title }}</a></td>
 					<td class="aligncenter">{{ comment.datetime|date:"d.m.Y" }}</td>
 					<td class="aligncenter">{{ comment.entry.comments.count }}</td>
@@ -109,7 +109,7 @@
 				</tr>
 				{% for comment in watched_comments %}
 				<tr>
-					<td><a href="{% url blog_entry comment.entry.datetime.year,comment.entry.datetime.month,comment.entry.datetime.day,comment.entry.slug %}" 
+					<td><a href="{% url blog_entry comment.entry.datetime.year,comment.entry.datetime|date:"m",comment.entry.datetime|date:"d",comment.entry.slug %}" 
 							title="yazıyı okumak için tıklayın.." class="ulink">{{ comment.entry.title }}</a></td>
 					<td class="aligncenter">
 						<a href="#" title="bu yazıyı takip etmek istemiyorsanız tıklayın.." 

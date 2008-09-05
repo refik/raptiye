@@ -64,10 +64,10 @@ class WebCalendar():
 						}
 						if self.get_object().objects.filter(**filters).count() > 0:
 							if day == self.get_day():
-								html += u"<td class='today'><a href='%s/%d/%d/%d/' title='%s' class='%s'>%d</a></td>" % (link_path, self.get_year(), 
+								html += u"<td class='today'><a href='%s/%4d/%02d/%02d/' title='%s' class='%s'>%d</a></td>" % (link_path, self.get_year(), 
 									self.get_month(), day, link_title, link_class, day)
 							else:
-								html += u"<td><a href='%s/%d/%d/%d/' title='%s' class='%s'>%d</a></td>" % (link_path, self.get_year(), 
+								html += u"<td><a href='%s/%4d/%02d/%02d/' title='%s' class='%s'>%d</a></td>" % (link_path, self.get_year(), 
 									self.get_month(), day, link_title, link_class, day)
 						else:
 							if day == self.get_day():

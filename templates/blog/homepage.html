@@ -34,7 +34,7 @@
 				</div>
 				<div class="entry_header_body">
 					<div class="entry_title">
-						<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
+						<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
 							{{ entry.title }}
 						</a>
 					</div>
@@ -50,7 +50,7 @@
 				<p align="justify">
 					{{ entry.content|safe|linebreaksbr|truncatewords_html:150 }}
 					<br><br>
-					<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
+					<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
 						Yazının devamını okumak için tıklayın..
 					</a>
 					<br>
@@ -61,11 +61,11 @@
 				<div class="entry_footer_middle">
 					<div class="entry_footer_text">
 						{% ifequal entry.published_comments.count 0 %}
-							<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}#comments" title="ilk yorumu yapmak için tıklayın.." class="white_link">
+							<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}#comments" title="ilk yorumu yapmak için tıklayın.." class="white_link">
 								Yorum Yok
 							</a>
 						{% else %}
-							<a href="{% url blog_entry entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}#comments" title="yorum yapmak için tıklayın.." class="white_link">
+							<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}#comments" title="yorum yapmak için tıklayın.." class="white_link">
 								{{ entry.published_comments.count }} Yorum
 							</a>
 						{% endifequal %}
