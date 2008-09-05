@@ -1,5 +1,7 @@
 #-*- encoding: utf-8 -*-
 
+import locale
+from django.conf import settings
 from django.contrib.syndication.feeds import Feed
 from django.utils.feedgenerator import Atom1Feed
 from raptiye.blog.views import get_latest_entries_list
@@ -19,6 +21,9 @@ class RSS(Feed):
 		return item.get_full_url()
 	
 	def item_pubdate(self, item):
+		# setting locale
+		locale.setlocale(locale.LC_ALL, settings.LOCALES["en"])
+		
 		return item.datetime
 
 class RSSLatestEntries(RSS):
