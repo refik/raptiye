@@ -16,7 +16,7 @@
 					<img src="/media/images/loader.gif" align="absmiddle" style="margin-right: 5px">
 					Sonuçlar Alınıyor...
 				</div>
-				{% if request.session.poll_submitted %}
+				{% if request.COOKIES.poll_submitted %}
 				<div id="poll_results" style="display: none;"></div>
 				{% else %}
 				<div class="poll_choices">
@@ -79,7 +79,7 @@
 		layer.slideToggle()
 	}
 	
-	{% if request.session.poll_submitted %}
+	{% if request.COOKIES.poll_submitted %}
 	var query = "poll={{ poll.id }}"
 	var url = "{% url polls %}"
 	$.post(url, query, function(resp) {

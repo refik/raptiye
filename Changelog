@@ -1,5 +1,7 @@
 2008-09-07  Alper KANAT  <alperkanat@gmail.com>
 
+	* polls/views.py, templates/blog/poll.html: changed the stupid
+	implementation of using sessions for the poll.. using cookies instead..
 	* blog/templatetags/blog_filters.py, templates/blog/pagination.html: search
 	pagination works correctly now.. thanks to Ozan GÜVEN who made me realize
 	this problem..

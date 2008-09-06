@@ -6,9 +6,9 @@ from raptiye.extra.messages import POLL_ERROR
 from raptiye.polls.models import Poll
 
 def polls(request):
-	# the response is returned as json object with
+	# the resp is returned as json object with
 	# all parameters embedded into..
-	response = {
+	resp = {
 		"status": 0,
 	}
 	
@@ -21,7 +21,7 @@ def polls(request):
 	if request.method == "POST":
 		# if the poll is not submitted show the form to let user submit
 		# otherwise show the poll results
-		if not test(request.session, "poll_submitted"):
+		if not test(request.COOKIES, "poll_submitted"):
 			if test(request.POST, "poll") and test(request.POST, "poll_answer"):
 				poll = Poll.objects.get(id=request.POST["poll"])
 				choice = poll.choices.get(id=request.POST["poll_answer"])
@@ -29,27 +29,29 @@ def polls(request):
 				choice.votes += 1
 				# saving the choice
 				choice.save()
-				# setting a key to the session for the user
-				request.session["poll_submitted"] = True
+				# setting a key to the cookie for the user
+				response = HttpResponse()
+				response.set_cookie("poll_submitted", True)
 				# returning the results
 				for answer in poll.choices.all():
 					answers.append({"name": answer.choice, "votes": answer.votes})
-				# storing all data to the response
-				response["result"] = answers
-				# returning the json encoded version of response data..
-				return HttpResponse(simplejson.dumps(response))
+				# storing all data to the resp
+				resp["result"] = answers
+				# returning the json encoded version of resp data..
+				response.content = simplejson.dumps(resp)
+				return response
 		else:
 			if test(request.POST, "poll"):
 				poll = Poll.objects.get(id=request.POST["poll"])
 				# returning the results
 				for answer in poll.choices.all():
 					answers.append({"name": answer.choice, "votes": answer.votes})
-				# storing all data to the response
-				response["result"] = answers
-				# returning the json encoded version of response data..
-				return HttpResponse(simplejson.dumps(response))
+				# storing all data to the resp
+				resp["result"] = answers
+				# returning the json encoded version of resp data..
+				return HttpResponse(simplejson.dumps(resp))
 	
 	# this part works if the if part somehow sucks
-	response["status"] = 1
-	response["error"] = POLL_ERROR
-	return HttpResponse(simplejson.dumps(response))
+	resp["status"] = 1
+	resp["error"] = POLL_ERROR
+	return HttpResponse(simplejson.dumps(resp))
