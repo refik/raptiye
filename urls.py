@@ -8,6 +8,7 @@ admin.autodiscover()
 feeds = {
 	'latest': RSSLatestEntries,
 	'alatest': AtomLatestEntries,
+	'entries_with_tag': RSSEntriesWithTag,
 }
 
 urlpatterns = patterns('',
@@ -25,7 +26,7 @@ urlpatterns = patterns('',
 
 	# feed of latest entries
 	url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, name="rss_feed"),
-
+	
 	# poll related stuff
 	(r'^polls/', include('raptiye.polls.urls')),
 

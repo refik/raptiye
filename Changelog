@@ -1,5 +1,7 @@
 2008-09-06  Alper KANAT  <alperkanat@gmail.com>
 
+	* blog/feeds.py, urls.py: raptiye can output a rss feed for any tag now..
+	niceeee!.. :)
 	* blog/models.py, extra/webcal.py, templates/users/profile.html,
 	templates/blog/homepage.html, templates/frontpage/homepage.html: All
 	datetime objects shows two digit months and days now..
