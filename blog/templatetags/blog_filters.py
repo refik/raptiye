@@ -44,27 +44,33 @@ def construct_calendar():
 
 @register.inclusion_tag('blog/pagination.html', takes_context=True)
 def paginator(context, adjacent_pages=2):
-    """
-    To be used in conjunction with the object_list generic view.
-
-    Adds pagination context variables for use in displaying first, adjacent and
-    last page links in addition to those created by the object_list generic
-    view.
-
-    """
-    page_numbers = range(max(1, context['page']-adjacent_pages), min(context['pages'], context['page']+adjacent_pages)+1)
-
-    return {
-        'page': context['page'],
-        'pages': context['pages'],
-        'page_numbers': page_numbers,
-        'next': context['next'],
-        'previous': context['previous'],
-        'has_next': context['has_next'],
-        'has_previous': context['has_previous'],
-        'show_first': 1 not in page_numbers,
-        'show_last': context['pages'] not in page_numbers,
-    }
+	"""
+	To be used in conjunction with the object_list generic view.
+	
+	Adds pagination context variables for use in displaying first, adjacent and
+	last page links in addition to those created by the object_list generic
+	view.
+	
+	"""
+	page_numbers = range(max(1, context['page']-adjacent_pages), min(context['pages'], context['page']+adjacent_pages)+1)
+	
+	params = context["request"].GET.copy()
+	
+	if params.__contains__("page"):
+		del(params["page"])
+	
+	return {
+		'page': context['page'],
+		'pages': context['pages'],
+		'page_numbers': page_numbers,
+		'next': context['next'],
+		'previous': context['previous'],
+		'has_next': context['has_next'],
+		'has_previous': context['has_previous'],
+		'show_first': 1 not in page_numbers,
+		'show_last': context['pages'] not in page_numbers,
+		"query_string": params.urlencode(),
+	}
 
 @register.inclusion_tag('blog/links.html')
 def links():

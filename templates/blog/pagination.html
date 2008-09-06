@@ -1,23 +1,47 @@
 {% spaceless %}
-<div id="pagination">
-	{% if show_first %}
-		<a href="?page=1" class="pagination_link" title="İlk sayfayı görüntülemek için tıklayın..">&laquo;</a>
-	{% endif %}
-	{% if has_previous %}
-		<a href="?page={{ previous }}" class="pagination_link" title="Önceki sayfayı görüntülemek için tıklayın..">&lt;</a>
-	{% endif %}
-	{% for num in page_numbers %}
-		{% ifequal num page %}
-			<span class="pagination_current" title="Şu anda bu sayfa görüntüleniyor..">{{ num }}</span>
-		{% else %}
-			<a href="?page={{ num }}" class="pagination_link" title="{{ num }}. sayfaya gitmek için tıklayın..">{{ num }}</a>
-		{% endifequal %}
-	{% endfor %}
-	{% if has_next %}
-		<a href="?page={{ next }}" class="pagination_link" title="Sonraki sayfayı görüntülemek için tıklayın..">&gt;</a>
-	{% endif %}
-	{% if show_last %}
-		<a href="?page=last" class="pagination_link" title="Son sayfayı görüntülemek için tıklayın..">&raquo;</a>
-	{% endif %}
-</div>
+	{% ifequal query_string "" %}
+		<div id="pagination">
+			{% if show_first %}
+				<a href="?page=1" class="pagination_link" title="İlk sayfayı görüntülemek için tıklayın..">&laquo;</a>
+			{% endif %}
+			{% if has_previous %}
+				<a href="?page={{ previous }}" class="pagination_link" title="Önceki sayfayı görüntülemek için tıklayın..">&lt;</a>
+			{% endif %}
+			{% for num in page_numbers %}
+				{% ifequal num page %}
+					<span class="pagination_current" title="Şu anda bu sayfa görüntüleniyor..">{{ num }}</span>
+				{% else %}
+					<a href="?page={{ num }}" class="pagination_link" title="{{ num }}. sayfaya gitmek için tıklayın..">{{ num }}</a>
+				{% endifequal %}
+			{% endfor %}
+			{% if has_next %}
+				<a href="?page={{ next }}" class="pagination_link" title="Sonraki sayfayı görüntülemek için tıklayın..">&gt;</a>
+			{% endif %}
+			{% if show_last %}
+				<a href="?page=last" class="pagination_link" title="Son sayfayı görüntülemek için tıklayın..">&raquo;</a>
+			{% endif %}
+		</div>
+	{% else %}
+		<div id="pagination">
+			{% if show_first %}
+				<a href="?{{ query_string }}&page=1" class="pagination_link" title="İlk sayfayı görüntülemek için tıklayın..">&laquo;</a>
+			{% endif %}
+			{% if has_previous %}
+				<a href="?{{ query_string }}&page={{ previous }}" class="pagination_link" title="Önceki sayfayı görüntülemek için tıklayın..">&lt;</a>
+			{% endif %}
+			{% for num in page_numbers %}
+				{% ifequal num page %}
+					<span class="pagination_current" title="Şu anda bu sayfa görüntüleniyor..">{{ num }}</span>
+				{% else %}
+					<a href="?{{ query_string }}&page={{ num }}" class="pagination_link" title="{{ num }}. sayfaya gitmek için tıklayın..">{{ num }}</a>
+				{% endifequal %}
+			{% endfor %}
+			{% if has_next %}
+				<a href="?{{ query_string }}&page={{ next }}" class="pagination_link" title="Sonraki sayfayı görüntülemek için tıklayın..">&gt;</a>
+			{% endif %}
+			{% if show_last %}
+				<a href="?{{ query_string }}&page=last" class="pagination_link" title="Son sayfayı görüntülemek için tıklayın..">&raquo;</a>
+			{% endif %}
+		</div>
+	{% endifequal %}
 {% endspaceless %}
