@@ -1,5 +1,6 @@
 #-*- encoding: utf-8 -*-
 
+from datetime import datetime
 from raptiye.tags.models import Tag
 
 class TagCloud():

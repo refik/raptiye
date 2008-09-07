@@ -1,5 +1,6 @@
 2008-09-07  Alper KANAT  <alperkanat@gmail.com>
 
+	* extra/tag_cloud.py, blog/feeds.py: forgot to add datetime object..
 	* blog/views.py, blog/feeds.py, extra/tag_cloud.py: filter against the posts
 	are better now.. entries are excluded if they're to be published in the
 	future or not yet published..

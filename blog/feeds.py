@@ -1,5 +1,6 @@
 #-*- encoding: utf-8 -*-
 
+from datetime import datetime
 import locale
 from django.conf import settings
 from django.contrib.syndication.feeds import Feed
