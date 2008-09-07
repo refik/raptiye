@@ -1,5 +1,9 @@
 2008-09-07  Alper KANAT  <alperkanat@gmail.com>
 
+	* media/css/style.css: little css tweak for list items at the homepage..
+	* frontpage/templatetags/frontpage_filters.py,
+	templates/frontpage/base.html: raptiye's version comes from settings.py
+	now..
 	* extra/mail.py, comments/views.py: notifications are not sent to the person
 	who sends the comment..
 	* extra/messages.py, users/views.py: some messages are moved to

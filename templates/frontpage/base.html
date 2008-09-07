@@ -44,7 +44,7 @@
 				<a href="http://www.djangoproject.com" title="Django hakkında bilgi almak için tıklayın.." target="_blank"><img src="/media/images/django.gif" border="0"></a><br><a href="http://www.python.org" title="Python hakkında bilgi almak için tıklayın.." target="_blank"><img src="/media/images/python.png" border="0"></a>
 			</div>
 			<div id="footer_text">
-				{{ mainpage.footer|safe }}
+				{{ mainpage.footer|replace_with_version|safe }}
 			</div>
 		</div>
 	</body>

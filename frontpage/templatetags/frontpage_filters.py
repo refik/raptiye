@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 from raptiye.frontpage.models import FrontPage
 
 register = template.Library()
@@ -20,3 +21,7 @@ class MainPageNode(template.Node):
 	def render(self, context):
 		context['mainpage'] = self.fp
 		return ""
+
+@register.filter
+def replace_with_version(value):
+	return value.replace("[[VERSION]]", settings.VERSION)

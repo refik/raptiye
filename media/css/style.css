@@ -327,6 +327,11 @@ blockquote {
 	list-style-position: inside;
 }
 
+.entry_body li {
+	padding-left: 20px;
+	list-style-position: inside;
+}
+
 .entry_footer {
 	clear: both;
 	padding-top: 10px;
