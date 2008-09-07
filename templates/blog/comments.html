@@ -122,6 +122,9 @@
 		var datetime = day + '.' + month + '.' + year + ', ' + hour + ':' + minutes;
 		var WARNING = '{% show_warning %}';
 		
+		// replacing \n characters with <br>
+		text = text.replace(/\n/g, "<br>")
+		
 		$('<div>').addClass('entry_comments_container').append(
 			$('<div>').addClass('comment_ok')
 		).append(

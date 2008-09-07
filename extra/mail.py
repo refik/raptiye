@@ -49,12 +49,12 @@ olacaktır.
 
 """
 
-def send_comment_notification(entry):
+def send_comment_notification(entry, user):
 	from django.core.mail import send_mass_mail
 	
 	messages = [(COMMENT_NOTIFICATION_SUBJECT, COMMENT_NOTIFICATION_MESSAGE % (entry.title, entry.get_full_url()),
 		settings.EMAIL_INFO_ADDRESS_TR, [comment.author.email])
-		for comment in entry.comments.filter(notification=True)]
+		for comment in entry.comments.filter(notification=True).exclude(author=user)]
 	
 	send_mass_mail(messages, settings.EMAIL_FAIL_SILENCE)
 

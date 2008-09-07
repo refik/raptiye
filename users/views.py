@@ -261,7 +261,7 @@ def user_login(request, template="users/login.html"):
 			password = form.cleaned_data['password']
 			user = authenticate(username=username, password=password)
 			if user is None:
-				extra_context["error"] = u"Kullanıcı Adı ya da Şifre hatalı.. Lütfen tekrar deneyin.."
+				extra_context["error"] = LOGIN_ERROR
 				return render_to_response(template, extra_context, context_instance=RequestContext(request))
 			else:
 				if user.is_active:
@@ -273,10 +273,9 @@ def user_login(request, template="users/login.html"):
 					return HttpResponseRedirect(reverse("homepage"))
 				else:
 					# account disabled, redirecting to login page
-					extra_context["error"] = u"Kullanıcı hesabınızı aktifleştirmeden kullanamazsınız."
+					extra_context["error"] = ACCOUNT_NEEDS_ACTIVATION
 					return render_to_response(template, extra_context, context_instance=RequestContext(request))
 		else:
-			extra_context["error"] = form.errors
 			return render_to_response(template, extra_context, context_instance=RequestContext(request))
 	else:
 		# creating a login form instance

@@ -80,3 +80,7 @@ aradığınız etikete şu anda ulaşılamıyor.. etiket kapalı ya da kapsama a
 """
 
 POLL_ERROR = u"Anket oylamasında hata oluştu! Lütfen daha sonra tekrar deneyin.."
+
+LOGIN_ERROR = u"Kullanıcı Adı ya da Şifre hatalı.. Lütfen tekrar deneyin.."
+
+ACCOUNT_NEEDS_ACTIVATION = u"Kullanıcı hesabınızı aktifleştirmeden kullanamazsınız."

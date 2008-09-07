@@ -1,5 +1,15 @@
 2008-09-07  Alper KANAT  <alperkanat@gmail.com>
 
+	* extra/mail.py, comments/views.py: notifications are not sent to the person
+	who sends the comment..
+	* extra/messages.py, users/views.py: some messages are moved to
+	messages.py.. no need to send the form errors to the template despite
+	they're already sent..
+	* templates/blog/comments.html: manipulating the comments page's dom, the JS
+	now cares about the line breaks..
+	* templates/users/registration.html: just a little type correction..
+	* templates/users/login.html: thanks to Ozan GÜVEN, error messages in login
+	page are no longer in English..
 	* polls/views.py, templates/blog/poll.html: changed the stupid
 	implementation of using sessions for the poll.. using cookies instead..
 	* blog/templatetags/blog_filters.py, templates/blog/pagination.html: search

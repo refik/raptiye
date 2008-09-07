@@ -5,16 +5,19 @@
 {% block body %}
 	<div id="centered_body_container">
 		<form id="login_form" name="login_form" method="post">
-			{%for field in form %}
-				<div class="login_form_line">
-					<div class="login_form_label">{{ field.label_tag }}</div>
-					<div class="login_form_input">{{ field }}</div>
-				</div>
+			<table id="login_form_line" style="margin: 0 auto;">
+			{% for field in form %}
+				<tr>
+					<td>{{ field.label_tag }}</td>
+					<td width="20px"></td>
+					<td>{{ field }}</td>
+					{% if form.errors %}
+					<td width="10px"></td>
+					<td class="field_errors">{{ field.errors }}</td>
+					{% endif %}
+				</tr>
 			{% endfor %}
-
-			{% if error %}
-			<div id="login_form_errors">{{ error }}</div>
-			{% endif %}
+			</table>
 
 			<div id="login_form_buttons">
 				<button id="entry_comment_submit" type="submit">yolla</button>
