@@ -1,3 +1,8 @@
+2008-09-08  Alper KANAT  <alperkanat@gmail.com>
+
+	* templates/blog/contact.html: no need to show this despite i don't have
+	any content on flickr..
+
 2008-09-07  Alper KANAT  <alperkanat@gmail.com>
 
 	* templates/feeds/latest_description.html: allowed html tags in rss feed..
