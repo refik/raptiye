@@ -56,10 +56,11 @@ class TagCloud():
 			if tag.entries.count() == 0:
 				continue
 			else:
-				self.TAG_CLOUD.append({"name": tag.name, "font_size": tag.entries.count()})
+				frequency = tag.entries.filter(published=True, datetime__lte=datetime.now())
+				self.TAG_CLOUD.append({"name": tag.name, "font_size": frequency.count()})
 				if self.debug:
-					print "%s with count: %d" % (tag.name, tag.entries.count())
-				freq.append(tag.entries.count())
+					print "%s with count: %d" % (tag.name, frequency.count())
+				freq.append(frequency.count())
 
 		# control to take care when no tags exist..
 		if freq.__len__() == 0:

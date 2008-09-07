@@ -52,7 +52,7 @@ def get_entries_for_day(request, year, month, day):
 	}
 
 	entry = {
-		"queryset" : Entry.objects.all(),
+		"queryset" : Entry.objects.filter(published=True, datetime__lte=datetime.now()),
 		"template_name": "blog/homepage.html",
 		"template_object_name": "entry",
 		"year": year,
@@ -78,7 +78,7 @@ def get_post(request, year, month, day, slug):
 		extra_context["captcha"] = captcha
 	
 	entry = {
-		"queryset" : Entry.objects.all(),
+		"queryset" : Entry.objects.filter(published=True, datetime__lte=datetime.now()),
 		"template_name": "blog/detail.html",
 		"template_object_name": "entry",
 		"year": year,
@@ -109,7 +109,7 @@ def get_entries_for_tag(request, tag):
 		# found the tag, can continue
 		t = Tag.objects.get(name=tag)
 		entry_list = {
-			"queryset": t.entries.all(),
+			"queryset": t.entries.filter(published=True, datetime__lte=datetime.now()).order_by("-datetime"),
 			"template_name": "blog/homepage.html",
 			"template_object_name": "entry",
 			"paginate_by": settings.ENTRIES_PER_PAGE,
