@@ -1,0 +1,3 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www.raptiye\.org
+RewriteRule ^(.*)$ http://raptiye.org/$1 [R=permanent,L]
