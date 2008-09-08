@@ -1,3 +1,9 @@
+2008-09-09  Alper KANAT  <alperkanat@gmail.com>
+
+	* blog/models.py, templates/blog/comments.html: Comments are now ordered in
+	ascending order due to user requests..
+	* TODO: new todo's added..
+
 2008-09-08  Alper KANAT  <alperkanat@gmail.com>
 
 	* templates/blog/contact.html: no need to show this despite i don't have

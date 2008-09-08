@@ -29,7 +29,7 @@ class Entry(models.Model):
 
 	def published_comments(self):
 		"Returns the published comments"
-		return self.comments.filter(published=True)
+		return self.comments.filter(published=True).order_by("datetime")
 	
 	def get_full_url(self):
 		site_url = Site.objects.get_current().domain
