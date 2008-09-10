@@ -135,6 +135,7 @@ blockquote {
 }
 
 #main_menu li {
+	display: block;
 	margin-bottom: 15px;
 	background: transparent url("/media/images/check.png") top left no-repeat;
 }
@@ -578,6 +579,7 @@ blockquote {
 }
 
 .widget_on_left li {
+	display: block;
 	list-style: none;
 	margin-bottom: 4px;
 	font-size: 11px;

@@ -1,5 +1,6 @@
 2008-09-11  Alper KANAT  <alperkanat@gmail.com>
 
+	* media/css/style.css: some weird layout error just popped out.. :S
 	* media/images/latest_comments.png, media/css/style.css,
 	settings-example.py, comments/templatetags/comment_filters.py,
 	templates/blog/latest_comments.html, templates/blog/sidebar.html, TODO:
