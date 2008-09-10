@@ -1,0 +1,20 @@
+{% ifnotequal latest_comments.count 0 %}
+<div class="widget">
+	<div class="widget_box">
+		<div class="widget_title">
+			<img src="/media/images/latest_comments.png" align="absmiddle">
+			yeni yorumlar
+		</div>
+		<div class="widget_body">
+			<div class="widget_on_left">
+				{% for comment in latest_comments %}
+					<li>
+						<strong>&raquo;</strong>
+						<a href="{{ comment.entry.get_full_url }}" title="{{ comment.entry.title }} adlı yazıyı okumak için tıklayın.." class="ulink">{{ comment.entry.title }}</a> adlı yazı için {% ifequal comment.author.get_profile.web_site "" %}{{ comment.author.username }}{% else %}<a href="{{ comment.author.get_profile.web_site }}" title="{{ comment.author.username }} adlı kullanıcının web sitesine girmek için tıklayın.." target="_blank" class="ulink">{{ comment.author.username }}</a>{% endifequal %} tarafından yapılan yorum
+					</li>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endifnotequal %}

@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 from django import template
+from django.conf import settings
+from raptiye.comments.models import Comments
 from raptiye.extra.messages import COMMENTS_WARNING
 
 register = template.Library()
@@ -22,3 +24,9 @@ def check_if_user_subscribed(entry, user):
 @register.simple_tag
 def show_warning():
 	return COMMENTS_WARNING
+
+@register.inclusion_tag('blog/latest_comments.html')
+def get_latest_comments():
+	return {
+		"latest_comments": Comments.objects.all()[:settings.LATEST_COMMENTS_LIMIT]
+	}

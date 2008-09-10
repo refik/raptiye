@@ -577,6 +577,12 @@ blockquote {
 	text-align: left;
 }
 
+.widget_on_left li {
+	list-style: none;
+	margin-bottom: 4px;
+	font-size: 11px;
+}
+
 .poll_choices {
 	margin-top: 15px;
 	margin-left: 10px;

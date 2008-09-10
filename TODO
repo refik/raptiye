@@ -8,11 +8,11 @@ TODO
 --- Code Enhancements ---
 
 	* Show poll results @ admin page
-	* Show latest comments @ sidebar
 	* Show the exact URL of the comment @ admin page
 	* sticky entries
 	* HTML editor
 	* writing comments without having an account
+	* changing :) like strings to images
 
 
 --- ADMIN ---
