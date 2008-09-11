@@ -1,3 +1,5 @@
+{% load blog_filters %}
+
 {% if sticky_flag %}
 	<div class="blog_sticky_post">
 		<h2>{{ sticky_post.title }}</h2>
@@ -5,6 +7,6 @@
 			{{ sticky_post.datetime|date:"d M Y l, \S\a\a\t: H:i" }}
 		</span>
 		<br><br>
-		{{ sticky_post.content|safe|linebreaksbr }}
+		{{ sticky_post.content|emotions|safe|linebreaksbr }}
 	</div>
 {% endif %}

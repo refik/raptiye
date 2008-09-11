@@ -23,7 +23,7 @@ from raptiye.users.forms import *
 
 def gravatar(request, username):
 	if request.method == "POST" and request.POST.has_key("email"):
-		site = Site.objects.get(pk=1)
+		site = Site.objects.get_current()
 		email = request.POST["email"]
 	return HttpResponse(get_gravatar(email, "http://" + site.domain + settings.DEFAULT_AVATAR))
 
@@ -84,7 +84,7 @@ def profile(request, username, template="users/profile.html"):
 					user.is_active = False
 					profile.activation_key = create_activation_key()
 					# mailing user for activation
-					site = Site.objects.get(pk=1)
+					site = Site.objects.get_current()
 					send_mail(ACTIVATION_SUBJECT, 
 							ACTIVATION_BODY % (site.name, site.domain, user.username, profile.activation_key), 
 							settings.EMAIL_INFO_ADDRESS_TR, [user.email,], 
@@ -206,7 +206,7 @@ def register(request, template="users/registration.html"):
 							profile.activation_key = create_activation_key()
 							profile.save()
 							# all done, now let's send him a mail for activation
-							site = Site.objects.get(pk=1)
+							site = Site.objects.get_current()
 							send_mail(REGISTER_SUBJECT, 
 									REGISTER_BODY % (site.name, site.domain, new_user.username, profile.activation_key, site.name), 
 									settings.EMAIL_INFO_ADDRESS_TR, [email,], 

@@ -1,5 +1,13 @@
 2008-09-12  Alper KANAT  <alperkanat@gmail.com>
 
+	* TODO: only 2 todo's left before the b3 release..
+	* blog/templatetags/blog_filters.py, templates/blog/detail.html,
+	templates/blog/homepage.html, templates/blog/sticky.html,
+	templates/frontpage/homepage.html, templates/feeds/latest_description.html,
+	templates/flatpages/default.html, users/views.py: blog entries, sticky posts
+	have emotions now.. defaults are defined in the python code.. i need to
+	document these changes if someone else would use raptiye as the blog
+	engine..
 	* TODO: 1 less todo's.. :)
 	* media/css/style.css, extra/tag_cloud.py, extra/search.py, blog/views.py,
 	blog/templatetags/blog_filters.py, blog/feeds.py,

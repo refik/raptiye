@@ -107,3 +107,22 @@ def sticky():
 		"sticky_flag": sticky_flag,
 		"sticky_post": latest_sticky_post,
 	}
+
+@register.filter
+def emotions(entry):
+	from django.contrib.sites.models import Site
+	
+	site = Site.objects.get_current()
+	
+	icons = {
+		":)": "/media/images/smiley/face-smile.png",
+		":|": "/media/images/smiley/face-plain.png",
+		":(": "/media/images/smiley/face-sad.png",
+		":D": "/media/images/smiley/face-grin.png",
+		";-)": "/media/images/smiley/face-wink.png",
+	}
+	
+	for smiley, src in icons.iteritems():
+		entry = entry.replace(smiley, " <img src='http://%s/%s' align='absmiddle'> " % (site.domain, src))
+	
+	return entry

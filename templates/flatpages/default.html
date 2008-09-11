@@ -6,5 +6,5 @@
 {% block title %}{{ flatpage.title }}@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
 
 {% block body %}
-	{{ flatpage.content }}
+	{{ flatpage.content|emotions|safe }}
 {% endblock %}
