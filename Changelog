@@ -1,5 +1,12 @@
 2008-09-12  Alper KANAT  <alperkanat@gmail.com>
 
+	* TODO: 1 less todo's.. :)
+	* media/css/style.css, extra/tag_cloud.py, extra/search.py, blog/views.py,
+	blog/templatetags/blog_filters.py, blog/feeds.py,
+	templates/users/profile.html, templates/blog/homepage.html, 
+	templates/blog/sticky.html: raptiye shows the latest sticky post at the
+	homepage now.. it's invisible through search queries, tag and blog listings,
+	rss feeds..
 	* media/images/edit.png, media/css/style.css, templates/blog/detail.html,
 	templates/blog/homepage.html: every blog entry have a link to edit itself if
 	user is super user..

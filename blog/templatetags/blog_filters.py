@@ -81,3 +81,29 @@ def links():
 	return {
 		'link_category': LinkCategories.objects.all(),
 	}
+
+@register.inclusion_tag("blog/sticky.html")
+def sticky():
+	"""
+	Grabs the latest sticky post and show it.. Since raptiye is not a forum
+	app, I don't think there might be more than 1 sticky posts at a time and
+	therefore not implementing it.
+	
+	Sticky posts are excluded from the following:
+	
+	* RSS feeds
+	* Search results
+	* Blog entry listings
+	
+	If you want to publish a blog entry after you made it sticky, then simple 
+	remove its sticky flag..
+	"""
+	from raptiye.blog.models import Entry
+	
+	sticky_flag = True if Entry.objects.filter(sticky=True).count() == 1 else False
+	latest_sticky_post = Entry.objects.filter(sticky=True).latest() if sticky_flag else None
+	
+	return {
+		"sticky_flag": sticky_flag,
+		"sticky_post": latest_sticky_post,
+	}

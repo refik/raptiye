@@ -55,4 +55,4 @@ class RSSEntriesWithTag(RSS):
 	
 	def items(self, obj):
 		fp = FrontPage.objects.get(pk=1)
-		return obj.entries.filter(published=True, datetime__lte=datetime.now()).order_by("-datetime")[:fp.rss_limit]
+		return obj.entries.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True).order_by("-datetime")[:fp.rss_limit]

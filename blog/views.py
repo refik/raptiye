@@ -42,7 +42,7 @@ def search(request, template="blog/homepage.html"):
 		return get_latest_entries(request)
 
 def get_latest_entries_list():
-	return Entry.objects.filter(published=True, datetime__lte=datetime.now()).order_by("-datetime")
+	return Entry.objects.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True).order_by("-datetime")
 
 def get_entries_for_day(request, year, month, day):
 	"Displays all posts for a specific day"
@@ -52,7 +52,7 @@ def get_entries_for_day(request, year, month, day):
 	}
 
 	entry = {
-		"queryset" : Entry.objects.filter(published=True, datetime__lte=datetime.now()),
+		"queryset" : Entry.objects.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True),
 		"template_name": "blog/homepage.html",
 		"template_object_name": "entry",
 		"year": year,
@@ -78,7 +78,7 @@ def get_post(request, year, month, day, slug):
 		extra_context["captcha"] = captcha
 	
 	entry = {
-		"queryset" : Entry.objects.filter(published=True, datetime__lte=datetime.now()),
+		"queryset" : Entry.objects.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True),
 		"template_name": "blog/detail.html",
 		"template_object_name": "entry",
 		"year": year,
@@ -109,7 +109,7 @@ def get_entries_for_tag(request, tag):
 		# found the tag, can continue
 		t = Tag.objects.get(name=tag)
 		entry_list = {
-			"queryset": t.entries.filter(published=True, datetime__lte=datetime.now()).order_by("-datetime"),
+			"queryset": t.entries.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True).order_by("-datetime"),
 			"template_name": "blog/homepage.html",
 			"template_object_name": "entry",
 			"paginate_by": settings.ENTRIES_PER_PAGE,

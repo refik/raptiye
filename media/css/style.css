@@ -238,10 +238,6 @@ blockquote {
 	margin-right: 20px;
 }
 
-.underline {
-	text-decoration: underline;
-}
-
 #blog_container {
 	float: left;
 	width: 570px;
@@ -249,11 +245,19 @@ blockquote {
 	margin-bottom: 20px;
 }
 
-.blog_sticky_post {
+.blog_message {
 	margin-bottom: 20px;
 	padding: 10px;
 	background-color: #F0F0F0;
 	border: 1px solid #D9D9D9;
+}
+
+.blog_sticky_post {
+	margin-bottom: 20px;
+	padding: 10px;
+	background-color: #F6EFE0;
+	border: 1px solid #EEE4CB;
+	overflow: auto;
 }
 
 #sidebar_container {
@@ -263,6 +267,7 @@ blockquote {
 }
 
 .entry {
+	clear: both;
 	width: 100%;
 	margin-bottom: 80px;
 }
@@ -839,4 +844,12 @@ blockquote {
 .warning {
 	color: #990000;
 	font-weight: bold;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.small_note {
+	font-size: 11px;
 }

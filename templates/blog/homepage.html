@@ -8,7 +8,7 @@
 	{% include "blog/sidebar.html" %}
 	<div id="blog_container">
 		{% if messages %}
-		<div class="blog_sticky_post">
+		<div class="blog_message">
 			{% for message in messages %}
 				{{ message|safe }}
 			{% endfor %}
@@ -16,12 +16,14 @@
 		{% endif %}
 		
 		{% if session_messages %}
-			<div class="blog_sticky_post">
+			<div class="blog_message">
 			{% for message in session_messages %}
 				{{ message|safe }}
 			{% endfor %}
 			</div>
 		{% endif %}
+		
+		{% sticky %}
 		
 		{% for entry in entry_list %}
 		<div class="entry">
