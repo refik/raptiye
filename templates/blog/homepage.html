@@ -44,6 +44,13 @@
 						<a href="{% url entries_with_tag tag %}" title="{{ tag }} ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">{{ tag }}</a>
 						{% endfor %}
 					</div>
+					{% if user.is_superuser %}
+					<div class="entry_admin">
+						<a href="/admin/blog/entry/{{ entry.id }}/" title="{{ entry.title }} adlı yazıyı düzenlemek için tıklayın..">
+							<img src="/media/images/edit.png" border="0" align="absmiddle"> Düzenle
+						</a>
+					</div>
+					{% endif %}
 				</div>
 			</div>
 			<div class="entry_body">

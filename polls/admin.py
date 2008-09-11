@@ -8,7 +8,7 @@ class ChoiceInline(admin.TabularInline):
 
 class PollAdmin(admin.ModelAdmin):
 	date_hierarchy = "datetime"
-	list_display = ("question", "published",)
+	list_display = ("question", "published", "get_results")
 	list_filter = ("published",)
 	search_fields = ["question",]
 	inlines = [ChoiceInline,]

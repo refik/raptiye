@@ -9,6 +9,15 @@ class Poll(models.Model):
 	def __unicode__(self):
 		return self.question
 	
+	def get_results(self):
+		results = u""
+		for choice in self.choices.all():
+			results += u"<strong>&raquo;</strong> %s <strong>(%d)</strong><br>" % (choice.choice, choice.votes)
+		return results
+	
+	get_results.short_description = u"Results for Poll"
+	get_results.allow_tags = True
+	
 	class Meta:
 		get_latest_by = "datetime"
 		ordering = ["-datetime", "question"]
@@ -17,7 +26,7 @@ class Poll(models.Model):
 
 class Choice(models.Model):
 	"Stores the essential information about the poll.."
-	poll = models.ForeignKey(Poll, related_name="choices", verbose_name="Poll")
+	poll = models.ForeignKey(Poll, related_name="choices", verbose_name=u"Poll")
 	choice = models.CharField(u"Choice", max_length=200)
 	votes = models.IntegerField(u"Votes", blank=True, default=0, editable=False)
 	

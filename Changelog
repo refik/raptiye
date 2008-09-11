@@ -1,3 +1,14 @@
+2008-09-12  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/edit.png, media/css/style.css, templates/blog/detail.html,
+	templates/blog/homepage.html: every blog entry have a link to edit itself if
+	user is super user..
+	* comments/admin.py, comments/models.py: comment list page in admin panel
+	now shows a link to the blog entry..
+	* polls/admin.py, polls/models.py: poll results are shown in the admin panel
+	now..
+	* TODO: removed 2 items in the list.. :)
+	
 2008-09-11  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/css/style.css: some weird layout error just popped out.. :S
