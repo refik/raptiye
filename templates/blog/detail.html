@@ -1,5 +1,7 @@
 {% extends "frontpage/base.html" %}
 
+{% load blog_filters %}
+
 {% block title %}{{ entry.title }}@gunluk.{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
 
 {% block body %}
