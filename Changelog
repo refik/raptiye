@@ -1,5 +1,6 @@
 2008-09-13  Alper KANAT  <alperkanat@gmail.com>
 
+	* templates/frontpage/base.html: Added Google Analytics JS code..
 	* templates/blog/detail.html: Fixed a bug..
 
 2008-09-12  Alper KANAT  <alperkanat@gmail.com>

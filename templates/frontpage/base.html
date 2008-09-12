@@ -10,6 +10,16 @@
 		<link href="{{ mainpage.rss_url }}" rel="alternate" type="application/rss+xml" title="raptiye rss feed" />
 		<script type="text/javascript" src="/media/js/jquery.js"></script>
 		<script type="text/javascript" src="/media/js/raptiye.js"></script>
+		{# Google Analytics JS Code Start #}
+		<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-5603529-1");
+			pageTracker._trackPageview();
+		</script>
+		{# Google Analytics JS Code End #}
 		<title>{% block title %}{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}</title>
 	</head>
 	<body>
