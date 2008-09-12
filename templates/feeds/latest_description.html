@@ -1,1 +1,3 @@
+{% load blog_filters %}
+
 {{ obj.content|emotions|truncatewords_html:150|safe|linebreaksbr }}
