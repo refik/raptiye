@@ -38,7 +38,7 @@ class RSS(Feed):
 class RSSLatestEntries(RSS):
 	def items(self):
 		fp = FrontPage.objects.get(pk=1)
-		return get_latest_entries_list()[:fp.rss_limit]
+		return get_latest_entries_list(show_sticky=True)[:fp.rss_limit]
 
 class AtomLatestEntries(RSSLatestEntries):
 	feed_type = Atom1Feed
@@ -55,4 +55,4 @@ class RSSEntriesWithTag(RSS):
 	
 	def items(self, obj):
 		fp = FrontPage.objects.get(pk=1)
-		return obj.entries.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True).order_by("-datetime")[:fp.rss_limit]
+		return obj.entries.filter(published=True, datetime__lte=datetime.now()).order_by("-datetime")[:fp.rss_limit]

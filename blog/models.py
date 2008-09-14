@@ -34,6 +34,8 @@ class Entry(models.Model):
 	def get_full_url(self):
 		site_url = Site.objects.get_current().domain
 		dt = self.datetime
+		if self.sticky == True:
+			return ""
 		return "http://%s/blog/%s/%s/" % (site_url, self.datetime.strftime("%Y/%m/%d"), self.slug)
 	
 	def get_datetime(self):
@@ -44,6 +46,8 @@ class Entry(models.Model):
 	def get_entry_url(self):
 		site_url = Site.objects.get_current().domain
 		entry_url = "http://%s/blog/%s/%s/" % (site_url, self.datetime.strftime("%Y/%m/%d"), self.slug)
+		if self.sticky == True:
+			return ""
 		return "<a href='%s' title='Click here to read the entry..' target='_blank'>%s</a>" % (entry_url, entry_url)
 	
 	get_entry_url.short_description = "URL of Entry"

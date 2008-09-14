@@ -41,8 +41,11 @@ def search(request, template="blog/homepage.html"):
 		set_user_message(request, SEARCH_FAILED)
 		return get_latest_entries(request)
 
-def get_latest_entries_list():
-	return Entry.objects.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True).order_by("-datetime")
+def get_latest_entries_list(show_sticky=False):
+	if show_sticky:
+		return Entry.objects.filter(published=True, datetime__lte=datetime.now()).order_by("-datetime")
+	else:
+		return Entry.objects.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True).order_by("-datetime")
 
 def get_entries_for_day(request, year, month, day):
 	"Displays all posts for a specific day"

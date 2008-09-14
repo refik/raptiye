@@ -31,7 +31,8 @@ def get_month_and_year():
 	from calendar import LocaleTextCalendar
 	now = datetime.now()
 	calendar = LocaleTextCalendar(0, settings.LOCALES['tr'])
-	return u"%s" % calendar.formatmonthname(now.year, now.month, 0)
+	month_and_year = u"%s" % calendar.formatmonthname(now.year, now.month, 0)
+	return month_and_year.lower()
 
 @register.simple_tag
 def construct_calendar():

@@ -5,15 +5,15 @@ from django.utils import simplejson
 from raptiye.extra.messages import POLL_ERROR
 from raptiye.polls.models import Poll
 
+# used to test if a variable is inside the dict. or not
+test = lambda x={},y="": (x.has_key(y) and x[y] != "") or False
+
 def polls(request):
 	# the resp is returned as json object with
 	# all parameters embedded into..
 	resp = {
 		"status": 0,
 	}
-	
-	# used to test if a variable is inside the dict. or not
-	test = lambda x={},y="": (x.has_key(y) and x[y] != "") or False
 	
 	# stores the data that will be used in the template
 	answers = []
@@ -40,18 +40,36 @@ def polls(request):
 				# returning the json encoded version of resp data..
 				response.content = simplejson.dumps(resp)
 				return response
+			else:
+				# this part could be controlled by an elif statement
+				# but it's already checked in getResultsForPoll function..
+				results = getResultsForPoll(request)
+				return HttpResponse(results)
 		else:
-			if test(request.POST, "poll"):
-				poll = Poll.objects.get(id=request.POST["poll"])
-				# returning the results
-				for answer in poll.choices.all():
-					answers.append({"name": answer.choice, "votes": answer.votes})
-				# storing all data to the resp
-				resp["result"] = answers
-				# returning the json encoded version of resp data..
-				return HttpResponse(simplejson.dumps(resp))
+			results = getResultsForPoll(request)
+			return HttpResponse(results)
 	
 	# this part works if the if part somehow sucks
 	resp["status"] = 1
 	resp["error"] = POLL_ERROR
 	return HttpResponse(simplejson.dumps(resp))
+
+def getResultsForPoll(request):
+	# the resp is returned as json object with
+	# all parameters embedded into..
+	resp = {
+		"status": 0,
+	}
+	
+	# stores the data that will be used in the template
+	answers = []
+	
+	if test(request.POST, "poll"):
+		poll = Poll.objects.get(id=request.POST["poll"])
+		# returning the results
+		for answer in poll.choices.all():
+			answers.append({"name": answer.choice, "votes": answer.votes})
+		# storing all data to the resp
+		resp["result"] = answers
+		# returning the json encoded version of resp data..
+		return simplejson.dumps(resp)

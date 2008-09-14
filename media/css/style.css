@@ -797,6 +797,13 @@ blockquote {
 	margin-left: 10px;
 }
 
+#poll_show_results {
+	width: 100%;
+	margin-top: 10px;
+	text-align: center;
+	font-size: 10px;
+}
+
 .today {
 	background: transparent url(/media/images/calendar_today.png) top right no-repeat;
 }

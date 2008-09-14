@@ -1,3 +1,12 @@
+2008-09-14  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, polls/views.py, templates/blog/poll.html: poll
+	results can be seen through the sidebar..
+	* blog/views.py, blog/feeds.py: sticky blog entries is shown in the rss
+	feeds now.. sticky feeds can be shown or hidden by just a parameter..
+	* blog/models.py: admin page doesn't show the url of sticky posts since
+	they cannot be indexed and they're not regular pages..
+
 2008-09-13  Alper KANAT  <alperkanat@gmail.com>
 
 	* templates/frontpage/base.html: Added Google Analytics JS code..

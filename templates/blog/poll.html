@@ -7,7 +7,7 @@
 	<div class="widget_box">
 		<div class="widget_title">
 			<img src="/media/images/poll.png" align="absmiddle">
-			Anket
+			anket
 		</div>
 		<div class="widget_body">
 			<div class="widget_on_left">
@@ -31,6 +31,11 @@
 				<div id="poll_results" style="display: none;"></div>
 				<div id="poll_submit_button">
 					<button id="poll_submit">gönder</button>
+				</div>
+				<div id="poll_show_results">
+					<a href="javascript: showResultsForPoll();" title="sonuçları görmek istiyorum..">
+						Sonuçları Göster
+					</a>
 				</div>
 				{% endif %}
 			</div>
@@ -79,33 +84,14 @@
 		layer.slideToggle()
 	}
 	
-	{% if request.COOKIES.poll_submitted %}
-	var query = "poll={{ poll.id }}"
-	var url = "{% url polls %}"
-	$.post(url, query, function(resp) {
-		$(".poll_choices").slideToggle()
-		$("#loading").slideToggle()
-		if (!resp.status) {
-			drawGraph(resp.result)
-		} else {
-			$("<div>").css({
-				"padding": "5px",
-				"text-align": "center",
-				"background-color": "#f0f0f0",
-				"border": "1px solid #d9d9d9"
-			}).text(resp.error).appendTo(layer)
-			$("#loading").slideToggle()
-			layer.slideToggle()
-		}
-	}, "json")
-	{% else %}
-	$("#poll_submit").click(function() {
-		// sending the answers
-		var query = $(".poll_choices :input").serialize()
+	function showResultsForPoll(query) {
+		query = (query == undefined) ? "poll={{ poll.id }}" : query
+		
+		$("#poll_show_results").slideToggle()
+		$("#poll_submit_button").slideToggle()
 		var url = "{% url polls %}"
 		$.post(url, query, function(resp) {
 			$(".poll_choices").slideToggle()
-			$("#poll_submit_button").slideToggle()
 			$("#loading").slideToggle()
 			if (!resp.status) {
 				drawGraph(resp.result)
@@ -120,6 +106,16 @@
 				layer.slideToggle()
 			}
 		}, "json")
+	}
+	
+	{% if request.COOKIES.poll_submitted %}
+	var query = "poll={{ poll.id }}"
+	showResultsForPoll(query)
+	{% else %}
+	$("#poll_submit").click(function() {
+		// sending the answers
+		var query = $(".poll_choices :inp ut").serialize()
+		showResultsForPoll(query)
 	});
 	{% endif %}
 </script>
