@@ -86,13 +86,12 @@
 	
 	function showResultsForPoll(query) {
 		query = (query == undefined) ? "poll={{ poll.id }}" : query
-		
+		$("#loading").slideToggle()
+		$(".poll_choices").slideToggle()
 		$("#poll_show_results").slideToggle()
 		$("#poll_submit_button").slideToggle()
 		var url = "{% url polls %}"
 		$.post(url, query, function(resp) {
-			$(".poll_choices").slideToggle()
-			$("#loading").slideToggle()
 			if (!resp.status) {
 				drawGraph(resp.result)
 			} else {
