@@ -1,3 +1,8 @@
+2008-09-15  Alper KANAT  <alperkanat@gmail.com>
+
+	* blog/admin.py, media/js/tiny_mce: Blog entries' and flatpages' admin page
+	now has TinyMCE support.. (WYSIWYG HTML Editor support is added)
+
 2008-09-14  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/css/style.css, polls/views.py, templates/blog/poll.html: poll
