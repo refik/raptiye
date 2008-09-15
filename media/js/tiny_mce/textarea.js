@@ -11,4 +11,9 @@ tinyMCE.init({
 	theme_advanced_toolbar_align : "left",
 	theme_advanced_statusbar_location : "bottom",
 	theme_advanced_resizing : true,
+	force_p_newlines : false,
+	force_br_newlines : true,
+	convert_newlines_to_brs : true,
+	remove_linebreaks : true,
+	forced_root_block : ''
 });

@@ -1,3 +1,7 @@
+2008-09-16  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/js/tiny_mce/textarea.js: resolved the <p> and <br> problem..
+
 2008-09-15  Alper KANAT  <alperkanat@gmail.com>
 
 	* blog/admin.py, media/js/tiny_mce: Blog entries' and flatpages' admin page
