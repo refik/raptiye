@@ -1,5 +1,8 @@
 2008-09-16  Alper KANAT  <alperkanat@gmail.com>
 
+	* media/js/tiny_mce/textarea.js: some enhancement for tinymce..
+	* templates/blog/poll.html: thanks to Onur GÜVEN, fixed a typo bug which
+	prevented the poll from working..
 	* media/js/tiny_mce/textarea.js: resolved the <p> and <br> problem..
 
 2008-09-15  Alper KANAT  <alperkanat@gmail.com>

@@ -113,7 +113,7 @@
 	{% else %}
 	$("#poll_submit").click(function() {
 		// sending the answers
-		var query = $(".poll_choices :inp ut").serialize()
+		var query = $(".poll_choices :input").serialize()
 		showResultsForPoll(query)
 	});
 	{% endif %}
