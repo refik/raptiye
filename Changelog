@@ -1,3 +1,11 @@
+2008-09-19  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/css/style.css, settings-example.py, blog/views.py,
+	comments/views.pycomments/templatetags/comment_filters.py,
+	comments/models.py, comments/forms.py, templates/blog/comments.html:
+	comments section in the blog detail page now uses django forms and is
+	currently under heavy development for anonymous comments..
+	
 2008-09-16  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/js/tiny_mce/textarea.js: some enhancement for tinymce..

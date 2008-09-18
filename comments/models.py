@@ -8,9 +8,9 @@ class Comments(models.Model):
 	author = models.ForeignKey(User, related_name='comments', verbose_name=u"Author")
 	author_ip = models.IPAddressField(u"Author's IP", blank=True, null=True)
 	# the following anonymous related fields are for comments that were before new raptiye..
-	anonymous_author = models.CharField(u"Anonymous Author", blank=True, max_length="100")
-	anonymous_author_email = models.EmailField(u"Anonymous Author E-Mail", blank=True, max_length="100")
-	anonymous_author_web_site = models.CharField(u"Anonymous Author Web Site", blank=True, max_length="100")
+	anonymous_author = models.CharField(u"Anonymous Author", blank=True, max_length=100)
+	anonymous_author_email = models.EmailField(u"Anonymous Author E-Mail", blank=True, max_length=100)
+	anonymous_author_web_site = models.CharField(u"Anonymous Author Web Site", blank=True, max_length=100)
 	datetime = models.DateTimeField()
 	content = models.TextField(u"Comment")
 	published = models.BooleanField(u"Published", default=False)

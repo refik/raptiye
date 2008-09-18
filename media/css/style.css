@@ -454,6 +454,22 @@ blockquote {
 	background: transparent url(/media/images/warning.png) top center no-repeat;
 }
 
+#entry_comment_anonymous_author {
+	float: left;
+	margin: 10px 10px 0 10px;
+	width: 250px;
+}
+
+#entry_comment_anonymous_warning {
+	float: right;
+	margin: 10px 10px 0 0;
+	padding: 5px;
+	width: 275px;
+	background-color: pink;
+	border: 1px solid #86bcde;
+	font-size: 10px;
+}
+
 #entry_comment_write_left {
 	float: left;
 	margin: 10px;

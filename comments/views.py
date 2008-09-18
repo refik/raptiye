@@ -39,7 +39,6 @@ def new_captcha(request):
 	resp["captcha"] = captcha
 	return HttpResponse(simplejson.dumps(resp))
 
-@login_required
 def comment_sent(request):
 	from raptiye.extra.mail import send_comment_notification
 	
@@ -87,6 +86,10 @@ def comment_sent(request):
 		resp["status"] = 1
 		resp["error"] = u"giriş yapılmamış"
 		return HttpResponse(simplejson.dumps(resp))
+
+# above method will require login if a variable is True in the settings.py
+if not settings.ALLOW_ANONYMOUS_COMMENTS:
+	comment_sent = login_required(comment_sent)
 
 def create_captcha():
 	c = Captcha(path.join(settings.MEDIA_ROOT, settings.TEMP_MEDIA_PREFIX))

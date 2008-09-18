@@ -71,12 +71,17 @@ def get_entries_for_day(request, year, month, day):
 
 def get_post(request, year, month, day, slug):
 	"Displays a specific post"
-
+	
+	from raptiye.comments.forms import CommentForm
+	
 	captcha = None
-	extra_context = {}
+	extra_context = {
+		"allow_anonymous_comments": settings.ALLOW_ANONYMOUS_COMMENTS and not request.user.is_authenticated(),
+		"form": CommentForm(),
+	}
 
 	# don't create captcha if the user is not authenticated
-	if request.user.is_authenticated():
+	if settings.ALLOW_ANONYMOUS_COMMENTS or request.user.is_authenticated():
 		captcha = create_captcha()
 		extra_context["captcha"] = captcha
 	

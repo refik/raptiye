@@ -141,3 +141,6 @@ VERSION = '1.0b1'
 
 ANONYMOUS_PASSWORD = ""
 LATEST_COMMENTS_LIMIT = 5
+
+# enable or disable writing comments anonymously
+ALLOW_ANONYMOUS_COMMENTS = True

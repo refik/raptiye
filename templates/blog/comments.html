@@ -41,15 +41,51 @@
 {% if entry.comments_enabled %}
 <input id="disableForm" type="hidden" value="0" />
 
-{% if request.user.is_authenticated %}
-<div id="entry_comment_write">
+{% if allow_anonymous_comments or request.user.is_authenticated %}
+<div id="entry_comment_write" {% if allow_anonymous_comments %}style="height: 220px;"{% endif %}>
+	{% if allow_anonymous_comments %}
+	<table id="entry_comment_anonymous_author">
+		<tr>
+			<td style="text-align: right;">
+				{{ form.anonymous_full_name.label_tag }}:
+			</td>
+			<td width="15"></td>
+			<td>
+				{{ form.anonymous_full_name }}
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: right;">
+				{{ form.anonymous_email.label_tag }}:
+			</td>
+			<td width="15"></td>
+			<td>
+				{{ form.anonymous_email }}
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: right;">
+				{{ form.anonymous_website.label_tag }}:
+			</td>
+			<td width="15"></td>
+			<td>
+				{{ form.anonymous_website }}
+			</td>
+		</tr>
+	</table>
+	<div id="entry_comment_anonymous_warning">
+		Giriş yapmamış kullanıcıların,
+		<br>
+		&nbsp;&nbsp;<strong>&raquo;</strong> tüm yorumları moderasyondan geçer.
+		<br>
+		&nbsp;&nbsp;<strong>&raquo;</strong> yazıdaki değişikliklerden haberdar olması mümkün değildir.
+	</div>
+	{% endif %}
 	<div id="entry_comment_write_left">
 		<textarea id="entry_comment_textarea" name="comment_body"></textarea>
 		{% if entry|check_if_user_subscribed:user %}
 		<br>
-		<input id="entry_comment_notification" name="notification" type="checkbox" value="1">
-			Bu yazıdaki değişikliklerden beni haberdar et
-		</input>
+		{{ form.notification }} {{ form.notification.label_tag }}
 		{% endif %}
 	</div>
 	<div id="entry_comment_write_right">
@@ -58,7 +94,7 @@
 				<img id="captcha_image" src="{{ captcha }}" title="captcha">
 				<br>
 				<a href="#" title="yeni bir captcha için tıklayın.." class="gray_link" onclick="getNewCaptcha(); return false;">[yenile]</a>
-				<input id="entry_comment_write_captcha_textbox" name="comment_captcha" type="text" size="6" maxlength="6" />
+				{{ form.captcha }}
 			</div>
 		</div>
 		<div id="sending_comment" style="display: none;">
