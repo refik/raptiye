@@ -10,7 +10,34 @@
 				{% for comment in latest_comments %}
 					<li>
 						<strong>&raquo;</strong>
-						<a href="{{ comment.entry.get_full_url }}" title="{{ comment.entry.title }} adlı yazıyı okumak için tıklayın.." class="ulink">{{ comment.entry.title }}</a> adlı yazı için {% ifequal comment.author.get_profile.web_site "" %}{{ comment.author.username }}{% else %}<a href="{{ comment.author.get_profile.web_site }}" title="{{ comment.author.username }} adlı kullanıcının web sitesine girmek için tıklayın.." target="_blank" class="ulink">{{ comment.author.username }}</a>{% endifequal %} tarafından yapılan yorum
+						{% spaceless %}
+							<a href="{{ comment.entry.get_full_url }}" title="{{ comment.entry.title }} adlı yazıyı okumak için tıklayın.." class="ulink">
+								{{ comment.entry.title }}
+							</a>
+							adlı yazı için
+							{% ifequal comment.author.username "anonymous" %}
+								{% ifequal comment.anonymous_author_web_site "" %}
+									{{ comment.anonymous_author }}
+								{% else %}
+									<a href="{{ comment.anonymous_author_web_site }}"
+										title="{{ comment.anonymous_author }} adlı kullanıcının sitesini ziyaret etmek için tıklayın.."
+										target="_blank" class="ulink">
+										{{ comment.anonymous_author }}
+									</a>
+								{% endifequal %}
+							{% else %}
+								{% ifequal comment.author.get_profile.web_site "" %}
+									{{ comment.author.username }}
+								{% else %}
+									<a href="{{ comment.author.get_profile.web_site }}"
+										title="{{ comment.author.username }} adlı kullanıcının sitesini ziyaret etmek için tıklayın.."
+										target="_blank" class="ulink">
+										{{ comment.author.username }}
+									</a>
+								{% endifequal %}
+							{% endifequal %}
+							tarafından yapılan yorum
+						{% endspaceless %}
 					</li>
 				{% endfor %}
 			</div>

@@ -10,11 +10,14 @@
 			<tr>
 				<td class="entry_comment_info_box">
 					<div class="entry_comment_avatar">
-						<img src="{{ comment.author.get_profile.avatar }}" title="{{ comment.author.username }} kullanıcısının avatarı" width="50" height="50">
+						<img src="{{ comment.author.get_profile.avatar }}" title="{% if request.user.is_authenticated %}{{ comment.author.username }}{% else %}{{ comment.anonymous_author }}{% endif %} kullanıcısının avatarı" width="50" height="50">
 					</div>
 					<div class="entry_comment_info">
 						{% ifnotequal comment.author.get_profile.web_site "" %}
 							<a href="{{ comment.author.get_profile.web_site }}" title="{{ comment.author.username }} adlı kullanıcıya ait web sayfasını görüntülemek için tıklayın.." target="_blank">
+						{% endifnotequal %}
+						{% ifnotequal comment.anonymous_author_web_site "" %}
+							<a href="{{ comment.anonymous_author_web_site }}" title="{{ comment.anonymous_author }} adlı kullanıcıya ait web sayfasını görüntülemek için tıklayın.." target="_blank">
 						{% endifnotequal %}
 						{% ifequal comment.author.username "anonymous" %}
 								{{ comment.anonymous_author }}
@@ -22,6 +25,9 @@
 								{{ comment.author.username }}
 						{% endifequal %}
 						{% ifnotequal comment.author.get_profile.web_site "" %}
+							</a>
+						{% endifnotequal %}
+						{% ifnotequal comment.anonymous_author_web_site "" %}
 							</a>
 						{% endifnotequal %}
 						<div class="entry_comment_datetime">{{ comment.datetime|date:"d.m.Y, H:i" }}</div>
@@ -76,9 +82,7 @@
 	<div id="entry_comment_anonymous_warning">
 		Giriş yapmamış kullanıcıların,
 		<br>
-		&nbsp;&nbsp;<strong>&raquo;</strong> tüm yorumları moderasyondan geçer.
-		<br>
-		&nbsp;&nbsp;<strong>&raquo;</strong> yazıdaki değişikliklerden haberdar olması mümkün değildir.
+		&nbsp;&nbsp;&nbsp;<strong>&raquo;</strong> tüm yorumları moderasyondan geçer.
 	</div>
 	{% endif %}
 	<div id="entry_comment_write_left">
@@ -173,14 +177,25 @@
 					$('<td>').addClass('entry_comment_info_box').append(
 						$('<div>').addClass('entry_comment_avatar').append(
 							$('<img>').attr({
+								{% if request.user.is_authenticated %}
 								'src': '{{ request.user.get_profile.avatar|safe }}',
 								'title': '{{ request.user.username }} kullanıcısının avatarı',
+								{% else %}
+								'src': '/media/images/default_avatar.png',
+								'title': $("#id_anonymous_full_name").val() + ' kullanıcısının avatarı',
+								{% endif %}
 								'width': '50',
 								'height': '50'
 							})
 						)
 					).append(
+						{% if request.user.is_authenticated %}
 						$('<div>').addClass('entry_comment_info').html('{{ request.user.username }}').append(
+						{% else %}
+						$('<div>').addClass('entry_comment_info').html(
+							$("#id_anonymous_full_name").val()
+						).append(
+						{% endif %}
 							$('<div>').addClass('entry_comment_datetime').html(datetime)
 						)
 					)
@@ -203,7 +218,13 @@
 		$("#comment_error").slideUp("slow", function() {
 			$("#comment_error").text("");
 			if (resp.status) {
-				$("#comment_error").text(resp.error);
+				if (resp.error.constructor == Array && resp.error.length > 0) {
+					// ensure the errors are ordered
+					resp.error = resp.error.sort()
+					$("#comment_error").text(resp.error[0]);
+				} else {
+					$("#comment_error").text(resp.error);
+				}
 				$("#comment_error").css('background-color', 'red');
 				$("#comment_error").slideDown('slow');
 			} else {

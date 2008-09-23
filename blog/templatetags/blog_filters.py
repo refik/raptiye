@@ -40,7 +40,7 @@ def construct_calendar():
 	from raptiye.extra.webcal import WebCalendar
 	from raptiye.extra.messages import ENTRIES_ON_DATE
 	now = datetime.now()
-	wc = WebCalendar(now.year, now.month, now.day, Entry, "datetime", settings.LOCALES['tr'])
+	wc = WebCalendar(now.year, now.month, now.day, Entry.objects.exclude(sticky=True), "datetime", settings.LOCALES['tr'])
 	return wc.render("calendar_box", "/blog", ENTRIES_ON_DATE, "ulink")
 
 @register.inclusion_tag('blog/pagination.html', takes_context=True)

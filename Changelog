@@ -1,3 +1,22 @@
+2008-09-24  Alper KANAT  <alperkanat@gmail.com>
+
+	* extra/webcal.py, blog/templatetags/blog_filters.py: can exclude anything
+	from the object being rendered into the web calendar..
+	* extra/messages.py: added new messages..
+	* extra/captcha.py: there's a bug in the registration form that comes up
+	when unicode characters are entered into the captcha.. this might fix it..
+	* comments/views.py, comments/forms.py, templates/blog/comments.html:
+	anonymous comments can be entered now.. this needs more testing btw.. using
+	forms api to validate the comments form (but only when anonymous comments
+	are allowed which might change in the future.. has put a FIXME there..) i
+	really hate long views.. it seems kinda wrong..
+	* templates/blog/latest_comments.html: anonymous users' names and web sites
+	are shown in the latest comments now.. using spaceless template tag in here
+	because otherwise it'd be too hard to read the code..
+	* .htaccess: http://svn.raptiye.org is now redirected to
+	http://raptiye.org.. maybe i should really stop being so paranoid and let
+	the http protocol free for svn..
+	
 2008-09-19  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/css/style.css, settings-example.py, blog/views.py,

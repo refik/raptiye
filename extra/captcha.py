@@ -20,14 +20,14 @@ class Captcha:
 	@param fgColor String for the text color of captcha
 	@param bgColor String for the background color
 	"""
-	text = ""
+	text = u""
 	text_length = 6
-	file_path = ""
-	filename = ""
+	file_path = u""
+	filename = u""
 	size = None
 	font = None
-	fgColor = ""
-	bgColor = ""
+	fgColor = u""
+	bgColor = u""
 
 	def __init__(self, file_path="", filename="", size=None, fgColor="", bgColor=""):
 		self.file_path = file_path

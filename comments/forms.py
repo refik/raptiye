@@ -4,10 +4,10 @@ import re
 from django import forms
 
 class CommentForm(forms.Form):
-	anonymous_full_name = forms.CharField(label=u"Ad Soyad", required=False, max_length=100)
-	anonymous_email = forms.EmailField(label=u"E-Posta", required=False, max_length=100)
+	anonymous_full_name = forms.CharField(label=u"Ad Soyad", max_length=100)
+	anonymous_email = forms.EmailField(label=u"E-Posta", max_length=100)
 	anonymous_website = forms.URLField(label=u"Web Sitesi", required=False, verify_exists=True, max_length=100)
-	comment = forms.CharField(label=u"Yorum")
+	comment_body = forms.CharField(label=u"Yorum")
 	captcha = forms.CharField(label=u"Captcha", max_length=6, widget=forms.TextInput(attrs={"size": "6"}))
 	notification = forms.BooleanField(label=u"Bu yazıdaki değişikliklerden beni haberdar et", required=False)
 	

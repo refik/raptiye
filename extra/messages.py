@@ -84,3 +84,16 @@ POLL_ERROR = u"Anket oylamasında hata oluştu! Lütfen daha sonra tekrar deneyi
 LOGIN_ERROR = u"Kullanıcı Adı ya da Şifre hatalı.. Lütfen tekrar deneyin.."
 
 ACCOUNT_NEEDS_ACTIVATION = u"Kullanıcı hesabınızı aktifleştirmeden kullanamazsınız."
+
+NEW_COMMENT_SUBJECT = u"yeni yorum var!"
+NEW_COMMENT_BODY = u"""Merhaba,
+
+Bu e-posta'yı \"%s\" adlı yazıya yapılan yeni ve henüz onaylanmamış (taze!)
+yorumdan haberdar olmak için alıyorsun! O halde durma; hemen aşağıdaki
+bağlantıya tıklayarak yorumu gör ve onayla!
+
+%s
+
+Sevgilerle..
+
+raptiye yorum bekçisi"""

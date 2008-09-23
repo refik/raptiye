@@ -5,6 +5,8 @@ from os import path
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.models import Site
+from django.core.mail import mail_admins
 from django.http import HttpResponse
 from django.utils import simplejson
 from raptiye.blog.models import Entry
@@ -40,37 +42,74 @@ def new_captcha(request):
 	return HttpResponse(simplejson.dumps(resp))
 
 def comment_sent(request):
+	from raptiye.comments.forms import CommentForm
 	from raptiye.extra.mail import send_comment_notification
 	
 	resp = {
 		"status": 0,
 	}
 	
+	site = Site.objects.get_current()
+	
 	# checking if the user is authenticated
-	if request.user.is_authenticated():
+	if request.user.is_authenticated() or settings.ALLOW_ANONYMOUS_COMMENTS:
 		# checking POST data
 		test = lambda x={},y="": (x.has_key(y) and x[y] != "") or False
-		if test(request.POST, "entry_id") and test(request.POST, "captcha_id") and test(request.POST, "comment_body") and test(request.POST, "comment_captcha"):
+		if test(request.POST, "entry_id") and test(request.POST, "captcha_id") and test(request.POST, "comment_body") and test(request.POST, "captcha"):
+			# FIXME: change the following part in the future..
+			if not request.user.is_authenticated() and settings.ALLOW_ANONYMOUS_COMMENTS:
+				# if anonymous user can comment then validate the form
+				form = CommentForm(request.POST)
+				if not form.is_valid():
+					resp["status"] = 1
+					# transforming errors into a form suitable for comments page
+					errors = []
+					for error in form.errors:
+						errors.append(u"%s hatalı" % form.fields[error].label)
+					resp["error"] = errors
+					# returning the response
+					return HttpResponse(simplejson.dumps(resp))
+			
 			# and at last, checking captcha
 			cp = Captcha()
-			cp.set_text(request.POST["comment_captcha"])
+			cp.set_text(request.POST["captcha"])
 			if cp.generate_hash(settings.SECRET_KEY[:20]) == request.POST["captcha_id"]:
 				# all tests ok, creating comment
 				c = Comments()
 				c.entry = Entry.objects.get(id=request.POST["entry_id"])
-				c.author = request.user
+				# getting the user who makes the comment
+				if request.user.is_authenticated():
+					user = request.user
+				else:
+					user = User.objects.get(username="anonymous")
+					# checking anonymous post data
+					if settings.ALLOW_ANONYMOUS_COMMENTS and test(request.POST, "anonymous_email") and test(request.POST, "anonymous_full_name") and test(request.POST, "anonymous_website"):
+						# filling anonymous user information from post data
+						c.anonymous_author = request.POST["anonymous_full_name"]
+						c.anonymous_author_email = request.POST["anonymous_email"]
+						c.anonymous_author_web_site = request.POST["anonymous_website"]
+					else:
+							resp["status"] = 1
+							resp["error"] = u"bilgiler eksik"
+							return HttpResponse(simplejson.dumps(resp))
+				c.author = user
 				c.content = request.POST["comment_body"]
 				c.datetime = datetime.now()
 				# checking if the user has a published comment before
-				if request.user.comments.filter(published=True).count() > 0:
+				if request.user.is_authenticated() and user.comments.filter(published=True).count() > 0:
 					c.published = True
+				else:
+					# send notification to the admins
+					mail_admins(NEW_COMMENT_SUBJECT, 
+						NEW_COMMENT_BODY % (c.entry, "http://%s/admin/blog/entry/%s/" % (site.domain, c.entry.id)), 
+						fail_silently=True)
 				# if notification is true
 				if test(request.POST, "notification"):
 					c.notification = True
 				# saving comment
 				c.save()
 				# now let's mail the people who wants a notification for this entry
-				send_comment_notification(c.entry, request.user)
+				send_comment_notification(c.entry, user)
 				resp["success"] = u"yorumunuz gönderildi.."
 				return HttpResponse(simplejson.dumps(resp))
 			else:
