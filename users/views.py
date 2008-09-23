@@ -165,6 +165,8 @@ def activation(request, username, key):
 	return get_latest_entries(request)
 
 def register(request, template="users/registration.html"):
+	import re
+	
 	# creating a captcha image
 	captcha = create_captcha()
 
@@ -187,7 +189,9 @@ def register(request, template="users/registration.html"):
 				if test(request.POST, "captcha_id") and test(request.POST, "registration_captcha"):
 					cp = Captcha()
 					cp.set_text(request.POST["registration_captcha"])
-					if cp.generate_hash(settings.SECRET_KEY[:20]) == request.POST["captcha_id"]:
+					# validating captcha
+					pattern = re.compile(u"[^a-zA-Z0-9]")
+					if not pattern.search(cp.get_text()) and cp.generate_hash(settings.SECRET_KEY[:20]) == request.POST["captcha_id"]:
 						# registering the user
 						try:
 							# the following line creates the user directly, it doesn't wait

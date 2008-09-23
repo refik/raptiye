@@ -58,7 +58,7 @@ class Captcha:
 		from random import sample
 		import string
 		choices = list(string.letters + string.digits)
-		return "".join(sample(choices, self.get_text_length()))
+		return u"".join(sample(choices, self.get_text_length()))
 
 	def set_text_length(self, length=6):
 		self.text_length = length

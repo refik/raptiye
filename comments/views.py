@@ -83,11 +83,12 @@ def comment_sent(request):
 				else:
 					user = User.objects.get(username="anonymous")
 					# checking anonymous post data
-					if settings.ALLOW_ANONYMOUS_COMMENTS and test(request.POST, "anonymous_email") and test(request.POST, "anonymous_full_name") and test(request.POST, "anonymous_website"):
+					if settings.ALLOW_ANONYMOUS_COMMENTS and test(request.POST, "anonymous_email") and test(request.POST, "anonymous_full_name"):
 						# filling anonymous user information from post data
 						c.anonymous_author = request.POST["anonymous_full_name"]
 						c.anonymous_author_email = request.POST["anonymous_email"]
-						c.anonymous_author_web_site = request.POST["anonymous_website"]
+						if test(request.POST, "anonymous_website"):
+							c.anonymous_author_web_site = request.POST["anonymous_website"]
 					else:
 							resp["status"] = 1
 							resp["error"] = u"bilgiler eksik"

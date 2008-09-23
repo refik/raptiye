@@ -1,5 +1,8 @@
 2008-09-24  Alper KANAT  <alperkanat@gmail.com>
 
+	* extra/captcha.py, users/views.py: controlling captcha for non ASCII
+	characters.. must use forms api in the future..
+	* comments/views.py: anonymous users don't have to enter a web site..
 	* templates/feeds/latest_description.html: left the truncate job to
 	feedburner.. this way raptiye don't care about how long the blog post is and
 	pushes the whole entry to the rss..
