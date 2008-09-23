@@ -1,5 +1,8 @@
 2008-09-24  Alper KANAT  <alperkanat@gmail.com>
 
+	* templates/feeds/latest_description.html: left the truncate job to
+	feedburner.. this way raptiye don't care about how long the blog post is and
+	pushes the whole entry to the rss..
 	* extra/webcal.py, blog/templatetags/blog_filters.py: can exclude anything
 	from the object being rendered into the web calendar..
 	* extra/messages.py: added new messages..

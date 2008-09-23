@@ -1,3 +1,6 @@
 {% load blog_filters %}
 
-{{ obj.content|emotions|truncatewords_html:150|safe|linebreaksbr }}
+
+{# add |truncatewords_html:150 before safe for truncating.. #}
+
+{{ obj.content|emotions|safe|linebreaksbr }}
