@@ -1,5 +1,7 @@
 2008-09-30  Alper KANAT  <alperkanat@gmail.com>
 
+	* blog/feeds.py: fixed a bug.. actually this is a stupid implementation..
+	* blog/templatetags/blog_filters.py: fixed a typo..
 	* tagged: Version 1.0
 
 2008-09-29  Alper KANAT  <alperkanat@gmail.com>

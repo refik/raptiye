@@ -124,6 +124,6 @@ def emotions(entry):
 	}
 	
 	for smiley, src in icons.iteritems():
-		entry = entry.replace(smiley, " <img src='http://%s/%s' align='absmiddle'> " % (site.domain, src))
+		entry = entry.replace(smiley, " <img src='http://%s%s' align='absmiddle'> " % (site.domain, src))
 	
 	return entry

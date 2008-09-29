@@ -25,7 +25,8 @@ class RSS(Feed):
 	
 	def link(self):
 		fp = FrontPage.objects.get(pk=1)
-		return fp.links.get(title="Günlük").url
+		# FIXME: title=günlük is stupid! change it!
+		return fp.links.get(title="günlük").url
 	
 	def item_link(self, item):
 		return item.get_full_url()
