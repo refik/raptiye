@@ -1,3 +1,9 @@
+2008-09-29  Alper KANAT  <alperkanat@gmail.com>
+
+	* migrated to bazaar instead of subversion.. therefore updated some
+	corrupted symlinks and some permissions..
+	* .htaccess: deleted this file since i'm moving to nginx..
+
 2008-09-24  Alper KANAT  <alperkanat@gmail.com>
 
 	* extra/captcha.py, users/views.py: controlling captcha for non ASCII
