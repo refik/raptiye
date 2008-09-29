@@ -9,7 +9,7 @@ def poll(parser, token):
 	from raptiye.polls.models import Poll
 	
 	if Poll.objects.count():
-		return PollNode(Poll.objects.latest())
+		return PollNode(Poll.objects.filter(published=True).latest())
 	else:
 		return PollNode(None)
 

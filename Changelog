@@ -1,5 +1,6 @@
 2008-09-30  Alper KANAT  <alperkanat@gmail.com>
 
+	* polls/templatetags/poll_filters.py: fixed a bug..
 	* blog/feeds.py: fixed a bug.. actually this is a stupid implementation..
 	* blog/templatetags/blog_filters.py: fixed a typo..
 	* tagged: Version 1.0
