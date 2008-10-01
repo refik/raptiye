@@ -1,3 +1,11 @@
+2008-10-01  Alper KANAT  <alperkanat@gmail.com>
+
+	* blog/feeds.py, blog/urls.py, blog/views.py, extra/tag_cloud.py,
+	tags/admin.py, tags/models.py, templates/blog/homepage.html,
+	templates/blog/tags.html: tags are slugified (urlized) now.. this will solve
+	the rss related problems for tags and more.. there are also some changes in
+	the db scheme for tags table..
+
 2008-09-30  Alper KANAT  <alperkanat@gmail.com>
 
 	* polls/templatetags/poll_filters.py: fixed a bug..

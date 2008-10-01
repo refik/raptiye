@@ -43,7 +43,7 @@
 					<div class="entry_tags">
 						<strong>etiketler:</strong>
 						{% for tag in entry.tags.all %}
-						<a href="{% url entries_with_tag tag %}" title="{{ tag }} ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">{{ tag }}</a>
+						<a href="{% url entries_with_tag tag.slug %}" title="{{ tag.name }} ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">{{ tag.name }}</a>
 						{% endfor %}
 					</div>
 					{% if user.is_superuser %}

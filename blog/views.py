@@ -111,18 +111,18 @@ def get_latest_entries(request):
 	}
 	return object_list(request, **entry_list)
 
-def get_entries_for_tag(request, tag):
+def get_entries_for_tag(request, slug):
 	# let's see if there's a tag with that name
-	if Tag.objects.filter(name=tag).count() == 1:
+	if Tag.objects.filter(slug=slug).count() == 1:
 		# found the tag, can continue
-		t = Tag.objects.get(name=tag)
+		t = Tag.objects.get(slug=slug)
 		entry_list = {
 			"queryset": t.entries.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True).order_by("-datetime"),
 			"template_name": "blog/homepage.html",
 			"template_object_name": "entry",
 			"paginate_by": settings.ENTRIES_PER_PAGE,
 			"extra_context" : {
-				"messages" : (TAGS_SUCCESS % (tag, t.entries.count()),),
+				"messages" : (TAGS_SUCCESS % (t.name, t.entries.count()),),
 			}
 		}
 		return object_list(request, **entry_list)

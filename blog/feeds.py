@@ -46,13 +46,13 @@ class AtomLatestEntries(RSSLatestEntries):
 	subtitle = RSS.description
 
 class RSSEntriesWithTag(RSS):
-	# /feeds/entries_tagged_with/tag_name_here
+	# /feeds/entries_tagged_with/tag_slug_here
 	
 	def get_object(self, bits):
 		if len(bits) != 1:
 			raise ObjectDoesNotExist
 			
-		return Tag.objects.get(name=bits[0])
+		return Tag.objects.get(slug=bits[0])
 	
 	def items(self, obj):
 		fp = FrontPage.objects.get(pk=1)

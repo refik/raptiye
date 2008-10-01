@@ -20,6 +20,8 @@ class TagCloud():
 		self.debug = debug
 	
 	def get_tag_cloud(self):
+		if self.debug:
+			print self.TAG_CLOUD
 		return self.TAG_CLOUD
 
 	def empty_tag_cloud(self):
@@ -58,7 +60,7 @@ class TagCloud():
 				continue
 			else:
 				frequency = tag.entries.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True)
-				self.TAG_CLOUD.append({"name": tag.name, "font_size": frequency.count()})
+				self.TAG_CLOUD.append({"name": tag.name, "slug": tag.slug,"font_size": frequency.count()})
 				if self.debug:
 					print "%s with count: %d" % (tag.name, frequency.count())
 				freq.append(frequency.count())
