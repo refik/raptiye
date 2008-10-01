@@ -1,5 +1,7 @@
 2008-10-01  Alper KANAT  <alperkanat@gmail.com>
 
+	* media/js/tiny_mce/textarea.js: fixed bug about tinymce converting urls to
+	relative..
 	* blog/feeds.py, blog/urls.py, blog/views.py, extra/tag_cloud.py,
 	tags/admin.py, tags/models.py, templates/blog/homepage.html,
 	templates/blog/tags.html: tags are slugified (urlized) now.. this will solve

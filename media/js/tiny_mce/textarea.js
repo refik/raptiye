@@ -16,5 +16,6 @@ tinyMCE.init({
 	convert_newlines_to_brs : true,
 	remove_linebreaks : true,
 	forced_root_block : '',
-	relative_urls : false
+	relative_urls : false,
+	convert_urls : false
 });
