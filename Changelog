@@ -1,5 +1,6 @@
 2008-10-01  Alper KANAT  <alperkanat@gmail.com>
 
+	* templates/blog/detail.html: forgot this part of the page..
 	* media/js/tiny_mce/textarea.js: fixed bug about tinymce converting urls to
 	relative..
 	* blog/feeds.py, blog/urls.py, blog/views.py, extra/tag_cloud.py,
