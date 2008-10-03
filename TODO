@@ -7,7 +7,6 @@ TODO
 
 --- Code Enhancements ---
 
-	* writing comments without having an account
 
 
 --- ADMIN ---
@@ -21,11 +20,3 @@ TODO
 
 	* i18n support
 	* Theme support
-	* Finish about page
-	
-
---- STUPID CODE REMOVALS ---
-
-	* NEVER RENDER AFTER A POST! REDIRECT INSTEAD!
-	* USE SESSION (FOR ANONYMOUS USERS) AND MESSAGE FRAMEWORK
-	OF DJANGO TO SHOW NOTIFICATION MESSAGES TO THE USER!

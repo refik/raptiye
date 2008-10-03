@@ -1,3 +1,4 @@
+// Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
 // this site does not support internet explorer
 // use better browsers like firefox, safari, opera
 // and even chrome which is in beta status..

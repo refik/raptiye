@@ -1,3 +1,5 @@
+// Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+
 debugging = false;
 
 function debug(msg) {
