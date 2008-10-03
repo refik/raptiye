@@ -1,5 +1,6 @@
 2008-10-03  Alper KANAT  <alperkanat@gmail.com>
 
+	* templates/blog/contact.html: added link for my gpg public key..
 	* all templates: extend tag must be the first tag in the template and
 	therefore i've switched places with the gpl disclaimer and extend tag..
 	* LICENSE and all files: raptiye is now licensed with GPLv3..
