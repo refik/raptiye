@@ -1,5 +1,7 @@
 2008-10-03  Alper KANAT  <alperkanat@gmail.com>
 
+	* all templates: extend tag must be the first tag in the template and
+	therefore i've switched places with the gpl disclaimer and extend tag..
 	* LICENSE and all files: raptiye is now licensed with GPLv3..
 	* media/images/ff_horizontal.png, media/js/ff.js, media/css/style.css,
 	templates/frontpage/base.html, templates/users/profile.html: added a new js
