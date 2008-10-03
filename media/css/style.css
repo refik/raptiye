@@ -7,13 +7,12 @@ body {
 	background: transparent url('/media/images/bg.png') top left repeat-x;
 	text-align: center;
 	margin-top: 20px;
-	font-family: Tahoma, Verdana, Arial;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Sans-Serif;
 	font-size: 12px;
 	color: #46494D;
 }
 
 table {
-	font-family: Tahoma, Verdana, Arial;
 	font-size: 12px;
 }
 
@@ -405,7 +404,6 @@ blockquote {
 	width: 100%;
 	border: 1px solid #86bcde;
 	background-color: #f3faff;
-	font-family: Sans, Arial;
 	font-size: 12px;
 	text-align: center;
 }
@@ -696,7 +694,6 @@ blockquote {
 	border-spacing: 4px 3px;
 	text-align: center;
 	empty-cells: show;
-	font-family: Sans, Arial, Tahoma;
 	font-size: 11px;
 }
 

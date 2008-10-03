@@ -1,3 +1,12 @@
+2008-10-03  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/ff_horizontal.png, media/js/ff.js, media/css/style.css,
+	templates/frontpage/base.html, templates/users/profile.html: added a new js
+	module for firefox advertisement.. ibox and jquery dependencies are
+	mandatory but I can drop them due to some user requests.. (ibox would be
+	really hard..) ibox dependency is moved to the whole parts of the site since
+	the ad shows up in every page..
+
 2008-10-01  Alper KANAT  <alperkanat@gmail.com>
 
 	* templates/blog/detail.html: forgot this part of the page..
