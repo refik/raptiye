@@ -1,3 +1,13 @@
+2008-10-04  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/images/twitter_bg.png, media/images/twitter_sidebar.png,
+	templates/blog/twitter.html, blog/templatetags/blog_filters.py,
+	media/css/style.css, settings-example.py, templates/blog/sidebar.html: added
+	twitter support..
+	* contrib/, REQUIREMENTS, extra/messages.py, users/views.py: moved all
+	external dependencies that comes with raptiye to the contrib folder.. also
+	refactored the necessary parts due to that change..
+
 2008-10-03  Alper KANAT  <alperkanat@gmail.com>
 
 	* templates/blog/contact.html: added link for my gpg public key..

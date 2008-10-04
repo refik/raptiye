@@ -615,6 +615,21 @@ blockquote {
 	font-size: 11px;
 }
 
+#twitter_container {
+	width: 85%;
+	margin: 0 auto;
+	padding: 10px;
+	background: #9AE4E8 url(/media/images/twitter_bg.png) top left no-repeat;
+	border: 1px solid #10E4E8;
+	font-size: 11px;
+	text-align: left;
+}
+
+#twitter_container li {
+	list-style-type: none;
+	margin-bottom: 4px;
+}
+
 .poll_choices {
 	margin-top: 15px;
 	margin-left: 10px;

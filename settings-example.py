@@ -105,7 +105,7 @@ INSTALLED_APPS = (
 	'raptiye.polls',
 	# the following app(s) aren't mandatory and will be removed
 	# when django has the functionality
-	'raptiye.session_messages',
+	'raptiye.contrib.session_messages',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -114,7 +114,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.core.context_processors.i18n",
 	"django.core.context_processors.media",
 	"django.core.context_processors.request",
-	"raptiye.session_messages.context_processors.session_messages",
+	"raptiye.contrib.session_messages.context_processors.session_messages",
 )
 
 ADMIN_LIST_PER_PAGE = 20
@@ -160,3 +160,8 @@ LATEST_COMMENTS_LIMIT = 5
 
 # enable or disable writing comments anonymously
 ALLOW_ANONYMOUS_COMMENTS = True
+
+# twitter credentials
+TWITTER_USERNAME = ""
+TWITTER_PASSWORD = ""
+TWITTER_LIMIT = 5

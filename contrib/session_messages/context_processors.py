@@ -6,7 +6,7 @@ Time-stamp: <2008-07-19 23:16:19 carljm context_processors.py>
 """
 from django.utils.encoding import StrAndUnicode
 
-from raptiye.session_messages import get_and_delete_messages
+from raptiye.contrib.session_messages import get_and_delete_messages
 
 def session_messages (request):
     """

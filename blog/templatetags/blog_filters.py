@@ -142,3 +142,22 @@ def emotions(entry):
 		entry = entry.replace(smiley, " <img src='http://%s%s' align='absmiddle'> " % (site.domain, src))
 	
 	return entry
+
+@register.simple_tag
+def can_show_twitter():
+	"Returns True if Twitter credentials are filled in the settings.py"
+	if settings.TWITTER_USERNAME != "" and settings.TWITTER_PASSWORD != "":
+		return True
+	return False
+
+@register.inclusion_tag("blog/twitter.html")
+def twitter():
+	"""
+	Gets the latest Twitter status updates of the blog author
+	using the credentials in settings.py
+	"""
+	from raptiye.contrib import twitter
+	
+	api = twitter.Api(username=settings.TWITTER_USERNAME, password=settings.TWITTER_PASSWORD)
+	latest_updates_of_user = [status.GetText() for status in api.GetUserTimeline()]
+	return {"latest_updates": latest_updates_of_user[:settings.TWITTER_LIMIT]}

@@ -33,7 +33,7 @@ from raptiye.extra.filters import is_username_unique, is_email_unique
 from raptiye.extra.gravatar import get_gravatar
 from raptiye.extra.mail import *
 from raptiye.extra.messages import *
-from raptiye.session_messages import create_message
+from raptiye.contrib.session_messages import create_message
 from raptiye.users.forms import *
 
 def gravatar(request, username):

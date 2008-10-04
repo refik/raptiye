@@ -21,7 +21,7 @@ registration, activation etc..
 """
 
 def set_user_message(request, message):
-	from raptiye.session_messages import create_message
+	from raptiye.contrib.session_messages import create_message
 	
 	if request.user.is_authenticated():
 		# leaving message to the user
