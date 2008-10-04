@@ -1,5 +1,8 @@
 2008-10-04  Alper KANAT  <alperkanat@gmail.com>
 
+	* blog/templatetags/blog_filters.py, templates/blog/sidebar.html,
+	templates/blog/twitter.html: fixed a bug that comes up when there's no
+	credentials for twitter in settings.py..
 	* media/images/twitter_bg.png, media/images/twitter_sidebar.png,
 	templates/blog/twitter.html, blog/templatetags/blog_filters.py,
 	media/css/style.css, settings-example.py, templates/blog/sidebar.html: added

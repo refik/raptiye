@@ -81,9 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 	{# gets all the link categories and their links and adds them to the context #}
 	{% links %}
-	{% ifequal can_show_twitter True %}
-		{% twitter %}
-	{% endifequal %}
+	{% twitter %}
 	<div class="widget">
 		<div class="widget_box">
 			<div class="widget_title">

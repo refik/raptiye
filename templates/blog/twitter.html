@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {% load blog_filters %}
 
+{% if latest_updates %}
 <div class="widget">
 	<div class="widget_box">
 		<div class="widget_title">
@@ -33,3 +34,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		</div>
 	</div>
 </div>
+{% endif %}
