@@ -77,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				<p align="justify">
 					{{ entry.content|emotions|safe|linebreaksbr|truncatewords_html:150 }}
 					<br><br>
-					<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
+					<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}" title="yazının devamını okumak için tıklayın.." class="ulink">
 						Yazının devamını okumak için tıklayın..
 					</a>
 					<br>

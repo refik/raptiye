@@ -31,13 +31,13 @@ class Comments(models.Model):
 	content = models.TextField(u"Comment")
 	published = models.BooleanField(u"Published", default=False)
 	notification = models.BooleanField(u"Notification", default=False)
-
+	
 	def __unicode__(self):
 		return "Comment for '" + self.entry.title + "' by " + self.author.username
-
+	
 	def get_entry_name(self):
 		return self.entry.title
-
+	
 	get_entry_name.short_description = u"Entry Title"
 	
 	def get_entry_url(self):
@@ -45,12 +45,12 @@ class Comments(models.Model):
 		
 	get_entry_url.short_description = u"Entry URL"
 	get_entry_url.allow_tags = True
-
+	
 	def get_datetime(self):
 		return self.datetime.strftime("%d.%m.%Y @ %H:%M")
-
+	
 	get_datetime.short_description = u"Comment Written On"
-
+	
 	def get_author_info(self):
 		un = self.author.username
 		ue = self.author.email
@@ -59,7 +59,7 @@ class Comments(models.Model):
 		if un == "anonymous":
 			return u"%s - <a href='mailto: %s' title='click here to send an e-mail to the user..'>%s</a>" % (aun, aue, aue)
 		return u"%s - <a href='mailto: %s' title='click here to send an e-mail to the user..'>%s</a>" % (un, ue, ue)
-
+	
 	get_author_info.short_description = "User Info"
 	get_author_info.allow_tags = True
 	
@@ -75,7 +75,7 @@ class Comments(models.Model):
 	
 	get_author_web_site.short_description = u"User Web Site"
 	get_author_web_site.allow_tags = True
-
+	
 	class Meta:
 		get_latest_by = "datetime"
 		ordering = ["-datetime"]

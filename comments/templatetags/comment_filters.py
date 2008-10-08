@@ -46,5 +46,5 @@ def show_warning():
 @register.inclusion_tag('blog/latest_comments.html')
 def get_latest_comments():
 	return {
-		"latest_comments": Comments.objects.all()[:settings.LATEST_COMMENTS_LIMIT]
+		"latest_comments": Comments.objects.filter(published=True)[:settings.LATEST_COMMENTS_LIMIT]
 	}

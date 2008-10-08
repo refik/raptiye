@@ -107,7 +107,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<textarea id="entry_comment_textarea" name="comment_body"></textarea>
 		{% if entry|check_if_user_subscribed:user %}
 		<br>
-		{{ form.notification }} {{ form.notification.label_tag }}
+		<div id="entry_comment_notification">
+			{{ form.notification }} {{ form.notification.label_tag }}
+		</div>
 		{% endif %}
 	</div>
 	<div id="entry_comment_write_right">
@@ -157,7 +159,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				// inserting the comment to the comment layer..
 				insertComment2Layer($('#entry_comment_textarea').val());
 				// clearing comment form
-				clearCommentForm();
+				if ($("#id_notification").attr("checked")) {
+					clearCommentForm(true);
+				} else {
+					clearCommentForm();
+				}
 			}
 			$("#sending_comment").slideToggle();
 			toggleForm("#entry_comment_write");
@@ -252,10 +258,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			}
 		});
 	}
-	function clearCommentForm() {
+	
+	function clearCommentForm(notification) {
+		notification = notification ? true : false
+		
 		$("#entry_comment_textarea").val("");
-		$("#entry_comment_write_captcha_textbox").val("");
-		$("#entry_comment_notification").removeAttr("checked");
+		$("#id_captcha").val("");
+		$("#id_notification").removeAttr("checked");
+		
+		// removing notification box if already assigned
+		if (notification) {
+			$("#entry_comment_notification").remove()
+		}
 	}
 </script>
 {% endif %}

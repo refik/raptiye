@@ -1,3 +1,14 @@
+2008-10-08  Alper KANAT  <alperkanat@gmail.com>
+
+	* comments/admin.py, comments/models.py,
+	comments/templatetags/comment_filters.py, comments/views.py: early
+	notifications for non-published comments are now prevented. they're only
+	mailed if the admins let..
+	* templates/blog/comments.html: notification checkbox is deleted from the
+	DOM if it's already been checked during comment submission..
+	* templates/blog/homepage.html: applied a different class to the link for
+	rest of blog posts that underlines it so that it's more visible..
+
 2008-10-04  Alper KANAT  <alperkanat@gmail.com>
 
 	* blog/templatetags/blog_filters.py, templates/blog/sidebar.html,

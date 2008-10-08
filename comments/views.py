@@ -125,7 +125,9 @@ def comment_sent(request):
 				# saving comment
 				c.save()
 				# now let's mail the people who wants a notification for this entry
-				send_comment_notification(c.entry, user)
+				# iff the comment is published
+				if c.published:
+					send_comment_notification(c.entry, user)
 				resp["success"] = u"yorumunuz gönderildi.."
 				return HttpResponse(simplejson.dumps(resp))
 			else:
