@@ -1,3 +1,9 @@
+2008-10-09  Alper KANAT  <alperkanat@gmail.com>
+
+	* comments/templatetags/comment_filters.py: a better comparison..
+	* extra/mail.py: only mail if the comment is published..
+	* media/js/ff.js: added more reasons.. :)
+
 2008-10-08  Alper KANAT  <alperkanat@gmail.com>
 
 	* comments/admin.py, comments/models.py,

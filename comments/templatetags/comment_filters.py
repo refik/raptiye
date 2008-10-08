@@ -32,12 +32,12 @@ def has_published_comment(user):
 @register.filter
 def check_if_user_subscribed(entry, user):
 	if user.is_authenticated():
-		if entry.comments.filter(notification=True, author=user).count() == 1:
+		if entry.comments.filter(notification=True, author=user).count() > 0:
 			return False
 		else:
 			return True
 	else:
-		return False
+		return True
 
 @register.simple_tag
 def show_warning():

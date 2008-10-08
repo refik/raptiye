@@ -69,7 +69,7 @@ def send_comment_notification(entry, user):
 	
 	messages = [(COMMENT_NOTIFICATION_SUBJECT, COMMENT_NOTIFICATION_MESSAGE % (entry.title, entry.get_full_url()),
 		settings.EMAIL_INFO_ADDRESS_TR, [comment.author.email])
-		for comment in entry.comments.filter(notification=True).exclude(author=user)]
+		for comment in entry.comments.filter(published=True, notification=True).exclude(author=user)]
 	
 	send_mass_mail(messages, settings.EMAIL_FAIL_SILENCE)
 

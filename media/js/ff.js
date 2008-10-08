@@ -12,6 +12,9 @@ reasons += "<strong>3)</strong> Bellek kullanımı sebebiyle Firefox'u beğenmiy
 reasons += "<strong>4)</strong> Yüzlerce, hatta binlerce eklentisiyle Firefox internet deneyiminizi sonsuza dek değiştirebilir..<br><br>"
 reasons += "<strong>5)</strong> Geliştiriciler olarak; daha kaliteli yazılımlar üretmek için uğraşmak yerine standart dışı uygulamalar nedeniyle gereksiz yere uğraşmak ve kötü kod yazmak zorunda kalmak istemiyoruz!<br><br>"
 reasons += "<strong>6)</strong> Alışkanlıklarınız zorunluluklarınızdır! Farklı alternatifleri tanımak ise zenginleştirir ve özgürleştirir.<br><br>"
+reasons += "<strong>7)</strong> Internet Explorer 6.0, transparan PNG dosyalarını desteklemiyor!<br><br>"
+reasons += "<strong>8)</strong> Microsoft bile Internet Explorer 6.0'dan desteğini çekti; siz neden çekmeyesiniz?<br><br>"
+reasons += "<strong>9)</strong> Microsoft, Internet Explorer 8 Beta2 ile ağ standartlarını yakalamaya çalışıyor. Zaten bu teknolojileri kullanan tarayıcılar varken neden geriden gelesiniz ki?<br><br>"
 reasons += "İşte tam da bu sebeplerden dolayı:<br><br>"
 var footer = "Lütfen Internet Explorer kullanmayın ve kullandırtmayın!"
 
@@ -61,6 +64,6 @@ $(document).ready(function() {
 	}).mouseout(function() {
 		$("#ff_ad_container_left").text(normalMessage)
 	}).click(function () {
-		iBox.show($("#ff_ad_box").html(), "", {"width": "450", "height": "420"})
+		iBox.show($("#ff_ad_box").html(), "", {"width": "450", "height": "540"})
 	}).appendTo($(document.body))
 })
