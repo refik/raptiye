@@ -149,6 +149,15 @@ if not settings.ALLOW_ANONYMOUS_COMMENTS:
 	comment_sent = login_required(comment_sent)
 
 def create_captcha():
+	from random import choice
+	
+	fonts = {
+		"butterunsalted.ttf": 32,
+		"astonish.ttf": 40,
+		"elecha.ttf": 25,
+		"times.ttf": 25
+	}
+	
 	c = Captcha(path.join(settings.MEDIA_ROOT, settings.TEMP_MEDIA_PREFIX))
 	text = c.generate_random_text()
 	c.set_text(text)
@@ -157,7 +166,9 @@ def create_captcha():
 	c.set_size(120, 50)
 	c.set_fg_color("black")
 	c.set_bg_color("white")
-	c.set_font(path.join(settings.MEDIA_ROOT, "fonts", "astonish.ttf"), 40)
+	# selecting the font randomly
+	font = choice(fonts.keys())
+	c.set_font(path.join(settings.MEDIA_ROOT, "fonts", font), fonts[font])
 	c.generate_captcha()
 	return path.join("/media/", settings.TEMP_MEDIA_PREFIX, c.get_filename())
 

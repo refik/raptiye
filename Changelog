@@ -1,5 +1,7 @@
 2008-10-09  Alper KANAT  <alperkanat@gmail.com>
 
+	* comments/views.py, extra/captcha.py, extra/captcha_test.py: capcha is even
+	stronger and easier to read.. (working with more fonts and font sizes)
 	* comments/views.py, templates/blog/comments.html: anonymous users can now
 	subscribe to the blog posts for notification..
 	* comments/templatetags/comment_filters.py: a better comparison..

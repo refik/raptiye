@@ -30,4 +30,3 @@ c.set_fg_color("black")
 c.set_bg_color("white")
 c.set_font(path.join(settings.MEDIA_ROOT, "fonts", "astonish.ttf"), 40)
 c.generate_captcha()
-

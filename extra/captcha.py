@@ -115,6 +115,6 @@ class Captcha:
 		file = open(path.join(self.get_file_path(), self.get_filename()), "w")
 		im = Image.new("RGB", self.get_size(), self.get_bg_color())
 		draw = ImageDraw.Draw(im)
-		draw.text((10, 0), self.get_text(), fill=1, font=self.get_font())
+		draw.text((15, 0), self.get_text(), fill=1, font=self.get_font())
 		im.save(file, "JPEG")
 		file.close()
