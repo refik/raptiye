@@ -1,5 +1,6 @@
 2008-10-09  Alper KANAT  <alperkanat@gmail.com>
 
+	* forgot to mention about the fonts..
 	* comments/views.py, extra/captcha.py, extra/captcha_test.py: capcha is even
 	stronger and easier to read.. (working with more fonts and font sizes)
 	* comments/views.py, templates/blog/comments.html: anonymous users can now
