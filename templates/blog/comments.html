@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			<tr>
 				<td class="entry_comment_info_box">
 					<div class="entry_comment_avatar">
-						<img src="{{ comment.author.get_profile.avatar }}" title="{% if request.user.is_authenticated %}{{ comment.author.username }}{% else %}{{ comment.anonymous_author }}{% endif %} kullanıcısının avatarı" width="50" height="50">
+						<img src="{{ comment.author.get_profile.avatar }}" title="{% if user.is_authenticated %}{{ comment.author.username }}{% else %}{{ comment.anonymous_author }}{% endif %} kullanıcısının avatarı" width="50" height="50">
 					</div>
 					<div class="entry_comment_info">
 						{% ifnotequal comment.author.get_profile.web_site "" %}
@@ -65,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {% if entry.comments_enabled %}
 <input id="disableForm" type="hidden" value="0" />
 
-{% if allow_anonymous_comments or request.user.is_authenticated %}
+{% if allow_anonymous_comments or user.is_authenticated %}
 <div id="entry_comment_write" {% if allow_anonymous_comments %}style="height: 220px;"{% endif %}>
 	{% if allow_anonymous_comments %}
 	<table id="entry_comment_anonymous_author">
@@ -201,9 +201,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					$('<td>').addClass('entry_comment_info_box').append(
 						$('<div>').addClass('entry_comment_avatar').append(
 							$('<img>').attr({
-								{% if request.user.is_authenticated %}
-								'src': '{{ request.user.get_profile.avatar|safe }}',
-								'title': '{{ request.user.username }} kullanıcısının avatarı',
+								{% if user.is_authenticated %}
+								'src': '{{ user.get_profile.avatar|safe }}',
+								'title': '{{ user.username }} kullanıcısının avatarı',
 								{% else %}
 								'src': '/media/images/default_avatar.png',
 								'title': $("#id_anonymous_full_name").val() + ' kullanıcısının avatarı',
@@ -213,8 +213,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							})
 						)
 					).append(
-						{% if request.user.is_authenticated %}
-						$('<div>').addClass('entry_comment_info').html('{{ request.user.username }}').append(
+						{% if user.is_authenticated %}
+						$('<div>').addClass('entry_comment_info').html('{{ user.username }}').append(
 						{% else %}
 						$('<div>').addClass('entry_comment_info').html(
 							$("#id_anonymous_full_name").val()
@@ -229,7 +229,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							// if the user doesn't have a published comment before
 							// his comment will not be published until an admin marks it
 							// as published.. so informing the user about this..
-							({{ request.user|has_published_comment }}) ? text : "<span class='warning'>" + WARNING + "</span><br><br>" + text
+							({{ user|has_published_comment }}) ? text : "<span class='warning'>" + WARNING + "</span><br><br>" + text
 						)
 					)
 				)
@@ -261,6 +261,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 	function clearCommentForm(notification) {
 		notification = notification ? true : false
+		
+		{% if not user.is_authenticated %}
+		$("#entry_comment_anonymous_author :input").val("")
+		{% endif %}
 		
 		$("#entry_comment_textarea").val("");
 		$("#id_captcha").val("");

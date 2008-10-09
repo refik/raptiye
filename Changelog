@@ -1,5 +1,7 @@
 2008-10-09  Alper KANAT  <alperkanat@gmail.com>
 
+	* comments/views.py, templates/blog/comments.html: anonymous users can now
+	subscribe to the blog posts for notification..
 	* comments/templatetags/comment_filters.py: a better comparison..
 	* extra/mail.py: only mail if the comment is published..
 	* media/js/ff.js: added more reasons.. :)

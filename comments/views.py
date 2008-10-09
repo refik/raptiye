@@ -120,7 +120,7 @@ def comment_sent(request):
 						NEW_COMMENT_BODY % (c.entry, "http://%s/admin/blog/entry/%s/" % (site.domain, c.entry.id)), 
 						fail_silently=True)
 				# if notification is true
-				if test(request.POST, "notification"):
+				if test(request.POST, "notification") and not user_has_notification(request):
 					c.notification = True
 				# saving comment
 				c.save()
@@ -160,3 +160,25 @@ def create_captcha():
 	c.set_font(path.join(settings.MEDIA_ROOT, "fonts", "astonish.ttf"), 40)
 	c.generate_captcha()
 	return path.join("/media/", settings.TEMP_MEDIA_PREFIX, c.get_filename())
+
+def user_has_notification(request):
+	"""
+	Checks if the user has previously submitted a comment with the 
+	notification flag..
+	
+	This method assumes that the POST variables are already set and
+	controlled.
+	"""
+	# getting entry
+	entry = Entry.objects.get(id=request.POST["entry_id"])
+	
+	if request.user.is_authenticated():
+		email = request.user.email
+		if entry.comments.filter(notification=True, author__email=email).count() > 0:
+			return True
+	else:
+		email = request.POST["anonymous_email"]
+		if entry.comments.filter(notification=True, anonymous_author_email=email).count() > 0:
+			return True
+	
+	return False
