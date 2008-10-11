@@ -23,7 +23,7 @@ register = template.Library()
 def poll(parser, token):
 	from raptiye.polls.models import Poll
 	
-	if Poll.objects.count():
+	if Poll.objects.filter(published=True).count():
 		return PollNode(Poll.objects.filter(published=True).latest())
 	else:
 		return PollNode(None)

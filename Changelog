@@ -1,3 +1,7 @@
+2008-10-12  Alper KANAT  <alperkanat@gmail.com>
+
+	* polls/templatetags/poll_filters.py: fixed a bug about polls..
+
 2008-10-09  Alper KANAT  <alperkanat@gmail.com>
 
 	* forgot to mention about the fonts..
