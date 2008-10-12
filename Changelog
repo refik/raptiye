@@ -1,3 +1,8 @@
+2008-10-13  Alper KANAT  <alperkanat@gmail.com>
+
+	* blog/admin.py, /media/js/tiny_mce: removed tinymce from raptiye.. will
+	integrate fckeditor instead..
+
 2008-10-12  Alper KANAT  <alperkanat@gmail.com>
 
 	* polls/templatetags/poll_filters.py: fixed a bug about polls..
