@@ -1,3 +1,13 @@
+2008-10-22  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/js/ff.js: added some new lines to the promo..
+	* templates/admin/blog/, templates/admin/flatpages/,
+	templates/admin/frontpage/: admin templates have been modified to include
+	fckeditor with some options..
+	* media/js/fckeditor.js: all settings necessary for fckeditor are in this
+	file..
+	* contrib/fckeditor/ and a link to it (/media/js/fckeditor) is added.
+
 2008-10-13  Alper KANAT  <alperkanat@gmail.com>
 
 	* blog/admin.py, /media/js/tiny_mce: removed tinymce from raptiye.. will

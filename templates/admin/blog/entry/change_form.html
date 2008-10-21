@@ -1,0 +1,14 @@
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+	<script type="text/javascript" src="/media/js/fckeditor/fckeditor.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			var oFCKeditor = new FCKeditor('id_content')
+			oFCKeditor.BasePath = "/media/js/fckeditor/"
+			oFCKeditor.Width = "750px"
+			oFCKeditor.Height = "500px"
+			oFCKeditor.ReplaceTextarea()
+		}
+	</script>
+{% endblock %}
