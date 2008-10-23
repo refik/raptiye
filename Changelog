@@ -1,3 +1,13 @@
+2008-10-23  Alper KANAT  <alperkanat@gmail.com>
+
+	* media/js/fckeditor_inclusion.js, blog/admin.py, frontpage/admin.py:
+	removed all overwritten admin templates and used a better django way of
+	inclusion of js files in the admin.py of models..
+	* TODO: added new missions..
+	* media/js/ff.js, media/js/raptiye.js, media/js/fckeditor.js: added license
+	information to the head of each file..
+	* settings-example.py: set the version number to 1.0.1
+
 2008-10-22  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/js/ff.js: added some new lines to the promo..

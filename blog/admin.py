@@ -17,6 +17,8 @@
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.flatpages.models import FlatPage
+from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
+
 from raptiye.blog.models import Entry
 
 class EntryAdmin(admin.ModelAdmin):
@@ -36,5 +38,15 @@ class EntryAdmin(admin.ModelAdmin):
 	save_as = True
 	radio_fields = {'language': admin.HORIZONTAL}
 	prepopulated_fields = {"slug": ("title",)}
+	
+	class Media:
+		js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
 
 admin.site.register(Entry, EntryAdmin)
+
+class FlatPageAdmin(FlatPageAdminOld):
+	class Media:
+		js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
+
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, FlatPageAdmin)

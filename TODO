@@ -7,8 +7,14 @@ TODO
 
 --- Code Enhancements ---
 
+	* LICENSE ALL FILES!
+	* Code colorization
+	* CSS improvement for blockquote's
+	* Fix 500 errors of Twitter
+	* Fix problems occuring because of the non-occurence of http and www in web addresses of the comment authors.. (admin panel)
 
---- ADMIN ---
+
+--- ADMIN Improvements ---
 
 	* Every admin page has easy to use controls like delete, link, etc..
 	* It'd be nice if I can change the level attributes with widgets..

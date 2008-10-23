@@ -29,5 +29,8 @@ class FrontPageAdmin(admin.ModelAdmin):
 	inlines = [
 		LinksInline,
 	]
+	
+	class Media:
+		js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
 
 admin.site.register(FrontPage, FrontPageAdmin)
