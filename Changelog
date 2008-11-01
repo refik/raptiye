@@ -1,3 +1,14 @@
+2008-11-01  Alper KANAT  <alperkanat@gmail.com>
+
+	* TODO: added new stuff..
+	* blog/templatetags/blog_filters.py: twitter specific failures should be
+	gone now..
+	* frontpage/models.py, templates/frontpage/base.html: added a link on top of
+	the page due to requests coming from the visitors..
+	* media/js/fckeditor.js: some adjustments for fckeditor..
+	* templates/users/login.html: login page shows the errors now but there are
+	more things that needs to be fixed.
+
 2008-10-23  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/js/fckeditor_inclusion.js, blog/admin.py, frontpage/admin.py:

@@ -7,10 +7,9 @@ TODO
 
 --- Code Enhancements ---
 
-	* LICENSE ALL FILES!
+	* Find occurences of failure in comments section
 	* Code colorization
 	* CSS improvement for blockquote's
-	* Fix 500 errors of Twitter
 	* Fix problems occuring because of the non-occurence of http and www in web addresses of the comment authors.. (admin panel)
 
 

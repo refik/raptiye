@@ -152,7 +152,11 @@ def twitter():
 	from raptiye.contrib import twitter
 	
 	if settings.TWITTER_USERNAME != "" and settings.TWITTER_PASSWORD != "":
-		api = twitter.Api(username=settings.TWITTER_USERNAME, password=settings.TWITTER_PASSWORD)
-		latest_updates_of_user = [status.GetText() for status in api.GetUserTimeline()]
-		return {"latest_updates": latest_updates_of_user[:settings.TWITTER_LIMIT]}
+		try:
+			api = twitter.Api(username=settings.TWITTER_USERNAME, password=settings.TWITTER_PASSWORD)
+			latest_updates_of_user = [status.GetText() for status in api.GetUserTimeline()]
+			return {"latest_updates": latest_updates_of_user[:settings.TWITTER_LIMIT]}
+		except:
+			# generally this is the case that we get "connection timed out"
+			pass
 	return {"latest_updates": None}

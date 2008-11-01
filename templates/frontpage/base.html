@@ -50,7 +50,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	<body>
 		<div id="header">
 			<div id="karalama">
-				<div id="site_title">{{ mainpage.title_html|safe }}</div>
+				<div id="site_title">
+					{% ifequal mainpage.title_link "" %}
+						{{ mainpage.title_html|safe }}
+					{% else %}
+						<a href="{{ mainpage.title_link }}" 
+							title="ana sayfaya dönmek için tıklayın..">{{ mainpage.title_html|safe }}</a>
+					{% endifequal %}
+				</div>
 				<div id="site_subtitle">{{ mainpage.subtitle_html|safe }}</div>
 			</div>
 			{% ifnotequal request.path "/" %}

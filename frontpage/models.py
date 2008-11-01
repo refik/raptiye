@@ -29,16 +29,17 @@ class FrontPage(models.Model):
 	It's only logical if we create 1 frontpage for each
 	language choice..!
 	"""
-	title = models.CharField(u"Site Title", max_length=20, help_text="Required")
-	title_html = models.CharField(u"Site Title (HTML)", max_length=200, help_text="The HTML representation of the title..")
-	subtitle = models.CharField(u"Site Subtitle", max_length=80, help_text="Required")
-	subtitle_html = models.CharField(u"Site Subtitle (HTML)", max_length=200, help_text="The HTML representation of the subtitle..")
-	content_title = models.CharField(u"Content Title", max_length=100, blank=True, help_text="Optional.. HTML can also used..")
-	content = models.TextField(u"Content Body", help_text="Required.. HTML can also be used..")
-	rss_title = models.CharField(u"RSS Title", max_length=100, blank=True, help_text="Optional.. HTML can also used..")
-	rss_url = models.CharField(u"RSS URL", max_length=200, blank=True, help_text="Optional.. HTML can also be used..")
-	rss_limit = models.IntegerField(u"RSS News Limit", blank=True, default=10, help_text="Optional.. HTML can also be used..")
-	footer = models.TextField(u"Footer", help_text="Footer of the Main Page.. HTML can be used..")
+	title = models.CharField(u"Site Title", max_length=20, help_text=u"Required")
+	title_html = models.CharField(u"Site Title (HTML)", max_length=200, help_text=u"The HTML representation of the title..")
+	title_link = models.URLField(u"Site Title Link", blank=True, null=True, verify_exists=False, max_length=200, help_text=u"This is the link of the title..")
+	subtitle = models.CharField(u"Site Subtitle", max_length=80, help_text=u"Required")
+	subtitle_html = models.CharField(u"Site Subtitle (HTML)", max_length=200, help_text=u"The HTML representation of the subtitle..")
+	content_title = models.CharField(u"Content Title", max_length=100, blank=True, help_text=u"Optional.. HTML can also used..")
+	content = models.TextField(u"Content Body", help_text=u"Required.. HTML can also be used..")
+	rss_title = models.CharField(u"RSS Title", max_length=100, blank=True, help_text=u"Optional.. HTML can also used..")
+	rss_url = models.CharField(u"RSS URL", max_length=200, blank=True, help_text=u"Optional.. HTML can also be used..")
+	rss_limit = models.IntegerField(u"RSS News Limit", blank=True, default=10, help_text=u"Optional.. HTML can also be used..")
+	footer = models.TextField(u"Footer", help_text=u"Footer of the Main Page.. HTML can be used..")
 	language = models.CharField(u"Language", choices=settings.LANGUAGES, default="tr", max_length=2)
 
 	def __unicode__(self):

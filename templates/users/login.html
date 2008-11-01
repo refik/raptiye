@@ -36,7 +36,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				</tr>
 			{% endfor %}
 			</table>
-
+			
+			{% if error %}
+			<div id="login_form_errors">
+				{{ error }}
+			</div>
+			{% endif %}
+			
 			<div id="login_form_buttons">
 				<button id="entry_comment_submit" type="submit">yolla</button>
 				&nbsp;&nbsp;

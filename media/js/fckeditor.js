@@ -16,14 +16,14 @@
 
 FCKConfig.AutoDetectLanguage = false;
 FCKConfig.DefaultLanguage = "tr";
-FCKConfig.StartupFocus = true;
-FCKConfig.StartupShowBlocks = true;
+FCKConfig.StartupShowBlocks = false;
 FCKConfig.DefaultLinkTarget = '_blank';
 FCKConfig.BaseHref = 'http://raptiye.org/';
 FCKConfig.EnterMode = "br";
 FCKConfig.ShiftEnterMode = "br";
 FCKConfig.TabSpaces = 4;
 FCKConfig.ShowBorders = true;
+FCKConfig.ToolbarStartExpanded = false;
 FCKConfig.ToolbarSets["Default"] = [
 	['Source','DocProps','Preview'],
 	['Cut','Copy','Paste','PasteText','PasteWord','-'],
@@ -43,6 +43,8 @@ FCKConfig.ToolbarSets["Default"] = [
 	['Style','FontFormat','FontName','FontSize'],
 	['TextColor','BGColor']
 ];
+FCKConfig.ImageUpload = false;
+FCKConfig.ImageBrowser = false;
 FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/silver/';
 FCKConfig.Plugins.Add("tablecommands")
 FCKConfig.Plugins.Add("dragresizetable")
