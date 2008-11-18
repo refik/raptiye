@@ -1,3 +1,13 @@
+2008-11-18  Alper KANAT  <alperkanat@gmail.com>
+
+	* templates/blog/contact.html: deleted duplicate linkedin widget.. how come
+	i haven't seen it till now..?
+	* media/css/style.css, templates/blog/detail.html: adding back and forward
+	links to the blog page so that the visitor can navigate better..
+	* templates/blog/widgets.html: started using addthis service instead of
+	including each service's buttons.. this approach saves a lot despite the
+	fact that it's an online service..
+	  
 2008-11-01  Alper KANAT  <alperkanat@gmail.com>
 
 	* TODO: added new stuff..

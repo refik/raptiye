@@ -267,6 +267,21 @@ blockquote {
 	margin-bottom: 20px;
 }
 
+.entry_guide {
+	margin-bottom: 40px;
+}
+
+.entry_guide .left {
+	float: left;
+	width: 50%;
+}
+
+.entry_guide .right {
+	float: right;
+	width: 50%;
+	text-align: right;
+}
+
 .entry {
 	clear: both;
 	width: 100%;

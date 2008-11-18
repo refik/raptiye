@@ -25,8 +25,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {% block body %}
 	{% include "blog/sidebar.html" %}
 	<div id="blog_container">
-		<a href="javascript: history.back()" title="önceki sayfaya dönmek için tıklayın.." class="gray_link">&laquo; geri</a>
-		<br><br>
+		<div class="entry_guide">
+			<div class="left">
+				{% spaceless %}
+				&laquo;
+				<a href="#" title="önceki yazıyı okumak için tıklayın.." class="link">önceki yazı</a>
+				{% endspaceless %}
+			</div>
+			<div class="right">
+				{% spaceless %}
+				<a href="#" title="sonraki yazıyı okumak için tıklayın.." class="link">sonraki yazı</a>
+				&raquo;
+				{% endspaceless %}
+			</div>
+		</div>
 		<div class="entry">
 			<div class="entry_header">
 				<div class="entry_date">
