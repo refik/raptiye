@@ -26,18 +26,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	{% include "blog/sidebar.html" %}
 	<div id="blog_container">
 		<div class="entry_guide">
+			{% if entry.get_previous_post.id %}
 			<div class="left">
 				{% spaceless %}
 				&laquo;
-				<a href="#" title="önceki yazıyı okumak için tıklayın.." class="link">önceki yazı</a>
+				<a href="{{ entry.get_previous_post.get_relative_url }}" title="önceki yazıyı okumak için tıklayın.." class="link">önceki yazı</a>
 				{% endspaceless %}
 			</div>
+			{% endif %}
+			{% if entry.get_next_post.id %}
 			<div class="right">
 				{% spaceless %}
-				<a href="#" title="sonraki yazıyı okumak için tıklayın.." class="link">sonraki yazı</a>
+				<a href="{{ entry.get_next_post.get_relative_url }}" title="sonraki yazıyı okumak için tıklayın.." class="link">sonraki yazı</a>
 				&raquo;
 				{% endspaceless %}
 			</div>
+			{% endif %}
 		</div>
 		<div class="entry">
 			<div class="entry_header">

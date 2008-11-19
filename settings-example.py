@@ -153,7 +153,7 @@ LOCALES = {
 	'en': 'en_US.utf-8',
 }
 
-VERSION = '1.0.1'
+VERSION = '1.0.2'
 
 ANONYMOUS_PASSWORD = ""
 LATEST_COMMENTS_LIMIT = 5

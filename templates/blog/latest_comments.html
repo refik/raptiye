@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					<li>
 						<strong>&raquo;</strong>
 						{% spaceless %}
-							<a href="{{ comment.entry.get_full_url }}" title="{{ comment.entry.title }} adlı yazıyı okumak için tıklayın.." class="ulink">
+							<a href="{{ comment.entry.get_relative_url }}" title="{{ comment.entry.title }} adlı yazıyı okumak için tıklayın.." class="ulink">
 								{{ comment.entry.title }}
 							</a>
 							adlı yazı için

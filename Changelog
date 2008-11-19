@@ -1,3 +1,11 @@
+2008-11-19  Alper KANAT  <alperkanat@raptiye.org>
+
+	* blog/models.py, templates/blog/detail.html, 
+	templates/blog/latest_comments.html: refactored the urlizer methods in the 
+	model so that any type of urls can be output.. blog detail now has previous
+	and next blog entry links..
+	* settings-example.py: incremented the version number..
+
 2008-11-18  Alper KANAT  <alperkanat@gmail.com>
 
 	* templates/blog/contact.html: deleted duplicate linkedin widget.. how come
