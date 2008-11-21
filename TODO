@@ -7,8 +7,8 @@ TODO
 
 --- Code Enhancements ---
 
-	* Find occurences of failure in comments section
-	* Code colorization
+	* Code colorization (pygments) integration
+	* openid integration
 	* CSS improvement for blockquote's
 	* Fix problems occuring because of the non-occurence of http and www in web addresses of the comment authors.. (admin panel)
 
