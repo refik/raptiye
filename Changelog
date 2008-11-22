@@ -1,5 +1,8 @@
 2008-11-22  Alper KANAT  <alperkanat@gmail.com>
 
+	* media/js/jquery-tooltip/, media/js/raptiye.js,
+	templates/frontpage/base.html: all link tooltips on raptiye are now styled
+	with jquery tooltip..
 	* TODO: added some new stuff..
 
 2008-11-19  Alper KANAT  <alperkanat@raptiye.org>

@@ -79,4 +79,12 @@ $(function() {
 		if (e.keyCode == 13)
 			$("#search_form").submit();
 	});
+	// all links are styled with jquery tooltip
+	$("a").tooltip({
+		positionLeft: true,
+		track: true,
+		fade: 250,
+		fixPNG: true,
+		showURL: false
+	})
 });
