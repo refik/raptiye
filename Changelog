@@ -1,3 +1,11 @@
+2008-11-25  Alper KANAT  <alperkanat@raptiye.org>
+
+	* blog/templatetags/blog_filters.py, templates/blog/homepage.html: added a
+	control for when to show the "show the rest of the entry" link..
+	* templates/blog/detail.html, templates/feeds/latest_description.html:
+	removed unnecessary linebreaksbr template tag due the change with
+	fckeditor..
+
 2008-11-22  Alper KANAT  <alperkanat@gmail.com>
 
 	* media/js/jquery-tooltip/, media/js/raptiye.js,

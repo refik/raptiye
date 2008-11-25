@@ -18,6 +18,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {% load blog_filters %}
 
-{# add |truncatewords_html:150 before safe for truncating.. #}
-
-{{ obj.content|emotions|safe|linebreaksbr }}
+{{ obj.content|emotions|safe }}

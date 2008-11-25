@@ -75,12 +75,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			</div>
 			<div class="entry_body">
 				<p align="justify">
-					{{ entry.content|emotions|safe|linebreaksbr|truncatewords_html:150 }}
+					{{ entry.content|emotions|safe|truncatewords_html:150 }}
+					{% if entry.content|entrycutter %}
 					<br><br>
 					<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}" title="yazının devamını okumak için tıklayın.." class="ulink">
 						Yazının devamını okumak için tıklayın..
 					</a>
 					<br>
+					{% endif %}
 				</p>
 			</div>
 			<div class="entry_footer">

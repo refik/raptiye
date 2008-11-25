@@ -160,3 +160,9 @@ def twitter():
 			# generally this is the case that we get "connection timed out"
 			pass
 	return {"latest_updates": None}
+
+@register.filter
+def entrycutter(entry):
+	if len(entry.split()) > 150:
+		return True
+	return False
