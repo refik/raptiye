@@ -1,3 +1,11 @@
+2008-11-29  Alper KANAT  <alperkanat@raptiye.org>
+
+	* REQUIREMENTS: added BeautifulSoup as a dependency..
+	* blog/admin.py, settings-example.py: BeautifulSoup is added but I'll
+	continue from linux since mac os x is just a pain in the ass for
+	development..
+	* media/js/fckeditor.js: fckeditor optimization..
+
 2008-11-25  Alper KANAT  <alperkanat@raptiye.org>
 
 	* blog/templatetags/blog_filters.py, templates/blog/homepage.html: added a

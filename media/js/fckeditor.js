@@ -22,6 +22,11 @@ FCKConfig.BaseHref = 'http://raptiye.org/';
 FCKConfig.EnterMode = "br";
 FCKConfig.ShiftEnterMode = "br";
 FCKConfig.TabSpaces = 4;
+FCKConfig.HtmlEncodeOutput = false;
+FCKConfig.ProcessHTMLEntities = false;
+FCKConfig.FormatIndentator = ' ';
+FCKConfig.FormatOutput = true;
+FCKConfig.FormatSource = true;
 FCKConfig.ShowBorders = true;
 FCKConfig.ToolbarStartExpanded = false;
 FCKConfig.ToolbarSets["Default"] = [
@@ -35,7 +40,7 @@ FCKConfig.ToolbarSets["Default"] = [
 	['TableMergeCells', 'TableHorizontalSplitCell','TableCellProp'],
 	'/',
 	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
-	['OrderedList','UnorderedList','-','Outdent','Indent','Blockquote'],
+	['OrderedList','UnorderedList','-','Outdent','Indent','Blockquote', 'CreateDiv'],
 	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
 	['Link','Unlink','Anchor'],
 	['Image','Flash','Rule','SpecialChar'],
