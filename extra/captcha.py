@@ -106,8 +106,8 @@ class Captcha:
 		return self.text
 	
 	def generate_hash(self, salt):
-		import sha
-		hash = sha.new(salt + self.get_text()).hexdigest()
+		from hashlib import sha1
+		hash = sha1(salt + self.get_text()).hexdigest()
 		return hash
 
 	def generate_captcha(self):

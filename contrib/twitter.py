@@ -9,7 +9,7 @@ __version__ = '0.6-devel'
 
 
 import base64
-import md5
+from hashlib import md5
 import os
 from django.utils import simplejson
 import sys
@@ -1602,7 +1602,7 @@ class _FileCache(object):
     self._root_directory = root_directory
 
   def _GetPath(self,key):
-    hashed_key = md5.new(key).hexdigest()
+    hashed_key = md5(key).hexdigest()
     return os.path.join(self._root_directory,
                         self._GetPrefix(hashed_key),
                         hashed_key)

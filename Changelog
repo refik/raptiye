@@ -1,3 +1,9 @@
+2008-12-03  Alper KANAT  <alperkanat@raptiye.org>
+
+	* blog/admin.py: deleted the code colorization parts since it drove me
+	crazy.. i guess i'll try another (and easier) method..
+	* contrib/twitter.py, extra/captcha.py: some py2.6 changes..
+
 2008-11-29  Alper KANAT  <alperkanat@raptiye.org>
 
 	* REQUIREMENTS: added BeautifulSoup as a dependency..

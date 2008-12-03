@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from BeautifulSoup import BeautifulSoup
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.flatpages.models import FlatPage
@@ -38,11 +37,6 @@ class EntryAdmin(admin.ModelAdmin):
 	save_as = True
 	radio_fields = {'language': admin.HORIZONTAL}
 	prepopulated_fields = {"slug": ("title",)}
-	
-	# def save_model(self, request, obj, form, change):
-	# 		if settings.COLORIZE_CODE:
-	# 			
-	# 		obj.save()
 	
 	class Media:
 		js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
