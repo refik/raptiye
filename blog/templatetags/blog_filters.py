@@ -166,3 +166,52 @@ def entrycutter(entry):
 	if len(entry.split()) > 150:
 		return True
 	return False
+
+@register.filter
+def code_colorizer(entry):
+	"""
+	Uses BeautifulSoup to find and parse the code in the entry 
+	that will be colorized and changes it according to the syntax 
+	specs using pygments.
+	
+	The HTML code should include the colorized code wrapped into a 
+	div which has language (e.g. python) as id and "code" as class 
+	attributes.
+	
+	Best part of using a filter is that we don't have to change the 
+	real post containing the code. The worst part is that we have to 
+	search for the code layer in each post.
+	"""
+	if settings.COLORIZE_CODE:
+		from BeautifulSoup import BeautifulSoup, Tag
+	
+		parser = BeautifulSoup(entry, convertEntities=BeautifulSoup.ALL_ENTITIES)
+	
+		# searching for code blocks in the blog entry
+		code_blocks = parser.findAll("div", attrs={"class": "code"})
+	
+		if code_blocks.__len__() > 0:
+			for block in code_blocks:
+				# if the code block's wrapper div doesn't have an id
+				# attribute don't colorize the code
+				if block.attrMap.has_key("id"):
+					language = block.attrMap["id"]
+				else:
+					continue
+				# finding the exact place of the code
+				layer = block.div if block.div else block
+				# removing any html tags inside the code block
+				[tag.extract() for tag in layer.findAll()]
+				# getting the original code in the block
+				code = "".join(layer.contents)
+				# colorizing the code
+				from pygments import highlight
+				from pygments.lexers import get_lexer_by_name
+				from pygments.formatters import HtmlFormatter
+				lexer = get_lexer_by_name(language)
+				formatter = HtmlFormatter(linenos="table", style="tango", cssclass="code")
+				colorized_code = Tag(parser, "div") if block.div else Tag(parser, "div", attrs=(("id", language), ("class", "code")))
+				colorized_code.insert(0, highlight(code, lexer, formatter))
+				layer.replaceWith(colorized_code)
+			return parser.prettify()
+	return entry

@@ -87,4 +87,10 @@ $(function() {
 		fixPNG: true,
 		showURL: false
 	})
+	// this part is for styling the colorized code boxes
+	$(".code[id]").css({
+		"padding": "8px 5px 8px 5px",
+		"border-top": "1px solid #CCCCCC",
+		"border-bottom": "1px solid #CCCCCC"
+	})
 });

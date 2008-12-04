@@ -1,3 +1,11 @@
+2008-12-04  Alper KANAT  <alperkanat@raptiye.org>
+
+	* media/css/pygments.css, blog/templatetags/blog_filters.py,
+	media/js/raptiye.js, templates/blog/detail.html,
+	templates/blog/homepage.html, templates/feeds/latest_description.html,
+	templates/frontpage/base.html: raptiye now supports code colorization..
+	* TODO: new objectives are added..
+	
 2008-12-03  Alper KANAT  <alperkanat@raptiye.org>
 
 	* blog/admin.py: deleted the code colorization parts since it drove me
