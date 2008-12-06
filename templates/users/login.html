@@ -37,6 +37,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			{% endfor %}
 			</table>
 			
+			<div id="login_form_links">
+				<div class="left">[ <a href="{% url registration %}" title="raptiye'ye kaydolmak için tıklayın..">kaydol</a> ]</div>
+				<div class="right">[ <a href="{% url forgotten_password %}" title="şifrenizi unuttuysanız buraya tıklayarak yeni şifrenizin e-posta hesabınıza gönderilmesini sağlayabilirsiniz..">şifremi unuttum</a> ]</div>
+			</div>
+			
+			<br>
+			
 			{% if error %}
 			<div id="login_form_errors">
 				{{ error }}
@@ -44,9 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			{% endif %}
 			
 			<div id="login_form_buttons">
-				<button id="entry_comment_submit" type="submit">yolla</button>
+				<button id="submit_button" type="submit">yolla</button>
 				&nbsp;&nbsp;
-				<button id="entry_comment_clear" type="reset">temizle</button>
+				<button id="clear_button" type="reset">temizle</button>
 			</div>
 		</form>
 	</div>

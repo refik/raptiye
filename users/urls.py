@@ -24,6 +24,8 @@ urlpatterns = patterns('raptiye.users.views',
 	url(r'^login/$', 'user_login', name='login_page'),
 	# logout page
 	url(r'^logout/$', 'user_logout', name='logout_page'),
+	# forgotten password page
+	url(r'^forgotten_password/$', 'forgotten_password', name='forgotten_password'),
 	# activation page
 	url(r'^(?P<username>[\w\d]+)/activate/(?P<key>[\w\d]+)/$', 'activation', name='activation_page'),
 	# gravatar request

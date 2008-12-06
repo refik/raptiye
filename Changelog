@@ -1,3 +1,16 @@
+2008-12-06  Alper KANAT  <alperkanat@raptiye.org>
+
+	* extra/captcha_test.py: removed..
+	* templates/users/forgotten_password.html, media/css/style.css,
+	users/forms.py, users/urls.py, users/views.py, templates/blog/sidebar.html,
+	extra/mail.py: forgot my password and register links added to the login
+	page.. users who don't remember their password can now retrieve it..
+	* comments/views.py, extra/captcha.py: captcha class and its usage are
+	slightly changed.
+	* templates/blog/comments.html, templates/users/login.html,
+	templates/users/profile.html, templates/users/registration.html: renamed the
+	most used buttons..
+	  
 2008-12-04  Alper KANAT  <alperkanat@raptiye.org>
 
 	* media/css/pygments.css, blog/templatetags/blog_filters.py,

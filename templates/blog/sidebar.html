@@ -112,6 +112,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					{% else %}
 						&raquo; <a href="{% url registration %}" title="raptiye'ye kaydolmak için tıklayın.." class="link">kaydol</a>
 						<br>
+						&raquo; <a href="{% url forgot_password %}" title="raptiye hesabınızın şifresini hatırlamıyorsanız tıklayın.." class="link">şifremi unuttum</a>
+						<br>
 						&raquo; <a href="{% url login_page %}?next={{ request.path }}" title="raptiye hesabınızla giriş yapmak için tıklayın.." class="link">giriş</a>
 					{% endif %}
 				</div>

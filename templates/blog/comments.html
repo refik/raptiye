@@ -125,8 +125,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			<img src="/media/images/loader.gif" align="absmiddle"> Yollanıyor...
 		</div>
 		<div id="entry_comment_buttons">
-			<button id="entry_comment_submit">yolla</button>
-			<button id="entry_comment_clear">temizle</button>
+			<button id="submit_button">yolla</button>
+			<button id="clear_button">temizle</button>
 		</div>
 		<div id="comment_error" style="display: none;"></div>
 	</div>
@@ -144,7 +144,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {% endif %}
 
 <script language="javascript">
-	$("#entry_comment_submit").click(function() {
+	$("#submit_button").click(function() {
 		var entry_id = {{ entry.id }};
 		var url = "{% url comment_sent %}";
 		var captcha_id = $("#captcha_image").attr('src').split('/')[3].split('.')[0];
@@ -171,7 +171,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			showStatusMessage(resp);
 		}, "json");
 	});
-	$("#entry_comment_clear").click(function() {
+	$("#clear_button").click(function() {
 		clearCommentForm();
 		$("#comment_error").slideUp("slow");
 	});

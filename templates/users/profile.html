@@ -82,9 +82,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			
 			<div style="text-align: center;">
 				<div id="login_form_buttons">
-					<button id="entry_comment_submit" type='submit'>yolla</button>
+					<button id="submit_button" type='submit'>yolla</button>
 					&nbsp;&nbsp;
-					<input id="entry_comment_clear" type='button' value='temizle'></button>
+					<input id="clear_button" type='button' value='temizle'></button>
 				</div>
 			</div>
 		</form>
@@ -146,7 +146,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				iBox.hide();
 			});
 		});
-		$('#entry_comment_clear').click(function() {
+		$('#clear_button').click(function() {
 			$('#login_form_inputs :input:visible').val('');
 		})
 		function remove_notification(id) {

@@ -25,6 +25,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 from raptiye.blog.views import get_latest_entries
 from raptiye.comments.models import Comments
 from raptiye.comments.views import create_captcha
@@ -36,12 +37,14 @@ from raptiye.extra.messages import *
 from raptiye.contrib.session_messages import create_message
 from raptiye.users.forms import *
 
+@login_required
 def gravatar(request, username):
 	if request.method == "POST" and request.POST.has_key("email"):
 		site = Site.objects.get_current()
 		email = request.POST["email"]
 	return HttpResponse(get_gravatar(email, "http://" + site.domain + settings.DEFAULT_AVATAR))
 
+@login_required
 def notification_remove(request, username):
 	# will return json object if the operation is successfull
 	from django.utils import simplejson
@@ -71,6 +74,7 @@ def notification_remove(request, username):
 		return HttpResponse(simplejson.dumps(resp))
 	return HttpResponse(simplejson.dumps(resp))
 
+@login_required
 def profile(request, username, template="users/profile.html"):
 	if request.user.is_authenticated() and request.user.username == username:
 		# sometimes we need to log the user out
@@ -203,10 +207,10 @@ def register(request, template="users/registration.html"):
 				test = lambda x={},y="": (x.has_key(y) and x[y] != "") or False
 				if test(request.POST, "captcha_id") and test(request.POST, "registration_captcha"):
 					cp = Captcha()
-					cp.set_text(request.POST["registration_captcha"])
+					cp.text = request.POST["registration_captcha"]
 					# validating captcha
 					pattern = re.compile(u"[^a-zA-Z0-9]")
-					if not pattern.search(cp.get_text()) and cp.generate_hash(settings.SECRET_KEY[:20]) == request.POST["captcha_id"]:
+					if not pattern.search(cp.text) and cp.generate_hash(settings.SECRET_KEY[:20]) == request.POST["captcha_id"]:
 						# registering the user
 						try:
 							# the following line creates the user directly, it doesn't wait
@@ -261,6 +265,7 @@ def register(request, template="users/registration.html"):
 		}
 		return render_to_response(template, extra_context, context_instance=RequestContext(request))
 
+@login_required
 def user_logout(request):
 	logout(request)
 	if request.GET.has_key('next'):
@@ -303,3 +308,42 @@ def user_login(request, template="users/login.html"):
 			'form': form,
 		}
 		return render_to_response(template, extra_context, context_instance=RequestContext(request))
+
+def forgotten_password(request, template="users/forgotten_password.html"):
+	if request.method == "POST":
+		form = ForgottenPasswordForm(request.POST)
+		extra_context = {
+			"form": form,
+		}
+		if form.is_valid():
+			email = form.cleaned_data["email"]
+			# getting user who has that e-mail address
+			if User.objects.filter(email=email).__len__() > 0:
+				from django.contrib.sites.models import Site
+				# importing to create a random password
+				from raptiye.extra.captcha import Captcha
+				
+				site = Site.objects.get_current()
+				user = User.objects.get(email=email)
+				# changing the user's password
+				password = Captcha.generate_random_text()
+				user.set_password(password)
+				user.save()
+				# mailing the new password to the user
+				send_mail(FORGOTTEN_PASSWORD_SUBJECT, 
+						FORGOTTEN_PASSWORD_BODY % (site.name, site.name, password), 
+						settings.EMAIL_INFO_ADDRESS_TR, [user.email,], 
+						fail_silently=settings.EMAIL_FAIL_SILENCE,
+						auth_user=settings.EMAIL_HOST_USER, 
+						auth_password=settings.EMAIL_HOST_PASSWORD)
+				extra_context["status"] = True
+			else:
+				# can't find such a user
+				extra_context["status"] = False
+				extra_context["error"] = u"raptiye'de kayıtlı böyle bir e-posta adresi bulunmuyor."
+	else:
+		form = ForgottenPasswordForm()
+		extra_context = {
+			"form": form,
+		}
+	return render_to_response(template, extra_context, context_instance=RequestContext(request))

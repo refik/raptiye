@@ -7,7 +7,6 @@ TODO
 
 --- Code Enhancements ---
 
-	* register & forgot my password options at login page
 	* base page optimization due to settings.py
 	* openid integration
 	* CSS improvement for blockquote's

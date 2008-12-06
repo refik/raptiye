@@ -25,9 +25,9 @@ except ImportError:
 class Captcha:
 	"""
 	creates an image which consists of characters...
-
+	
 	default length is 6 characters.
-
+	
 	@requires pil
 	@param file_path String that represents captcha file path
 	@param filename String that represents the captcha filename
@@ -41,80 +41,35 @@ class Captcha:
 	filename = u""
 	size = None
 	font = None
-	fgColor = u""
-	bgColor = u""
-
-	def __init__(self, file_path="", filename="", size=None, fgColor="", bgColor=""):
+	fgColor = u"black"
+	bgColor = u"white"
+	
+	def __init__(self, file_path="", filename="", size=None):
 		self.file_path = file_path
 		self.filename = filename
 		self.size = size
-		self.fgColor = fgColor
-		self.bgColor = bgColor
+		self.text = self.generate_random_text(self.text_length)
 	
-	def set_fg_color(self, color):
-		self.fgColor = color
-	
-	def get_fg_color(self):
-		return self.fgColor
-
-	def set_bg_color(self, color):
-		self.bgColor = color
-	
-	def get_bg_color(self):
-		return self.bgColor
-	
-	def set_file_path(self, path):
-		self.file_path = path
-	
-	def get_file_path(self):
-		return self.file_path
-
-	def generate_random_text(self):
+	@staticmethod
+	def generate_random_text(length=6):
 		from random import sample
 		import string
 		choices = list(string.letters + string.digits)
-		return u"".join(sample(choices, self.get_text_length()))
-
-	def set_text_length(self, length=6):
-		self.text_length = length
+		return u"".join(sample(choices, length))
 	
-	def get_text_length(self):
-		return self.text_length
-
 	def set_font(self, font, size):
 		self.font = ImageFont.truetype(font, size)
 	
-	def get_font(self):
-		return self.font
-	
-	def set_size(self, width, height):
-		self.size = (width, height)
-	
-	def get_size(self):
-		return self.size
-	
-	def set_filename(self, filename):
-		self.filename = filename
-	
-	def get_filename(self):
-		return self.filename
-
-	def set_text(self, text):
-		self.text = text
-	
-	def get_text(self):
-		return self.text
-	
 	def generate_hash(self, salt):
 		from hashlib import sha1
-		hash = sha1(salt + self.get_text()).hexdigest()
+		hash = sha1(salt + self.text).hexdigest()
 		return hash
-
+	
 	def generate_captcha(self):
 		from os import path
-		file = open(path.join(self.get_file_path(), self.get_filename()), "w")
-		im = Image.new("RGB", self.get_size(), self.get_bg_color())
+		file = open(path.join(self.file_path, self.filename), "w")
+		im = Image.new("RGB", self.size, self.bgColor)
 		draw = ImageDraw.Draw(im)
-		draw.text((15, 0), self.get_text(), fill=1, font=self.get_font())
+		draw.text((15, 0), self.text, fill=1, font=self.font)
 		im.save(file, "JPEG")
 		file.close()

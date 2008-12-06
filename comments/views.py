@@ -158,19 +158,13 @@ def create_captcha():
 		"times.ttf": 25
 	}
 	
-	c = Captcha(path.join(settings.MEDIA_ROOT, settings.TEMP_MEDIA_PREFIX))
-	text = c.generate_random_text()
-	c.set_text(text)
-	# setting filename to the hash of text
-	c.set_filename(c.generate_hash(settings.SECRET_KEY[:20]) + ".jpg")
-	c.set_size(120, 50)
-	c.set_fg_color("black")
-	c.set_bg_color("white")
+	c = Captcha(file_path=path.join(settings.MEDIA_ROOT, settings.TEMP_MEDIA_PREFIX), size=(120, 50))
+	c.filename = c.generate_hash(settings.SECRET_KEY[:20]) + ".jpg"
 	# selecting the font randomly
 	font = choice(fonts.keys())
 	c.set_font(path.join(settings.MEDIA_ROOT, "fonts", font), fonts[font])
 	c.generate_captcha()
-	return path.join("/media/", settings.TEMP_MEDIA_PREFIX, c.get_filename())
+	return path.join("/media/", settings.TEMP_MEDIA_PREFIX, c.filename)
 
 def user_has_notification(request):
 	"""

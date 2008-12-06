@@ -19,8 +19,8 @@ import re
 from django import forms
 
 class LoginForm(forms.Form):
-	username = forms.CharField(label=u"Kullanıcı Adı")
-	password = forms.CharField(label=u"Şifre", widget=forms.PasswordInput)
+	username = forms.CharField(label=u"Kullanıcı Adı", widget=forms.TextInput(attrs={"autocomplete": "off"}))
+	password = forms.CharField(label=u"Şifre", widget=forms.PasswordInput(attrs={"autocomplete": "off"}))
 	
 	def clean_username(self):
 		u"A username must include only ASCII characters and numbers.."
@@ -30,9 +30,9 @@ class LoginForm(forms.Form):
 		return self.cleaned_data["username"]
 
 class RegistrationForm(LoginForm):
-	name = forms.CharField(label=u"Ad", min_length=2, max_length=30)
-	surname = forms.CharField(label=u"Soyad", min_length=2, max_length=30)
-	email = forms.EmailField(label=u"E-Posta")
+	name = forms.CharField(label=u"Ad", min_length=2, max_length=30, widget=forms.TextInput(attrs={"autocomplete": "off"}))
+	surname = forms.CharField(label=u"Soyad", min_length=2, max_length=30, widget=forms.TextInput(attrs={"autocomplete": "off"}))
+	email = forms.EmailField(label=u"E-Posta", widget=forms.TextInput(attrs={"autocomplete": "off"}))
 	
 	def clean_name(self):
 		u"A name must only have a combination of a-zA-Z, Turkish chars. and space."
@@ -50,5 +50,8 @@ class RegistrationForm(LoginForm):
 	
 class ProfileForm(RegistrationForm):
 	username = forms.CharField(label=u"Kullanıcı Adı", max_length=30, widget=forms.HiddenInput)
-	avatar = forms.URLField(label=u"Avatar", required=False, verify_exists=True)
-	website = forms.URLField(label=u"Web Sitesi", required=False, verify_exists=True)
+	avatar = forms.URLField(label=u"Avatar", required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off"}))
+	website = forms.URLField(label=u"Web Sitesi", required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off"}))
+
+class ForgottenPasswordForm(forms.Form):
+	email = forms.EmailField(label=u"E-Posta", widget=forms.TextInput(attrs={"autocomplete": "off"}))

@@ -46,6 +46,7 @@ http://%s/users/%s/activate/%s/
 %s'den başka mesaj almanız söz konusu değildir. Söz konusu hesap, üç gün 
 içinde aktivasyon gerçekleşmemesi durumunda geçersiz olacaktır.
 
+raptiye aktivasyon bekçisi
 """
 
 ACTIVATION_SUBJECT = settings.EMAIL_SUBJECT_PREFIX + u"kullanıcı adınıza yeni e-posta adresi tanımlandı"
@@ -62,6 +63,22 @@ http://%s/users/%s/activate/%s/
 Söz konusu hesabınız, üç gün içinde aktivasyon gerçekleşmemesi durumunda geçersiz 
 olacaktır.
 
+raptiye aktivasyon bekçisi
+"""
+
+FORGOTTEN_PASSWORD_SUBJECT = u"%s %s" % (settings.EMAIL_SUBJECT_PREFIX, u"yeni raptiye şifreniz")
+FORGOTTEN_PASSWORD_BODY = u"""
+Merhaba,
+
+Bu e-posta'yı %s'deki kullanıcı hesabınıza ait şifreyi değiştirmek istediğiniz 
+için alıyorsunuz. Aşağıdaki yeni şifrenizle birlikte %s'deki hesabınıza giriş 
+yapabilirsiniz. Hesabınıza giriş yaptıktan sonra profil ayarlarınızdan şifrenizi 
+kolayca hatırlayabileceğiniz daha zor bir şifre ile değiştirmeniz hesabınızın 
+güvenliği açısından gereklidir.
+
+Yeni şifreniz: %s
+
+raptiye şifre bekçisi
 """
 
 def send_comment_notification(entry, user):
