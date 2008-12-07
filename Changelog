@@ -1,5 +1,9 @@
 2008-12-06  Alper KANAT  <alperkanat@raptiye.org>
 
+	* TODO: removed some of the accomplished todo's
+	* templates/blog/sidebar.html: added forgotten password link..
+	* templates/frontpage/base.html: openid delegation is added.. more to be
+	coming soon.. (probably with 1.0.3)
 	* extra/captcha_test.py: removed..
 	* templates/users/forgotten_password.html, media/css/style.css,
 	users/forms.py, users/urls.py, users/views.py, templates/blog/sidebar.html,
