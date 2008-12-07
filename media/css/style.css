@@ -261,6 +261,15 @@ blockquote {
 	overflow: auto;
 }
 
+.blog_sticky_post ul {
+	margin: 15px 0 15px 15px;
+	list-style-position: inside;
+}
+
+.blog_sticky_post li {
+	margin-bottom: 3px;
+}
+
 #sidebar_container {
 	float: right;
 	width: 230px;
