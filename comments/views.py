@@ -87,7 +87,7 @@ def comment_sent(request):
 			
 			# and at last, checking captcha
 			cp = Captcha()
-			cp.set_text(request.POST["captcha"])
+			cp.text = request.POST["captcha"]
 			if cp.generate_hash(settings.SECRET_KEY[:20]) == request.POST["captcha_id"]:
 				# all tests ok, creating comment
 				c = Comments()
