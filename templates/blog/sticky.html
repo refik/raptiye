@@ -25,6 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			{{ sticky_post.datetime|date:"d M Y l, \S\a\a\t: H:i" }}
 		</span>
 		<br><br>
-		{{ sticky_post.content|emotions|safe|linebreaksbr }}
+		{{ sticky_post.content|emotions|code_colorizer|safe }}
 	</div>
 {% endif %}

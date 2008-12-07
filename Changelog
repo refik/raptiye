@@ -1,5 +1,7 @@
 2008-12-06  Alper KANAT  <alperkanat@raptiye.org>
 
+	* templates/blog/homepage.html, templates/blog/sticky.html: fixed some
+	layout problems..
 	* TODO: removed some of the accomplished todo's
 	* templates/blog/sidebar.html: added forgotten password link..
 	* templates/frontpage/base.html: openid delegation is added.. more to be

@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		{% if messages %}
 		<div class="blog_message">
 			{% for message in messages %}
-				{{ message|emotions|safe }}
+				{{ message|emotions|code_colorizer|safe }}
 			{% endfor %}
 		</div>
 		{% endif %}
@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		{% if session_messages %}
 			<div class="blog_message">
 			{% for message in session_messages %}
-				{{ message|emotions|safe }}
+				{{ message|emotions|code_colorizer|safe }}
 			{% endfor %}
 			</div>
 		{% endif %}
