@@ -270,6 +270,17 @@ blockquote {
 	margin-bottom: 3px;
 }
 
+.sticky_post_footer .left {
+	float: left;
+	width: 50%;
+}
+
+.sticky_post_footer .right {
+	float: right;
+	width: 50%;
+	text-align: right;
+}
+
 #sidebar_container {
 	float: right;
 	width: 230px;

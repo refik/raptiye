@@ -52,9 +52,6 @@ class Entry(models.Model):
 	
 	def get_full_url(self):
 		site_url = Site.objects.get_current().domain
-		dt = self.datetime
-		if self.sticky == True:
-			return ""
 		return "http://%s%s" % (site_url, self.get_relative_url())
 	
 	def get_datetime(self):
@@ -63,10 +60,7 @@ class Entry(models.Model):
 	get_datetime.short_description = "Event Published On"
 	
 	def get_entry_url(self):
-		site_url = Site.objects.get_current().domain
-		entry_url = self.get_full_url()
-		if self.sticky == True:
-			return ""
+		entry_url = self.get_relative_url()
 		return "<a href='%s' title='Click here to read the entry..' target='_blank'>%s</a>" % (entry_url, entry_url)
 	
 	get_entry_url.short_description = "URL of Entry"

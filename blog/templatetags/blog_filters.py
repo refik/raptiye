@@ -55,7 +55,7 @@ def construct_calendar():
 	from raptiye.extra.webcal import WebCalendar
 	from raptiye.extra.messages import ENTRIES_ON_DATE
 	now = datetime.now()
-	wc = WebCalendar(now.year, now.month, now.day, Entry.objects.exclude(sticky=True), "datetime", settings.LOCALES['tr'])
+	wc = WebCalendar(now.year, now.month, now.day, Entry.objects, "datetime", settings.LOCALES['tr'])
 	return wc.render("calendar_box", "/blog", ENTRIES_ON_DATE, "ulink")
 
 @register.inclusion_tag('blog/pagination.html', takes_context=True)
@@ -104,15 +104,6 @@ def sticky():
 	Grabs the latest sticky post and show it.. Since raptiye is not a forum
 	app, I don't think there might be more than 1 sticky posts at a time and
 	therefore not implementing it.
-	
-	Sticky posts are excluded from the following:
-	
-	* RSS feeds
-	* Search results
-	* Blog entry listings
-	
-	If you want to publish a blog entry after you made it sticky, then simple 
-	remove its sticky flag..
 	"""
 	from raptiye.blog.models import Entry
 	
@@ -213,5 +204,5 @@ def code_colorizer(entry):
 				colorized_code = Tag(parser, "div") if block.div else Tag(parser, "div", attrs=(("id", language), ("class", "code")))
 				colorized_code.insert(0, highlight(code, lexer, formatter))
 				layer.replaceWith(colorized_code)
-			return parser.prettify()
+			return parser.renderContents()
 	return entry

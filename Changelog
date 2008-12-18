@@ -1,3 +1,16 @@
+2008-12-19  Alper KANAT  <alperkanat@raptiye.org>
+
+	* TODO: added new todo..
+	* blog/feeds.py, blog/templatetags/blog_filters.py, blog/views.py,
+	extra/search.py, extra/tag_cloud.py, media/css/style.css,
+	templates/blog/sticky.html: sticky pages are same as other posts now.. the
+	only difference is that they're shown in a different style at homepage..
+	* blog/models.py: removed some unnecessary code..
+	* blog/templatetags/blog_filters.py: fixed a layout problem that was being
+	caused by BeautifulSoup's prettify() method since it adds unnecessary
+	spaces..
+	* templates/blog/homepage.html: some readability enhancement..
+	  
 2008-12-07  Alper KANAT  <alperkanat@raptiye.org>
 
 	* comments/views.py: fixed a bug due to the change in Captcha class..

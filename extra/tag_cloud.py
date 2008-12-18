@@ -74,7 +74,7 @@ class TagCloud():
 			if tag.entries.count() == 0:
 				continue
 			else:
-				frequency = tag.entries.filter(published=True, datetime__lte=datetime.now()).exclude(sticky=True)
+				frequency = tag.entries.filter(published=True, datetime__lte=datetime.now())
 				self.TAG_CLOUD.append({"name": tag.name, "slug": tag.slug,"font_size": frequency.count()})
 				if self.debug:
 					print "%s with count: %d" % (tag.name, frequency.count())

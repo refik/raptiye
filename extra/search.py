@@ -46,4 +46,4 @@ class SearchAgainstEntries():
 		# creating an OR'ed Q from the list
 		final_q = reduce(operator.or_, q_list)
 
-		return Entry.objects.filter(final_q).exclude(sticky=True).order_by("-datetime").distinct()
+		return Entry.objects.filter(final_q).order_by("-datetime").distinct()
