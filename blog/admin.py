@@ -40,6 +40,17 @@ class EntryAdmin(admin.ModelAdmin):
 	
 	class Media:
 		js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
+	
+	def save_model(self, request, obj, form, change):
+		obj.save()
+		
+		# now let's publish the blog post to twitter
+		if settings.POST_TO_TWITTER:
+			from raptiye.contrib import twitter
+			from raptiye.extra.tinyurl import shorten_url
+			
+			api = twitter.Api(username=settings.TWITTER_USERNAME, password=settings.TWITTER_PASSWORD, input_encoding="utf8")
+			api.PostUpdate(u"%s (%s)" % (obj.title, shorten_url(obj.get_full_url())))
 
 admin.site.register(Entry, EntryAdmin)
 

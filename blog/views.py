@@ -116,7 +116,7 @@ def get_post(request, year, month, day, slug):
 
 def get_latest_entries(request):
 	entry_list = {
-		"queryset": get_latest_entries_list(),
+		"queryset": get_latest_entries_list().exclude(sticky=True),
 		"template_name": "blog/homepage.html",
 		"template_object_name" : "entry",
 		"paginate_by": settings.ENTRIES_PER_PAGE,

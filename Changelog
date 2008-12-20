@@ -1,3 +1,15 @@
+2008-12-20  Alper KANAT  <alperkanat@raptiye.org>
+
+	* settings-example.py: bumped version number to 1.0.3..
+	* contrib/twitter.py: fixed a bug.. will also open a ticket for this..
+	* blog/views.py: fixed a bug in the blog homepage that caused duplicate
+	entries being shown when they're sticky..
+	* blog/admin.py, contrib/twitter.py, settings-example.py: if permitted in
+	settings, raptiye now sends updates per new entry..
+	* TODO: removed twitter updation todo..
+	* extra/tinyurl.py: added new module to shorten urls using tinyurl's hidden
+	api..
+	
 2008-12-19  Alper KANAT  <alperkanat@raptiye.org>
 
 	* TODO: added new todo..

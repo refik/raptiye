@@ -1427,10 +1427,13 @@ class Api(object):
     return opener
 
   def _Encode(self, s):
-    if self._input_encoding:
-      return unicode(s, self._input_encoding).encode('utf-8')
+    if isinstance(s, unicode):
+      return s.encode("utf-8")
     else:
-      return unicode(s).encode('utf-8')
+      if self._input_encoding:
+        return unicode(s, self._input_encoding).encode('utf-8')
+      else:
+        return unicode(s).encode('utf-8')
 
   def _EncodeParameters(self, parameters):
     '''Return a string in key=value&key=value form
