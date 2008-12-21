@@ -1,3 +1,7 @@
+2008-12-22  Alper KANAT  <alperkanat@raptiye.org>
+
+	* media/css/style.css: fixed a layout problem..
+
 2008-12-20  Alper KANAT  <alperkanat@raptiye.org>
 
 	* settings-example.py: bumped version number to 1.0.3..

@@ -373,12 +373,16 @@ blockquote {
 	padding-top: 20px;
 }
 
-.entry_body ol {
+.entry_body ul {
+	margin-top: 20px;
+	margin-bottom: 20px;
 	padding-left: 20px;
 	list-style-position: inside;
 }
 
 .entry_body li {
+	margin-top: 5px;
+	margin-bottom: 5px;
 	padding-left: 20px;
 	list-style-position: inside;
 }
