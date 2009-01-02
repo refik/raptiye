@@ -416,7 +416,7 @@ blockquote {
 
 .entry_footer_buttons {
 	float: right;
-	margin-top: 17px;
+	margin-top: 19px;
 	margin-right: 30px;
 }
 
@@ -690,6 +690,23 @@ blockquote {
 
 #centered_body_container {
 	margin: 0 auto;
+}
+
+#login_center_table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin: 0 auto;
+	width: 620px;
+	text-align: center;
+}
+
+#login_center_table th {
+	height: 30px;
+	vertical-align: top;
+}
+
+#login_center_table td {
+	vertical-align: top;
 }
 
 #login_form_inputs {

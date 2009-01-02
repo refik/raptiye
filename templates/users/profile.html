@@ -52,8 +52,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						</div>
 						<div id="profile_text">
 							<strong>{{request.user.username }}</strong>
+							{% ifnotequal request.user.get_full_name "" %}
 							<br>
 							({{ request.user.get_full_name }})
+							{% endifnotequal %}
 							<br><br>
 							<strong>Üyelik Tarihi:</strong> {{ request.user.date_joined|date:"d.m.Y" }}
 						</div>

@@ -1,3 +1,4 @@
+#-*- encoding: utf-8 -*-
 # raptiye
 # Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
 # 
@@ -19,15 +20,32 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class UserProfile(models.Model):
+	"""
+	Stores additional information about the users..
+	"""
+	
 	user = models.ForeignKey(User, related_name='profile', verbose_name=u"User")
 	avatar = models.URLField(u"Avatar", default=settings.DEFAULT_AVATAR)
 	web_site = models.URLField(u"Web Site", blank=True)
 	activation_key = models.CharField(u"Aktivasyon Kodu", max_length=100, blank=True)
 	last_modified = models.DateTimeField(u"Last Modified Date", auto_now=True)
-
+	
 	def __unicode__(self):
 		return "User Profile of %s" % self.user.username
 
 	class Meta:
 		verbose_name = u"User Profile"
 		verbose_name_plural = u"User Profiles"
+
+class OpenID(models.Model):
+	"Model to associate OpenID's with Users' Profile"
+	
+	profile = models.ForeignKey(UserProfile, related_name="openids", verbose_name="OpenID Identifier(s)", null=True)
+	identifier = models.URLField(u"OpenID Identifier", unique=True)
+	
+	def __unicode__(self):
+		return "OpenID Identifier (%s)" % self.identifier
+	
+	class Meta:
+		verbose_name = u"OpenID Identifier"
+		verbose_name_plural = u"OpenID Identifiers"

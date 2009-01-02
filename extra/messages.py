@@ -112,3 +112,6 @@ bağlantıya tıklayarak yorumu gör ve onayla!
 Sevgilerle..
 
 raptiye yorum bekçisi"""
+
+OPENID_FAILURE_MESSAGE = u"openid hesabı ile girişte bir hata oluştu. lütfen daha sonra tekrar deneyin."
+OPENID_EXISTING_USERNAME = u"seçtiğiniz kullanıcı adı kullanılıyor.. lütfen başka bir kullanıcı adıyla tekrar deneyin."

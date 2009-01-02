@@ -24,12 +24,12 @@ from raptiye.tags.models import Tag
 class Entry(models.Model):
 	"""
 	Entry Class
-
+	
 	This is the class we hold every post for the blog. It
 	can be either in Turkish or English due to the choices
 	in settings.
 	"""
-
+	
 	title = models.CharField(u"Title", help_text="Required", max_length=80)
 	datetime = models.DateTimeField(u"Publish On", help_text="Required")
 	content = models.TextField(u"Content", help_text="Required.. HTML Allowed..")

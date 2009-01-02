@@ -22,39 +22,79 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 {% block body %}
 	<div id="centered_body_container">
-		<form id="login_form" name="login_form" method="post">
-			<table id="login_form_line" style="margin: 0 auto;">
-			{% for field in form %}
-				<tr>
-					<td>{{ field.label_tag }}</td>
-					<td width="20px"></td>
-					<td>{{ field }}</td>
-					{% if form.errors %}
-					<td width="10px"></td>
-					<td class="field_errors">{{ field.errors }}</td>
-					{% endif %}
-				</tr>
-			{% endfor %}
-			</table>
-			
-			<div id="login_form_links">
-				<div class="left">[ <a href="{% url registration %}" title="raptiye'ye kaydolmak için tıklayın..">kaydol</a> ]</div>
-				<div class="right">[ <a href="{% url forgotten_password %}" title="şifrenizi unuttuysanız buraya tıklayarak yeni şifrenizin e-posta hesabınıza gönderilmesini sağlayabilirsiniz..">şifremi unuttum</a> ]</div>
-			</div>
-			
-			<br>
-			
-			{% if error %}
-			<div id="login_form_errors">
-				{{ error }}
-			</div>
-			{% endif %}
-			
-			<div id="login_form_buttons">
-				<button id="submit_button" type="submit">yolla</button>
-				&nbsp;&nbsp;
-				<button id="clear_button" type="reset">temizle</button>
-			</div>
-		</form>
+		<table id="login_center_table">
+			<tr>
+				{% if openid_form %}
+				<th style="border-right: 1px dashed #777">openid hesabınızla giriş yapın</th>
+				{% endif %}
+				<th>raptiye hesabınızla giriş yapın</th>
+			</tr>
+			<tr>
+				{% if openid_form %}
+				<td style="border-right: 1px dashed #777">
+					<form action="" method="post" accept-charset="utf-8">
+						<img src="/media/images/openid.gif" alt="openid" align="top" style="margin-right: 5px">
+						{{ openid_form.identifier }}
+						
+						{% if openid_form.errors %}
+						<div id="login_form_errors">
+							{{ openid_form.identifier.errors }}
+						</div>
+						{% endif %}
+						
+						{% if session_messages %}
+						<div id="login_form_errors">
+							{% for message in session_messages %}
+								{{ message }}
+							{% endfor %}
+						</div>
+						{% endif %}
+						
+						<div id="login_form_buttons">
+							<button id="submit_button" type="submit" name="form" value="openid">yolla</button>
+							&nbsp;&nbsp;
+							<button id="clear_button" type="reset">temizle</button>
+						</div>
+					</form>
+				</td>
+				{% endif %}
+				<td>
+					<form id="login_form" name="login_form" method="post">
+						<table id="login_form_line" style="margin: 0 auto;">
+						{% for field in form %}
+							<tr>
+								<td>{{ field.label_tag }}</td>
+								<td width="20px"></td>
+								<td>{{ field }}</td>
+								{% if form.errors %}
+								<td width="10px"></td>
+								<td class="field_errors">{{ field.errors }}</td>
+								{% endif %}
+							</tr>
+						{% endfor %}
+						</table>
+
+						<div id="login_form_links">
+							<div class="left">[ <a href="{% url registration %}" title="raptiye'ye kaydolmak için tıklayın..">kaydol</a> ]</div>
+							<div class="right">[ <a href="{% url forgotten_password %}" title="şifrenizi unuttuysanız buraya tıklayarak yeni şifrenizin e-posta hesabınıza gönderilmesini sağlayabilirsiniz..">şifremi unuttum</a> ]</div>
+						</div>
+
+						<br>
+
+						{% if error %}
+						<div id="login_form_errors">
+							{{ error }}
+						</div>
+						{% endif %}
+
+						<div id="login_form_buttons">
+							<button id="submit_button" type="submit" name="form" value="login">yolla</button>
+							&nbsp;&nbsp;
+							<button id="clear_button" type="reset">temizle</button>
+						</div>
+					</form>
+				</td>
+			</tr>
+		</table>
 	</div>
 {% endblock %}

@@ -1,3 +1,20 @@
+2009-01-02  Alper KANAT  <alperkanat@raptiye.org>
+
+	* extra/exceptions.py: added some custom made exceptions to catch some errors..
+	* extra/openid_consumer.py, media/images/openid.gif, users/backends.py,
+	extra/messages.py, media/css/style.css, templates/users/login.html,
+	users/models.py, users/urls.py, users/views.py: OpenID support is added..
+	will be ready after more tests and bug fixes..
+	* TODO: added new stuff..
+	* settings-example.py: accepted Recep KIRMIZI's patch.. also made a lot of
+	changes to the file to make it better.. will arrange it completely soon..
+	* blog/feeds.py: fixed a long standing, stupid bug..
+	* templates/blog/homepage.html: fixed a stupid, unrecognised bug..
+	* templates/users/profile.html: fixed a bug that results empty parantheses
+	in the profile page when the user doesn't want to fill name and surname..
+	* users/forms.py: i can't believe i missed this stupid bug upto this time..
+	none of the fields are required now except the email field..
+	  
 2008-12-22  Alper KANAT  <alperkanat@raptiye.org>
 
 	* media/css/style.css: fixed a layout problem..

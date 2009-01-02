@@ -29,12 +29,14 @@ from django.contrib.auth.decorators import login_required
 from raptiye.blog.views import get_latest_entries
 from raptiye.comments.models import Comments
 from raptiye.comments.views import create_captcha
+from raptiye.contrib.session_messages import create_message
 from raptiye.extra.captcha import Captcha
+from raptiye.extra.exceptions import OpenIDUsernameExistsError
 from raptiye.extra.filters import is_username_unique, is_email_unique
 from raptiye.extra.gravatar import get_gravatar
 from raptiye.extra.mail import *
 from raptiye.extra.messages import *
-from raptiye.contrib.session_messages import create_message
+from raptiye.extra.openid_consumer import *
 from raptiye.users.forms import *
 
 @login_required
@@ -145,8 +147,8 @@ def profile(request, username, template="users/profile.html"):
 	else:
 		# leaving the "anonymous" user a new message..
 		create_message(request, PROFILE_ACCOUNT_ERROR)
-		# redirecting the user to homepage
-		return HttpResponseRedirect(reverse("blog"))
+		# redirecting the user to blog
+		return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 
 def activation(request, username, key):
 	from datetime import datetime
@@ -238,8 +240,8 @@ def register(request, template="users/registration.html"):
 									auth_password=settings.EMAIL_HOST_PASSWORD)
 							# leaving the "anonymous" user a new message..
 							create_message(request, REG_SUCCESS)
-							# redirecting the user to homepage
-							return HttpResponseRedirect(reverse("blog"))
+							# redirecting the user to blog
+							return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 						except IntegrityError:
 							# there's already a user with that name
 							# normally this part shouldn't be invoked
@@ -271,43 +273,60 @@ def user_logout(request):
 	if request.GET.has_key('next'):
 		return HttpResponseRedirect(request.GET["next"])
 	else:
-		return HttpResponseRedirect(reverse("homepage"))
+		return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 
 def user_login(request, template="users/login.html"):
-	if request.method == "POST":
-		# creating a login form instance with post data
-		form = LoginForm(request.POST)
-		extra_context = {
-			'form': form,
-		}
-		if form.is_valid():
-			username = form.cleaned_data['username']
-			password = form.cleaned_data['password']
-			user = authenticate(username=username, password=password)
-			if user is None:
-				extra_context["error"] = LOGIN_ERROR
-				return render_to_response(template, extra_context, context_instance=RequestContext(request))
-			else:
-				if user.is_active:
-					login(request, user)
-					# if there's a next parameter, then redirect the user
-					# to where it has originally came from..
-					if request.GET.has_key('next'):
-						return HttpResponseRedirect(request.GET["next"])
-					return HttpResponseRedirect(reverse("homepage"))
+	# redirect the user to somewhere else if already login
+	if request.user.is_authenticated():
+		return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
+	
+	# creating an OpenID form instance if allowed in settings
+	openid_form = OpenIDForm() if settings.OPENID else None
+	# creating a login form instance
+	form = LoginForm()
+	
+	if request.method == "POST" and request.POST.has_key("form"):
+		# choosing the form to process
+		if request.POST["form"] == "openid":
+			# creating an OpenID form instance with post data
+			openid_form = OpenIDForm(request.POST)
+			
+			# checks for openid_form
+			if openid_form.is_valid():
+				identifier = openid_form.cleaned_data["identifier"]
+				raptiye_openid = OpenID(request, reverse(settings.REDIRECT_URL), reverse("login_page"), True if not if_openid_user_exists(identifier) else False)
+				publisher_url = raptiye_openid.authenticate(identifier, reverse("openid_complete"))
+				return HttpResponseRedirect(publisher_url)
+		elif request.POST["form"] == "login":
+			# creating a login form instance with post data
+			form = LoginForm(request.POST)
+			
+			# checks for login form
+			if form.is_valid():
+				username = form.cleaned_data['username']
+				password = form.cleaned_data['password']
+				user = authenticate(username=username, password=password)
+				if user is None:
+					extra_context["error"] = LOGIN_ERROR
 				else:
-					# account disabled, redirecting to login page
-					extra_context["error"] = ACCOUNT_NEEDS_ACTIVATION
-					return render_to_response(template, extra_context, context_instance=RequestContext(request))
-		else:
-			return render_to_response(template, extra_context, context_instance=RequestContext(request))
-	else:
-		# creating a login form instance
-		form = LoginForm()
-		extra_context = {
-			'form': form,
-		}
-		return render_to_response(template, extra_context, context_instance=RequestContext(request))
+					if user.is_active:
+						login(request, user)
+						# if there's a next parameter, then redirect the user
+						# to where it has originally came from..
+						if request.GET.has_key('next'):
+							return HttpResponseRedirect(request.GET["next"])
+						return HttpResponseRedirect(reverse("blog"))
+					else:
+						# account disabled, redirecting to login page
+						extra_context["error"] = ACCOUNT_NEEDS_ACTIVATION
+	
+	# creating the dictionary with the forms (filled or not)
+	extra_context = {
+		'form': form,
+		"openid_form": openid_form,
+	}
+	
+	return render_to_response(template, extra_context, context_instance=RequestContext(request))
 
 def forgotten_password(request, template="users/forgotten_password.html"):
 	if request.method == "POST":
@@ -347,3 +366,31 @@ def forgotten_password(request, template="users/forgotten_password.html"):
 			"form": form,
 		}
 	return render_to_response(template, extra_context, context_instance=RequestContext(request))
+
+def openid_complete(request):
+	"""
+	Completes the authentication process of OpenID..
+	"""
+	
+	if settings.OPENID:
+		raptiye_openid = OpenID(request, reverse(settings.REDIRECT_URL), reverse("login_page"))
+		# getting query string params
+		params = dict(request.GET.items())
+		openid_response = raptiye_openid.complete(params, reverse("openid_complete"))
+		# checking for the necessary info in the response
+		if openid_response.has_key("identifier") and openid_response.has_key("user_info"):
+			# authenticate the user or create a raptiye user with profile
+			try:
+				user = authenticate(identifier=openid_response["identifier"], user_info=openid_response["user_info"])
+				if user is None:
+					set_user_message(request, OPENID_FAILURE_MESSAGE)
+				else:
+					login(request, user)
+					# if there's a next parameter, then redirect the user
+					# to where it has originally came from..
+					if request.GET.has_key('next'):
+						return HttpResponseRedirect(request.GET["next"])
+					return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
+			except OpenIDUsernameExistsError:
+				set_user_message(request, OPENID_EXISTING_USERNAME)
+	return HttpResponseRedirect(reverse("login_page"))

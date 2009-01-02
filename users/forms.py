@@ -49,9 +49,21 @@ class RegistrationForm(LoginForm):
 		return self.cleaned_data["surname"]
 	
 class ProfileForm(RegistrationForm):
+	# subclassing other forms but overwriting their attrs..
 	username = forms.CharField(label=u"Kullanıcı Adı", max_length=30, widget=forms.HiddenInput)
+	password = forms.CharField(label=u"Şifre", widget=forms.PasswordInput(attrs={"autocomplete": "off"}), required=False)
+	name = forms.CharField(label=u"Ad", min_length=2, max_length=30, widget=forms.TextInput(attrs={"autocomplete": "off"}), required=False)
+	surname = forms.CharField(label=u"Soyad", min_length=2, max_length=30, widget=forms.TextInput(attrs={"autocomplete": "off"}), required=False)
+	email = forms.EmailField(label=u"E-Posta", widget=forms.TextInput(attrs={"autocomplete": "off"}), required=False)
 	avatar = forms.URLField(label=u"Avatar", required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off"}))
 	website = forms.URLField(label=u"Web Sitesi", required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off"}))
 
 class ForgottenPasswordForm(forms.Form):
 	email = forms.EmailField(label=u"E-Posta", widget=forms.TextInput(attrs={"autocomplete": "off"}))
+
+class OpenIDForm(forms.Form):
+	attrs = {
+		"autocomplete": "off",
+		"value": "http://",
+	}
+	identifier = forms.URLField(label=u"Kimlik", widget=forms.TextInput(attrs))

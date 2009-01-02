@@ -15,9 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from datetime import datetime
 import locale
+from datetime import datetime
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.contrib.syndication.feeds import Feed
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.feedgenerator import Atom1Feed
@@ -39,9 +40,8 @@ class RSS(Feed):
 		return fp.subtitle
 	
 	def link(self):
-		fp = FrontPage.objects.get(pk=1)
-		# FIXME: title=günlük is stupid! change it!
-		return fp.links.get(title="günlük").url
+		site = Site.objects.get_current()
+		return "http://%s" % site.domain
 	
 	def item_link(self, item):
 		return item.get_full_url()

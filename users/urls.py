@@ -15,9 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.conf import settings
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('raptiye.users.views',
+	# openid complete page
+	url(r'^openid/complete/$', 'openid_complete', name="openid_complete"),
 	# register page
 	url(r'^register/$', 'register', name='registration'),
 	# login page
