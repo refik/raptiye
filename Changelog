@@ -1,3 +1,8 @@
+2009-01-04  Alper KANAT  <alperkanat@raptiye.org>
+
+	* TODO, settings-example.py: rearranged all file in alphabetical and group
+	order..
+
 2009-01-02  Alper KANAT  <alperkanat@raptiye.org>
 
 	* extra/exceptions.py: added some custom made exceptions to catch some errors..

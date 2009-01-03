@@ -7,12 +7,9 @@ TODO
 
 --- Code Enhancements ---
 
-	* settings.py ordering & tidying (breaking into parts, etc..)
 	* code cleaning
-	* solve the next parameter problem
 	* move all form validation to forms.py for all forms..
 	* google adsense
-	* openid integration
 	* Fix problems occuring because of the non-occurence of http and www in web addresses of the comment authors.. (admin panel)
 
 
