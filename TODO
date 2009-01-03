@@ -7,7 +7,6 @@ TODO
 
 --- Code Enhancements ---
 
-	* code cleaning
 	* move all form validation to forms.py for all forms..
 	* google adsense
 	* Fix problems occuring because of the non-occurence of http and www in web addresses of the comment authors.. (admin panel)

@@ -113,5 +113,6 @@ Sevgilerle..
 
 raptiye yorum bekçisi"""
 
+OPENID_DISCOVERY_FAILURE = u"openid hesabınız tanımlanamadı.. lütfen doğru bir adres girdiğinizden emin olun."
 OPENID_FAILURE_MESSAGE = u"openid hesabı ile girişte bir hata oluştu. lütfen daha sonra tekrar deneyin."
 OPENID_EXISTING_USERNAME = u"seçtiğiniz kullanıcı adı kullanılıyor.. lütfen başka bir kullanıcı adıyla tekrar deneyin."

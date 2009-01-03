@@ -1,5 +1,7 @@
 2009-01-04  Alper KANAT  <alperkanat@raptiye.org>
 
+	* TODO, extra/messages.py, users/views.py: fixed a bug.. (uncaught
+	exception)
 	* TODO, settings-example.py: rearranged all file in alphabetical and group
 	order..
 

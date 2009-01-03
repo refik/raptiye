@@ -31,7 +31,7 @@ from raptiye.comments.models import Comments
 from raptiye.comments.views import create_captcha
 from raptiye.contrib.session_messages import create_message
 from raptiye.extra.captcha import Captcha
-from raptiye.extra.exceptions import OpenIDUsernameExistsError
+from raptiye.extra.exceptions import *
 from raptiye.extra.filters import is_username_unique, is_email_unique
 from raptiye.extra.gravatar import get_gravatar
 from raptiye.extra.mail import *
@@ -295,7 +295,11 @@ def user_login(request, template="users/login.html"):
 			if openid_form.is_valid():
 				identifier = openid_form.cleaned_data["identifier"]
 				raptiye_openid = OpenID(request, reverse(settings.REDIRECT_URL), reverse("login_page"), True if not if_openid_user_exists(identifier) else False)
-				publisher_url = raptiye_openid.authenticate(identifier, reverse("openid_complete"))
+				try:
+					publisher_url = raptiye_openid.authenticate(identifier, reverse("openid_complete"))
+				except OpenIDDiscoveryError:
+					set_user_message(request, OPENID_DISCOVERY_FAILURE)
+					return HttpResponseRedirect(reverse("login_page"))
 				return HttpResponseRedirect(publisher_url)
 		elif request.POST["form"] == "login":
 			# creating a login form instance with post data
