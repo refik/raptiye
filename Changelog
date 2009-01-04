@@ -1,5 +1,16 @@
 2009-01-04  Alper KANAT  <alperkanat@raptiye.org>
 
+	* templates/users/activation.html: deleted unused template file..
+	* TODO: added and removed some..
+	* extra/messages.py: added new openid messages..
+	* extra/openid_consumer.py: removed unnecessary imports, fixed design
+	mistakes and some bugs..
+	* media/css/style.css, templates/users/forgotten_password.html: forgotton
+	password page now informs the user about the operation.. (changing password
+	etc..)
+	* users/backends.py: fixed bugs in openid authentication backend..
+	* users/forms.py: fixed bugs in user related forms.
+	* users/views.py: fixed stupid mistakes of mine.. more to be fixed soon..
 	* TODO, extra/messages.py, users/views.py: fixed a bug.. (uncaught
 	exception)
 	* TODO, settings-example.py: rearranged all file in alphabetical and group

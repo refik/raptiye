@@ -20,9 +20,7 @@ Module to handle all OpenID stuff..
 Requires python-openid >= 2.0
 """
 
-from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 from django.db import connection
 from raptiye.extra.exceptions import OpenIDDiscoveryError
 from raptiye.extra.messages import OPENID_FAILURE_MESSAGE
@@ -32,7 +30,7 @@ from openid.consumer.discover import DiscoveryFailure
 from openid.extensions.sreg import SRegRequest, SRegResponse
 from openid.store.sqlstore import SQLiteStore
 
-def if_openid_user_exists(identifier):
+def openid_user_exists(identifier):
 	if User.objects.filter(profile__openids__identifier__contains=identifier):
 		return True
 	return False
@@ -43,7 +41,7 @@ class OpenID():
 	and authenticates the user..
 	"""
 	
-	def __init__(self, request, link_on_success, link_on_fail, enable_extensions=False):
+	def __init__(self, request, link_on_success, link_on_fail):
 		# making sure that the db connection is open
 		connection.cursor()
 		self._store = SQLiteStore(connection.connection)
@@ -52,7 +50,6 @@ class OpenID():
 		self._required_extensions = ["nickname", "email", "fullname"]
 		self.link_on_success = link_on_success
 		self.link_on_fail = link_on_fail
-		self.enable_extensions = enable_extensions
 	
 	def _get_full_url(self, url):
 		if not url.startswith("http://"):
@@ -73,12 +70,12 @@ class OpenID():
 		params = {}
 		
 		if response.status == SUCCESS:
-			# raptiye authentication begins)
+			sreg_response = SRegResponse.fromSuccessResponse(response)
+			
 			params["identifier"] = response.identity_url
-			params["user_info"] = {} if not self.enable_extensions else dict(SRegResponse.fromSuccessResponse(response).items())
+			params["user_info"] = {} if not sreg_response else sreg_response.data
 			params["link"] = self.link_on_success
 		else:
-			# redirect the user to login page with a failure message
 			params["message"] = OPENID_FAILURE_MESSAGE
 			params["link"] = self.link_on_fail
 		
@@ -90,7 +87,7 @@ class OpenID():
 		
 		try:
 			self._auth = self._consumer.begin(identifier)
-			if self.enable_extensions:
+			if not openid_user_exists(identifier):
 				self._auth.addExtension(SRegRequest(required=self._required_extensions))
 		except OperationalError:
 			# the openid store tables are not found, so create them

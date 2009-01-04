@@ -22,7 +22,7 @@ from django.contrib.sites.models import Site
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
@@ -158,7 +158,6 @@ def activation(request, username, key):
 		if user.is_active:
 			# the user is already active..
 			set_user_message(request, ACTIVATION_ERROR % ALREADY_ACTIVE)
-			return get_latest_entries(request)
 		else:
 			# get the profile of user
 			profile = user.get_profile()
@@ -167,23 +166,19 @@ def activation(request, username, key):
 			if delta.days > 3:
 				# 3 days passed.. don't activate the user..
 				set_user_message(request, ACTIVATION_ERROR % ACTIVE_NONUSER)
-				return get_latest_entries(request)
 				
 			if profile.activation_key == key:
 				user.is_active = True
 				user.save()
+				set_user_message(request, ACTIVATION_SUCCESS)
 			else:
 				# keys doesn't match
 				set_user_message(request, ACTIVATION_ERROR % INVALID_ACTIVATION_CODE)
-				return get_latest_entries(request)
 	else:
 		# the user cannot be found..
 		set_user_message(request, ACTIVATION_ERROR % ACTIVE_NONUSER)
-		return get_latest_entries(request)
 	
-	set_user_message(request, ACTIVATION_SUCCESS)
-	
-	return get_latest_entries(request)
+	return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 
 def register(request, template="users/registration.html"):
 	import re
@@ -294,7 +289,7 @@ def user_login(request, template="users/login.html"):
 			# checks for openid_form
 			if openid_form.is_valid():
 				identifier = openid_form.cleaned_data["identifier"]
-				raptiye_openid = OpenID(request, reverse(settings.REDIRECT_URL), reverse("login_page"), True if not if_openid_user_exists(identifier) else False)
+				raptiye_openid = OpenID(request, reverse(settings.REDIRECT_URL), reverse("login_page"))
 				try:
 					publisher_url = raptiye_openid.authenticate(identifier, reverse("openid_complete"))
 				except OpenIDDiscoveryError:
@@ -387,7 +382,7 @@ def openid_complete(request):
 			try:
 				user = authenticate(identifier=openid_response["identifier"], user_info=openid_response["user_info"])
 				if user is None:
-					set_user_message(request, OPENID_FAILURE_MESSAGE)
+					set_user_message(request, OPENID_AUTH_FAILURE)
 				else:
 					login(request, user)
 					# if there's a next parameter, then redirect the user

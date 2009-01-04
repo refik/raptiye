@@ -917,7 +917,7 @@ blockquote {
 	width: 400px;
 }
 
-#forgotten_password .successfull {
+#forgotten_password .successfull, .forgotton_password_description {
 	margin-bottom: 10px;
 	padding: 10px;
 	border: 1px solid #86bcde;

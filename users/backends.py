@@ -44,18 +44,20 @@ class OpenIDBackend:
 		return (" ".join(fullname.split(" ")[:-1]), fullname.split(" ")[-1])
 	
 	def authenticate(self, identifier, user_info):
+		user = None
+		
 		if isinstance(identifier, str) and isinstance(user_info, dict):
 			try:
 				user = User.objects.get(profile__openids__identifier=identifier)
 			except User.DoesNotExist:
 				# creating a new user with the user info
-				
-				if user_info.has_key("nickname") and user_info.has_key("email") and user_info.has_key("fullname"):
+				if user_info.has_key("nickname") and user_info.has_key("email"):
 					username = user_info["nickname"]
 					password = settings.OPENID_PASSWORD_FOR_NEW_USER
 					email = user_info["email"]
 					user = User(username=username, password=password, email=email)
-					user.first_name, user.last_name = self._parse_fullname(user_info["fullname"])
+					if user_info.has_key("fullname"):
+						user.first_name, user.last_name = self._parse_fullname(user_info["fullname"])
 					# if there's already a user with that username, simply
 					# redirect to the login page informing the user
 					try:
@@ -69,8 +71,7 @@ class OpenIDBackend:
 						profile.save()
 					except IntegrityError:
 						raise OpenIDUsernameExistsError
-			return user
-		return None
+		return user
 	
 	def get_user(self, user_id):
 		try:
