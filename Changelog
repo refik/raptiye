@@ -1,5 +1,10 @@
 2009-01-05  Alper KANAT  <alperkanat@raptiye.org>
 
+	* extra/initials.py, settings-example.py, users/backends.py, users/views.py:
+	removed anonymous and openid users' dumb passwords since they were messing
+	around.. now default accounts have unusable passwords.. openid users can use
+	their openid and normal login info at the same time..
+	* extra/messages.py: changed some literals in the strings..
 	* TODO, templates/users/profile.html, extra/openid_consumer.py,
 	users/backends.py, users/forms.py, users/models.py, users/views.py: changed
 	the multiple openids per account design into 1-1 since it was hard and

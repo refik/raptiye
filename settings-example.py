@@ -89,7 +89,6 @@ CAPTCHA_RENEWAL_LIMIT = 10
 
 # enable or disable writing comments anonymously
 ALLOW_ANONYMOUS_COMMENTS = True
-ANONYMOUS_PASSWORD = ""
 LATEST_COMMENTS_LIMIT = 5
 
 
@@ -191,7 +190,6 @@ TWITTER_LIMIT = 5
 # --- OPENID SETTINGS -----------------------
 
 OPENID = True
-OPENID_PASSWORD_FOR_NEW_USER = ""
 
 
 # --- URL SETTINGS --------------------------

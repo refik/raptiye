@@ -53,9 +53,8 @@ class OpenIDBackend:
 				# creating a new user with the user info
 				if user_info.has_key("nickname") and user_info.has_key("email"):
 					username = user_info["nickname"]
-					password = settings.OPENID_PASSWORD_FOR_NEW_USER
 					email = user_info["email"]
-					user = User(username=username, password=password, email=email)
+					user = User(username=username, email=email)
 					if user_info.has_key("fullname"):
 						user.first_name, user.last_name = self._parse_fullname(user_info["fullname"])
 					# if there's already a user with that username, simply
@@ -67,7 +66,7 @@ class OpenIDBackend:
 						user.profile.create()
 						# associating openid identifier with the user
 						profile = user.get_profile()
-						profile.openids.create(identifier=identifier)
+						profile.openid = identifier
 						profile.save()
 					except IntegrityError:
 						raise OpenIDUsernameExistsError

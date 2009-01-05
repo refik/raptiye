@@ -112,7 +112,8 @@ def profile(request, username, template="users/profile.html"):
 							auth_user=settings.EMAIL_HOST_USER, 
 							auth_password=settings.EMAIL_HOST_PASSWORD)
 					logoutUser = True
-				profile.avatar = form.cleaned_data["avatar"]
+				if form.cleaned_data["avatar"] != "":
+					profile.avatar = form.cleaned_data["avatar"]
 				profile.web_site = form.cleaned_data["website"]
 				profile.openid = form.cleaned_data["openid"]
 				# saving user and his profile
