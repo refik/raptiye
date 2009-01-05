@@ -1,3 +1,12 @@
+2009-01-05  Alper KANAT  <alperkanat@raptiye.org>
+
+	* TODO, templates/users/profile.html, extra/openid_consumer.py,
+	users/backends.py, users/forms.py, users/models.py, users/views.py: changed
+	the multiple openids per account design into 1-1 since it was hard and
+	unnecessary for raptiye.. users don't have to logout when they change their
+	passwords.. also there're some code improvements.. some db changes have been
+	done with this revision btw..
+	  
 2009-01-04  Alper KANAT  <alperkanat@raptiye.org>
 
 	* templates/users/activation.html: deleted unused template file..

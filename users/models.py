@@ -29,6 +29,7 @@ class UserProfile(models.Model):
 	web_site = models.URLField(u"Web Site", blank=True)
 	activation_key = models.CharField(u"Aktivasyon Kodu", max_length=100, blank=True)
 	last_modified = models.DateTimeField(u"Last Modified Date", auto_now=True)
+	openid = models.URLField(u"OpenID", blank=True, null=True, unique=True)
 	
 	def __unicode__(self):
 		return "User Profile of %s" % self.user.username
@@ -36,16 +37,3 @@ class UserProfile(models.Model):
 	class Meta:
 		verbose_name = u"User Profile"
 		verbose_name_plural = u"User Profiles"
-
-class OpenID(models.Model):
-	"Model to associate OpenID's with Users' Profile"
-	
-	profile = models.ForeignKey(UserProfile, related_name="openids", verbose_name="OpenID Identifier(s)", null=True)
-	identifier = models.URLField(u"OpenID Identifier", unique=True)
-	
-	def __unicode__(self):
-		return "OpenID Identifier (%s)" % self.identifier
-	
-	class Meta:
-		verbose_name = u"OpenID Identifier"
-		verbose_name_plural = u"OpenID Identifiers"

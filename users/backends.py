@@ -48,7 +48,7 @@ class OpenIDBackend:
 		
 		if isinstance(identifier, str) and isinstance(user_info, dict):
 			try:
-				user = User.objects.get(profile__openids__identifier=identifier)
+				user = User.objects.get(profile__openid=identifier)
 			except User.DoesNotExist:
 				# creating a new user with the user info
 				if user_info.has_key("nickname") and user_info.has_key("email"):

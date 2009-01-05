@@ -31,7 +31,7 @@ from openid.extensions.sreg import SRegRequest, SRegResponse
 from openid.store.sqlstore import SQLiteStore
 
 def openid_user_exists(identifier):
-	if User.objects.filter(profile__openids__identifier__contains=identifier):
+	if User.objects.filter(profile__openid=identifier):
 		return True
 	return False
 

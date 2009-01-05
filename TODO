@@ -7,7 +7,6 @@ TODO
 
 --- Code Enhancements ---
 
-	* openid support in profiles
 	* there're lots of places to fix and delete in users/views.py
 	* move all form validation to forms.py for all forms..
 	* google adsense

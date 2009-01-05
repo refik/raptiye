@@ -96,7 +96,6 @@ def profile(request, username, template="users/profile.html"):
 				password = form.cleaned_data["password"]
 				if password != "" and not user.check_password(password):
 					user.set_password(password)
-					logoutUser = True
 				user.first_name = form.cleaned_data["name"]
 				user.last_name = form.cleaned_data["surname"]
 				if form.cleaned_data["email"] != user.email:
@@ -113,10 +112,9 @@ def profile(request, username, template="users/profile.html"):
 							auth_user=settings.EMAIL_HOST_USER, 
 							auth_password=settings.EMAIL_HOST_PASSWORD)
 					logoutUser = True
-				# getting profile of user
-				if form.cleaned_data["avatar"] != "":
-					profile.avatar = form.cleaned_data["avatar"]
+				profile.avatar = form.cleaned_data["avatar"]
 				profile.web_site = form.cleaned_data["website"]
+				profile.openid = form.cleaned_data["openid"]
 				# saving user and his profile
 				user.save()
 				profile.save()
@@ -136,6 +134,7 @@ def profile(request, username, template="users/profile.html"):
 					"email": user.email,
 					"avatar": "" if user.get_profile().avatar == settings.DEFAULT_AVATAR else user.get_profile().avatar,
 					"website": user.get_profile().web_site,
+					"openid": user.get_profile().openid
 				},
 				auto_id=True)
 			extra_context = {
@@ -213,11 +212,16 @@ def register(request, template="users/registration.html"):
 							# the following line creates the user directly, it doesn't wait
 							# for a save().. but firstname, lastname and activeness need
 							# to be saved
-							new_user = User.objects.create_user(username, email, password)
-							new_user.first_name = name
-							new_user.last_name = surname
-							# new user will be passive 'til activation occurs
-							new_user.is_active = False
+							user_info = {
+								"username": username,
+								"password": password,
+								"email": email,
+								"first_name": name,
+								"last_name": surname,
+								# new user will be passive 'til activation occurs
+								"is_active": False
+							}
+							new_user = User(**user_info)
 							new_user.save()
 							# creating a user profile with an activation key
 							new_user.profile.create()

@@ -54,6 +54,7 @@ class ProfileForm(RegistrationForm):
 	password = forms.CharField(label=u"Şifre", widget=forms.PasswordInput(attrs={"autocomplete": "off"}), required=False)
 	avatar = forms.URLField(label=u"Avatar", required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off"}))
 	website = forms.URLField(label=u"Web Sitesi", required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off"}))
+	openid = forms.URLField(label=u"OpenID", required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off", "value": "http://"}))
 
 class ForgottenPasswordForm(forms.Form):
 	email = forms.EmailField(label=u"E-Posta", widget=forms.TextInput(attrs={"autocomplete": "off"}))
@@ -63,4 +64,4 @@ class OpenIDForm(forms.Form):
 		"autocomplete": "off",
 		"value": "http://",
 	}
-	identifier = forms.URLField(label=u"Kimlik", widget=forms.TextInput(attrs))
+	identifier = forms.URLField(label=u"OpenID", widget=forms.TextInput(attrs))
