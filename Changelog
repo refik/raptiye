@@ -1,3 +1,9 @@
+2009-01-06  Alper KANAT  <alperkanat@raptiye.org>
+
+	* TODO: new todos..
+	* blog/templatetags/blog_filters.py: a fix to stop numerous weird
+	HTMLParseError exceptions during code colorization..
+
 2009-01-05  Alper KANAT  <alperkanat@raptiye.org>
 
 	* extra/initials.py, settings-example.py, users/backends.py, users/views.py:

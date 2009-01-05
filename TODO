@@ -7,6 +7,8 @@ TODO
 
 --- Code Enhancements ---
 
+	* delete expired sessions with a cronjob
+	* delete expired users with a cronjob
 	* there're lots of places to fix and delete in users/views.py
 	* move all form validation to forms.py for all forms..
 	* google adsense

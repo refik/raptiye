@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import HTMLParser
 from datetime import datetime
 from django import template
 from django.conf import settings
@@ -176,7 +177,10 @@ def code_colorizer(entry):
 	if settings.COLORIZE_CODE:
 		from BeautifulSoup import BeautifulSoup, Tag
 	
-		parser = BeautifulSoup(entry, convertEntities=BeautifulSoup.ALL_ENTITIES)
+		try:
+			parser = BeautifulSoup(entry, convertEntities=BeautifulSoup.ALL_ENTITIES)
+		except HTMLParser.HTMLParseError:
+			return entry
 	
 		# searching for code blocks in the blog entry
 		code_blocks = parser.findAll("div", attrs={"class": "code"})
