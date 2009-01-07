@@ -1,3 +1,10 @@
+2009-01-07  Alper KANAT  <alperkanat@raptiye.org>
+
+	* .gitignore: added gitignore file since i'm trying to move raptiye's code
+	base to git.. :)
+	* media/images/upload/.gitignore: added this empty file to keep track of the
+	directory..
+
 2009-01-06  Alper KANAT  <alperkanat@raptiye.org>
 
 	* TODO: new todos..
