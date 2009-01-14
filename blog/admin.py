@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from datetime import datetime
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.flatpages.models import FlatPage
@@ -44,8 +45,11 @@ class EntryAdmin(admin.ModelAdmin):
 	def save_model(self, request, obj, form, change):
 		obj.save()
 		
-		# now let's publish the blog post to twitter
-		if settings.POST_TO_TWITTER:
+		# now let's publish the blog post to twitter iff the blog post
+		# is published and it's creation date is older than today
+		published_date = obj.datetime
+		
+		if settings.POST_TO_TWITTER and obj.published:
 			from raptiye.contrib import twitter
 			from raptiye.extra.tinyurl import shorten_url
 			

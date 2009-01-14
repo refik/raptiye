@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				{% endspaceless %}
 			</div>
 			<div class="widget_body">
-				<span class="widget_small">raptiye'yi rss beslemesi üzerinden<br>takip etmek için aşağıdaki bağlantıya<br>tıklayabilirsiniz.</span>
+				<span class="widget_small">raptiye'yi rss kaynağından <br> takip etmek için aşağıdaki bağlantıya <br> tıklayabilirsiniz.</span>
 				<br><br>
 				{% include "blog/feedburner.html" %}
 			</div>
@@ -67,6 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			</div>
 		</div>
 	</div>
+	{% include "blog/flickr.html" %}
 	{% get_latest_comments %}
 	<div class="widget">
 		<div class="widget_box">

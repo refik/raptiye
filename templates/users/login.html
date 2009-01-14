@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						</div>
 						{% endif %}
 						
-						{% if session_messages %}
+						{% if openid_form.is_bound and session_messages %}
 						<div id="login_form_errors">
 							{% for message in session_messages %}
 								{{ message }}
@@ -81,12 +81,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 						<br>
 
-						{% if error %}
+						{% if form.is_bound and session_messages %}
 						<div id="login_form_errors">
-							{{ error }}
+							{% for message in session_messages %}
+								{{ message }}
+							{% endfor %}
 						</div>
 						{% endif %}
-
+						
 						<div id="login_form_buttons">
 							<button id="submit_button" type="submit" name="form" value="login">yolla</button>
 							&nbsp;&nbsp;

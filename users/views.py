@@ -311,7 +311,7 @@ def user_login(request, template="users/login.html"):
 				password = form.cleaned_data['password']
 				user = authenticate(username=username, password=password)
 				if user is None:
-					extra_context["error"] = LOGIN_ERROR
+					set_user_message(request, LOGIN_ERROR)
 				else:
 					if user.is_active:
 						login(request, user)
@@ -322,7 +322,7 @@ def user_login(request, template="users/login.html"):
 						return HttpResponseRedirect(reverse("blog"))
 					else:
 						# account disabled, redirecting to login page
-						extra_context["error"] = ACCOUNT_NEEDS_ACTIVATION
+						set_user_message(request, ACCOUNT_NEEDS_ACTIVATION)
 	
 	# creating the dictionary with the forms (filled or not)
 	extra_context = {

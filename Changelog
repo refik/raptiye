@@ -1,3 +1,17 @@
+2009-01-14  Alper KANAT  <alperkanat@raptiye.org>
+
+	* media/images/flickr_logo.png, templates/blog/flickr.html,
+	templates/blog/sidebar.html: added flickr flash widget to the sidebar..
+	* TODO, blog/admin.py: added a bugfix todo.. trying to prevent new blog
+	entries being posted to twitter until they're really published and also the
+	older ones being published when they're updated.. (maybe this is an option,
+	heh? :))
+	* media/temp: deleted this link since it causes permission problems.. this
+	link should be created during installation..
+	* templates/users/login.html, users/views.py: fixed a bug in the login page
+	when wrong credentials are given. also changed the way of posting error
+	messages at login.. this behaviour must be extended to whole raptiye..
+
 2009-01-07  Alper KANAT  <alperkanat@raptiye.org>
 
 	* .gitignore: added gitignore file since i'm trying to move raptiye's code
