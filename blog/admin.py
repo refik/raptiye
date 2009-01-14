@@ -45,10 +45,6 @@ class EntryAdmin(admin.ModelAdmin):
 	def save_model(self, request, obj, form, change):
 		obj.save()
 		
-		# now let's publish the blog post to twitter iff the blog post
-		# is published and it's creation date is older than today
-		published_date = obj.datetime
-		
 		if settings.POST_TO_TWITTER and obj.published:
 			from raptiye.contrib import twitter
 			from raptiye.extra.tinyurl import shorten_url

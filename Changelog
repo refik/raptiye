@@ -1,3 +1,7 @@
+2009-01-15  Alper KANAT  <alperkanat@raptiye.org>
+
+	* TODO, blog/admin.py: fixed a bug for posting to twitter..
+
 2009-01-14  Alper KANAT  <alperkanat@raptiye.org>
 
 	* media/images/flickr_logo.png, templates/blog/flickr.html,
