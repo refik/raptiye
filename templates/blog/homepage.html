@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {% block body %}
 	{% include "blog/sidebar.html" %}
 	<div id="blog_container">
+		{% include "blog/body_upper_ad.html" %}
+		
 		{% if messages %}
 		<div class="blog_message">
 			{% for message in messages %}

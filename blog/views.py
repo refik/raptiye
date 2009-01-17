@@ -138,7 +138,8 @@ def get_entries_for_tag(request, slug):
 			}
 		}
 		return object_list(request, **entry_list)
-		
+	
+	# can't find the tag.. leaving a message for the visitor
 	set_user_message(request, TAGS_ERROR)
-		
+	
 	return get_latest_entries(request)

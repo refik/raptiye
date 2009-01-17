@@ -1,3 +1,14 @@
+2009-01-18  Alper KANAT  <alperkanat@raptiye.org>
+
+	* templates/blog/body_upper_ad.html, templates/blog/comments_upper_ad.html,
+	templates/blog/sidebar_downwards_ad.html,
+	templates/frontpage/mainpage_ads.html, TODO, media/css/style.css,
+	templates/blog/comments.html, templates/blog/detail.html,
+	templates/blog/homepage.html, templates/blog/sidebar.html,
+	templates/frontpage/homepage.html: placed google adsense advertisements
+	on some parts of the specific pages..
+	* blog/views.py: placed a new comment
+
 2009-01-17  Alper KANAT  <alperkanat@raptiye.org>
 
 	* media/temp: readded the link to the git repository..
