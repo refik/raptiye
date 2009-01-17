@@ -1,5 +1,6 @@
 2009-01-18  Alper KANAT  <alperkanat@raptiye.org>
 
+	* settings-example.py: bumped to a new version: 1.0.4!
 	* templates/blog/body_upper_ad.html, templates/blog/comments_upper_ad.html,
 	templates/blog/sidebar_downwards_ad.html,
 	templates/frontpage/mainpage_ads.html, TODO, media/css/style.css,

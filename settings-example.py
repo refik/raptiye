@@ -171,7 +171,7 @@ DEFAULT_AVATAR = "/media/images/default_avatar.png"
 
 # --- RAPTIYE SETTINGS ----------------------
 
-VERSION = '1.0.3'
+VERSION = '1.0.4'
 
 
 # --- TIME SETTINGS -------------------------
