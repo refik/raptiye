@@ -28,11 +28,12 @@ class CommentsAdmin(admin.ModelAdmin):
 	search_fields = ("entry__title", "author__username", "content")
 	
 	def save_model(self, request, obj, form, change):
+		# saving the object
+		obj.save()
+		
 		# if the comment is allowed to be published, then we need
 		# to notify the other users that want to be notified for a 
 		# particular blog post..
-		obj.save()
-		
 		if obj.published:
 			from raptiye.extra.mail import send_comment_notification
 			send_comment_notification(obj.entry, obj.author)

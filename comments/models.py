@@ -35,6 +35,15 @@ class Comments(models.Model):
 	def __unicode__(self):
 		return "Comment for '" + self.entry.title + "' by " + self.author.username
 	
+	# overwriting the save method..
+	def save(self, *args, **kwargs):
+		# checking if the web site starts with http:// and adds it if there's none
+		if not self.anonymous_author_web_site.startswith("http://") or not self.anonymous_author_web_site.startswith("https://"):
+			self.anonymous_author_web_site = "http://" + self.anonymous_author_web_site
+		
+		# saving the model
+		super(Comments, self).save(*args, **kwargs)
+	
 	def get_entry_name(self):
 		return self.entry.title
 	

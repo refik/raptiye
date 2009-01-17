@@ -12,7 +12,6 @@ TODO
 	* there're lots of places to fix and delete in users/views.py
 	* move all form validation to forms.py for all forms..
 	* google adsense
-	* Fix problems occuring because of the non-occurence of http and www in web addresses of the comment authors.. (admin panel)
 
 
 --- ADMIN Improvements ---

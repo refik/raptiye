@@ -1,3 +1,13 @@
+2009-01-17  Alper KANAT  <alperkanat@raptiye.org>
+
+	* media/temp: readded the link to the git repository..
+	* TODO: completed another task..
+	* comments/admin.py, comments/models.py: fixed the bug that occurs when the
+	users don't write http:// in front of the web site urls they provide..
+	* templates/blog/comments.html: thanks to the precious visitors, added login
+	and registration links to the comment box when the visitor is not logged
+	in..
+
 2009-01-15  Alper KANAT  <alperkanat@raptiye.org>
 
 	* TODO, blog/admin.py: fixed a bug for posting to twitter..
