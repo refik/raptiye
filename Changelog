@@ -1,3 +1,7 @@
+2009-01-19  Alper KANAT  <alperkanat@raptiye.org>
+
+	* comments/models.py: fixed a bug of http:// patch..
+
 2009-01-18  Alper KANAT  <alperkanat@raptiye.org>
 
 	* settings-example.py: bumped to a new version: 1.0.4!

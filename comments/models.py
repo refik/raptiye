@@ -38,7 +38,7 @@ class Comments(models.Model):
 	# overwriting the save method..
 	def save(self, *args, **kwargs):
 		# checking if the web site starts with http:// and adds it if there's none
-		if not self.anonymous_author_web_site.startswith("http://") or not self.anonymous_author_web_site.startswith("https://"):
+		if not self.anonymous_author_web_site.startswith("http://") and not self.anonymous_author_web_site.startswith("https://"):
 			self.anonymous_author_web_site = "http://" + self.anonymous_author_web_site
 		
 		# saving the model
