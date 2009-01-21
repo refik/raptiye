@@ -185,7 +185,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	function insertComment2Layer (text) {
 		var dt = new Date();
 		var day = dt.getDate() < 10 ? '0' + dt.getDate() : dt.getDate();
-		var month = dt.getMonth() < 10 ? '0' + dt.getMonth() : dt.getMonth();
+		var month = (dt.getMonth() + 1) < 10 ? '0' + (dt.getMonth() + 1) : (dt.getMonth() + 1);
 		var year = dt.getFullYear();
 		var hour = dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours();
 		var minutes = dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes();

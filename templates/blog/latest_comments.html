@@ -29,9 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					<li>
 						<strong>&raquo;</strong>
 						{% spaceless %}
-							<a href="{{ comment.entry.get_relative_url }}" title="{{ comment.entry.title }} adlı yazıyı okumak için tıklayın.." class="ulink">
-								{{ comment.entry.title }}
-							</a>
+							<a href="{{ comment.entry.get_relative_url }}" title="{{ comment.entry.title }} adlı yazıyı okumak için tıklayın.." class="ulink">{{ comment.entry.title }}</a>
 							adlı yazı için
 							{% ifequal comment.author.username "anonymous" %}
 								{% ifequal comment.anonymous_author_web_site "" %}
@@ -39,9 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								{% else %}
 									<a href="{{ comment.anonymous_author_web_site }}"
 										title="{{ comment.anonymous_author }} adlı kullanıcının sitesini ziyaret etmek için tıklayın.."
-										target="_blank" class="ulink">
-										{{ comment.anonymous_author }}
-									</a>
+										target="_blank" class="ulink">{{ comment.anonymous_author }}</a>
 								{% endifequal %}
 							{% else %}
 								{% ifequal comment.author.get_profile.web_site "" %}
@@ -49,9 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								{% else %}
 									<a href="{{ comment.author.get_profile.web_site }}"
 										title="{{ comment.author.username }} adlı kullanıcının sitesini ziyaret etmek için tıklayın.."
-										target="_blank" class="ulink">
-										{{ comment.author.username }}
-									</a>
+										target="_blank" class="ulink">{{ comment.author.username }}</a>
 								{% endifequal %}
 							{% endifequal %}
 							tarafından yapılan yorum
