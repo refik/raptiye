@@ -117,3 +117,18 @@ OPENID_DISCOVERY_FAILURE = u"openid adresiniz tanımlanamadı.. lütfen doğru b
 OPENID_FAILURE_MESSAGE = u"openid adresiniz ile girişte bir hata oluştu. lütfen daha sonra tekrar deneyin."
 OPENID_EXISTING_USERNAME = u"seçtiğiniz kullanıcı adı kullanılıyor.. lütfen başka bir kullanıcı adıyla tekrar deneyin."
 OPENID_AUTH_FAILURE = u"openid adresinizle raptiye'ye girişte bir sorun oluştu.. lütfen daha sonra tekrar deneyin."
+
+DJANGO_NOT_FOUND = u"""[ERROR] django cannot be found.
+
+Please install django on your system and make sure it's available
+in your PYTHONPATH.
+
+You can also put django and raptiye in the same folder and add that
+folder into your PYTHONPATH.
+"""
+
+SETTINGS_NOT_FOUND = u"""[WARNING] settings.py cannot be found. Creating one for you...
+
+Many settings are disabled in default settings.py, therefore you'll
+need to enable the features you want.
+"""
