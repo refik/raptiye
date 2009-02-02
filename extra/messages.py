@@ -129,6 +129,8 @@ folder into your PYTHONPATH.
 
 SETTINGS_NOT_FOUND = u"""[WARNING] settings.py cannot be found. Creating one for you...
 
-Many settings are disabled in default settings.py, therefore you'll
-need to enable the features you want.
+Depending on the dependencies installed on your computer, raptiye will now create
+a default settings.py for you. You can then review and make changes on it to enable
+or disable various features.
+
 """

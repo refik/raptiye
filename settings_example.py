@@ -63,7 +63,6 @@ LOGOUT_URL = "/users/logout/"
 # URL Pattern Naming used here..
 REDIRECT_URL = "blog"
 
-# fill this with a newly created django app's secret key
 SECRET_KEY = ''
 
 # this is to serve temporary images like captcha..
