@@ -35,11 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		</div>
 		{% endif %}
 		
-		{% if session_messages %}
+		{% if session_data.message %}
 			<div class="blog_message">
-			{% for message in session_messages %}
-				{{ message|emotions|safe }}
-			{% endfor %}
+				{{ session_data.message|emotions|safe }}
 			</div>
 		{% endif %}
 		

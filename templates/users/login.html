@@ -42,13 +42,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						</div>
 						{% endif %}
 						
-						{% if openid_form.is_bound and session_messages %}
-						<div id="login_form_errors">
-							{% for message in session_messages %}
+						{% ifequal session_data.data.form "openid" %}
+							{% with session_data.data.message as message %}
+							<div id="login_form_errors">
 								{{ message }}
-							{% endfor %}
-						</div>
-						{% endif %}
+							</div>
+							{% endwith %}
+						{% endifequal %}
 						
 						<div id="login_form_buttons">
 							<button id="submit_button" type="submit" name="form" value="openid">yolla</button>
@@ -78,16 +78,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							<div class="left">[ <a href="{% url registration %}" title="raptiye'ye kaydolmak için tıklayın..">kaydol</a> ]</div>
 							<div class="right">[ <a href="{% url forgotten_password %}" title="şifrenizi unuttuysanız buraya tıklayarak yeni şifrenizin e-posta hesabınıza gönderilmesini sağlayabilirsiniz..">şifremi unuttum</a> ]</div>
 						</div>
-
+						
 						<br>
-
-						{% if form.is_bound and session_messages %}
-						<div id="login_form_errors">
-							{% for message in session_messages %}
+						
+						{% ifequal session_data.data.form "login" %}
+							{% with session_data.data.message as message %}
+							<div id="login_form_errors">
 								{{ message }}
-							{% endfor %}
-						</div>
-						{% endif %}
+							</div>
+							{% endwith %}
+						{% endifequal %}
 						
 						<div id="login_form_buttons">
 							<button id="submit_button" type="submit" name="form" value="login">yolla</button>

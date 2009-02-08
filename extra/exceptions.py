@@ -28,3 +28,10 @@ class OpenIDUsernameExistsError(Exception):
 	raptiye
 	"""
 	pass
+
+class OpenIDProviderFailedError(Exception):
+	"""
+	It seems some OpenID providers return some invalid
+	data so that the discovery fails..
+	"""
+	pass

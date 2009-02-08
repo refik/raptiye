@@ -21,14 +21,8 @@ registration, activation etc..
 """
 
 def set_user_message(request, message):
-	from raptiye.contrib.session_messages import create_message
-	
-	if request.user.is_authenticated():
-		# leaving message to the user
-		request.user.message_set.create(message=message)
-	else:
-		# leaving the "anonymous" user a new message..
-		create_message(request, message)
+	from raptiye.extra.session_data import create_data
+	create_data(request, "message", message)
 
 ENTRIES_ON_DATE = u"bu tarihte yazılmış yazıları görmek için tıklayın.."
 
@@ -117,3 +111,4 @@ OPENID_DISCOVERY_FAILURE = u"openid adresiniz tanımlanamadı.. lütfen doğru b
 OPENID_FAILURE_MESSAGE = u"openid adresiniz ile girişte bir hata oluştu. lütfen daha sonra tekrar deneyin."
 OPENID_EXISTING_USERNAME = u"seçtiğiniz kullanıcı adı kullanılıyor.. lütfen başka bir kullanıcı adıyla tekrar deneyin."
 OPENID_AUTH_FAILURE = u"openid adresinizle raptiye'ye girişte bir sorun oluştu.. lütfen daha sonra tekrar deneyin."
+OPENID_PROVIDER_FAILED = u"openid sağlayıcınızdan gelen veride bir sorun var. lütfen başka bir sağlayıcıyla deneyin."

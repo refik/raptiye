@@ -44,7 +44,6 @@ INSTALLED_APPS = (
 	'django.contrib.sites',
 	'raptiye.blog',
 	'raptiye.comments',
-	'raptiye.contrib.session_messages',
 	'raptiye.frontpage',
 	'raptiye.links',
 	'raptiye.polls',
@@ -135,7 +134,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.core.context_processors.i18n",
 	"django.core.context_processors.media",
 	"django.core.context_processors.request",
-	"raptiye.contrib.session_messages.context_processors.session_messages",
+	"raptiye.extra.session_data.session_data",
 )
 
 TEMPLATE_DIRS = (

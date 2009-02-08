@@ -29,7 +29,6 @@ from django.contrib.auth.decorators import login_required
 from raptiye.blog.views import get_latest_entries
 from raptiye.comments.models import Comments
 from raptiye.comments.views import create_captcha
-from raptiye.contrib.session_messages import create_message
 from raptiye.extra.captcha import Captcha
 from raptiye.extra.exceptions import *
 from raptiye.extra.filters import is_username_unique, is_email_unique
@@ -37,6 +36,7 @@ from raptiye.extra.gravatar import get_gravatar
 from raptiye.extra.mail import *
 from raptiye.extra.messages import *
 from raptiye.extra.openid_consumer import *
+from raptiye.extra.session_data import create_data
 from raptiye.users.forms import *
 
 @login_required
@@ -146,7 +146,7 @@ def profile(request, username, template="users/profile.html"):
 		return render_to_response(template, extra_context, context_instance=RequestContext(request))
 	else:
 		# leaving the "anonymous" user a new message..
-		create_message(request, PROFILE_ACCOUNT_ERROR)
+		create_data(request, "message", PROFILE_ACCOUNT_ERROR)
 		# redirecting the user to blog
 		return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 
@@ -239,7 +239,7 @@ def register(request, template="users/registration.html"):
 									auth_user=settings.EMAIL_HOST_USER, 
 									auth_password=settings.EMAIL_HOST_PASSWORD)
 							# leaving the "anonymous" user a new message..
-							create_message(request, REG_SUCCESS)
+							create_data(request, "message", REG_SUCCESS)
 							# redirecting the user to blog
 							return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 						except IntegrityError:
@@ -297,8 +297,13 @@ def user_login(request, template="users/login.html"):
 				raptiye_openid = OpenID(request, reverse(settings.REDIRECT_URL), reverse("login_page"))
 				try:
 					publisher_url = raptiye_openid.authenticate(identifier, reverse("openid_complete"))
+				except OpenIDProviderFailedError:
+					set_user_message(request, OPENID_PROVIDER_FAILED)
+					create_data(request, "form", "openid")
+					return HttpResponseRedirect(reverse("login_page"))
 				except OpenIDDiscoveryError:
 					set_user_message(request, OPENID_DISCOVERY_FAILURE)
+					create_data(request, "form", "openid")
 					return HttpResponseRedirect(reverse("login_page"))
 				return HttpResponseRedirect(publisher_url)
 		elif request.POST["form"] == "login":
@@ -312,6 +317,8 @@ def user_login(request, template="users/login.html"):
 				user = authenticate(username=username, password=password)
 				if user is None:
 					set_user_message(request, LOGIN_ERROR)
+					create_data(request, "form", "login")
+					return HttpResponseRedirect(reverse("login_page"))
 				else:
 					if user.is_active:
 						login(request, user)
@@ -323,6 +330,8 @@ def user_login(request, template="users/login.html"):
 					else:
 						# account disabled, redirecting to login page
 						set_user_message(request, ACCOUNT_NEEDS_ACTIVATION)
+						create_data(request, "form", "login")
+						return HttpResponseRedirect(reverse("login_page"))
 	
 	# creating the dictionary with the forms (filled or not)
 	extra_context = {

@@ -22,7 +22,7 @@ Requires python-openid >= 2.0
 
 from django.contrib.auth.models import User
 from django.db import connection
-from raptiye.extra.exceptions import OpenIDDiscoveryError
+from raptiye.extra.exceptions import OpenIDProviderFailedError, OpenIDDiscoveryError
 from raptiye.extra.messages import OPENID_FAILURE_MESSAGE
 from sqlite3 import OperationalError
 from openid.consumer.consumer import Consumer, SUCCESS
@@ -89,6 +89,10 @@ class OpenID():
 			self._auth = self._consumer.begin(identifier)
 			if not openid_user_exists(identifier):
 				self._auth.addExtension(SRegRequest(required=self._required_extensions))
+		except UnicodeDecodeError:
+			# it seems that there's a problem with the OpenID provider..
+			# warning the user might be a good idea..
+			raise OpenIDProviderFailedError
 		except OperationalError:
 			# the openid store tables are not found, so create them
 			# and redo everything..
