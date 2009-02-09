@@ -35,11 +35,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		</div>
 		{% endif %}
 		
-		{% if session_data.message %}
+		{% with session_data.data.message as message %}
+			{% if message %}
 			<div class="blog_message">
-				{{ session_data.message|emotions|safe }}
+				{{ message|emotions|safe }}
 			</div>
-		{% endif %}
+			{% endif %}
+		{% endwith %}
 		
 		{% sticky %}
 		

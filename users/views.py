@@ -34,7 +34,7 @@ from raptiye.extra.exceptions import *
 from raptiye.extra.filters import is_username_unique, is_email_unique
 from raptiye.extra.gravatar import get_gravatar
 from raptiye.extra.mail import *
-from raptiye.extra.messages import *
+from raptiye.extra import messages
 from raptiye.extra.openid_consumer import *
 from raptiye.extra.session_data import create_data
 from raptiye.users.forms import *
@@ -78,20 +78,23 @@ def notification_remove(request, username):
 
 @login_required
 def profile(request, username, template="users/profile.html"):
+	# FIXME: is the following line really necessary?
+	# FIXME: the following code is too long.. shorten its logic..
 	if request.user.is_authenticated() and request.user.username == username:
 		# sometimes we need to log the user out
 		logoutUser = False
 		# getting the user information
 		user = User.objects.get(username=username)
 		profile = user.get_profile()
-
+		
+		extra_context = {
+			"latest_comments": user.comments.order_by("-datetime")[:5],
+			"watched_comments": user.comments.order_by("-datetime").filter(notification=True)[:5],
+		}
+		
 		if request.method == 'POST':
 			form = ProfileForm(request.POST)
-			extra_context = {
-				"form" : form,
-				"latest_comments": user.comments.order_by("-datetime")[:5],
-				"watched_comments": user.comments.order_by("-datetime").filter(notification=True)[:5],
-			}
+			extra_context["form"] = form
 			if form.is_valid():
 				password = form.cleaned_data["password"]
 				if password != "" and not user.check_password(password):
@@ -105,8 +108,8 @@ def profile(request, username, template="users/profile.html"):
 					profile.activation_key = create_activation_key()
 					# mailing user for activation
 					site = Site.objects.get_current()
-					send_mail(ACTIVATION_SUBJECT, 
-							ACTIVATION_BODY % (site.name, site.domain, user.username, profile.activation_key), 
+					send_mail(settings.EMAIL_SUBJECT_PREFIX + messages.ACTIVATION_SUBJECT, 
+							messages.ACTIVATION_BODY % (site.name, site.domain, user.username, profile.activation_key), 
 							settings.EMAIL_INFO_ADDRESS_TR, [user.email,], 
 							fail_silently=settings.EMAIL_FAIL_SILENCE,
 							auth_user=settings.EMAIL_HOST_USER, 
@@ -122,7 +125,7 @@ def profile(request, username, template="users/profile.html"):
 				if logoutUser:
 					logout(request)
 				# leaving message to the user
-				user.message_set.create(message=PROFILE_SUCCESS)
+				messages.set_user_message(request, messages.PROFILE_SUCCESS)
 				# redirecting back to the profile page
 				return HttpResponseRedirect(reverse("profile_page", args=[user.username]))
 			else:
@@ -138,15 +141,11 @@ def profile(request, username, template="users/profile.html"):
 					"openid": user.get_profile().openid
 				},
 				auto_id=True)
-			extra_context = {
-				"form" : form,
-				"latest_comments": user.comments.order_by("-datetime")[:5],
-				"watched_comments": user.comments.order_by("-datetime").filter(notification=True)[:5],
-			}
+			extra_context["form"] = form
 		return render_to_response(template, extra_context, context_instance=RequestContext(request))
 	else:
-		# leaving the "anonymous" user a new message..
-		create_data(request, "message", PROFILE_ACCOUNT_ERROR)
+		# leaving a new message to the user..
+		messages.set_user_message(request, messages.PROFILE_ACCOUNT_ERROR)
 		# redirecting the user to blog
 		return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 
@@ -157,7 +156,7 @@ def activation(request, username, key):
 		user = User.objects.get(username=username)
 		if user.is_active:
 			# the user is already active..
-			set_user_message(request, ACTIVATION_ERROR % ALREADY_ACTIVE)
+			messages.set_user_message(request, messages.ACTIVATION_ERROR % messages.ALREADY_ACTIVE)
 		else:
 			# get the profile of user
 			profile = user.get_profile()
@@ -165,22 +164,23 @@ def activation(request, username, key):
 			
 			if delta.days > 3:
 				# 3 days passed.. don't activate the user..
-				set_user_message(request, ACTIVATION_ERROR % ACTIVE_NONUSER)
+				messages.set_user_message(request, messages.ACTIVATION_ERROR % messages.ACTIVE_NONUSER)
 				
 			if profile.activation_key == key:
 				user.is_active = True
 				user.save()
-				set_user_message(request, ACTIVATION_SUCCESS)
+				messages.set_user_message(request, messages.ACTIVATION_SUCCESS)
 			else:
 				# keys doesn't match
-				set_user_message(request, ACTIVATION_ERROR % INVALID_ACTIVATION_CODE)
+				messages.set_user_message(request, messages.ACTIVATION_ERROR % messages.INVALID_ACTIVATION_CODE)
 	else:
 		# the user cannot be found..
-		set_user_message(request, ACTIVATION_ERROR % ACTIVE_NONUSER)
+		messages.set_user_message(request, messages.ACTIVATION_ERROR % messages.ACTIVE_NONUSER)
 	
 	return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 
 def register(request, template="users/registration.html"):
+	# FIXME: the following code is too long.. shorten its logic..
 	import re
 	
 	# creating a captcha image
@@ -232,29 +232,29 @@ def register(request, template="users/registration.html"):
 							profile.save()
 							# all done, now let's send him a mail for activation
 							site = Site.objects.get_current()
-							send_mail(REGISTER_SUBJECT, 
-									REGISTER_BODY % (site.name, site.domain, new_user.username, profile.activation_key, site.name), 
+							send_mail(settings.EMAIL_SUBJECT_PREFIX + messages.REGISTER_SUBJECT, 
+									messages.REGISTER_BODY % (site.name, site.domain, new_user.username, profile.activation_key, site.name), 
 									settings.EMAIL_INFO_ADDRESS_TR, [email,], 
 									fail_silently=settings.EMAIL_FAIL_SILENCE,
 									auth_user=settings.EMAIL_HOST_USER, 
 									auth_password=settings.EMAIL_HOST_PASSWORD)
 							# leaving the "anonymous" user a new message..
-							create_data(request, "message", REG_SUCCESS)
+							messages.set_user_message(request, messages.REG_SUCCESS)
 							# redirecting the user to blog
 							return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 						except IntegrityError:
 							# there's already a user with that name
 							# normally this part shouldn't be invoked
-							extra_context["error"] = u"Kayıtlı kullanıcı adı ya da e-posta adresi.. Lütfen başka bir kullanıcı adı ya da e-posta adresi seçin."
+							extra_context["error"] = messages.ALREADY_REGISTERED_USER
 							return render_to_response(template, extra_context, context_instance=RequestContext(request))
 					else:
-						extra_context["error"] = u"Captcha hatalı ya da girilmemiş.."
+						extra_context["error"] = messages.WRONG_CAPTCHA
 						return render_to_response(template, extra_context, context_instance=RequestContext(request))
 				else:
-					extra_context["error"] = u"Captcha hatalı ya da girilmemiş.."
+					extra_context["error"] = messages.WRONG_CAPTCHA
 					return render_to_response(template, extra_context, context_instance=RequestContext(request))
 			else:
-				extra_context["error"] = u"Kayıtlı kullanıcı adı ya da e-posta adresi.. Lütfen başka bir kullanıcı adı ya da e-posta adresi seçin."
+				extra_context["error"] = messages.ALREADY_REGISTERED_USER
 				return render_to_response(template, extra_context, context_instance=RequestContext(request))
 		else:
 			return render_to_response(template, extra_context, context_instance=RequestContext(request))
@@ -298,11 +298,11 @@ def user_login(request, template="users/login.html"):
 				try:
 					publisher_url = raptiye_openid.authenticate(identifier, reverse("openid_complete"))
 				except OpenIDProviderFailedError:
-					set_user_message(request, OPENID_PROVIDER_FAILED)
+					messages.set_user_message(request, messages.OPENID_PROVIDER_FAILED)
 					create_data(request, "form", "openid")
 					return HttpResponseRedirect(reverse("login_page"))
 				except OpenIDDiscoveryError:
-					set_user_message(request, OPENID_DISCOVERY_FAILURE)
+					messages.set_user_message(request, messages.OPENID_DISCOVERY_FAILURE)
 					create_data(request, "form", "openid")
 					return HttpResponseRedirect(reverse("login_page"))
 				return HttpResponseRedirect(publisher_url)
@@ -316,7 +316,7 @@ def user_login(request, template="users/login.html"):
 				password = form.cleaned_data['password']
 				user = authenticate(username=username, password=password)
 				if user is None:
-					set_user_message(request, LOGIN_ERROR)
+					messages.set_user_message(request, messages.LOGIN_ERROR)
 					create_data(request, "form", "login")
 					return HttpResponseRedirect(reverse("login_page"))
 				else:
@@ -329,7 +329,7 @@ def user_login(request, template="users/login.html"):
 						return HttpResponseRedirect(reverse("blog"))
 					else:
 						# account disabled, redirecting to login page
-						set_user_message(request, ACCOUNT_NEEDS_ACTIVATION)
+						messages.set_user_message(request, messages.ACCOUNT_NEEDS_ACTIVATION)
 						create_data(request, "form", "login")
 						return HttpResponseRedirect(reverse("login_page"))
 	
@@ -362,8 +362,8 @@ def forgotten_password(request, template="users/forgotten_password.html"):
 				user.set_password(password)
 				user.save()
 				# mailing the new password to the user
-				send_mail(FORGOTTEN_PASSWORD_SUBJECT, 
-						FORGOTTEN_PASSWORD_BODY % (site.name, site.name, password), 
+				send_mail(settings.EMAIL_SUBJECT_PREFIX + messages.FORGOTTEN_PASSWORD_SUBJECT, 
+						messages.FORGOTTEN_PASSWORD_BODY % (site.name, site.name, password), 
 						settings.EMAIL_INFO_ADDRESS_TR, [user.email,], 
 						fail_silently=settings.EMAIL_FAIL_SILENCE,
 						auth_user=settings.EMAIL_HOST_USER, 
@@ -372,7 +372,7 @@ def forgotten_password(request, template="users/forgotten_password.html"):
 			else:
 				# can't find such a user
 				extra_context["status"] = False
-				extra_context["error"] = u"raptiye'de kayıtlı böyle bir e-posta adresi bulunmuyor."
+				extra_context["error"] = messages.FRG_CANNOT_FIND_EMAIL
 	else:
 		form = ForgottenPasswordForm()
 		extra_context = {
@@ -396,7 +396,7 @@ def openid_complete(request):
 			try:
 				user = authenticate(identifier=openid_response["identifier"], user_info=openid_response["user_info"])
 				if user is None:
-					set_user_message(request, OPENID_AUTH_FAILURE)
+					messages.set_user_message(request, messages.OPENID_AUTH_FAILURE)
 				else:
 					login(request, user)
 					# if there's a next parameter, then redirect the user
@@ -405,5 +405,5 @@ def openid_complete(request):
 						return HttpResponseRedirect(request.GET["next"])
 					return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 			except OpenIDUsernameExistsError:
-				set_user_message(request, OPENID_EXISTING_USERNAME)
+				messages.set_user_message(request, messages.OPENID_EXISTING_USERNAME)
 	return HttpResponseRedirect(reverse("login_page"))

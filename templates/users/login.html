@@ -44,9 +44,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						
 						{% ifequal session_data.data.form "openid" %}
 							{% with session_data.data.message as message %}
-							<div id="login_form_errors">
-								{{ message }}
-							</div>
+								{% if message %}
+									<div id="login_form_errors">
+										{{ message }}
+									</div>
+								{% endif %}
 							{% endwith %}
 						{% endifequal %}
 						
@@ -83,9 +85,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						
 						{% ifequal session_data.data.form "login" %}
 							{% with session_data.data.message as message %}
-							<div id="login_form_errors">
-								{{ message }}
-							</div>
+								{% if message %}
+									<div id="login_form_errors">
+										{{ message }}
+									</div>
+								{% endif %}
 							{% endwith %}
 						{% endifequal %}
 						

@@ -7,9 +7,12 @@ TODO
 
 --- Code Enhancements ---
 
+	* fix the FIXME's.. :)
+	* search results should show nothing when nothing is found
+	* sticky posts shouldn't be shown in search results when it's unrelated with the result.
+	* there're lots of places to fix and delete in users/views.py
 	* delete expired sessions with a cronjob
 	* delete expired users with a cronjob
-	* there're lots of places to fix and delete in users/views.py
 	* move all form validation to forms.py for all forms..
 
 

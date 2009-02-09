@@ -22,9 +22,11 @@ from django.views.generic.list_detail import object_list
 from django.views.generic.date_based import object_detail, archive_day
 from raptiye.blog.models import Entry
 from raptiye.comments.views import create_captcha
-from raptiye.extra.messages import *
+from raptiye.extra import messages
 from raptiye.extra.search import SearchAgainstEntries
 from raptiye.tags.models import Tag
+
+# FIXME: remove hardcoded strings
 
 def search(request, template="blog/homepage.html"):
 	"Search against all entries using the given keywords"
@@ -37,7 +39,7 @@ def search(request, template="blog/homepage.html"):
 		result = search.result()
 
 		if result.__len__() == 0:
-			set_user_message(request, SEARCH_NO_ITEM)
+			messages.set_user_message(request, messages.SEARCH_NO_ITEM)
 			return get_latest_entries(request)
 		else:
 			entry_list = {
@@ -53,7 +55,7 @@ def search(request, template="blog/homepage.html"):
 
 			return object_list(request, **entry_list)
 	else:
-		set_user_message(request, SEARCH_FAILED)
+		messages.set_user_message(request, messages.SEARCH_FAILED)
 		return get_latest_entries(request)
 
 def get_latest_entries_list():
@@ -134,12 +136,12 @@ def get_entries_for_tag(request, slug):
 			"template_object_name": "entry",
 			"paginate_by": settings.ENTRIES_PER_PAGE,
 			"extra_context" : {
-				"messages" : (TAGS_SUCCESS % (t.name, t.entries.count()),),
+				"messages" : (messages.TAGS_SUCCESS % (t.name, t.entries.count()),),
 			}
 		}
 		return object_list(request, **entry_list)
 	
 	# can't find the tag.. leaving a message for the visitor
-	set_user_message(request, TAGS_ERROR)
+	messages.set_user_message(request, messages.TAGS_ERROR)
 	
 	return get_latest_entries(request)

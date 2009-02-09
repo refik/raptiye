@@ -36,13 +36,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 
 	<div id="blog_container">
-		{% if messages %}
-		<div class="blog_message">
-			{% for message in messages %}
-				{{ message|safe }}
-			{% endfor %}
-		</div>
-		{% endif %}
+		{% with session_data.data.message as message %}
+			{% if message %}
+				<div class="blog_message">
+					{{ message|safe }}
+				</div>
+			{% endif %}
+		{% endwith %}
 		<form id="login_form" name="login_form" method="post">
 			<table id="login_form_inputs">
 				<tr>

@@ -27,7 +27,7 @@ from django.utils import simplejson
 from raptiye.blog.models import Entry
 from raptiye.comments.models import Comments
 from raptiye.extra.captcha import Captcha
-from raptiye.extra.messages import *
+from raptiye.extra import messages
 
 def new_captcha(request):
 	resp = {
@@ -57,6 +57,8 @@ def new_captcha(request):
 	return HttpResponse(simplejson.dumps(resp))
 
 def comment_sent(request):
+	# FIXME: remove hardcoded strings
+	
 	from raptiye.comments.forms import CommentForm
 	from raptiye.extra.mail import send_comment_notification
 	
@@ -116,8 +118,8 @@ def comment_sent(request):
 					c.published = True
 				else:
 					# send notification to the admins
-					mail_admins(NEW_COMMENT_SUBJECT, 
-						NEW_COMMENT_BODY % (c.entry, "http://%s/admin/blog/entry/%s/" % (site.domain, c.entry.id)), 
+					mail_admins(messages.NEW_COMMENT_SUBJECT, 
+						messages.NEW_COMMENT_BODY % (c.entry, "http://%s/admin/blog/entry/%s/" % (site.domain, c.entry.id)), 
 						fail_silently=True)
 				# if notification is true
 				if test(request.POST, "notification") and not user_has_notification(request):
