@@ -27,7 +27,7 @@ class UserProfile(models.Model):
 	user = models.ForeignKey(User, related_name='profile', verbose_name=u"User")
 	avatar = models.URLField(u"Avatar", default=settings.DEFAULT_AVATAR)
 	web_site = models.URLField(u"Web Site", blank=True)
-	activation_key = models.CharField(u"Aktivasyon Kodu", max_length=100, blank=True)
+	activation_key = models.CharField(u"Activation Code", max_length=100, blank=True)
 	last_modified = models.DateTimeField(u"Last Modified Date", auto_now=True)
 	openid = models.URLField(u"OpenID", blank=True, null=True, unique=True)
 	

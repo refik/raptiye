@@ -17,51 +17,52 @@
 
 import re
 from django import forms
+from raptiye.extra import messages
 
 class LoginForm(forms.Form):
-	username = forms.CharField(label=u"Kullanıcı Adı", widget=forms.TextInput(attrs={"autocomplete": "off"}))
-	password = forms.CharField(label=u"Şifre", widget=forms.PasswordInput(attrs={"autocomplete": "off"}))
+	username = forms.CharField(label=messages.USERS_FORM_USERNAME, widget=forms.TextInput(attrs={"autocomplete": "off"}))
+	password = forms.CharField(label=messages.USERS_FORM_PASSWORD, widget=forms.PasswordInput(attrs={"autocomplete": "off"}))
 	
 	def clean_username(self):
 		u"A username must include only ASCII characters and numbers.."
 		pattern = re.compile(u"[^a-zA-Z0-9]")
 		if pattern.search(self.cleaned_data["username"]):
-			raise forms.ValidationError(u"Kullanıcı ismi yalnızca harf ve rakamlardan oluşabilir.")
+			raise forms.ValidationError(messages.USERS_FORM_INVALID_USERNAME)
 		return self.cleaned_data["username"]
 
 class RegistrationForm(LoginForm):
-	name = forms.CharField(label=u"Ad", min_length=2, max_length=30, widget=forms.TextInput(attrs={"autocomplete": "off"}), required=False)
-	surname = forms.CharField(label=u"Soyad", min_length=2, max_length=30, widget=forms.TextInput(attrs={"autocomplete": "off"}), required=False)
-	email = forms.EmailField(label=u"E-Posta", widget=forms.TextInput(attrs={"autocomplete": "off"}))
+	name = forms.CharField(label=messages.USERS_FORM_NAME, min_length=2, max_length=30, widget=forms.TextInput(attrs={"autocomplete": "off"}), required=False)
+	surname = forms.CharField(label=messages.USERS_FORM_SURNAME, min_length=2, max_length=30, widget=forms.TextInput(attrs={"autocomplete": "off"}), required=False)
+	email = forms.EmailField(label=messages.USERS_FORM_EMAIL, widget=forms.TextInput(attrs={"autocomplete": "off"}))
 	
 	def clean_name(self):
 		u"A name must only have a combination of a-zA-Z, Turkish chars. and space."
 		pattern = re.compile(u"[^a-zA-ZıöçşğüİÖÇŞĞÜ ]")
 		if pattern.search(self.cleaned_data["name"]):
-			raise forms.ValidationError(u"İsim alanı yalnızca harfler ve boşluklardan oluşabilir.")
+			raise forms.ValidationError(messages.USERS_FORM_INVALID_NAME)
 		return self.cleaned_data["name"]
 			
 	def clean_surname(self):
 		u"A surname must only have a combination of a-zA-Z and Turkish characters."
 		pattern = re.compile(u"[^a-zA-ZıöçşğüİÖÇŞĞÜ]")
 		if pattern.search(self.cleaned_data["surname"]):
-			raise forms.ValidationError(u"Soyadı alanı yalnızca harflerden oluşabilir.")
+			raise forms.ValidationError(messages.USERS_FORM_INVALID_SURNAME)
 		return self.cleaned_data["surname"]
 	
 class ProfileForm(RegistrationForm):
 	# subclassing other forms but overwriting their attrs..
-	username = forms.CharField(label=u"Kullanıcı Adı", max_length=30, widget=forms.HiddenInput)
-	password = forms.CharField(label=u"Şifre", widget=forms.PasswordInput(attrs={"autocomplete": "off"}), required=False)
-	avatar = forms.URLField(label=u"Avatar", required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off"}))
-	website = forms.URLField(label=u"Web Sitesi", required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off"}))
-	openid = forms.URLField(label=u"OpenID", required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off", "value": "http://"}))
+	username = forms.CharField(label=messages.USERS_FORM_USERNAME, max_length=30, widget=forms.HiddenInput)
+	password = forms.CharField(label=messages.USERS_FORM_PASSWORD, widget=forms.PasswordInput(attrs={"autocomplete": "off"}), required=False)
+	avatar = forms.URLField(label=messages.USERS_FORM_AVATAR, required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off"}))
+	website = forms.URLField(label=messages.USERS_FORM_WEBSITE, required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off"}))
+	openid = forms.URLField(label=messages.USERS_FORM_OPENID, required=False, verify_exists=True, widget=forms.TextInput(attrs={"autocomplete": "off", "value": "http://"}))
 
 class ForgottenPasswordForm(forms.Form):
-	email = forms.EmailField(label=u"E-Posta", widget=forms.TextInput(attrs={"autocomplete": "off"}))
+	email = forms.EmailField(label=messages.USERS_FORM_EMAIL, widget=forms.TextInput(attrs={"autocomplete": "off"}))
 
 class OpenIDForm(forms.Form):
 	attrs = {
 		"autocomplete": "off",
 		"value": "http://",
 	}
-	identifier = forms.URLField(label=u"OpenID", widget=forms.TextInput(attrs))
+	identifier = forms.URLField(label=messages.USERS_FORM_OPENID, widget=forms.TextInput(attrs))

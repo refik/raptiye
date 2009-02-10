@@ -44,7 +44,7 @@ def new_captcha(request):
 				request.session["captcha_datetime"] = datetime.now()
 			else:
 				resp["status"] = 1
-				resp["error"] = u"işlem başarısız.."
+				resp["error"] = messages.OPERATION_FAILURE
 				return HttpResponse(simplejson.dumps(resp))
 		request.session["captcha_counter"] += 1
 		request.session["captcha_datetime"] = datetime.now()
@@ -82,7 +82,7 @@ def comment_sent(request):
 					# transforming errors into a form suitable for comments page
 					errors = []
 					for error in form.errors:
-						errors.append(u"%s hatalı" % form.fields[error].label)
+						errors.append(messages.INVALID_FORM_FIELD % form.fields[error].label)
 					resp["error"] = errors
 					# returning the response
 					return HttpResponse(simplejson.dumps(resp))
@@ -108,7 +108,7 @@ def comment_sent(request):
 							c.anonymous_author_web_site = request.POST["anonymous_website"]
 					else:
 							resp["status"] = 1
-							resp["error"] = u"bilgiler eksik"
+							resp["error"] = messages.MISSING_INFORMATION
 							return HttpResponse(simplejson.dumps(resp))
 				c.author = user
 				c.content = request.POST["comment_body"]
@@ -130,20 +130,20 @@ def comment_sent(request):
 				# iff the comment is published
 				if c.published:
 					send_comment_notification(c.entry, user)
-				resp["success"] = u"yorumunuz gönderildi.."
+				resp["success"] = messages.COMMENT_SENT
 				return HttpResponse(simplejson.dumps(resp))
 			else:
 				resp["status"] = 1
-				resp["error"] = u"captcha hatalı"
+				resp["error"] = messages.CAPTCHA_FAILURE
 				return HttpResponse(simplejson.dumps(resp))
 		else:
 			resp["status"] = 1
-			resp["error"] = u"işlem başarısız"
+			resp["error"] = messages.OPERATION_FAILURE
 			return HttpResponse(simplejson.dumps(resp))
 	else:
 		# if the user is anonymous
 		resp["status"] = 1
-		resp["error"] = u"giriş yapılmamış"
+		resp["error"] = messages.LOGIN_NEEDED
 		return HttpResponse(simplejson.dumps(resp))
 
 # above method will require login if a variable is True in the settings.py

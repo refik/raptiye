@@ -30,18 +30,6 @@ ENTRIES_ON_DATE = u"bu tarihte yazılmış yazıları görmek için tıklayın..
 
 COMMENTS_WARNING = u'Yorumunuz onaylandıktan sonra yayınlanacaktır. İlginiz için teşekkürler!'
 
-SEARCH_FAILED = u"""
-<h2>arama başarısız</h2>
-<br>
-geçersiz bir arama yaptınız.. eğer sağdaki kutuyu kullandığınız halde bu mesajı görüyorsanız site büyük ihtimalle patlamış.. :) durumu bana bildirebilirseniz düzeltmeye çalışırım.. ilginiz için teşekkürler!
-"""
-
-SEARCH_NO_ITEM = u"""
-<h2>yok böyle bir şey?</h2>
-<br>
-raptiye'de olmayan bir şeyi arattınız.. demek ki hala üzerine bir şeyler yazmadığım konular var.. :)
-"""
-
 PROFILE_SUCCESS = u"""
 <h2>profiliniz güncellendi</h2>
 <br>
@@ -181,3 +169,49 @@ Yeni şifreniz: %s
 
 raptiye şifre bekçisi
 """
+
+SEARCH_BODY = u"<strong><i>%s</i></strong> %s içeren yazılar (%d) görüntüleniyor.."
+SEARCH_WORD = u"kelimesini"
+SEARCH_WORD_PLURAL = u"kelimelerini"
+
+SEARCH_FAILED = u"""
+<h2>arama başarısız</h2>
+<br>
+geçersiz bir arama yaptınız.. eğer sağdaki kutuyu kullandığınız halde bu mesajı görüyorsanız site büyük ihtimalle patlamış.. :) durumu bana bildirebilirseniz düzeltmeye çalışırım.. ilginiz için teşekkürler!
+"""
+
+SEARCH_NO_ITEM = u"""
+<h2>yok böyle bir şey?</h2>
+<br>
+raptiye'de olmayan bir şeyi arattınız.. demek ki hala üzerine bir şeyler yazmadığım konular var.. :)
+"""
+
+ENTRIES_FOR_DAY = u"%s.%s.%s tarihinde yazılmış yazılar görüntüleniyor.."
+
+COMMENT_FORM_FULLNAME = u"Ad Soyad"
+COMMENT_FORM_EMAIL = u"E-Posta"
+COMMENT_FORM_WEBSITE = u"Web Sitesi"
+COMMENT_FORM_COMMENT = u"Yorum"
+COMMENT_FORM_CAPTCHA = u"Captcha"
+COMMENT_FORM_NOTIFICATION = u"Bu yazıdaki değişikliklerden beni haberdar et"
+COMMENT_FORM_INVALID_FULLNAME = u"isim hatalı"
+COMMENT_FORM_INVALID_CAPTCHA = u"captcha hatalı"
+
+CAPTCHA_FAILURE = u"captcha hatalı"
+OPERATION_FAILURE = u"işlem başarısız.."
+INVALID_FORM_FIELD = u"%s hatalı"
+MISSING_INFORMATION = u"bilgiler eksik"
+COMMENT_SENT = u"yorumunuz gönderildi.."
+LOGIN_NEEDED = u"giriş yapılmamış"
+
+USERS_FORM_USERNAME = u"Kullanıcı Adı"
+USERS_FORM_PASSWORD = u"Şifre"
+USERS_FORM_INVALID_USERNAME = u"Kullanıcı ismi yalnızca harf ve rakamlardan oluşabilir."
+USERS_FORM_NAME = u"Ad"
+USERS_FORM_SURNAME = u"Soyad"
+USERS_FORM_EMAIL = u"E-Posta"
+USERS_FORM_INVALID_NAME = u"İsim alanı yalnızca harfler ve boşluklardan oluşabilir."
+USERS_FORM_INVALID_SURNAME = u"Soyadı alanı yalnızca harflerden oluşabilir."
+USERS_FORM_AVATAR = u"Avatar"
+USERS_FORM_WEBSITE = u"Web Sitesi"
+USERS_FORM_OPENID = u"OpenID"

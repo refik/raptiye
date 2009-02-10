@@ -48,8 +48,8 @@ def search(request, template="blog/homepage.html"):
 				"template_object_name" : "entry",
 				"paginate_by": settings.ENTRIES_PER_PAGE,
 				"extra_context" : {
-					"messages" : (u"<strong><i>%s</i></strong> %s içeren yazılar (%d) görüntüleniyor.." % (keywords if keyword_list.__len__() == 1 else ", ".join(keyword_list), 
-						"kelimesini" if keyword_list.__len__() == 1 else "kelimelerini", result.__len__()),),
+					"messages" : (messages.SEARCH_BODY % (keywords if keyword_list.__len__() == 1 else ", ".join(keyword_list), 
+						messages.SEARCH_WORD if keyword_list.__len__() == 1 else messages.SEARCH_WORD_PLURAL, result.__len__()),),
 				}
 			}
 
@@ -65,7 +65,7 @@ def get_entries_for_day(request, year, month, day):
 	"Displays all posts for a specific day"
 
 	extra_context = {
-		"messages": (u"%s.%s.%s tarihinde yazılmış yazılar görüntüleniyor.." % (day, month, year),),
+		"messages": (messages.ENTRIES_FOR_DAY % (day, month, year),),
 	}
 
 	entry = {
