@@ -21,9 +21,28 @@ import os
 import re
 import shutil
 import sys
+from django.core.exceptions import ImproperlyConfigured
 from random import choice
 from raptiye import settings_example
 from raptiye.extra import messages
+
+def get_dependency_msg(error):
+	"""
+	Hack for transforming messages when database
+	backends are not found. Currently I've opened
+	#10270 for this purpose..
+	
+	"""
+	if error.find("psycopg") > 0:
+		return messages.POSTGRESQL_NOT_FOUND
+	elif error.find("psycopg2") > 0:
+		return messages.POSTGRESQL2_NOT_FOUND
+	elif error.find("MySQLdb") > 0:
+		return messages.MYSQL_NOT_FOUND
+	elif error.find("cx_Oracle") > 0:
+		return messages.ORACLE_NOT_FOUND
+	else:
+		return messages.INVALID_DB_BACKEND
 
 try:
 	from django.core.management import execute_manager
@@ -47,7 +66,7 @@ except ImportError:
 	secret_key = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
 	settings_content = re.sub(r"(?<=SECRET_KEY = ')'", secret_key + "'", settings_content)
 	
-	# TODO: dependency check!
+	# TODO: dependency checks
 	
 	# updating settings file
 	with open(file_path, "w") as settings_file:
@@ -58,7 +77,11 @@ except ImportError:
 
 if __name__ == "__main__":
 	if len(sys.argv) > 1:
-		execute_manager(settings)
+		try:
+			execute_manager(settings)
+		except ImproperlyConfigured, e:
+			sys.stderr.write(get_dependency_msg(unicode(e)))
+			sys.exit(1)
 	else:
 		# running syncdb
 		execute_manager(settings, [__file__, "syncdb"])

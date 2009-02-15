@@ -134,3 +134,36 @@ a default settings.py for you. You can then review and make changes on it to ena
 or disable various features.
 
 """
+
+PIL_NOT_FOUND = u"""[ERROR] PIL library not found.
+
+PIL (Python Imaging Library) is a requirement for raptiye in order to make 
+ImageFields work. Please install the library and try again.
+"""
+
+POSTGRESQL_NOT_FOUND = u"""[ERROR] PostgreSQL database backend not found.
+
+Please install PostgreSQL binding for Python and try again.
+"""
+
+POSTGRESQL2_NOT_FOUND = u"""[ERROR] PostgreSQL2 database backend not found.
+
+Please install Postgresql2 binding for Python and try again.
+"""
+
+MYSQL_NOT_FOUND = u"""[ERROR] MySQL database backend not found.
+
+Please install MySQL binding for Python and try again.
+"""
+
+ORACLE_NOT_FOUND = u"""[ERROR] Oracle database backend not found.
+
+Please install Oracle binding for Python and try again.
+"""
+
+INVALID_DB_BACKEND = u"""[ERROR] Invalid database backend.
+
+You have specified an invalid database backend in your settings.
+You can refer to Django Documentation for available choices and
+try again.
+"""
