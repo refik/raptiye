@@ -141,7 +141,7 @@ def twitter():
 	Gets the latest Twitter status updates of the blog author
 	using the credentials in settings.py
 	"""
-	from raptiye.contrib import twitter
+	from raptiye.twitter import twitter
 	
 	if settings.TWITTER_USERNAME != "" and settings.TWITTER_PASSWORD != "":
 		try:

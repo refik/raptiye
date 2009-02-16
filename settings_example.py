@@ -24,7 +24,7 @@ DOCUMENT_ROOT = os.path.abspath(os.path.dirname(__file__))
 ADMIN_LIST_PER_PAGE = 20
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
-EMAIL_FAIL_SILENCE = False
+EMAIL_FAIL_SILENCE = True
 EMAIL_HOST = ""
 EMAIL_HOST_PASSWORD = ""
 EMAIL_HOST_USER = "bilgi@raptiye.org"
@@ -170,7 +170,8 @@ DEFAULT_AVATAR = "/media/images/default_avatar.png"
 
 # --- RAPTIYE SETTINGS ----------------------
 
-VERSION = '1.0.4'
+PROJECT_NAME = u"raptiye"
+VERSION = '1.0.5'
 
 
 # --- TIME SETTINGS -------------------------

@@ -933,6 +933,15 @@ blockquote {
 	text-align: center;
 }
 
+#initial_box {
+	margin: 10% auto;
+	padding: 30px;
+	width: 400px;
+	height: 250px;
+	border: 1px solid #86bcde;
+	background-color: #f3faff;
+}
+
 .today {
 	background: transparent url(/media/images/calendar_today.png) top right no-repeat;
 }

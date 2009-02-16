@@ -133,6 +133,9 @@ Depending on the dependencies installed on your computer, raptiye will now creat
 a default settings.py for you. You can then review and make changes on it to enable
 or disable various features.
 
+You'll especially have to fill the details in ADMIN_SETTINGS section to get mailing
+to the users (for several reasons) work.
+
 """
 
 PIL_NOT_FOUND = u"""[ERROR] PIL library not found.
