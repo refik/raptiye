@@ -32,7 +32,7 @@ urlpatterns = patterns('',
 	url(r'^$', 'raptiye.frontpage.views.index', name="homepage"),
 
 	# admin page
-	url(r'^admin/(.*)', admin.site.root, name='admin_page'),
+	url(r'^admin/', include(admin.site.urls)),
 
 	# blog page
 	(r'^blog/', include('raptiye.blog.urls')),

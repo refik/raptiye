@@ -215,3 +215,56 @@ USERS_FORM_INVALID_SURNAME = u"Soyadı alanı yalnızca harflerden oluşabilir."
 USERS_FORM_AVATAR = u"Avatar"
 USERS_FORM_WEBSITE = u"Web Sitesi"
 USERS_FORM_OPENID = u"OpenID"
+
+DJANGO_NOT_FOUND = u"""[ERROR] django cannot be found.
+
+Please install django on your system and make sure it's available
+in your PYTHONPATH.
+
+You can also put django and raptiye in the same folder and add that
+folder into your PYTHONPATH.
+"""
+
+SETTINGS_NOT_FOUND = u"""[WARNING] settings.py cannot be found. Creating one for you...
+
+Depending on the dependencies installed on your computer, raptiye will now create
+a default settings.py for you. You can then review and make changes on it to enable
+or disable various features.
+
+You'll especially have to fill the details in ADMIN_SETTINGS section to get mailing
+to the users (for several reasons) work.
+
+"""
+
+PIL_NOT_FOUND = u"""[ERROR] PIL library not found.
+
+PIL (Python Imaging Library) is a requirement for raptiye in order to make 
+ImageFields work. Please install the library and try again.
+"""
+
+POSTGRESQL_NOT_FOUND = u"""[ERROR] PostgreSQL database backend not found.
+
+Please install PostgreSQL binding for Python and try again.
+"""
+
+POSTGRESQL2_NOT_FOUND = u"""[ERROR] PostgreSQL2 database backend not found.
+
+Please install Postgresql2 binding for Python and try again.
+"""
+
+MYSQL_NOT_FOUND = u"""[ERROR] MySQL database backend not found.
+
+Please install MySQL binding for Python and try again.
+"""
+
+ORACLE_NOT_FOUND = u"""[ERROR] Oracle database backend not found.
+
+Please install Oracle binding for Python and try again.
+"""
+
+INVALID_DB_BACKEND = u"""[ERROR] Invalid database backend.
+
+You have specified an invalid database backend in your settings.
+You can refer to Django Documentation for available choices and
+try again.
+"""

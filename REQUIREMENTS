@@ -2,10 +2,3 @@ pil
 python-*sql (optional when using sqlite)
 python-twitter (optional)
 BeautifulSoup (optional when using colorizing)
-
--- TEMPORARY --
-
-The following dependencies aren't mandatory and will be deleted once
-django gets the functionality in trunk..
-
-django-session-messages (http://code.google.com/p/django-session-messages/)

@@ -20,6 +20,10 @@ from raptiye.frontpage.models import FrontPage
 
 register = template.Library()
 
+@register.simple_tag
+def project_name():
+	return settings.PROJECT_NAME
+
 @register.filter
 def order_by(value, arg):
 	"Orders the result by given argument"

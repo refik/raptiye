@@ -24,7 +24,7 @@ DOCUMENT_ROOT = os.path.abspath(os.path.dirname(__file__))
 ADMIN_LIST_PER_PAGE = 20
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
-EMAIL_FAIL_SILENCE = False
+EMAIL_FAIL_SILENCE = True
 EMAIL_HOST = ""
 EMAIL_HOST_PASSWORD = ""
 EMAIL_HOST_USER = "bilgi@raptiye.org"
@@ -62,7 +62,6 @@ LOGOUT_URL = "/users/logout/"
 # URL Pattern Naming used here..
 REDIRECT_URL = "blog"
 
-# fill this with a newly created django app's secret key
 SECRET_KEY = ''
 
 # this is to serve temporary images like captcha..
@@ -72,7 +71,8 @@ TEMP_MEDIA_PREFIX = 'temp/'
 # --- BLOG SETTINGS -------------------------
 
 # colorize the code in entries
-COLORIZE_CODE = True
+COLORIZE_CODE = False
+ENABLE_EMOTIONS = True
 ENTRIES_PER_PAGE = 5
 
 
@@ -170,7 +170,8 @@ DEFAULT_AVATAR = "/media/images/default_avatar.png"
 
 # --- RAPTIYE SETTINGS ----------------------
 
-VERSION = '1.0.4'
+PROJECT_NAME = u"raptiye"
+VERSION = '1.0.5'
 
 
 # --- TIME SETTINGS -------------------------
@@ -180,7 +181,8 @@ TIME_ZONE = 'Europe/Istanbul'
 
 # --- TWITTER SETTINGS ----------------------
 
-POST_TO_TWITTER = True
+POST_TO_TWITTER = False
+ENABLE_TWITTER_BOX = False
 TWITTER_USERNAME = ""
 TWITTER_PASSWORD = ""
 TWITTER_LIMIT = 5
