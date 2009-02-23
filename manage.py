@@ -66,8 +66,6 @@ except ImportError:
 	secret_key = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
 	settings_content = re.sub(r"(?<=SECRET_KEY = ')'", secret_key + "'", settings_content)
 	
-	# TODO: dependency checks
-	
 	# updating settings file
 	with open(file_path, "w") as settings_file:
 		settings_file.write(settings_content)
