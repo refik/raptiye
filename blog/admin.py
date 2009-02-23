@@ -49,8 +49,11 @@ class EntryAdmin(admin.ModelAdmin):
 			from raptiye.contrib import twitter
 			from raptiye.extra.tinyurl import shorten_url
 			
-			api = twitter.Api(username=settings.TWITTER_USERNAME, password=settings.TWITTER_PASSWORD, input_encoding="utf8")
-			api.PostUpdate(u"%s (%s)" % (obj.title, shorten_url(obj.get_full_url())))
+			try:
+				api = twitter.Api(username=settings.TWITTER_USERNAME, password=settings.TWITTER_PASSWORD, input_encoding="utf8")
+				api.PostUpdate(u"%s (%s)" % (obj.title, shorten_url(obj.get_full_url())))
+			except:
+				pass
 
 admin.site.register(Entry, EntryAdmin)
 

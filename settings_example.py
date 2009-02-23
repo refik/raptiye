@@ -72,7 +72,8 @@ TEMP_MEDIA_PREFIX = 'temp/'
 # --- BLOG SETTINGS -------------------------
 
 # colorize the code in entries
-COLORIZE_CODE = True
+COLORIZE_CODE = False
+ENABLE_EMOTIONS = True
 ENTRIES_PER_PAGE = 5
 
 
@@ -181,7 +182,8 @@ TIME_ZONE = 'Europe/Istanbul'
 
 # --- TWITTER SETTINGS ----------------------
 
-POST_TO_TWITTER = True
+POST_TO_TWITTER = False
+ENABLE_TWITTER_BOX = False
 TWITTER_USERNAME = ""
 TWITTER_PASSWORD = ""
 TWITTER_LIMIT = 5

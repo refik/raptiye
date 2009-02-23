@@ -69,7 +69,7 @@ def paginator(context, adjacent_pages=2):
 	view.
 	
 	"""
-	page_numbers = range(max(1, context['page']-adjacent_pages), min(context['pages'], context['page']+adjacent_pages)+1)
+	page_numbers = range(max(1, context['page'] - adjacent_pages), min(context['pages'], context['page'] + adjacent_pages) + 1)
 	
 	params = context["request"].GET.copy()
 	
@@ -118,20 +118,21 @@ def sticky():
 
 @register.filter
 def emotions(entry):
-	from django.contrib.sites.models import Site
-	
-	site = Site.objects.get_current()
-	
-	icons = {
-		":)": "/media/images/smiley/face-smile.png",
-		":|": "/media/images/smiley/face-plain.png",
-		":(": "/media/images/smiley/face-sad.png",
-		":D": "/media/images/smiley/face-grin.png",
-		";-)": "/media/images/smiley/face-wink.png",
-	}
-	
-	for smiley, src in icons.iteritems():
-		entry = entry.replace(smiley, " <img src='http://%s%s' align='absmiddle'> " % (site.domain, src))
+	if settings.ENABLE_EMOTIONS:
+		from django.contrib.sites.models import Site
+		
+		site = Site.objects.get_current()
+		
+		icons = {
+			":)": "/media/images/smiley/face-smile.png",
+			":|": "/media/images/smiley/face-plain.png",
+			":(": "/media/images/smiley/face-sad.png",
+			":D": "/media/images/smiley/face-grin.png",
+			";-)": "/media/images/smiley/face-wink.png",
+		}
+		
+		for smiley, src in icons.iteritems():
+			entry = entry.replace(smiley, " <img src='http://%s%s' align='absmiddle'> " % (site.domain, src))
 	
 	return entry
 
@@ -141,15 +142,14 @@ def twitter():
 	Gets the latest Twitter status updates of the blog author
 	using the credentials in settings.py
 	"""
-	from raptiye.twitter import twitter
+	from raptiye.contrib import twitter
 	
-	if settings.TWITTER_USERNAME != "" and settings.TWITTER_PASSWORD != "":
+	if settings.ENABLE_TWITTER_BOX and settings.TWITTER_USERNAME != "" and settings.TWITTER_PASSWORD != "":
 		try:
 			api = twitter.Api(username=settings.TWITTER_USERNAME, password=settings.TWITTER_PASSWORD)
 			latest_updates_of_user = [status.GetText() for status in api.GetUserTimeline()]
 			return {"latest_updates": latest_updates_of_user[:settings.TWITTER_LIMIT]}
 		except:
-			# generally this is the case that we get "connection timed out"
 			pass
 	return {"latest_updates": None}
 
@@ -175,7 +175,10 @@ def code_colorizer(entry):
 	search for the code layer in each post.
 	"""
 	if settings.COLORIZE_CODE:
-		from BeautifulSoup import BeautifulSoup, Tag
+		try:
+			from BeautifulSoup import BeautifulSoup, Tag
+		except ImportError:
+			return entry
 	
 		try:
 			parser = BeautifulSoup(entry, convertEntities=BeautifulSoup.ALL_ENTITIES)
