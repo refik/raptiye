@@ -20,7 +20,7 @@ window.onload = function() {
 		var content_editor = new FCKeditor('id_content')
 		content_editor.BasePath = "/media/js/fckeditor/"
 		content_editor.Width = "750px"
-		content_editor.Height = "300px"
+		content_editor.Height = "500px"
 		content_editor.ReplaceTextarea()
 	}
 	
@@ -29,7 +29,7 @@ window.onload = function() {
 		var footer_editor = new FCKeditor('id_footer')
 		footer_editor.BasePath = "/media/js/fckeditor/"
 		footer_editor.Width = "750px"
-		footer_editor.Height = "300px"
+		footer_editor.Height = "500px"
 		footer_editor.ReplaceTextarea()
 	}
 }

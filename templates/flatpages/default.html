@@ -24,5 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {% block title %}{{ flatpage.title }}@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
 
 {% block body %}
-	{{ flatpage.content|emotions|safe }}
+	<div id="flatpages">
+		{{ flatpage.content|emotions|safe }}
+	</div>
 {% endblock %}
