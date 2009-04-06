@@ -1,4 +1,3 @@
 pil
 python-*sql (optional when using sqlite)
-python-twitter (optional)
 BeautifulSoup (optional when using colorizing)
