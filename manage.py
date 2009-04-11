@@ -21,10 +21,35 @@ import os
 import re
 import shutil
 import sys
-from django.core.exceptions import ImproperlyConfigured
 from random import choice
 from raptiye import settings_example
 from raptiye.extra import messages
+
+DEPENDENCIES = {
+	"OPENID": True,
+	"COLORIZE_CODE": True,
+}
+
+def dependency_checks():
+	"""
+	Search for specific dependencies and set the flags to
+	enable or disable settings in settings.py
+	"""
+	try:
+		import django
+	except ImportError:
+		sys.stderr.write(messages.DJANGO_NOT_FOUND)
+		sys.exit(1)
+	
+	try:
+		import openid
+	except ImportError:
+		DEPENDENCIES["OPENID"] = False
+	
+	try:
+		import BeautifulSoup
+	except ImportError:
+		DEPENDENCIES["COLORIZE_CODE"] = False
 
 def get_dependency_msg(error):
 	"""
@@ -45,15 +70,12 @@ def get_dependency_msg(error):
 		return messages.INVALID_DB_BACKEND
 
 try:
-	from django.core.management import execute_manager
-except ImportError:
-	sys.stderr.write(messages.DJANGO_NOT_FOUND)
-	sys.exit(1)
-
-try:
 	import settings # Assumed to be in the same directory.
 except ImportError:
 	sys.stderr.write(messages.SETTINGS_NOT_FOUND)
+	
+	# triggering dependency checks
+	dependency_checks()
 	
 	# copy sample settings file into a real one
 	shutil.copy2("settings_example.py", "settings.py")
@@ -66,6 +88,10 @@ except ImportError:
 	secret_key = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
 	settings_content = re.sub(r"(?<=SECRET_KEY = ')'", secret_key + "'", settings_content)
 	
+	# changing status of flags if necessary
+	for dep, flag in DEPENDENCIES.iteritems():
+		settings_content = re.sub(r"%s = .*" % dep, "%s = %s" % (dep, str(flag)), settings_content)
+	
 	# updating settings file
 	with open(file_path, "w") as settings_file:
 		settings_file.write(settings_content)
@@ -73,19 +99,22 @@ except ImportError:
 	# import newly created settings
 	import settings
 
-if __name__ == "__main__":
-	if len(sys.argv) > 1:
-		try:
-			execute_manager(settings)
-		except ImproperlyConfigured, e:
-			sys.stderr.write(get_dependency_msg(unicode(e)))
-			sys.exit(1)
-	else:
-		# running syncdb
-		execute_manager(settings, [__file__, "syncdb"])
-		# running initial stuff for raptiye
-		from raptiye.extra import initials
-		initials.create_anonymous_user()
-		initials.create_profile_for_first_user()
-		# running the development server
-		execute_manager(settings, [__file__, "runserver"])
+# safely import things now
+from django.core.exceptions import ImproperlyConfigured
+from django.core.management import execute_manager
+
+if len(sys.argv) > 1:
+	try:
+		execute_manager(settings)
+	except ImproperlyConfigured, e:
+		sys.stderr.write(get_dependency_msg(unicode(e)))
+		sys.exit(1)
+else:
+	# running syncdb
+	execute_manager(settings, [__file__, "syncdb"])
+	# running initial stuff for raptiye
+	from raptiye.extra import initials
+	initials.create_anonymous_user()
+	initials.create_profile_for_first_user()
+	# running the development server
+	execute_manager(settings, [__file__, "runserver"])
