@@ -73,7 +73,7 @@ TEMP_MEDIA_PREFIX = 'temp/'
 # colorize the code in entries
 COLORIZE_CODE = False
 ENABLE_EMOTIONS = True
-ENTRIES_PER_PAGE = 5
+ENTRIES_PER_PAGE = 8
 
 
 # --- CAPTCHA SETTINGS ----------------------
@@ -171,7 +171,7 @@ DEFAULT_AVATAR = "/media/images/default_avatar.png"
 # --- RAPTIYE SETTINGS ----------------------
 
 PROJECT_NAME = u"raptiye"
-VERSION = '1.0.5'
+VERSION = '1.0.6'
 
 
 # --- TIME SETTINGS -------------------------
