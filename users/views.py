@@ -210,19 +210,11 @@ def register(request, template="users/registration.html"):
 					if not pattern.search(cp.text) and cp.generate_hash(settings.SECRET_KEY[:20]) == request.POST["captcha_id"]:
 						# registering the user
 						try:
-							# the following line creates the user directly, it doesn't wait
-							# for a save().. but firstname, lastname and activeness need
-							# to be saved
-							user_info = {
-								"username": username,
-								"password": password,
-								"email": email,
-								"first_name": name,
-								"last_name": surname,
-								# new user will be passive 'til activation occurs
-								"is_active": False
-							}
-							new_user = User(**user_info)
+							new_user = User.objects.create_user(username, email, password)
+							new_user.first_name = name
+							new_user.last_name = surname
+							# new user will be passive 'til activation occurs
+							new_user.is_active = False
 							new_user.save()
 							# creating a user profile with an activation key
 							new_user.profile.create()
