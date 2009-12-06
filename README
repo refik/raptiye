@@ -1,0 +1,12 @@
+A personal attempt to create a web project that includes a frontpage,
+a blog and some more cool stuff. It's written in Python and by using
+django framework.
+
+REQUIREMENTS
+----------------
+
+* PIL (Python Imaging Library)
+* python-openid (optional)
+* python-*sql (optional when using sqlite)
+* BeautifulSoup (optional when using colorizing)
+

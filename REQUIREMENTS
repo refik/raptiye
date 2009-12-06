@@ -1,5 +1,0 @@
-pil
-python-openid
-python-*sql (optional when using sqlite)
-BeautifulSoup (optional when using colorizing)
-
