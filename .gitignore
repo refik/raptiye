@@ -1,8 +1,9 @@
 *.pyc
 *.db
-settings.py
 media/admin
 media/files/
 media/images/resimler/
 media/images/upload/
 *tmproj
+local_settings.py
+
