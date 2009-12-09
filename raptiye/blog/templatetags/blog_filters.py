@@ -1,6 +1,7 @@
-#-*- encoding: utf-8 -*-
+#-*- coding: utf-8 -*-
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,10 +14,11 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import HTMLParser
 from datetime import datetime
+
 from django import template
 from django.conf import settings
 
@@ -24,9 +26,7 @@ register = template.Library()
 
 @register.simple_tag
 def calculate_age():
-	# my birth
-	birth = datetime(1984, 05, 16, 10, 00, 00, 00)
-	return (datetime.now() - birth).days/365
+	return (datetime.now() - settings.BIRTH_DATE).days/365
 
 @register.tag
 def construct_tag_cloud(parser, token):
@@ -69,6 +69,7 @@ def paginator(context, adjacent_pages=2):
 	view.
 	
 	"""
+
 	page_numbers = range(max(1, context['page'] - adjacent_pages), min(context['pages'], context['page'] + adjacent_pages) + 1)
 	
 	params = context["request"].GET.copy()
@@ -105,8 +106,10 @@ def sticky():
 	Grabs the latest sticky post and show it.. Since raptiye is not a forum
 	app, I don't think there might be more than 1 sticky posts at a time and
 	therefore not implementing it.
+
 	"""
-	from raptiye.blog.models import Entry
+	
+    from raptiye.blog.models import Entry
 	
 	sticky_flag = True if Entry.objects.filter(sticky=True).count() == 1 else False
 	latest_sticky_post = Entry.objects.filter(sticky=True).latest() if sticky_flag else None
@@ -141,8 +144,10 @@ def twitter():
 	"""
 	Gets the latest Twitter status updates of the blog author
 	using the credentials in settings.py
+
 	"""
-	from raptiye.contrib import twitter
+	
+    import twitter
 	
 	if settings.ENABLE_TWITTER_BOX and settings.TWITTER_USERNAME != "" and settings.TWITTER_PASSWORD != "":
 		try:
@@ -173,8 +178,10 @@ def code_colorizer(entry):
 	Best part of using a filter is that we don't have to change the 
 	real post containing the code. The worst part is that we have to 
 	search for the code layer in each post.
+
 	"""
-	if settings.COLORIZE_CODE:
+	
+    if settings.COLORIZE_CODE:
 		try:
 			from BeautifulSoup import BeautifulSoup, Tag
 		except ImportError:
@@ -196,6 +203,7 @@ def code_colorizer(entry):
 					language = block.attrMap["id"]
 				else:
 					continue
+
 				# finding the exact place of the code
 				layer = block.div if block.div else block
 				# removing any html tags inside the code block
@@ -211,5 +219,8 @@ def code_colorizer(entry):
 				colorized_code = Tag(parser, "div") if block.div else Tag(parser, "div", attrs=(("id", language), ("class", "code")))
 				colorized_code.insert(0, highlight(code, lexer, formatter))
 				layer.replaceWith(colorized_code)
-			return parser.renderContents()
-	return entry
+			
+            return parser.renderContents()
+	
+    return entry
+

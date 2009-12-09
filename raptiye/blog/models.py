@@ -1,6 +1,7 @@
-#-*- encoding: utf-8 -*-
+#-*- coding: utf-8 -*-
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,12 +14,13 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
+
 from raptiye.tags.models import Tag
 
 class Entry(models.Model):
@@ -28,6 +30,7 @@ class Entry(models.Model):
 	This is the class we hold every post for the blog. It
 	can be either in Turkish or English due to the choices
 	in settings.
+
 	"""
 	
 	title = models.CharField(u"Title", help_text="Required", max_length=80)
@@ -85,3 +88,4 @@ class Entry(models.Model):
 		ordering = ["title"]
 		verbose_name = "entry"
 		verbose_name_plural = "entries"
+

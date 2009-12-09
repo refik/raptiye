@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from datetime import date
 import os, sys
 
 try:
@@ -33,22 +34,17 @@ DJANGO_DIR = os.path.abspath(os.path.dirname(django.__file__))
 
 PROJECT_NAME = u"raptiye"
 VERSION = '2.0'
+PROJECT_SUBTITLE = u"Bilgi Paylaştıkça Çoğalır!"
 
-CSRF_COOKIE_DOMAIN = ".raptiye.org"
+OPENID = False
 
-DEFAULT_CHARSET='utf8'
-DEFAULT_CONTENT_TYPE = 'text/html'
-FILE_CHARSET = 'utf-8'
+COLORIZE_CODE = False
+ENABLE_EMOTIONS = True
+ENTRIES_PER_PAGE = 8
 
-LANGUAGES = (
-	("tr", "tr"),
-	("en", "en"),
-)
+RSS_LIMIT = 10
 
-AUTHENTICATION_BACKENDS = (
-	'django.contrib.auth.backends.ModelBackend',
-	'raptiye.users.backends.OpenIDBackend',
-)
+BIRTH_DATE = date(1984, 05, 16)
 
 
 
@@ -89,12 +85,6 @@ TWITTER_LIMIT = 5
 
 # --- OTHER SETTINGS --------------
 
-OPENID = False
-
-COLORIZE_CODE = False
-ENABLE_EMOTIONS = True
-ENTRIES_PER_PAGE = 8
-
 EMAIL_FAIL_SILENCE = True
 EMAIL_HOST = ""
 EMAIL_HOST_PASSWORD = ""
@@ -105,10 +95,26 @@ EMAIL_INFO_ADDRESS_EN = "bilgi@raptiye.org"
 EMAIL_SUBJECT_PREFIX = u"[raptiye] "
 EMAIL_USE_TLS = True
 
+LANGUAGES = (
+	("tr", "tr"),
+	("en", "en"),
+)
+
 LOCALES = {
 	'tr': 'tr_TR.utf-8',
 	'en': 'en_US.utf-8',
 }
+
+CSRF_COOKIE_DOMAIN = ".raptiye.org"
+
+DEFAULT_CHARSET='utf8'
+DEFAULT_CONTENT_TYPE = 'text/html'
+FILE_CHARSET = 'utf-8'
+
+AUTHENTICATION_BACKENDS = (
+	'django.contrib.auth.backends.ModelBackend',
+	'raptiye.users.backends.OpenIDBackend',
+)
 
 LOGIN_URL = "/users/login/"
 LOGOUT_URL = "/users/logout/"
@@ -192,7 +198,6 @@ INSTALLED_APPS = (
 	'django.contrib.sites',
 	'raptiye.blog',
 	'raptiye.comments',
-	'raptiye.frontpage',
 	'raptiye.links',
 	'raptiye.polls',
 	'raptiye.tags',

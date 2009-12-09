@@ -1,6 +1,7 @@
-#-*- encoding: utf-8 -*-
+#-*- coding: utf-8 -*-
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,17 +14,18 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import locale
 from datetime import datetime
+
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.contrib.syndication.feeds import Feed
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.feedgenerator import Atom1Feed
+
 from raptiye.blog.views import get_latest_entries_list
-from raptiye.frontpage.models import FrontPage
 from raptiye.tags.models import Tag
 
 class RSS(Feed):
@@ -32,12 +34,10 @@ class RSS(Feed):
 	description_template = "feeds/latest_description.html"
 	
 	def title(self):
-		fp = FrontPage.objects.get(pk=1)
-		return fp.title
+        return settings.PROJECT_NAME
 	
 	def description(self):
-		fp = FrontPage.objects.get(pk=1)
-		return fp.subtitle
+        return settings.PROJECT_SUBTITLE
 	
 	def link(self):
 		site = Site.objects.get_current()
@@ -53,8 +53,7 @@ class RSS(Feed):
 
 class RSSLatestEntries(RSS):
 	def items(self):
-		fp = FrontPage.objects.get(pk=1)
-		return get_latest_entries_list()[:fp.rss_limit]
+		return get_latest_entries_list()[:settings.RSS_LIMIT]
 
 class AtomLatestEntries(RSSLatestEntries):
 	feed_type = Atom1Feed
@@ -70,5 +69,8 @@ class RSSEntriesWithTag(RSS):
 		return Tag.objects.get(slug=bits[0])
 	
 	def items(self, obj):
-		fp = FrontPage.objects.get(pk=1)
-		return obj.entries.filter(published=True, datetime__lte=datetime.now()).order_by("-datetime")[:fp.rss_limit]
+		return obj.entries.filter(
+            published=True,
+            datetime__lte=datetime.now()
+        ).order_by("-datetime")[:settings.RSS_LIMIT]
+
