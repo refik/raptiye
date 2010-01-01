@@ -1,6 +1,7 @@
-#-*- encoding: utf-8 -*-
+# coding: utf-8
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,10 +14,13 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 import re
+
 from django import forms
+
 from raptiye.extra import messages
 
 class LoginForm(forms.Form):
@@ -25,6 +29,7 @@ class LoginForm(forms.Form):
 	
 	def clean_username(self):
 		u"A username must include only ASCII characters and numbers.."
+
 		pattern = re.compile(u"[^a-zA-Z0-9]")
 		if pattern.search(self.cleaned_data["username"]):
 			raise forms.ValidationError(messages.USERS_FORM_INVALID_USERNAME)
@@ -37,17 +42,23 @@ class RegistrationForm(LoginForm):
 	
 	def clean_name(self):
 		u"A name must only have a combination of a-zA-Z, Turkish chars. and space."
+
 		pattern = re.compile(u"[^a-zA-ZıöçşğüİÖÇŞĞÜ ]")
+
 		if pattern.search(self.cleaned_data["name"]):
 			raise forms.ValidationError(messages.USERS_FORM_INVALID_NAME)
-		return self.cleaned_data["name"]
+		
+        return self.cleaned_data["name"]
 			
 	def clean_surname(self):
 		u"A surname must only have a combination of a-zA-Z and Turkish characters."
+
 		pattern = re.compile(u"[^a-zA-ZıöçşğüİÖÇŞĞÜ]")
-		if pattern.search(self.cleaned_data["surname"]):
+		
+        if pattern.search(self.cleaned_data["surname"]):
 			raise forms.ValidationError(messages.USERS_FORM_INVALID_SURNAME)
-		return self.cleaned_data["surname"]
+		
+        return self.cleaned_data["surname"]
 	
 class ProfileForm(RegistrationForm):
 	# subclassing other forms but overwriting their attrs..
@@ -65,4 +76,6 @@ class OpenIDForm(forms.Form):
 		"autocomplete": "off",
 		"value": "http://",
 	}
+
 	identifier = forms.URLField(label=messages.USERS_FORM_OPENID, widget=forms.TextInput(attrs))
+

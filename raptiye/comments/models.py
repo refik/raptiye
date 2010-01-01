@@ -1,5 +1,7 @@
+# coding: utf-8
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,11 +14,13 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+
 from raptiye.blog.models import Entry
 
 class Comments(models.Model):
@@ -91,3 +95,4 @@ class Comments(models.Model):
 		ordering = ["-datetime"]
 		verbose_name = "Comment"
 		verbose_name_plural = "Comments"
+

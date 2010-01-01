@@ -1,5 +1,5 @@
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,23 +12,28 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 """
 Module to handle all OpenID stuff..
 
 Requires python-openid >= 2.0
+
 """
+
+from sqlite3 import OperationalError
 
 from django.contrib.auth.models import User
 from django.db import connection
-from raptiye.extra.exceptions import OpenIDProviderFailedError, OpenIDDiscoveryError
-from raptiye.extra.messages import OPENID_FAILURE_MESSAGE
-from sqlite3 import OperationalError
+
 from openid.consumer.consumer import Consumer, SUCCESS
 from openid.consumer.discover import DiscoveryFailure
 from openid.extensions.sreg import SRegRequest, SRegResponse
 from openid.store.sqlstore import SQLiteStore
+
+from raptiye.extra.exceptions import OpenIDProviderFailedError, OpenIDDiscoveryError
+from raptiye.extra.messages import OPENID_FAILURE_MESSAGE
 
 def openid_user_exists(identifier):
 	if User.objects.filter(profile__openid=identifier):
@@ -39,6 +44,7 @@ class OpenID():
 	"""
 	Consumer class that interacts with the OpenID provider
 	and authenticates the user..
+
 	"""
 	
 	def __init__(self, request, link_on_success, link_on_fail):
@@ -65,6 +71,7 @@ class OpenID():
 		
 		only caring about SUCCESS since i classify all
 		other statuses as failure.
+
 		"""
 		
 		params = {}
@@ -108,3 +115,4 @@ class OpenID():
 		return_to = self._get_full_url(return_to)
 		openid_response = self._consumer.complete(params, return_to)
 		return self._parse_response(openid_response)
+

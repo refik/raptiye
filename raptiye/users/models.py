@@ -1,6 +1,7 @@
-#-*- encoding: utf-8 -*-
+# coding: utf-8
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,7 +14,8 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -22,6 +24,7 @@ from django.db import models
 class UserProfile(models.Model):
 	"""
 	Stores additional information about the users..
+
 	"""
 	
 	user = models.ForeignKey(User, related_name='profile', verbose_name=u"User")
@@ -37,3 +40,4 @@ class UserProfile(models.Model):
 	class Meta:
 		verbose_name = u"User Profile"
 		verbose_name_plural = u"User Profiles"
+

@@ -1,7 +1,9 @@
 #!/usr/bin/env python
-#-*- encoding: utf-8 -*-
+# 
+# coding: utf-8
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,7 +16,8 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 import calendar
 
@@ -22,6 +25,7 @@ class WebCalendar():
 	"""
 	creates a web calendar that can be bound to
 	some objects if the object has a datetime field.
+
 	"""
 
 	def __init__(self, year, month, day, object=None, datetime_field='', locale=''):
@@ -97,3 +101,4 @@ class WebCalendar():
 			html += u"</tr>"
 		html += u"</table>"
 		return html
+

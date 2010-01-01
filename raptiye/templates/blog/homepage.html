@@ -1,114 +1,105 @@
-{% extends "frontpage/base.html" %}
+{% extends "blog/base.html" %}
 
 {% comment %}
-raptiye
-Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+    raptiye
+    Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 {% load blog_filters %}
 
-{% block title %}günlük@{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+{% block title %}ana sayfa @ {{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
 
 {% block body %}
-	{% include "blog/sidebar.html" %}
-	<div id="blog_container">
-		{% include "blog/body_upper_ad.html" %}
-		
-		{% if messages %}
-		<div class="blog_message">
-			{% for message in messages %}
-				{{ message|emotions|safe }}
-			{% endfor %}
-		</div>
-		{% endif %}
-		
-		{% with session_data.data.message as message %}
-			{% if message %}
-			<div class="blog_message">
-				{{ message|emotions|safe }}
-			</div>
-			{% endif %}
-		{% endwith %}
-		
-		{% sticky %}
-		
-		{% for entry in entry_list %}
-		<div class="entry">
-			<div class="entry_header">
-				<div class="entry_date">
-					<div class="entry_date_day">{{ entry.datetime|date:"d" }}</div>
-					<div class="entry_date_month">{{ entry.datetime|date:"M" }}</div>
-					<div class="entry_date_year">{{ entry.datetime|date:"Y" }}</div>
-					<div class="entry_date_time">Saat: {{ entry.datetime|date:"H:i" }}</div>
-				</div>
-				<div class="entry_header_body">
-					<div class="entry_title">
-						<a href="{% url blog_entry entry.datetime.year, entry.datetime|date:"m", entry.datetime|date:"d", entry.slug %}" title="yazının devamını okumak için tıklayın.." class="link">
-							{{ entry.title }}
-						</a>
-					</div>
-					<div class="entry_tags">
-						<strong>etiketler:</strong>
-						{% for tag in entry.tags.all %}
-						<a href="{% url entries_with_tag tag.slug %}" title="{{ tag.name }} ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">{{ tag.name }}</a>
-						{% endfor %}
-					</div>
-					{% if user.is_superuser %}
-					<div class="entry_admin">
-						<a href="/admin/blog/entry/{{ entry.id }}/" title="{{ entry.title }} adlı yazıyı düzenlemek için tıklayın..">
-							<img src="/media/images/edit.png" border="0" align="absmiddle"> Düzenle
-						</a>
-					</div>
-					{% endif %}
-				</div>
-			</div>
-			<div class="entry_body">
-				<p align="justify">
-					{{ entry.content|emotions|code_colorizer|safe|truncatewords_html:150 }}
-					{% if entry.content|entrycutter %}
-					<br><br>
-					<a href="{% url blog_entry entry.datetime.year, entry.datetime|date:"m", entry.datetime|date:"d", entry.slug %}" title="yazının devamını okumak için tıklayın.." class="ulink">
-						Yazının devamını okumak için tıklayın..
-					</a>
-					<br>
-					{% endif %}
-				</p>
-			</div>
-			<div class="entry_footer">
-				<div class="entry_footer_left"></div>
-				<div class="entry_footer_middle">
-					<div class="entry_footer_text">
-						{% ifequal entry.published_comments.count 0 %}
-							<a href="{% url blog_entry entry.datetime.year, entry.datetime|date:"m", entry.datetime|date:"d", entry.slug %}#comments" title="ilk yorumu yapmak için tıklayın.." class="white_link">
-								Yorum Yok
-							</a>
+	<div id="body_left">
+		<div id="main_menu">
+			<ul>
+				{% with mainpage.links|order_by:"level" as links %}
+					{% for link in links %}
+						{% if link.target %}
+							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.." target="_blank"><img src="{{ link.image.url }}" border="0"></a></li>
 						{% else %}
-							<a href="{% url blog_entry entry.datetime.year, entry.datetime|date:"m", entry.datetime|date:"d", entry.slug %}#comments" title="yorum yapmak için tıklayın.." class="white_link">
-								{{ entry.published_comments.count }} Yorum
-							</a>
-						{% endifequal %}
-					</div>
-					<div class="entry_footer_buttons">
-						{% include "blog/widgets.html" %}
-					</div>
-				</div>
-				<div class="entry_footer_right"></div>
+							<li><a href="{{ link.url }}" title="{{ link.title|lower }} için tıklayın.."><img src="{{ link.image.url }}" border="0"></a></li>
+						{% endif %}
+					{% endfor %}
+				{% endwith %}
+			</ul>
+		</div>
+		
+		{% include "frontpage/mainpage_ads.html" %}
+	</div>
+	<div id="body_right">
+		<div id="body_title">
+			{{ mainpage.content_title|safe }}
+		</div>
+		{{ mainpage.content|emotions|safe }}
+		<div id="main_rss_box">
+			<a href="{{ mainpage.rss_url }}" title="gerenk yok ama rss üzerinden okumak isterseniz tıklayın.. :)">
+				<div id="rss_logo"></div>
+			</a>
+			<div id="main_rss_title">
+				{{ mainpage.rss_title|safe }}
+			</div>
+			<div id="main_rss_body">
+				<table id="main_rss_table" border="0" cellpadding="0" cellspacing="0">
+					<thead>
+						<tr>
+							<th class="main_rss_title">Başlık</th>
+							<th class="main_rss_datetime">Tarih</th>
+							<th class="main_rss_comment">Yorum</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for entry in entries %}
+							<tr>
+								<td class="main_rss_title">
+									<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}" 
+										title="yazıyı okumak için tıkla.." class="link">{{ entry.title }}
+									</a>
+								</td>
+								<td class="main_rss_datetime">
+									<a href="{% url entries_on_date entry.datetime.year,entry.datetime.month,entry.datetime.day %}" 
+										title='{{ entry.datetime|date:"d.m.Y" }} tarihindeki yazıları okumak için tıkla..' class="link">
+										{{ entry.datetime|date:"d.m.Y" }}
+									</a>
+								</td>
+								<td class="main_rss_comment">
+									<a href="{% url blog_entry entry.datetime.year,entry.datetime|date:"m",entry.datetime|date:"d",entry.slug %}#comments" 
+										title="bu yazıya yapılan yorumları okumak için tıkla.." class="link">
+										{{ entry.published_comments.count }}
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
 			</div>
 		</div>
-		{% endfor %}
-		{% if is_paginated %}{% paginator 4 %}{% endif %}
 	</div>
+
+	<script language="">
+		var rows = document.getElementById('main_rss_table').rows;
+		for (var i=0; i<rows.length; i++) {
+			if (i==0 || i==1) {
+				continue;
+			} else {
+				if (i % 2 == 0) {
+					rows[i].bgColor = '#e5e5e5';
+				}
+			}
+		}
+	</script>
+
 {% endblock %}

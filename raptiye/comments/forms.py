@@ -1,6 +1,7 @@
-#-*- encoding: utf-8 -*-
+# coding: utf-8
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,10 +14,13 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 import re
+
 from django import forms
+
 from raptiye.extra import messages
 
 class CommentForm(forms.Form):
@@ -29,14 +33,21 @@ class CommentForm(forms.Form):
 	
 	def clean_anonymous_full_name(self):
 		u"A name must only have a combination of a-zA-Z, Turkish chars. and space."
-		pattern = re.compile(u"[^a-zA-ZıöçşğüİÖÇŞĞÜ ]")
-		if pattern.search(self.cleaned_data["anonymous_full_name"]):
+		
+        pattern = re.compile(u"[^a-zA-ZıöçşğüİÖÇŞĞÜ ]")
+		
+        if pattern.search(self.cleaned_data["anonymous_full_name"]):
 			raise forms.ValidationError(messages.COMMENT_FORM_INVALID_FULLNAME)
-		return self.cleaned_data["anonymous_full_name"]
+		
+        return self.cleaned_data["anonymous_full_name"]
 	
 	def clean_captcha(self):
 		u"A captcha can only have ASCII characters and digits."
-		pattern = re.compile(u"[^a-zA-Z0-9]")
-		if pattern.search(self.cleaned_data["captcha"]):
+		
+        pattern = re.compile(u"[^a-zA-Z0-9]")
+		
+        if pattern.search(self.cleaned_data["captcha"]):
 			raise forms.ValidationError(messages.COMMENT_FORM_INVALID_CAPTCHA)
-		return self.cleaned_data["captcha"]
+		
+        return self.cleaned_data["captcha"]
+

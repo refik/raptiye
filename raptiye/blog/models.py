@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# coding: utf-8
 # 
 # raptiye
 # Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
@@ -15,6 +15,7 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 from django.db import models
 from django.conf import settings
@@ -22,6 +23,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 
 from raptiye.tags.models import Tag
+
+IS_COMMENTS_INSTALLED = True if "raptiye.comments" in settings.INSTALLED_APPS else False
 
 class Entry(models.Model):
 	"""
@@ -48,7 +51,11 @@ class Entry(models.Model):
 	
 	def published_comments(self):
 		"Returns the published comments"
-		return self.comments.filter(published=True).order_by("datetime")
+
+		if IS_COMMENTS_INSTALLED:
+            return self.comments.filter(published=True).order_by("datetime")
+
+        return []
 	
 	def get_relative_url(self):
 		return "%s%s/%s/" % (reverse("blog"), self.datetime.strftime("%Y/%m/%d"), self.slug)
@@ -88,4 +95,33 @@ class Entry(models.Model):
 		ordering = ["title"]
 		verbose_name = "entry"
 		verbose_name_plural = "entries"
+
+class Links(models.Model):
+	'The model that stores the links to outer web sites..'
+
+	title = models.CharField(u'Title', max_length='50')
+	description = models.CharField(u'Description', max_length='200', blank=True)
+	url = models.URLField(u'URL')
+	tags = models.ManyToManyField(Tag, verbose_name="tags", related_name="links")
+	window = models.BooleanField(u'Open in new window', default=False)
+	
+	def __unicode__(self):
+		return self.title
+	
+	def go_to_url(self):
+		return "<a href='%s' title='click here to go to the url..'>%s</a>" % (self.url, self.url)
+
+	go_to_url.allow_tags = True
+	go_to_url.short_description = u'URL'
+	
+	def get_tags_for_link(self):
+		return ", ".join("<a href='?q=%s' title='click here to filter the links by this tag..'>%s</a>" % (tag.name, tag.name) for tag in self.tags.all())
+
+	get_tags_for_link.allow_tags = True
+	get_tags_for_link.short_description = u"Tags of Link"
+	
+	class Meta:
+		verbose_name = u'Link'
+		verbose_name_plural = u'Links'
+		ordering = ['title',]
 

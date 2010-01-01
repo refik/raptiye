@@ -1,5 +1,7 @@
+# coding: utf-8
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,12 +14,14 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 from django.db import models
 
 class Poll(models.Model):
 	"Stores the general poll information"
+
 	question = models.CharField(u"Question", max_length=200)
 	datetime = models.DateTimeField(u"Created On", auto_now_add=True)
 	published = models.BooleanField(u"Is Published", default=False)
@@ -42,6 +46,7 @@ class Poll(models.Model):
 
 class Choice(models.Model):
 	"Stores the essential information about the poll.."
+
 	poll = models.ForeignKey(Poll, related_name="choices", verbose_name=u"Poll")
 	choice = models.CharField(u"Choice", max_length=200)
 	votes = models.IntegerField(u"Votes", blank=True, default=0, editable=False)
@@ -53,3 +58,4 @@ class Choice(models.Model):
 		ordering = ["choice"]
 		verbose_name = u"Choice"
 		verbose_name_plural = u"Choices"
+

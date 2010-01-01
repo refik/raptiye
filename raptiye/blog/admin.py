@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# coding: utf-8
 # 
 # raptiye
 # Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
@@ -15,6 +15,7 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 from datetime import datetime
 
@@ -23,7 +24,7 @@ from django.contrib import admin
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
 
-from raptiye.blog.models import Entry
+from raptiye.blog.models import *
 
 class EntryAdmin(admin.ModelAdmin):
     model = Entry
@@ -45,6 +46,7 @@ class EntryAdmin(admin.ModelAdmin):
 
     class Media:
         # js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
+        pass
 
     def save_model(self, request, obj, form, change):
         obj.save()
@@ -63,8 +65,16 @@ admin.site.register(Entry, EntryAdmin)
 
 class FlatPageAdmin(FlatPageAdminOld):
     class Media:
-        js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
+        # js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
+        pass
 
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
+
+class LinksAdmin(admin.ModelAdmin):
+	list_display = ('title', 'description', 'go_to_url', 'get_tags_for_link', 'window')
+	list_filter = ('window',)
+	search_fields = ['title', 'description', 'tags__name']
+
+admin.site.register(Links, LinksAdmin)
 

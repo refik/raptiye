@@ -1,6 +1,7 @@
-#-*- encoding: utf-8 -*-
+# coding: utf-8
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,22 +14,22 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 from django.http import HttpResponse
 from django.utils import simplejson
+
 from raptiye.extra.messages import POLL_ERROR
 from raptiye.polls.models import Poll
 
 # used to test if a variable is inside the dict. or not
-test = lambda x={},y="": (x.has_key(y) and x[y] != "") or False
+test = lambda x={}, y="": (x.has_key(y) and x[y] != "") or False
 
 def polls(request):
 	# the resp is returned as json object with
 	# all parameters embedded into..
-	resp = {
-		"status": 0,
-	}
+	resp = {"status": 0}
 	
 	# stores the data that will be used in the template
 	answers = []
@@ -72,9 +73,7 @@ def polls(request):
 def getResultsForPoll(request):
 	# the resp is returned as json object with
 	# all parameters embedded into..
-	resp = {
-		"status": 0,
-	}
+	resp = {"status": 0}
 	
 	# stores the data that will be used in the template
 	answers = []
@@ -88,3 +87,4 @@ def getResultsForPoll(request):
 		resp["result"] = answers
 		# returning the json encoded version of resp data..
 		return simplejson.dumps(resp)
+

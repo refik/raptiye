@@ -1,6 +1,7 @@
-#-*- encoding: utf-8 -*-
+# coding: utf-8
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,10 +14,13 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 from datetime import datetime
+from random import choice
 from os import path
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -24,20 +28,23 @@ from django.contrib.sites.models import Site
 from django.core.mail import mail_admins
 from django.http import HttpResponse
 from django.utils import simplejson
+
 from raptiye.blog.models import Entry
+from raptiye.comments.forms import CommentForm
 from raptiye.comments.models import Comments
 from raptiye.extra.captcha import Captcha
+from raptiye.extra.mail import send_comment_notification
 from raptiye.extra import messages
 
 def new_captcha(request):
-	resp = {
-		"status": 0,
-	}
+	resp = {"status": 0}
+
 	# set session variable to avoid attacks
 	# when the user exceeds 10 captcha's limit 
 	# it has to wait 10 minutes
 	now = datetime.now()
-	if request.session.__contains__("captcha_counter") and request.session.__contains__("captcha_datetime"):
+	
+    if request.session.__contains__("captcha_counter") and request.session.__contains__("captcha_datetime"):
 		if request.session["captcha_counter"] == settings.CAPTCHA_RENEWAL_LIMIT:
 			if (now - request.session["captcha_datetime"]).seconds/60 > settings.CAPTCHA_PENALTY:
 				# resetting datetime of captcha
@@ -51,6 +58,7 @@ def new_captcha(request):
 	else:
 		request.session["captcha_counter"] = 1
 		request.session["captcha_datetime"] = datetime.now()
+
 	# create a new captcha and send back its url
 	captcha = create_captcha()
 	resp["captcha"] = captcha
@@ -59,12 +67,7 @@ def new_captcha(request):
 def comment_sent(request):
 	# FIXME: remove hardcoded strings
 	
-	from raptiye.comments.forms import CommentForm
-	from raptiye.extra.mail import send_comment_notification
-	
-	resp = {
-		"status": 0,
-	}
+	resp = {"status": 0}
 	
 	site = Site.objects.get_current()
 	
@@ -151,8 +154,6 @@ if not settings.ALLOW_ANONYMOUS_COMMENTS:
 	comment_sent = login_required(comment_sent)
 
 def create_captcha():
-	from random import choice
-	
 	fonts = {
 		"butterunsalted.ttf": 32,
 		"astonish.ttf": 40,
@@ -175,8 +176,10 @@ def user_has_notification(request):
 	
 	This method assumes that the POST variables are already set and
 	controlled.
+
 	"""
-	# getting entry
+	
+    # getting entry
 	entry = Entry.objects.get(id=request.POST["entry_id"])
 	
 	if request.user.is_authenticated():
@@ -189,3 +192,4 @@ def user_has_notification(request):
 			return True
 	
 	return False
+

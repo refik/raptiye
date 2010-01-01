@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# coding: utf-8
 # 
 # raptiye
 # Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
@@ -15,6 +15,7 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 import locale
 from datetime import datetime
@@ -29,47 +30,47 @@ from raptiye.blog.views import get_latest_entries_list
 from raptiye.tags.models import Tag
 
 class RSS(Feed):
-	language = u"en"
-	title_template = "feeds/latest_title.html"
-	description_template = "feeds/latest_description.html"
-	
-	def title(self):
+    language = u"en"
+    title_template = "feeds/latest_title.html"
+    description_template = "feeds/latest_description.html"
+
+    def title(self):
         return settings.PROJECT_NAME
-	
-	def description(self):
+
+    def description(self):
         return settings.PROJECT_SUBTITLE
-	
-	def link(self):
-		site = Site.objects.get_current()
-		return "http://%s" % site.domain
-	
-	def item_link(self, item):
-		return item.get_full_url()
-	
-	def item_pubdate(self, item):
-		# setting locale
-		locale.setlocale(locale.LC_ALL, settings.LOCALES["en"])
-		return item.datetime
+
+    def link(self):
+        site = Site.objects.get_current()
+        return "http://%s" % site.domain
+
+    def item_link(self, item):
+        return item.get_full_url()
+
+    def item_pubdate(self, item):
+        # setting locale
+        locale.setlocale(locale.LC_ALL, settings.LOCALES["en"])
+        return item.datetime
 
 class RSSLatestEntries(RSS):
-	def items(self):
-		return get_latest_entries_list()[:settings.RSS_LIMIT]
+    def items(self):
+        return get_latest_entries_list()[:settings.RSS_LIMIT]
 
 class AtomLatestEntries(RSSLatestEntries):
-	feed_type = Atom1Feed
-	subtitle = RSS.description
+    feed_type = Atom1Feed
+    subtitle = RSS.description
 
 class RSSEntriesWithTag(RSS):
-	# /feeds/entries_tagged_with/tag_slug_here
-	
-	def get_object(self, bits):
-		if len(bits) != 1:
-			raise ObjectDoesNotExist
-			
-		return Tag.objects.get(slug=bits[0])
-	
-	def items(self, obj):
-		return obj.entries.filter(
+    # /feeds/entries_tagged_with/tag_slug_here
+
+    def get_object(self, bits):
+        if len(bits) != 1:
+            raise ObjectDoesNotExist
+
+        return Tag.objects.get(slug=bits[0])
+
+    def items(self, obj):
+        return obj.entries.filter(
             published=True,
             datetime__lte=datetime.now()
         ).order_by("-datetime")[:settings.RSS_LIMIT]

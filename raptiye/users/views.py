@@ -1,6 +1,7 @@
-#-*- encoding: utf-8 -*-
+# coding: utf-8
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,10 +14,15 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
+from datetime import datetime
+import re
+	
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
@@ -25,7 +31,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib.auth.decorators import login_required
+from django.utils import simplejson
+
 from raptiye.blog.views import get_latest_entries
 from raptiye.comments.models import Comments
 from raptiye.comments.views import create_captcha
@@ -49,11 +56,8 @@ def gravatar(request, username):
 @login_required
 def notification_remove(request, username):
 	# will return json object if the operation is successfull
-	from django.utils import simplejson
 	
-	resp = {
-		"status": 0,
-	}
+	resp = {"status": 0}
 
 	if request.method == "GET" and request.GET.has_key("id"):
 		id = request.GET["id"]
@@ -150,8 +154,6 @@ def profile(request, username, template="users/profile.html"):
 		return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 
 def activation(request, username, key):
-	from datetime import datetime
-	
 	if User.objects.filter(username=username).count() == 1:
 		user = User.objects.get(username=username)
 		if user.is_active:
@@ -181,7 +183,6 @@ def activation(request, username, key):
 
 def register(request, template="users/registration.html"):
 	# FIXME: the following code is too long.. shorten its logic..
-	import re
 	
 	# creating a captcha image
 	captcha = create_captcha()
@@ -336,17 +337,12 @@ def user_login(request, template="users/login.html"):
 def forgotten_password(request, template="users/forgotten_password.html"):
 	if request.method == "POST":
 		form = ForgottenPasswordForm(request.POST)
-		extra_context = {
-			"form": form,
-		}
+		extra_context = {"form": form}
+
 		if form.is_valid():
 			email = form.cleaned_data["email"]
 			# getting user who has that e-mail address
 			if User.objects.filter(email=email).__len__() > 0:
-				from django.contrib.sites.models import Site
-				# importing to create a random password
-				from raptiye.extra.captcha import Captcha
-				
 				site = Site.objects.get_current()
 				user = User.objects.get(email=email)
 				# changing the user's password
@@ -367,14 +363,14 @@ def forgotten_password(request, template="users/forgotten_password.html"):
 				extra_context["error"] = messages.FRG_CANNOT_FIND_EMAIL
 	else:
 		form = ForgottenPasswordForm()
-		extra_context = {
-			"form": form,
-		}
+		extra_context = {"form": form}
+
 	return render_to_response(template, extra_context, context_instance=RequestContext(request))
 
 def openid_complete(request):
 	"""
 	Completes the authentication process of OpenID..
+
 	"""
 	
 	if settings.OPENID:
@@ -398,4 +394,6 @@ def openid_complete(request):
 					return HttpResponseRedirect(reverse(settings.REDIRECT_URL))
 			except OpenIDUsernameExistsError:
 				messages.set_user_message(request, messages.OPENID_EXISTING_USERNAME)
+
 	return HttpResponseRedirect(reverse("login_page"))
+

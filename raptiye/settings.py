@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# coding: utf-8
 # 
 # raptiye
 # Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
@@ -15,6 +15,7 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 from datetime import date
 import os, sys
@@ -192,16 +193,15 @@ INSTALLED_APPS = (
 	'django.contrib.admin',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
-	'django.contrib.flatpages',
 	'django.contrib.redirects',
 	'django.contrib.sessions',
 	'django.contrib.sites',
 	'raptiye.blog',
-	'raptiye.comments',
-	'raptiye.links',
-	'raptiye.polls',
-	'raptiye.tags',
-	'raptiye.users',
+	# 'raptiye.comments',
+    # 'raptiye.contrib.flatpages',
+	# 'raptiye.polls',
+	# 'raptiye.tags',
+	# 'raptiye.users',
 )
 
 try:

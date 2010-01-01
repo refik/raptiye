@@ -1,6 +1,7 @@
-#-*- encoding: utf-8 -*-
+# coding: utf-8
+# 
 # raptiye
-# Copyright (C)  Alper KANAT  <alperkanat@raptiye.org>
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,16 +14,20 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
 
 from datetime import datetime
+
 from raptiye.tags.models import Tag
 
 class TagCloud():
 	"""
 	Defines the methods which will be used
 	to construct the tag cloud..
+
 	"""
+
 	MIN_USED_TAG_COUNT = 0
 	MAX_USED_TAG_COUNT = 0
 	MAX_FONT_RANGE = 26
@@ -112,3 +117,4 @@ class TagCloud():
 				#font_rise = rise / (tag['font_size'] - self.get_min_count())
 				font_rise = (tag['font_size'] - self.get_min_count()) / rise
 				tag['font_size'] = "%d%s" % (self.get_min_font_range() + font_rise, "px")
+
