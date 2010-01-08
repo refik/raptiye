@@ -21,17 +21,20 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('raptiye.blog.views',
 	# main page of blog
-	url(r'^$', 'get_latest_entries', name='blog'),
+	url(r'^$', 'index', name='blog'),
 
 	# archives for blogs..
-	url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$', 'get_entries_for_day', name='entries_on_date'),
+	# url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$', 'get_entries_for_day', name='entries_on_date'),
 	# an entry on a specific date
-	url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>[-\w]+)/$', 'get_post', name='blog_entry'),
+	# url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>[-\w]+)/$', 'get_post', name='blog_entry'),
     # TODO: monthly view needed!
 	
-    # entries with the specified tag
-	url(r'^tags/(?P<slug>[\w\d-]+)/$', 'get_entries_for_tag', name='entries_with_tag'),
 	# search against entries
-	url(r'^search/$', 'search', name='blog_search'),
+	# url(r'^search/$', 'search', name='blog_search'),
+)
+
+urlpatterns += patterns('raptiye.tags.views',
+    # entries with the specified tag
+	# url(r'^tags/(?P<slug>[\w\d-]+)/$', 'get_entries_for_tag', name='entries_with_tag'),
 )
 

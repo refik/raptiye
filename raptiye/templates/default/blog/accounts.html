@@ -1,0 +1,35 @@
+{% comment %}
+    raptiye
+    Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+{% endcomment %}
+
+{% if request.user.is_authenticated %}
+    {% if request.user.is_superuser %}
+        &raquo; <a href="/admin" title="yönetim paneline gitmek için tıklayın.." class="link">yönetim paneli</a>
+        <br>
+    {% endif %}
+
+    &raquo; <a href="{# {% url profile_page request.user.username %} #}" title="profilinizi görmek ve değiştirmek için tıklayın.." class="link">profilim</a>
+    <br>
+    &raquo; <a href="{# {% url logout_page %}?next={{ request.path }} #}" title="çıkış yapmak için tıklayın.." class="link">çıkış</a>
+{% else %}
+    &raquo; <a href="{# {% url forgotten_password %} #}" title="raptiye hesabınızın şifresini hatırlamıyorsanız tıklayın.." class="link">şifremi unuttum</a>
+    <br>
+    &raquo; <a href="{# {% url registration %} #}" title="raptiye'ye kaydolmak için tıklayın.." class="link">kaydol</a>
+    <br>
+    &raquo; <a href="{# {% url login_page %}?next={{ request.path }} #}" title="raptiye hesabınızla giriş yapmak için tıklayın.." class="link">giriş</a>
+{% endif %}
+

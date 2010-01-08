@@ -18,7 +18,7 @@
 
 from django.db import models
 
-class Tag(models.Model):
+class Tags(models.Model):
 	name = models.CharField(u"Tag Name", max_length=30, unique=True)
 	slug = models.SlugField(u"URL", max_length=50)
 
@@ -29,4 +29,7 @@ class Tag(models.Model):
 		verbose_name = "Tag"
 		verbose_name_plural = "Tags"
 		ordering = ["name"]
+
+class EntryTags(Tags):
+	entries = models.ManyToManyField(Tags, verbose_name="Tags", related_name="tags")
 

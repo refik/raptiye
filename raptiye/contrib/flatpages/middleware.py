@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.conf import settings
 
-from flatpages.views import flatpage
+from raptiye.contrib.flatpages.views import flatpage
 
 class FlatpageFallbackMiddleware(object):
     def process_response(self, request, response):

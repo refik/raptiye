@@ -17,48 +17,28 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
+from calendar import LocaleTextCalendar
+from datetime import date
 import HTMLParser
-from datetime import datetime
 
 from django import template
 from django.conf import settings
+from django.contrib.sites.models import Site
+
+from raptiye.blog.models import Entry, Link
+from raptiye.extra.webcal import WebCalendar
 
 register = template.Library()
 
 @register.simple_tag
 def calculate_age():
-    return (datetime.now() - settings.BIRTH_DATE).days/365
-
-@register.tag
-def construct_tag_cloud(parser, token):
-    from raptiye.extra.tag_cloud import TagCloud
-    tgc = TagCloud()
-    return TagCloudNode(tgc.get_tag_cloud())
-
-class TagCloudNode(template.Node):
-    def __init__(self, cloud):
-        self.cloud = cloud
-
-    def render(self, context):
-        context["tagcloud"] = self.cloud
-        return ""
-
-@register.simple_tag
-def get_month_and_year():
-    from calendar import LocaleTextCalendar
-    now = datetime.now()
-    calendar = LocaleTextCalendar(0, settings.LOCALES['tr'])
-    month_and_year = u"%s" % calendar.formatmonthname(now.year, now.month, 0)
-    return month_and_year.lower()
+    return (date.today() - settings.BIRTH_DATE).days/365
 
 @register.simple_tag
 def construct_calendar():
-    from raptiye.blog.models import Entry
-    from raptiye.extra.webcal import WebCalendar
-    from raptiye.extra.messages import ENTRIES_ON_DATE
-    now = datetime.now()
-    wc = WebCalendar(now.year, now.month, now.day, Entry.objects, "datetime", settings.LOCALES['tr'])
-    return wc.render("calendar_box", "/blog", ENTRIES_ON_DATE, "ulink")
+    today = date.today()
+    wc = WebCalendar(today.year, today.month, today.day, Entry.objects, "datetime", settings.LOCALES['tr'])
+    return wc.render("calendar_table", "/blog", "ulink")
 
 @register.inclusion_tag('blog/pagination.html', takes_context=True)
 def paginator(context, adjacent_pages=2):
@@ -93,50 +73,25 @@ def paginator(context, adjacent_pages=2):
 
 @register.inclusion_tag('blog/links.html')
 def links():
-    'Adds all link categories and their links to the context..'
-
-    from raptiye.links.models import LinkCategories
-
-    return {
-        'link_category': LinkCategories.objects.all(),
-    }
-
-@register.inclusion_tag("blog/sticky.html")
-def sticky():
-    """
-    Grabs the latest sticky post and show it.. Since raptiye is not a forum
-    app, I don't think there might be more than 1 sticky posts at a time and
-    therefore not implementing it.
-
-    """
-
-    from raptiye.blog.models import Entry
-
-    sticky_flag = True if Entry.objects.filter(sticky=True).count() == 1 else False
-    latest_sticky_post = Entry.objects.filter(sticky=True).latest() if sticky_flag else None
-
-    return {
-        "sticky_flag": sticky_flag,
-        "sticky_post": latest_sticky_post,
-    }
+    return {'links': Link.objects.all()}
 
 @register.filter
 def emotions(entry):
     if settings.ENABLE_EMOTIONS:
-        from django.contrib.sites.models import Site
+        return entry
 
     site = Site.objects.get_current()
 
     icons = {
-        ":)": "/media/images/smiley/face-smile.png",
-        ":|": "/media/images/smiley/face-plain.png",
-        ":(": "/media/images/smiley/face-sad.png",
-        ":D": "/media/images/smiley/face-grin.png",
-        ";-)": "/media/images/smiley/face-wink.png",
+        ":)": "%simages/smiley/face-smile.png" % settings.MEDIA_URL,
+        ":|": "%simages/smiley/face-plain.png" % settings.MEDIA_URL,
+        ":(": "%simages/smiley/face-sad.png" % settings.MEDIA_URL,
+        ":D": "%simages/smiley/face-grin.png" % settings.MEDIA_URL,
+        ";-)": "%simages/smiley/face-wink.png" % settings.MEDIA_URL,
     }
 
     for smiley, src in icons.iteritems():
-        entry = entry.replace(smiley, " <img src='http://%s%s' align='absmiddle'> " % (site.domain, src))
+        entry = entry.replace(smiley, " <img src='%s' align='absmiddle'> " % (site.domain, src))
 
     return entry
 
@@ -148,9 +103,9 @@ def twitter():
 
     """
 
-    import twitter
-
     if settings.ENABLE_TWITTER_BOX and settings.TWITTER_USERNAME != "" and settings.TWITTER_PASSWORD != "":
+        import twitter
+
         try:
             api = twitter.Api(username=settings.TWITTER_USERNAME, password=settings.TWITTER_PASSWORD)
             latest_updates_of_user = [status.GetText() for status in api.GetUserTimeline()]
@@ -161,7 +116,7 @@ def twitter():
     return {"latest_updates": None}
 
 @register.filter
-def entrycutter(entry):
+def exceeds_limit(entry):
     if len(entry.split()) > 150:
         return True
     return False
@@ -186,6 +141,9 @@ def code_colorizer(entry):
     if settings.COLORIZE_CODE:
         try:
             from BeautifulSoup import BeautifulSoup, Tag
+            from pygments import highlight
+            from pygments.lexers import get_lexer_by_name
+            from pygments.formatters import HtmlFormatter
         except ImportError:
             return entry
 	
@@ -197,7 +155,7 @@ def code_colorizer(entry):
         # searching for code blocks in the blog entry
         code_blocks = parser.findAll("div", attrs={"class": "code"})
 
-        if code_blocks.__len__() > 0:
+        if len(code_blocks) > 0:
             for block in code_blocks:
                 # if the code block's wrapper div doesn't have an id
                 # attribute don't colorize the code
@@ -213,9 +171,6 @@ def code_colorizer(entry):
                 # getting the original code in the block
                 code = "".join(layer.contents)
                 # colorizing the code
-                from pygments import highlight
-                from pygments.lexers import get_lexer_by_name
-                from pygments.formatters import HtmlFormatter
                 lexer = get_lexer_by_name(language)
                 formatter = HtmlFormatter(linenos="table", style="tango", cssclass="code")
                 colorized_code = Tag(parser, "div") if block.div else Tag(parser, "div", attrs=(("id", language), ("class", "code")))
@@ -225,4 +180,20 @@ def code_colorizer(entry):
             return parser.renderContents()
 
     return entry
+
+@register.simple_tag
+def project_name():
+    return settings.PROJECT_NAME
+
+@register.simple_tag
+def version():
+    return settings.VERSION
+
+@register.simple_tag
+def project_subtitle():
+    return settings.PROJECT_SUBTITLE
+
+@register.simple_tag
+def rss_url():
+    return settings.RSS_URL
 

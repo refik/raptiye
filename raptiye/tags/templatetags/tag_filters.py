@@ -17,23 +17,14 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-"""
-A very basic module that makes a request to the hidden
-TinyURL API with a given URL and returns the TinyURL..
+from django import template
 
-"""
+from raptiye.extra.tag_cloud import TagCloud
 
-import urllib
+register = template.Library()
 
-def shorten_url(url):
-	api_url = "http://tinyurl.com/api-create.php"
-	
-	if len(url) > 30:
-		try:
-			resp = urllib.urlopen(api_url, "url=" + url)
-			return resp.read()
-		except IOError:
-			return url
-	else:
-		return url
+@register.inclusion_tag('blog/tag_cloud.html')
+def show_tag_cloud(parser, token):
+    tgc = TagCloud()
+    return {"tag_cloud": tgc.get_tag_cloud()}
 

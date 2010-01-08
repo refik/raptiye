@@ -17,23 +17,23 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-"""
-A very basic module that makes a request to the hidden
-TinyURL API with a given URL and returns the TinyURL..
+from django.core.exceptions import ObjectDoesNotExist
 
-"""
+from raptiye.blog.feeds import RSS
+from raptiye.tags.models import Tag
 
-import urllib
+class RSSEntriesWithTag(RSS):
+    # /feeds/entries_tagged_with/tag_slug_here
 
-def shorten_url(url):
-	api_url = "http://tinyurl.com/api-create.php"
-	
-	if len(url) > 30:
-		try:
-			resp = urllib.urlopen(api_url, "url=" + url)
-			return resp.read()
-		except IOError:
-			return url
-	else:
-		return url
+    def get_object(self, bits):
+        if len(bits) != 1:
+            raise ObjectDoesNotExist
+
+        return Tag.objects.get(slug=bits[0])
+
+    def items(self, obj):
+        return obj.entries.filter(
+                published=True,
+                datetime__lte=datetime.now()
+            ).order_by("-datetime")[:settings.RSS_LIMIT]
 

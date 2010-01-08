@@ -24,63 +24,63 @@ from django.db import IntegrityError
 from raptiye.extra.exceptions import OpenIDUsernameExistsError
 
 class OpenIDBackend:
-	"""
-	Plugs in OpenID support to Django's authentication
-	framework.
-	
-	It simply looks for a user who has some certain OpenID
-	identifier in his profile or creates a new user..
-	
-	The authentication method takes a dictionary that 
-	contains necessary information to create the new user 
-	such as username, e-mail address and full name.
-	
-	Password for new users is stored in settings.
+    """
+    Plugs in OpenID support to Django's authentication
+    framework.
 
-	"""
-	
-	def _parse_fullname(self, fullname):
-		"""
-		Splits given fullname into tokens and assings all words
-		upto the last one into the first name and the last one 
-		info the surname..
+    It simply looks for a user who has some certain OpenID
+    identifier in his profile or creates a new user..
 
-		"""
-		
+    The authentication method takes a dictionary that 
+    contains necessary information to create the new user 
+    such as username, e-mail address and full name.
+
+    Password for new users is stored in settings.
+
+    """
+
+    def _parse_fullname(self, fullname):
+        """
+        Splits given fullname into tokens and assings all words
+        upto the last one into the first name and the last one 
+        info the surname..
+
+        """
+        
         return (" ".join(fullname.split(" ")[:-1]), fullname.split(" ")[-1])
-	
-	def authenticate(self, identifier, user_info):
-		user = None
-		
-		if isinstance(identifier, str) and isinstance(user_info, dict):
-			try:
-				user = User.objects.get(profile__openid=identifier)
-			except User.DoesNotExist:
-				# creating a new user with the user info
-				if user_info.has_key("nickname") and user_info.has_key("email"):
-					username = user_info["nickname"]
-					email = user_info["email"]
-					user = User(username=username, email=email)
-					if user_info.has_key("fullname"):
-						user.first_name, user.last_name = self._parse_fullname(user_info["fullname"])
-					# if there's already a user with that username, simply
-					# redirect to the login page informing the user
-					try:
-						user.save()
-						# creating user profile.. in order to create a profile
-						# the user must be already created..
-						user.profile.create()
-						# associating openid identifier with the user
-						profile = user.get_profile()
-						profile.openid = identifier
-						profile.save()
-					except IntegrityError:
-						raise OpenIDUsernameExistsError
-		return user
-	
-	def get_user(self, user_id):
-		try:
-			return User.objects.get(pk=user_id)
-		except User.DoesNotExist:
-			return None
+
+    def authenticate(self, identifier, user_info):
+        user = None
+        
+        if isinstance(identifier, str) and isinstance(user_info, dict):
+            try:
+                user = User.objects.get(profile__openid=identifier)
+            except User.DoesNotExist:
+                # creating a new user with the user info
+                if user_info.has_key("nickname") and user_info.has_key("email"):
+                    username = user_info["nickname"]
+                    email = user_info["email"]
+                    user = User(username=username, email=email)
+                    if user_info.has_key("fullname"):
+                        user.first_name, user.last_name = self._parse_fullname(user_info["fullname"])
+                    # if there's already a user with that username, simply
+                    # redirect to the login page informing the user
+                    try:
+                        user.save()
+                        # creating user profile.. in order to create a profile
+                        # the user must be already created..
+                        user.profile.create()
+                        # associating openid identifier with the user
+                        profile = user.get_profile()
+                        profile.openid = identifier
+                        profile.save()
+                    except IntegrityError:
+                        raise OpenIDUsernameExistsError
+        return user
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
 

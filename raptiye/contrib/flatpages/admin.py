@@ -3,7 +3,7 @@ from django.forms import ValidationError
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from flatpages.models import FlatPage
+from raptiye.contrib.flatpages.models import FlatPage
 
 class FlatpageForm(forms.ModelForm):
     url = forms.RegexField(label=_("URL"), max_length=100, regex=r'^[-\w/]+$',

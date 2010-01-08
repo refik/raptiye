@@ -1,0 +1,84 @@
+{% extends "blog/base.html" %}
+
+{% comment %}
+    raptiye
+    Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+{% endcomment %}
+
+{% load blog_filters %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/media/template/css/reset.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="/media/template/css/text.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="/media/template/css/960.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="/media/template/css/style.css" type="text/css" media="screen" charset="utf-8">
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="/media/js/jquery.js" charset="utf-8"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container_16">
+        <div id="header_top"></div>
+        <div id="header" class="grid_16">
+            <div id="top_menu" class="grid_16 alpha omega">
+                <li class="first">
+                    &raquo;
+                    <a href="#">ana sayfa</a>
+                </li>
+                <li>
+                    &raquo;
+                    <a href="#">projeler</a>
+                </li>
+                <li class="last">
+                    &raquo;
+                    <a href="#">hakkında</a>
+                </li>
+                
+                <div id="search_container">
+                    <input type="text">
+                    <button>ara</button>
+                </div>
+            </div>
+            <div class="grid_8 alpha">
+                <div id="site_logo" class="grid_6 alpha">
+                    <img src="{{ MEDIA_URL|default:'/media/' }}template/images/site_logo.png">
+                </div>
+                <div class="suffix_2 omega"></div>
+            </div>
+            <div class="grid_8 omega">
+                <div id="social_icons">
+                    <div id="youtube_icon"></div>
+                    <div id="vimeo_icon"></div>
+                    <div id="facebook_icon"></div>
+                    <div id="flickr_icon"></div>
+                    <div id="twitter_icon"></div>
+                    <div id="rss_icon"></div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="grid_16">
+            {% block content %}{% endblock %}
+        </div>
+        <div id="footer" class="grid_16 center small">
+            raptiye {% version %}, Python ve django kullanılarak yazılmıştır.
+            <br>
+            Site genelindeki içerik <strong>Creative Commons lisansının şartlarına uyulması durumunda</strong> kullanılabilir.
+        </div>
+    </div>
+{% endblock %}
+

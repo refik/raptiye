@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.xheaders import populate_xheaders
 from django.utils.safestring import mark_safe
 
-from flatpages.models import FlatPage
+from raptiye.contrib.flatpages.models import FlatPage
 
 def flatpage(request, url, template_name="default.html"):
     """

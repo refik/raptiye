@@ -41,9 +41,10 @@ OPENID = False
 
 COLORIZE_CODE = False
 ENABLE_EMOTIONS = True
-ENTRIES_PER_PAGE = 8
+ENTRIES_PER_PAGE = 10
 
 RSS_LIMIT = 10
+RSS_URL = ""
 
 BIRTH_DATE = date(1984, 05, 16)
 
@@ -89,11 +90,11 @@ TWITTER_LIMIT = 5
 EMAIL_FAIL_SILENCE = True
 EMAIL_HOST = ""
 EMAIL_HOST_PASSWORD = ""
-EMAIL_HOST_USER = "bilgi@raptiye.org"
-EMAIL_INFO_ADDRESS_TR = "bilgi@raptiye.org"
-EMAIL_INFO_ADDRESS_EN = "bilgi@raptiye.org"
+EMAIL_HOST_USER = ""
+EMAIL_INFO_ADDRESS_TR = ""
+EMAIL_INFO_ADDRESS_EN = ""
 # EMAIL_PORT = 
-EMAIL_SUBJECT_PREFIX = u"[raptiye] "
+EMAIL_SUBJECT_PREFIX = u""
 EMAIL_USE_TLS = True
 
 LANGUAGES = (
@@ -106,7 +107,8 @@ LOCALES = {
 	'en': 'en_US.utf-8',
 }
 
-CSRF_COOKIE_DOMAIN = ".raptiye.org"
+# .raptiye.org
+CSRF_COOKIE_DOMAIN = ""
 
 DEFAULT_CHARSET='utf8'
 DEFAULT_CONTENT_TYPE = 'text/html'
@@ -122,6 +124,8 @@ LOGOUT_URL = "/users/logout/"
 
 # URL Pattern Naming used here..
 REDIRECT_URL = "blog"
+
+INTERNAL_IPS = ()
 
 
 
@@ -181,7 +185,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 TEMPLATE_DIRS = (
-	"%s/templates/" % DOCUMENT_ROOT,
+	"%s/templates/default/" % DOCUMENT_ROOT,
 )
 
 TEMPLATE_LOADERS = (
@@ -198,7 +202,7 @@ INSTALLED_APPS = (
 	'django.contrib.sites',
 	'raptiye.blog',
 	# 'raptiye.comments',
-    # 'raptiye.contrib.flatpages',
+    'raptiye.contrib.flatpages',
 	# 'raptiye.polls',
 	# 'raptiye.tags',
 	# 'raptiye.users',

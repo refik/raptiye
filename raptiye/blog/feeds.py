@@ -23,16 +23,15 @@ from datetime import datetime
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.contrib.syndication.feeds import Feed
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 from django.utils.feedgenerator import Atom1Feed
 
-from raptiye.blog.views import get_latest_entries_list
-from raptiye.tags.models import Tag
+from raptiye.blog.functions import get_latest_entries
 
 class RSS(Feed):
     language = u"en"
-    title_template = "feeds/latest_title.html"
-    description_template = "feeds/latest_description.html"
+    title_template = "blog/feeds/latest_title.html"
+    description_template = "blog/feeds/latest_description.html"
 
     def title(self):
         return settings.PROJECT_NAME
@@ -45,7 +44,8 @@ class RSS(Feed):
         return "http://%s" % site.domain
 
     def item_link(self, item):
-        return item.get_full_url()
+        # TODO: place the correct link here!
+        return reverse("blog")
 
     def item_pubdate(self, item):
         # setting locale
@@ -54,24 +54,9 @@ class RSS(Feed):
 
 class RSSLatestEntries(RSS):
     def items(self):
-        return get_latest_entries_list()[:settings.RSS_LIMIT]
+        return get_latest_entries()[:settings.RSS_LIMIT]
 
 class AtomLatestEntries(RSSLatestEntries):
     feed_type = Atom1Feed
     subtitle = RSS.description
-
-class RSSEntriesWithTag(RSS):
-    # /feeds/entries_tagged_with/tag_slug_here
-
-    def get_object(self, bits):
-        if len(bits) != 1:
-            raise ObjectDoesNotExist
-
-        return Tag.objects.get(slug=bits[0])
-
-    def items(self, obj):
-        return obj.entries.filter(
-            published=True,
-            datetime__lte=datetime.now()
-        ).order_by("-datetime")[:settings.RSS_LIMIT]
 
