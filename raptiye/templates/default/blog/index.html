@@ -38,7 +38,7 @@
             <div id="top_menu" class="grid_16 alpha omega">
                 <li class="first">
                     &raquo;
-                    <a href="#">ana sayfa</a>
+                    <a href="{% url blog %}">ana sayfa</a>
                 </li>
                 <li>
                     &raquo;
@@ -56,18 +56,18 @@
             </div>
             <div class="grid_8 alpha">
                 <div id="site_logo" class="grid_6 alpha">
-                    <img src="{{ MEDIA_URL|default:'/media/' }}template/images/site_logo.png">
+                    <a href="{% url blog %}"><img src="{{ MEDIA_URL|default:'/media/' }}template/images/site_logo.png"></a>
                 </div>
                 <div class="suffix_2 omega"></div>
             </div>
             <div class="grid_8 omega">
-                <div id="social_icons">
-                    <div id="youtube_icon"></div>
-                    <div id="vimeo_icon"></div>
-                    <div id="facebook_icon"></div>
-                    <div id="flickr_icon"></div>
-                    <div id="twitter_icon"></div>
-                    <div id="rss_icon"></div>
+                <div id="social_icons_container">
+                    <a href="#" title="raptiye'yi RSS üzerinden takip etmek için tıklayın!" id="rss_menu" class="social_icon"></a>
+                    <a href="http://twitter.com/tunix/" title="twitter sayfam için tıklayın!" id="twitter_menu" class="social_icon" target="_blank"></a>
+                    <a href="http://www.flickr.com/photos/tunix/" title="flickr sayfam için tıklayın!" id="flickr_menu" class="social_icon" target="_blank"></a>
+                    <a href="http://www.facebook.com/alper.kanat/" title="facebook sayfam için tıklayın!" id="facebook_menu" class="social_icon" target="_blank"></a>
+                    <a href="http://www.vimeo.com/tunix/" title="vimeo sayfam için tıklayın!" id="vimeo_menu" class="social_icon" target="_blank"></a>
+                    <a href="http://www.youtube.com/user/alperkanat/" title="youtube sayfam için tıklayın!" id="youtube_menu" class="social_icon" target="_blank"></a>
                 </div>
             </div>
         </div>

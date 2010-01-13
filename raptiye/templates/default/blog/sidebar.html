@@ -34,6 +34,19 @@
 <div class="sidebox_container">
     <div class="sidebox_content">
         <div class="sidebox_content_title">
+            <img src="{{ MEDIA_URL|default:'/media/' }}template/images/social/rss.png">
+            <strong>rss takibi</strong>
+        </div>
+
+        <div class="sidebox_content_body center small">
+            {% include "blog/feedburner.html" %}
+        </div>
+    </div>
+</div>
+
+<div class="sidebox_container">
+    <div class="sidebox_content">
+        <div class="sidebox_content_title">
             <img src="{{ MEDIA_URL|default:'/media/' }}template/images/links.png">
             <strong>bağlantılar</strong>
         </div>

@@ -55,61 +55,44 @@ table {
     margin-bottom: 40px;
 }
 
-#social_icons {
+#social_icons_container {
     margin-top: 18px;
 }
 
-#rss_icon {
-    float: right;
-    padding-right: 10px;
-    width: 64px;
-    height: 64px;
-    background: transparent url(/media/template/images/social/rss.png) bottom left no-repeat;
+#social_icons_container a:hover {
+    background-position: top;
 }
 
-#twitter_icon {
-    float: right;
-    padding-right: 10px;
+.social_icon {
+    display: block;
+    float: left;
+    margin-right: 10px;
     width: 64px;
     height: 64px;
-    background: transparent url(/media/template/images/social/twitter.png) bottom left no-repeat;
 }
 
-#flickr_icon {
-    float: right;
-    padding-right: 10px;
-    width: 64px;
-    height: 64px;
-    background: transparent url(/media/template/images/social/flickr.png) bottom left no-repeat;
+#rss_menu {
+    background: transparent url(/media/template/images/social/rss_menu.png) bottom left no-repeat;
 }
 
-#facebook_icon {
-    float: right;
-    padding-right: 10px;
-    width: 64px;
-    height: 64px;
-    background: transparent url(/media/template/images/social/facebook.png) bottom left no-repeat;
+#twitter_menu {
+    background: transparent url(/media/template/images/social/twitter_menu.png) bottom left no-repeat;
 }
 
-#vimeo_icon {
-    float: right;
-    padding-right: 10px;
-    width: 64px;
-    height: 64px;
-    background: transparent url(/media/template/images/social/vimeo.png) bottom left no-repeat;
+#flickr_menu {
+    background: transparent url(/media/template/images/social/flickr_menu.png) bottom left no-repeat;
 }
 
-#youtube_icon {
-    float: right;
-    padding-right: 10px;
-    width: 64px;
-    height: 64px;
-    background: transparent url(/media/template/images/social/youtube.png) bottom left no-repeat;
+#facebook_menu {
+    background: transparent url(/media/template/images/social/facebook_menu.png) bottom left no-repeat;
 }
 
-#rss_icon:hover, #twitter_icon:hover, #flickr_icon:hover, 
-    #facebook_icon:hover, #vimeo_icon:hover, #youtube_icon:hover {
-    background-position: top left;
+#vimeo_menu {
+    background: transparent url(/media/template/images/social/vimeo_menu.png) bottom left no-repeat;
+}
+
+#youtube_menu {
+    background: transparent url(/media/template/images/social/youtube_menu.png) bottom left no-repeat;
 }
 
 .sidebox_container {
