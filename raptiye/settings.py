@@ -103,12 +103,11 @@ LANGUAGES = (
 )
 
 LOCALES = {
-	'tr': 'tr_TR.utf-8',
-	'en': 'en_US.utf-8',
+	'tr': 'tr_TR.UTF-8',
+	'en': 'en_US.UTF-8',
 }
 
-# .raptiye.org
-CSRF_COOKIE_DOMAIN = ""
+CSRF_COOKIE_DOMAIN = ".raptiye.org"
 
 DEFAULT_CHARSET='utf8'
 DEFAULT_CONTENT_TYPE = 'text/html'

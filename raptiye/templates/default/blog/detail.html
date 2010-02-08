@@ -1,4 +1,4 @@
-{% extends "blog/base.html" %}
+{% extends "blog/index.html" %}
 
 {% comment %}
     raptiye
@@ -20,86 +20,32 @@
 
 {% load blog_filters %}
 
-{% block title %}{{ entry.title }} @ gunluk.{{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+{% block title %}{{ entry.title }} @ gunluk.{% project_name %} | {% project_subtitle %}{% endblock %}
 
-{% block body %}
-	{% include "blog/sidebar.html" %}
-	<div id="blog_container">
-		{% include "blog/body_upper_ad.html" %}
-		
-		<div class="entry_guide">
-			{% if entry.get_previous_post.id %}
-			<div class="left">
-				{% spaceless %}
-				&laquo;
-				<a href="{{ entry.get_previous_post.get_relative_url }}" title="önceki yazıyı okumak için tıklayın.." class="link">önceki yazı</a>
-				{% endspaceless %}
-			</div>
-			{% endif %}
-			{% if entry.get_next_post.id %}
-			<div class="right">
-				{% spaceless %}
-				<a href="{{ entry.get_next_post.get_relative_url }}" title="sonraki yazıyı okumak için tıklayın.." class="link">sonraki yazı</a>
-				&raquo;
-				{% endspaceless %}
-			</div>
-			{% endif %}
-		</div>
-		<div class="entry">
-			<div class="entry_header">
-				<div class="entry_date">
-					<div class="entry_date_day">{{ entry.datetime|date:"d" }}</div>
-					<div class="entry_date_month">{{ entry.datetime|date:"M" }}</div>
-					<div class="entry_date_year">{{ entry.datetime|date:"Y" }}</div>
-					<div class="entry_date_time">Saat: {{ entry.datetime|date:"H:i" }}</div>
-				</div>
-				<div class="entry_header_body">
-					<div class="entry_title">
-						{{ entry.title }}
-					</div>
-					<div class="entry_tags">
-						<strong>etiketler:</strong>
-						{% for tag in entry.tags.all %}
-						<a href="{% url entries_with_tag tag.slug %}" title="{{ tag.name }} ile etiketlenmiş yazıları okumak için tıklayın.." class="gray_link">{{ tag.name }}</a>
-						{% endfor %}
-					</div>
-					{% if user.is_superuser %}
-					<div class="entry_admin">
-						<a href="/admin/blog/entry/{{ entry.id }}/" title="{{ entry.title }} adlı yazıyı düzenlemek için tıklayın..">
-							<img src="/media/images/edit.png" border="0" align="absmiddle"> Düzenle
-						</a>
-					</div>
-					{% endif %}
-				</div>
-			</div>
-			<div class="entry_body">
-				<p align="justify">
-					{{ entry.content|emotions|code_colorizer|safe }}
-				</p>
-			</div>
-			<div class="entry_footer">
-				<div class="entry_footer_left"></div>
-				<div class="entry_footer_middle">
-					<div class="entry_footer_text">
-						{% ifequal entry.published_comments.count 0 %}
-							<a href="#comments" title="ilk yorumu yapmak için tıklayın.." class="white_link">
-								Yorum Yok
-							</a>
-						{% else %}
-							<a href="#comments" title="yorum yapmak için tıklayın.." class="white_link">
-								{{ entry.published_comments.count }} Yorum
-							</a>
-						{% endifequal %}
-					</div>
-					<div class="entry_footer_buttons">
-						{% include "blog/widgets.html" %}
-					</div>
-				</div>
-				<div class="entry_footer_right"></div>
-			</div>
-			<br><br><br>
-			{% include "blog/comments.html" %}
-		</div>
-	</div>
+{% block content %}
+	<div class="grid_6 alpha">
+        {% include "blog/sidebar.html" %}
+    </div>
+    
+    <div class="grid_10 omega">
+        <div class="blog_entry_container vertical_first vertical_last">
+            <div class="blog_entry">
+                <div class="blog_entry_title">
+                    <h2>{{ entry.title }}</h2>
+                </div>
+                <div class="blog_entry_content blog_text">
+                    {{ entry.content|linebreaks|safe }}
+                </div>
+                <div class="blog_entry_footer">
+                    <div class="align_left small">
+                        {{ entry.datetime|date:"H:i @ d.m.Y, l" }}
+                    </div>
+                    <div class="align_right small">
+                        {% include "blog/share_on_social.html" %}
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>    
 {% endblock %}
-

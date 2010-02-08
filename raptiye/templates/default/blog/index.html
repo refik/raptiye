@@ -19,6 +19,7 @@
 {% endcomment %}
 
 {% load blog_filters %}
+{% load flatpage_tags %}
 
 {% block styles %}
     <link rel="stylesheet" href="/media/template/css/reset.css" type="text/css" media="screen" charset="utf-8">
@@ -28,26 +29,26 @@
 {% endblock %}
 
 {% block scripts %}
-    <script type="text/javascript" src="/media/js/jquery.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/media/template/js/jquery.js" charset="utf-8"></script>
 {% endblock %}
 
 {% block body %}
+    {% get_flatpages %}
+
     <div class="container_16">
         <div id="header_top"></div>
         <div id="header" class="grid_16">
             <div id="top_menu" class="grid_16 alpha omega">
                 <li class="first">
                     &raquo;
-                    <a href="{% url blog %}">ana sayfa</a>
+                    <a href="{% url index %}">ana sayfa</a>
                 </li>
-                <li>
-                    &raquo;
-                    <a href="#">projeler</a>
-                </li>
-                <li class="last">
-                    &raquo;
-                    <a href="#">hakkında</a>
-                </li>
+                {% for link in flatpages %}
+                    <li{% if forloop.counter == forloop.last %} class="last"{% endif %}>
+                        &raquo;
+                        <a href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+                {% endfor %}
                 
                 <div id="search_container">
                     <input type="text">
@@ -56,7 +57,7 @@
             </div>
             <div class="grid_8 alpha">
                 <div id="site_logo" class="grid_6 alpha">
-                    <a href="{% url blog %}"><img src="{{ MEDIA_URL|default:'/media/' }}template/images/site_logo.png"></a>
+                    <a href="{% url index %}"><img src="{{ MEDIA_URL|default:'/media/' }}template/images/site_logo.png"></a>
                 </div>
                 <div class="suffix_2 omega"></div>
             </div>
@@ -74,7 +75,7 @@
         <div id="content" class="grid_16">
             {% block content %}{% endblock %}
         </div>
-        <div id="footer" class="grid_16 center small">
+        <div id="footer" class="grid_16 text_center small">
             raptiye {% version %}, Python ve django kullanılarak yazılmıştır.
             <br>
             Site genelindeki içerik <strong>Creative Commons lisansının şartlarına uyulması durumunda</strong> kullanılabilir.

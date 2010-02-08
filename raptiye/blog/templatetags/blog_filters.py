@@ -137,7 +137,7 @@ def code_colorizer(entry):
     search for the code layer in each post.
 
     """
-	
+
     if settings.COLORIZE_CODE:
         try:
             from BeautifulSoup import BeautifulSoup, Tag
@@ -146,12 +146,12 @@ def code_colorizer(entry):
             from pygments.formatters import HtmlFormatter
         except ImportError:
             return entry
-	
+
         try:
             parser = BeautifulSoup(entry, convertEntities=BeautifulSoup.ALL_ENTITIES)
         except HTMLParser.HTMLParseError:
             return entry
-	
+
         # searching for code blocks in the blog entry
         code_blocks = parser.findAll("div", attrs={"class": "code"})
 
@@ -176,7 +176,7 @@ def code_colorizer(entry):
                 colorized_code = Tag(parser, "div") if block.div else Tag(parser, "div", attrs=(("id", language), ("class", "code")))
                 colorized_code.insert(0, highlight(code, lexer, formatter))
                 layer.replaceWith(colorized_code)
-	
+
             return parser.renderContents()
 
     return entry
@@ -196,4 +196,3 @@ def project_subtitle():
 @register.simple_tag
 def rss_url():
     return settings.RSS_URL
-

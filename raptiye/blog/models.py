@@ -47,7 +47,7 @@ class Entry(models.Model):
 
     class Meta:
         get_latest_by = "datetime"
-        ordering = ["title"]
+        ordering = ["-datetime", "title", "content"]
         verbose_name = _(u"Entry")
         verbose_name_plural = _(u"Entries")
 

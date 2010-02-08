@@ -17,23 +17,26 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-from django.conf.urls.defaults import *
+from django import template
 
-urlpatterns = patterns('raptiye.blog.views',
-    # main page of blog
-    url(r'^$', 'blog', name='blog'),
-    
-    # archives for blogs..
-    # url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$', 'get_entries_for_day', name='entries_on_date'),
-    # an entry on a specific date
-    url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<slug>[\w\d-]+)/$', 'show_post', name='show_post'),
-    # TODO: monthly view needed!
-    
-    # search against entries
-    # url(r'^search/$', 'search', name='blog_search'),
-)
+from raptiye.contrib.flatpages.models import FlatPage
 
-# urlpatterns += patterns('raptiye.tags.views',
-#   # entries with the specified tag
-#   url(r'^tags/(?P<slug>[\w\d-]+)/$', 'get_entries_for_tag', name='entries_with_tag'),
-# )
+register = template.Library()
+
+@register.tag
+def get_flatpages(*args, **kwargs):
+    """
+    Gets all flatpages and renders them into the context
+    
+    """
+    
+    return VariableNode("flatpages", FlatPage.objects.filter(show_on_homepage=True))
+
+class VariableNode(template.Node):
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
+
+    def render(self, context):
+        context[self.name] = self.value
+        return ""

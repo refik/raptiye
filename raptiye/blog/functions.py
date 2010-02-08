@@ -20,9 +20,13 @@
 from raptiye.blog.models import Entry
 from raptiye.extra.session_data import create_data
 
+__all__ = ["set_user_message", "get_latest_entries"]
+
 def set_user_message(request, message):
-	create_data(request, "message", message)
+    create_data(request, "message", message)
 
-def get_latest_entries(language="tr"):
+def get_latest_entries(language="tr", include_stickies=False):
+    if include_stickies:
+        return Entry.objects.filter(language=language, published=True)
+
     return Entry.objects.filter(language=language, published=True).exclude(sticky=True)
-

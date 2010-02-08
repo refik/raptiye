@@ -18,13 +18,18 @@
 # 
 
 from django.conf import settings
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
+from django.views.generic.date_based import object_detail
 from django.views.generic.list_detail import object_list
 
 from raptiye.blog.functions import get_latest_entries
+from raptiye.blog.models import Entry
 
-def index(request, template_name="blog/homepage.html"):
+def index(request):
+    return redirect("blog", permanent=True)
+
+def blog(request, template_name="blog/homepage.html"):
     dict = {
         "queryset": get_latest_entries(),
         "template_name": template_name,
@@ -32,6 +37,21 @@ def index(request, template_name="blog/homepage.html"):
         "page": request.GET.get("page", 1),
         "template_object_name": "entry",
     }
-
+    
     return object_list(request, **dict)
 
+def show_post(request, year, month, day, slug, template_name="blog/detail.html"):
+    dict = {
+        "year": year,
+        "month": month,
+        "day": day,
+        "queryset": get_latest_entries(include_stickies=True),
+        "date_field": "datetime",
+        "slug": slug,
+        "month_format": "%m",
+        "template_name": template_name,
+        "template_object_name": "entry",
+        "allow_future": True
+    }
+    
+    return object_detail(request, **dict)

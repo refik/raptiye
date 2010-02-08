@@ -10,3 +10,9 @@ REQUIREMENTS
 * python-*sql (optional when using sqlite)
 * BeautifulSoup (optional when using colorizing)
 
+NOTES ON DEPLOYMENT
+-----------------------
+
+* /media/admin/ should be linked to django's admin media folder
+* you can overwrite any setting by creating settings in local_settings.py (you need to create it first)
+* /favicon.ico should be an alias to /media/images/favicon.png

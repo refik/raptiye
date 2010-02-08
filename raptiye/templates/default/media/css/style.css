@@ -6,7 +6,7 @@ body {
 
 a {
     text-decoration: none;
-    color: black;
+    color: #333;
 }
 
 a:hover {
@@ -22,6 +22,11 @@ li {
 table {
 	margin: 0;
 	padding: 0;
+}
+
+img {
+    border: 0;
+    vertical-align: -3px;
 }
 
 #header_top {
@@ -153,19 +158,41 @@ table {
     color: #333;
 }
 
+.blog_entry_content a {
+	text-decoration: underline;
+}
+
+.blog_entry_content a:hover {
+	text-decoration: none;
+}
+
+.blog_entry_footer {
+    margin-top: 20px;
+    padding-top: 5px;
+    border-top: 1px solid #e3e3e3;
+}
+
 #footer {
     color: white;
 }
 
-.left {
+.align_left {
+    float: left;
+}
+
+.align_right {
+    float: right;
+}
+
+.text_left {
 	text-align: left;
 }
 
-.center {
+.text_center {
 	text-align: center;
 }
 
-.right {
+.text_right {
 	text-align: right;
 }
 
@@ -216,4 +243,3 @@ table {
 .vertical_last {
     margin-bottom: 0 !important;
 }
-

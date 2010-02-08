@@ -11,7 +11,7 @@ class FlatPage(models.Model):
     content = models.TextField(_('content'), blank=True)
     # TODO: implement comments for flatpages
     enable_comments = models.BooleanField(_('enable comments'))
-    template_name = models.CharField(_('template name'), max_length=70, blank=True, default="default.html")
+    template_name = models.CharField(_('template name'), max_length=70, blank=True, default="blog/detail.html")
     registration_required = models.BooleanField(_('registration required'), help_text=_("If this is checked, only logged-in users will be able to view the page."))
     sites = models.ManyToManyField(Site)
     # FIXME: what if LANGUAGES isn't in settings.py?
