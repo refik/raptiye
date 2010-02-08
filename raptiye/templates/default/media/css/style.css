@@ -242,6 +242,10 @@ blockquote {
 	font-weight: bold;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 .blog_text {
     font-size: 18px;
 }

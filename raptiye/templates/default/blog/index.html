@@ -68,7 +68,7 @@
             </div>
             <div class="grid_8 omega">
                 <div id="social_icons_container">
-                    <a href="#" title="raptiye'yi RSS üzerinden takip etmek için tıklayın!" id="rss_menu" class="social_icon"></a>
+                    <a href="{% rss_url %}" title="raptiye'yi RSS üzerinden takip etmek için tıklayın!" id="rss_menu" class="social_icon"></a>
                     <a href="http://twitter.com/tunix/" title="twitter sayfam için tıklayın!" id="twitter_menu" class="social_icon" target="_blank"></a>
                     <a href="http://www.flickr.com/photos/tunix/" title="flickr sayfam için tıklayın!" id="flickr_menu" class="social_icon" target="_blank"></a>
                     <a href="http://www.facebook.com/alper.kanat/" title="facebook sayfam için tıklayın!" id="facebook_menu" class="social_icon" target="_blank"></a>
@@ -83,8 +83,7 @@
         <div id="footer" class="grid_16 text_center small">
             raptiye {% version %}, Python ve django kullanılarak yazılmıştır.
             <br>
-            Site genelindeki içerik <strong>Creative Commons lisansının şartlarına uyulması durumunda</strong> kullanılabilir.
+            Site genelindeki içerik <span class="bold underline">kaynak göstermek şartıyla</span> serbestçe kullanılabilir.
         </div>
     </div>
 {% endblock %}
-
