@@ -37,9 +37,9 @@
                     </div>
                     <div class="blog_entry_content blog_text">
                         {% if entry.content|exceeds_limit %}
-                            {{ entry.content|safe|truncatewords_html:150 }}
+                            {{ entry.content|safe|linebreaks|truncatewords_html:150 }}
                         {% else %}
-                            {{ entry.content|safe }}
+                            {{ entry.content|safe|linebreaks }}
                         {% endif %}
                     </div>
                     <div class="blog_entry_footer">

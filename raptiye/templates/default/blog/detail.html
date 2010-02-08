@@ -34,7 +34,7 @@
                     <h2>{{ entry.title }}</h2>
                 </div>
                 <div class="blog_entry_content blog_text">
-                    {{ entry.content|linebreaks|safe }}
+                    {{ entry.content|safe|linebreaks }}
                 </div>
                 <div class="blog_entry_footer">
                     <div class="align_left small">
