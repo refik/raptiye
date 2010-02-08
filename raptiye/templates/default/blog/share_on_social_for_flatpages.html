@@ -1,0 +1,24 @@
+{% load blog_filters %}
+
+{% block js %}
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $(".share_on_social").colorbox({
+                "iframe": true,
+                "width": "700px",
+                "height": "500px",
+                "title": " "
+            })
+        })
+    </script>
+{% endblock %}
+
+{% url show_post flatpage.datetime.year, flatpage.datetime.month, flatpage.datetime.day, flatpage.slug as entry_url %}
+
+Paylaş:
+
+<a href="http://twitter.com/home/?status={{ flatpage.title|urlencode|iriencode }} @ {% project_name %} (http://{{ request.get_host }}{{ entry_url }})" title="Bu yazıyı Twitter'da paylaşmak için tıklayın." target="_blank"><img src="{{ MEDIA_URL|default:'/media/' }}template/images/social/share_on_twitter.png"></a>
+
+<a class="share_on_social" href="http://friendfeed.com/share/bookmarklet/frame#title={{ flatpage.title|urlencode|iriencode }} @ {% project_name %}&amp;url=http://{{ request.get_host }}{{ entry_url }}" title="Bu yazıyı FriendFeed'de paylaşmak için tıklayın." target="_blank"><img src="{{ MEDIA_URL|default:'/media/' }}template/images/social/share_on_friendfeed.png"></a>
+
+<a class="share_on_social" href="http://www.facebook.com/sharer.php?u=http://{{ request.get_host }}{{ entry_url }}&amp;t={{ flatpage.title|urlencode|iriencode }}" title="Bu olayı Facebook'ta paylaşın." target="_blank"><img src="{{ MEDIA_URL|default:'/media/' }}template/images/social/share_on_facebook.png"></a>
