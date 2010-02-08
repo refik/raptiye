@@ -240,6 +240,6 @@ img {
     margin-top: 0 !important;
 }
 
-.vertical_last {
+.vertical_last, .no_bottom_margin {
     margin-bottom: 0 !important;
 }

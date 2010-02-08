@@ -44,15 +44,17 @@
                     <a href="{% url index %}">ana sayfa</a>
                 </li>
                 {% for link in flatpages %}
-                    <li{% if forloop.counter == forloop.last %} class="last"{% endif %}>
+                    <li{% if forloop.last %} class="last"{% endif %}>
                         &raquo;
                         <a href="{{ link.url }}">{{ link.title }}</a>
                     </li>
                 {% endfor %}
                 
                 <div id="search_container">
-                    <input type="text">
-                    <button>ara</button>
+                    <form action="{% url search %}" method="get" accept-charset="utf-8">
+                        <input type="text" name="keywords">
+                        <button type="submit">ara</button>
+                    </form>
                 </div>
             </div>
             <div class="grid_8 alpha">

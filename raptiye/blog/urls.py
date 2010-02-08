@@ -30,7 +30,7 @@ urlpatterns = patterns('raptiye.blog.views',
     # TODO: monthly view needed!
     
     # search against entries
-    # url(r'^search/$', 'search', name='blog_search'),
+    url(r'^search/$', 'search', name='search'),
 )
 
 # urlpatterns += patterns('raptiye.tags.views',

@@ -20,7 +20,7 @@
 
 {% load blog_filters %}
 
-{% block title %}{% project_name %} | {% project_subtitle %}{% endblock %}
+{% block title %}arama @ gunluk.{% project_name %} | {% project_subtitle %}{% endblock %}
 
 {% block content %}
     <div class="grid_6 alpha">
@@ -28,7 +28,14 @@
     </div>
     <div class="grid_10 omega">
         {% for entry in entry_list %}
-            <div class="blog_entry_container{% if forloop.first %} vertical_first{% endif %}{% if forloop.last %} vertical_last{% endif %}">
+            <div class="blog_entry_container vertical_first">
+                <div class="blog_entry">
+                    <h2 class="no_bottom_margin">Arama Sonuçları ({{ entry_list|length }})</h2>
+                    <span class="small">Arama yaparken kullandığınız kelimeler: <strong><em>{{ keywords }}</em></strong></span>
+                </div>
+            </div>
+
+            <div class="blog_entry_container{% if forloop.last %} vertical_last{% endif %}">
                 <div class="blog_entry">
                     <div class="blog_entry_title">
                         <h2>
@@ -56,7 +63,10 @@
         {% empty %}
             <div class="blog_entry_container">
                 <div class="blog_entry">
-                    Herhangi bir günlük girdisi bulunamadı.
+                    <h2 class="no_bottom_margin">Arama Sonuçları ({{ entry_list|length }})</h2>
+                    <span class="small">Arama yaparken kullandığınız kelimeler: <strong><em>{{ keywords }}</em></strong></span>
+                    <br>
+                    <span class="small">Yaptığınız arama sonucunda herhangi bir girdi bulunamadı.</span>
                 </div>
             </div>
         {% endfor %}

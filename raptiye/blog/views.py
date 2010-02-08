@@ -23,14 +23,14 @@ from django.template import RequestContext
 from django.views.generic.date_based import object_detail
 from django.views.generic.list_detail import object_list
 
-from raptiye.blog.functions import get_latest_entries
+from raptiye.blog.functions import *
 from raptiye.blog.models import Entry
 
 def index(request):
     return redirect("blog", permanent=True)
 
 def blog(request, template_name="blog/homepage.html"):
-    dict = {
+    params = {
         "queryset": get_latest_entries(),
         "template_name": template_name,
         "paginate_by": settings.ENTRIES_PER_PAGE,
@@ -38,10 +38,10 @@ def blog(request, template_name="blog/homepage.html"):
         "template_object_name": "entry",
     }
     
-    return object_list(request, **dict)
+    return object_list(request, **params)
 
 def show_post(request, year, month, day, slug, template_name="blog/detail.html"):
-    dict = {
+    params = {
         "year": year,
         "month": month,
         "day": day,
@@ -54,4 +54,22 @@ def show_post(request, year, month, day, slug, template_name="blog/detail.html")
         "allow_future": True
     }
     
-    return object_detail(request, **dict)
+    return object_detail(request, **params)
+
+def search(request, template_name="blog/search.html"):
+    "Search against all entries using the given keywords"
+
+    keywords = request.GET.get("keywords", "")
+    result = search_against_entries(keywords)
+
+    params = {
+        "queryset": result,
+        "template_name": template_name,
+        "template_object_name" : "entry",
+        "paginate_by": settings.ENTRIES_PER_PAGE,
+        "extra_context": {
+            "keywords": keywords
+        }
+    }
+
+    return object_list(request, **params)
