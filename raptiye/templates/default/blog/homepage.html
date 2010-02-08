@@ -42,10 +42,16 @@
 
                         <div class="blog_entry_content blog_text">
                             {% if entry.content|exceeds_limit %}
-                                {{ entry.content|safe|linebreaks|truncatewords_html:150 }}
+                                {{ entry.content|safe|truncatewords_html:150 }}
                             {% else %}
-                                {{ entry.content|safe|linebreaks }}
+                                {{ entry.content|safe }}
                             {% endif %}
+                        </div>
+
+                        <div class="blog_entry_more blog_text">
+                            &raquo;
+                            <a href="{% url show_post entry.datetime.year, entry.datetime.month, entry.datetime.day, entry.slug %}" class="ulink">Devamını okumak için tıklayın..</a>
+                            &laquo;
                         </div>
 
                         <div class="blog_entry_footer">

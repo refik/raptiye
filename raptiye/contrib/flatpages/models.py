@@ -15,7 +15,7 @@ class FlatPage(models.Model):
     registration_required = models.BooleanField(_('registration required'), help_text=_("If this is checked, only logged-in users will be able to view the page."))
     sites = models.ManyToManyField(Site)
     # FIXME: what if LANGUAGES isn't in settings.py?
-    lang = models.CharField(_(u"Language"), choices=settings.LANGUAGES, max_length=5, default="tr")
+    lang = models.CharField(_(u"Language"), choices=settings.LANGUAGES, max_length=2, default="tr")
     show_on_homepage = models.BooleanField(_("Show on HomePage"), default=False)
 
     class Meta:
