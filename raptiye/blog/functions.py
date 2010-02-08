@@ -30,7 +30,7 @@ __all__ = ["set_flag", "get_latest_entries", "search_against_entries"]
 def set_flag(request, name, value):
     create_data(request, name, value)
 
-def get_latest_entries(language="tr", include_stickies=False):
+def get_latest_entries(language="tr", include_stickies=True):
     if include_stickies:
         return Entry.objects.filter(language=language, published=True)
 
@@ -55,4 +55,4 @@ def search_against_entries(keywords):
         # creating an OR'ed Q from the list
         final_q = reduce(operator.or_, q_list)
 
-        return get_latest_entries(include_stickies=True).filter(final_q).distinct()
+        return get_latest_entries().filter(final_q).distinct()

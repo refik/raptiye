@@ -45,7 +45,7 @@ def show_post(request, year, month, day, slug, template_name="blog/detail.html")
         "year": year,
         "month": month,
         "day": day,
-        "queryset": get_latest_entries(include_stickies=True),
+        "queryset": get_latest_entries(),
         "date_field": "datetime",
         "slug": slug,
         "month_format": "%m",

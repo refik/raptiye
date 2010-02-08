@@ -23,36 +23,44 @@
 {% block title %}{% project_name %} | {% project_subtitle %}{% endblock %}
 
 {% block content %}
+    {% regroup entry_list|dictsortreversed:"sticky" by sticky as ordered_event_list %}
+
     <div class="grid_6 alpha">
         {% include "blog/sidebar.html" %}
     </div>
+
     <div class="grid_10 omega">
-        {% for entry in entry_list %}
-            <div class="blog_entry_container{% if forloop.first %} vertical_first{% endif %}{% if forloop.last %} vertical_last{% endif %}">
-                <div class="blog_entry">
-                    <div class="blog_entry_title">
-                        <h2>
-                            <a href="{% url show_post entry.datetime.year, entry.datetime.month, entry.datetime.day, entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
-                        </h2>
-                    </div>
-                    <div class="blog_entry_content blog_text">
-                        {% if entry.content|exceeds_limit %}
-                            {{ entry.content|safe|linebreaks|truncatewords_html:150 }}
-                        {% else %}
-                            {{ entry.content|safe|linebreaks }}
-                        {% endif %}
-                    </div>
-                    <div class="blog_entry_footer">
-                        <div class="align_left small">
-                            {{ entry.datetime|date:"H:i @ d.m.Y, l" }}
+        {% for group in ordered_event_list %}
+            {% for entry in group.list|dictsortreversed:"datetime" %}
+                <div class="blog_entry_container{% if forloop.first %} vertical_first{% endif %}{% if forloop.last and not entry.sticky %} vertical_last{% endif %}">
+                    <div class="blog_entry">
+                        <div class="blog_entry_title">
+                            <h2>
+                                <a href="{% url show_post entry.datetime.year, entry.datetime.month, entry.datetime.day, entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
+                            </h2>
                         </div>
-                        <div class="align_right small">
-                            {% include "blog/share_on_social.html" %}
+
+                        <div class="blog_entry_content blog_text">
+                            {% if entry.content|exceeds_limit %}
+                                {{ entry.content|safe|linebreaks|truncatewords_html:150 }}
+                            {% else %}
+                                {{ entry.content|safe|linebreaks }}
+                            {% endif %}
                         </div>
+
+                        <div class="blog_entry_footer">
+                            <div class="align_left small">
+                                {{ entry.datetime|date:"H:i @ d.m.Y, l" }}
+                            </div>
+                            <div class="align_right small">
+                                {% include "blog/share_on_social.html" %}
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
                     </div>
-                    <div class="clear"></div>
                 </div>
-            </div>
+            {% endfor %}
         {% empty %}
             <div class="blog_entry_container">
                 <div class="blog_entry">
