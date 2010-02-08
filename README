@@ -5,6 +5,7 @@ django framework.
 REQUIREMENTS
 ----------------
 
+* django (>= 1.1)
 * PIL (Python Imaging Library)
 * python-openid (optional)
 * python-*sql (optional when using sqlite)
