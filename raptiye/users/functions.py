@@ -17,24 +17,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-from django import template
+from random import sample
+import sha, string
 
-register = template.Library()
+from django.conf import settings
 
-@register.tag
-def poll(parser, token):
-	from raptiye.polls.models import Poll
-	
-	if Poll.objects.filter(published=True).count():
-		return PollNode(Poll.objects.filter(published=True).latest())
-	else:
-		return PollNode(None)
-
-class PollNode(template.Node):
-	def __init__(self, poll):
-		self.poll = poll
-
-	def render(self, context):
-		context["poll"] = self.poll
-		return ""
-
+def create_activation_key():
+	choices = list(string.letters + string.digits)
+	return sha.new(settings.SECRET_KEY[:20] + "".join(sample(choices, 5))).hexdigest()

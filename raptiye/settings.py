@@ -34,10 +34,8 @@ DJANGO_DIR = os.path.abspath(os.path.dirname(django.__file__))
 # --- GENERIC SETTINGS --------------
 
 PROJECT_NAME = u"raptiye"
-VERSION = '2.0'
+VERSION = '2.1'
 PROJECT_SUBTITLE = u"Bilgi Paylaştıkça Çoğalır!"
-
-OPENID = False
 
 COLORIZE_CODE = False
 ENABLE_EMOTIONS = True
@@ -54,24 +52,6 @@ BIRTH_DATE = date(1984, 05, 16)
 
 ADMIN_LIST_PER_PAGE = 20
 AUTH_PROFILE_MODULE = 'users.UserProfile'
-
-
-
-# --- COMMENT SETTINGS --------------
-
-# default avatar for all users..
-DEFAULT_AVATAR = "/media/images/default_avatar.png"
-
-# this is to serve temporary images like captcha..
-TEMP_MEDIA_PREFIX = 'temp/'
-
-# how many minutes of penaly will be applied..
-CAPTCHA_PENALTY = 10
-# how many times a user can regenerate captchas consequtively
-CAPTCHA_RENEWAL_LIMIT = 10
-
-ALLOW_ANONYMOUS_COMMENTS = True
-LATEST_COMMENTS_LIMIT = 5
 
 
 
@@ -112,11 +92,6 @@ CSRF_COOKIE_DOMAIN = ".raptiye.org"
 DEFAULT_CHARSET='utf8'
 DEFAULT_CONTENT_TYPE = 'text/html'
 FILE_CHARSET = 'utf-8'
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'raptiye.users.backends.OpenIDBackend',
-)
 
 LOGIN_URL = "/users/login/"
 LOGOUT_URL = "/users/logout/"

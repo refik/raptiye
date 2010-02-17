@@ -17,64 +17,59 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
+from hashlib import sha1
+import Image, ImageDraw, ImageFont
+from os import path
+from random import sample
+import string
 import sys
 
-try:
-	import Image, ImageDraw, ImageFont
-except ImportError:
-	sys.exit(0)
-
 class Captcha:
-	"""
-	creates an image which consists of characters...
-	
-	default length is 6 characters.
-	
-	@requires pil
-	@param file_path String that represents captcha file path
-	@param filename String that represents the captcha filename
-	@param size Tuple which represents width and height of captcha
-	@param fgColor String for the text color of captcha
-	@param bgColor String for the background color
+    """
+    creates an image which consists of characters...
 
-	"""
-	
+    default length is 6 characters.
+
+    @requires python-imaging
+    @param file_path String that represents captcha file path
+    @param filename String that represents the captcha filename
+    @param size Tuple which represents width and height of captcha
+    @param fgColor String for the text color of captcha
+    @param bgColor String for the background color
+
+    """
+
     text = u""
-	text_length = 6
-	file_path = u""
-	filename = u""
-	size = None
-	font = None
-	fgColor = u"black"
-	bgColor = u"white"
-	
-	def __init__(self, file_path="", filename="", size=None):
-		self.file_path = file_path
-		self.filename = filename
-		self.size = size
-		self.text = self.generate_random_text(self.text_length)
-	
-	@staticmethod
-	def generate_random_text(length=6):
-		from random import sample
-		import string
-		choices = list(string.letters + string.digits)
-		return u"".join(sample(choices, length))
-	
-	def set_font(self, font, size):
-		self.font = ImageFont.truetype(font, size)
-	
-	def generate_hash(self, salt):
-		from hashlib import sha1
-		hash = sha1(salt + self.text).hexdigest()
-		return hash
-	
-	def generate_captcha(self):
-		from os import path
-		file = open(path.join(self.file_path, self.filename), "w")
-		im = Image.new("RGB", self.size, self.bgColor)
-		draw = ImageDraw.Draw(im)
-		draw.text((15, 0), self.text, fill=1, font=self.font)
-		im.save(file, "JPEG")
-		file.close()
+    text_length = 6
+    file_path = u""
+    filename = u""
+    size = None
+    font = None
+    fgColor = u"black"
+    bgColor = u"white"
 
+    def __init__(self, file_path="", filename="", size=None):
+        self.file_path = file_path
+        self.filename = filename
+        self.size = size
+        self.text = self.generate_random_text(self.text_length)
+
+    @staticmethod
+    def generate_random_text(length=6):
+        choices = list(string.letters + string.digits)
+        return u"".join(sample(choices, length))
+
+    def set_font(self, font, size):
+        self.font = ImageFont.truetype(font, size)
+
+    def generate_hash(self, salt):
+        hash = sha1(salt + self.text).hexdigest()
+        return hash
+
+    def generate_captcha(self):
+        file = open(path.join(self.file_path, self.filename), "w")
+        im = Image.new("RGB", self.size, self.bgColor)
+        draw = ImageDraw.Draw(im)
+        draw.text((15, 0), self.text, fill=1, font=self.font)
+        im.save(file, "JPEG")
+        file.close()

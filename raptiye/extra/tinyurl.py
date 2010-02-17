@@ -26,14 +26,13 @@ TinyURL API with a given URL and returns the TinyURL..
 import urllib
 
 def shorten_url(url):
-	api_url = "http://tinyurl.com/api-create.php"
-	
-	if len(url) > 30:
-		try:
-			resp = urllib.urlopen(api_url, "url=" + url)
-			return resp.read()
-		except IOError:
-			return url
-	else:
-		return url
+    api_url = "http://tinyurl.com/api-create.php"
 
+    if len(url) > 30:
+        try:
+            resp = urllib.urlopen(api_url, "url=" + url)
+            return resp.read()
+        except IOError:
+            return url
+    else:
+        return url

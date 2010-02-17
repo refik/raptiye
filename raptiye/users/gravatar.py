@@ -17,22 +17,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-from django.conf import settings
+import urllib, hashlib
 
-from raptiye.extra import messages
-
-def send_comment_notification(entry, user):
-	from django.core.mail import send_mass_mail
-	
-	notifications = [(messages.COMMENT_NOTIFICATION_SUBJECT, messages.COMMENT_NOTIFICATION_MESSAGE % (entry.title, entry.get_full_url()),
-		settings.EMAIL_INFO_ADDRESS_TR, [comment.author.email])
-		for comment in entry.comments.filter(published=True, notification=True).exclude(author=user)]
-	
-	send_mass_mail(notifications, settings.EMAIL_FAIL_SILENCE)
-
-def create_activation_key():
-	from random import sample
-	import sha, string
-	choices = list(string.letters + string.digits)
-	return sha.new(settings.SECRET_KEY[:20] + "".join(sample(choices, 5))).hexdigest()
-
+def get_gravatar(email, default, size=50):
+	gravatar_url = "http://www.gravatar.com/avatar.php?"
+	gravatar_url += urllib.urlencode({"gravatar_id": hashlib.md5(email).hexdigest(), 
+		"default": default, "size": str(size)})
+	return gravatar_url
