@@ -24,22 +24,24 @@ from raptiye.blog.models import *
 from raptiye.extra.tinyurl import shorten_url
 
 class EntryAdmin(admin.ModelAdmin):
-    model = Entry
+    actions_on_bottom = True
+    date_hierarchy = "datetime"
     fieldsets = (
         (None, {
             "fields": ("title", "datetime", "content",
                 ("comments_enabled", "sticky", "published"), "language", "slug"),
         }),
     )
-    date_hierarchy = "datetime"
     list_display = ("title", "datetime", "sticky", "published")
     list_filter = ("published", "sticky")
     list_per_page = settings.ADMIN_LIST_PER_PAGE
+    model = Entry
     ordering = ("-datetime", "title")
-    search_fields = ("title", "content")
-    save_as = True
-    radio_fields = {'language': admin.HORIZONTAL}
     prepopulated_fields = {"slug": ("title",)}
+    radio_fields = {'language': admin.HORIZONTAL}
+    save_as = True
+    save_on_top = True
+    search_fields = ("title", "content")
 
     class Media:
         # js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
@@ -60,9 +62,8 @@ class EntryAdmin(admin.ModelAdmin):
 admin.site.register(Entry, EntryAdmin)
 
 class LinkAdmin(admin.ModelAdmin):
-	list_display = ('title', 'description', 'url', 'window')
-	list_filter = ('window',)
-	search_fields = ['title', 'description']
+    list_display = ('title', 'description', 'url', 'window')
+    list_filter = ('window',)
+    search_fields = ['title', 'description']
 
 admin.site.register(Link, LinkAdmin)
-

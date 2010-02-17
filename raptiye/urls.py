@@ -34,7 +34,7 @@ urlpatterns = patterns('',
     url(r'^$', 'raptiye.blog.views.index', name="index"),
 
     # admin page
-    url(r'^admin/(.*)', admin.site.root),
+    (r'^admin/', include(admin.site.urls)),
 
     # blog page
     (r'^blog/', include('raptiye.blog.urls')),
@@ -47,6 +47,9 @@ urlpatterns = patterns('',
 
     # poll related stuff
     # (r'^polls/', include('raptiye.polls.urls')),
+    
+    # tag related stuff
+    (r'^tags/', include('raptiye.tags.urls')),
 
     # users related stuff like login, register
     # (r'^users/', include('raptiye.users.urls')),

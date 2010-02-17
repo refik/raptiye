@@ -19,12 +19,10 @@
 
 from django import template
 
-from raptiye.extra.tag_cloud import TagCloud
+from raptiye.tags.cloud import TagCloud
 
 register = template.Library()
 
-@register.inclusion_tag('blog/tag_cloud.html')
-def show_tag_cloud(parser, token):
-    tgc = TagCloud()
-    return {"tag_cloud": tgc.get_tag_cloud()}
-
+@register.inclusion_tag('tag_cloud.html')
+def show_tag_cloud():
+    return {"tag_cloud": TagCloud().TAG_CLOUD}

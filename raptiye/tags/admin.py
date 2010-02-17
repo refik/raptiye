@@ -17,13 +17,45 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
+from django.conf import settings
 from django.contrib import admin
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 
-from raptiye.tags.models import Tag
+from raptiye.blog.admin import EntryAdmin
+from raptiye.blog.models import Entry
+from raptiye.tags.models import Tag, TaggedEntry
+
+class TaggedEntryAdmin(EntryAdmin):
+    model = TaggedEntry
+    fieldsets = (
+        (None, {
+            "fields": ("title", "datetime", "content", "tags",
+                ("comments_enabled", "sticky", "published"), "language", "slug"),
+        }),
+    )
+    filter_horizontal = ("tags",)
+
+admin.site.unregister(Entry)
+admin.site.register(TaggedEntry, TaggedEntryAdmin)
 
 class TagAdmin(admin.ModelAdmin):
-	list_display = ("name", "slug")
-	prepopulated_fields = {"slug": ("name",)}
+    list_display = ("name", "url_for_tag")
+    list_per_page = settings.ADMIN_LIST_PER_PAGE
+    ordering = ("name",)
+    prepopulated_fields = {"slug": ("name",)}
+    save_on_top = True
+    search_fields = ("name",)
+    
+    def url_for_tag(self, obj):
+        """
+        Returns the reverse URL for tag
+        
+        """
+        
+        return "<a href='%s' target='_blank'>%s</a>" % (reverse("entries_tagged_with", args=[obj.slug]), obj.name)
+    
+    url_for_tag.short_description = _(u"URL")
+    url_for_tag.allow_tags = True
 
 admin.site.register(Tag, TagAdmin)
-

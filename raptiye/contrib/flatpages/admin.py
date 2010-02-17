@@ -45,4 +45,3 @@ class FlatPageAdmin(admin.ModelAdmin):
         pass
 
 admin.site.register(FlatPage, FlatPageAdmin)
-

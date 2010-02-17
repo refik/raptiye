@@ -23,12 +23,8 @@ import operator
 from django.db.models import Q
 
 from raptiye.blog.models import Entry
-from raptiye.extra.session_data import create_data
 
-__all__ = ["set_flag", "get_latest_entries", "search_against_entries"]
-
-def set_flag(request, name, value):
-    create_data(request, name, value)
+__all__ = ["get_latest_entries", "search_against_entries"]
 
 def get_latest_entries(language="tr", include_stickies=True):
     if include_stickies:

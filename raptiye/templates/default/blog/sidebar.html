@@ -17,6 +17,7 @@
 {% endcomment %}
 
 {% load blog_filters %}
+{% load tag_filters %}
 
 <div class="sidebox_container vertical_first">
     <div class="sidebox_content">
@@ -40,6 +41,19 @@
 
         <div class="sidebox_content_body text_center small">
             {% include "blog/feedburner.html" %}
+        </div>
+    </div>
+</div>
+
+<div class="sidebox_container">
+    <div class="sidebox_content">
+        <div class="sidebox_content_title">
+            <img src="{{ MEDIA_URL|default:'/media/' }}template/images/tag_cloud.png">
+            <strong>etiket bulutu</strong>
+        </div>
+
+        <div class="sidebox_content_body text_center small">
+            {% show_tag_cloud %}
         </div>
     </div>
 </div>

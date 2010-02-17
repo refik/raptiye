@@ -32,8 +32,3 @@ urlpatterns = patterns('raptiye.blog.views',
     # search against entries
     url(r'^search/$', 'search', name='search'),
 )
-
-# urlpatterns += patterns('raptiye.tags.views',
-#   # entries with the specified tag
-#   url(r'^tags/(?P<slug>[\w\d-]+)/$', 'get_entries_for_tag', name='entries_with_tag'),
-# )

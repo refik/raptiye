@@ -23,6 +23,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
 
+__all__ = ("Entry", "Link")
+
 class Entry(models.Model):
     """
     Entry Class
@@ -66,4 +68,3 @@ class Link(models.Model):
         verbose_name = _(u"Link")
         verbose_name_plural = _(u"Links")
         ordering = ["title",]
-

@@ -98,13 +98,13 @@ EMAIL_SUBJECT_PREFIX = u""
 EMAIL_USE_TLS = True
 
 LANGUAGES = (
-	("tr", "tr"),
-	("en", "en"),
+    ("tr", "tr"),
+    ("en", "en"),
 )
 
 LOCALES = {
-	'tr': 'tr_TR.UTF-8',
-	'en': 'en_US.UTF-8',
+    'tr': 'tr_TR.UTF-8',
+    'en': 'en_US.UTF-8',
 }
 
 CSRF_COOKIE_DOMAIN = ".raptiye.org"
@@ -114,8 +114,8 @@ DEFAULT_CONTENT_TYPE = 'text/html'
 FILE_CHARSET = 'utf-8'
 
 AUTHENTICATION_BACKENDS = (
-	'django.contrib.auth.backends.ModelBackend',
-	'raptiye.users.backends.OpenIDBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'raptiye.users.backends.OpenIDBackend',
 )
 
 LOGIN_URL = "/users/login/"
@@ -139,12 +139,12 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'
-DATABASE_HOST = ''
-DATABASE_NAME = '%s/raptiye.db' % DOCUMENT_ROOT
-DATABASE_PASSWORD = ''
-DATABASE_PORT = ''
-DATABASE_USER = ''
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": '%s/raptiye.db' % DOCUMENT_ROOT
+    }
+}
 
 TIME_ZONE = 'Europe/Istanbul'
 
@@ -164,51 +164,55 @@ ADMIN_MEDIA_PREFIX = '/media/admin/'
 SECRET_KEY = ''
 
 MIDDLEWARE_CLASSES = (
-	'django.middleware.common.CommonMiddleware',
-	'django.contrib.sessions.middleware.SessionMiddleware',
-	'django.contrib.auth.middleware.AuthenticationMiddleware',
-	'django.middleware.doc.XViewMiddleware',
-	'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.doc.XViewMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 )
 
 ROOT_URLCONF = 'raptiye.urls'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-	"django.core.context_processors.auth",
-	"django.core.context_processors.debug",
-	"django.core.context_processors.i18n",
-	"django.core.context_processors.media",
-	"django.core.context_processors.request",
-	"raptiye.extra.session_data.session_data",
+    "django.core.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
+    'django.contrib.messages.context_processors.messages',
 )
 
 TEMPLATE_DIRS = (
-	"%s/templates/default/" % DOCUMENT_ROOT,
+    "%s/templates/default/" % DOCUMENT_ROOT,
 )
 
 TEMPLATE_LOADERS = (
-	'django.template.loaders.filesystem.load_template_source',
-	'django.template.loaders.app_directories.load_template_source',
+    # 'django.template.loaders.filesystem.load_template_source',
+    # 'django.template.loaders.app_directories.load_template_source',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 
 INSTALLED_APPS = (
-	'django.contrib.admin',
-	'django.contrib.auth',
-	'django.contrib.contenttypes',
-	'django.contrib.redirects',
-	'django.contrib.sessions',
-	'django.contrib.sites',
-	'raptiye.blog',
-	# 'raptiye.comments',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.redirects',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'raptiye.blog',
+    # 'raptiye.comments',
     'raptiye.contrib.flatpages',
-	# 'raptiye.polls',
-	# 'raptiye.tags',
-	# 'raptiye.users',
+    # 'raptiye.polls',
+    'raptiye.tags',
+    # 'raptiye.users',
 )
 
 try:
     from raptiye.local_settings import *
 except ImportError:
     pass
-

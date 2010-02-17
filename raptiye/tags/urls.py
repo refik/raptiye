@@ -17,21 +17,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-from django.conf import settings
-from django.views.generic.list_detail import object_list
+from django.conf.urls.defaults import *
 
-from raptiye.blog.functions import get_latest_entries
-from raptiye.tags.models import Tag
-
-__all__ = ("get_entries_tagged_with")
-
-def get_entries_tagged_with(request, slug, template_name="tagged_entries_list.html"):
-    params = {
-        "queryset": get_latest_entries().filter(taggedentry__tags__slug=slug),
-        "template_name": template_name,
-        "paginate_by": settings.ENTRIES_PER_PAGE,
-        "page": request.GET.get("page", 1),
-        "template_object_name": "entry"
-    }
-    
-    return object_list(request, **params)
+urlpatterns = patterns('raptiye.tags.views',
+    # entries with the specified tag
+    url(r'^entries/(?P<slug>[\w\d-]+)/$', 'get_entries_tagged_with', name='entries_tagged_with'),
+)

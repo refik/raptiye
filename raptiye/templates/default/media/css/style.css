@@ -218,6 +218,11 @@ blockquote {
     color: #333;
 }
 
+.tag_cloud_item {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 .align_left {
     float: left;
 }

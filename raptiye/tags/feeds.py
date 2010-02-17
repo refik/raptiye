@@ -32,8 +32,8 @@ class RSSEntriesWithTag(RSS):
         return Tag.objects.get(slug=bits[0])
 
     def items(self, obj):
+        # FIXME: try to use functions.py here!
         return obj.entries.filter(
-                published=True,
-                datetime__lte=datetime.now()
-            ).order_by("-datetime")[:settings.RSS_LIMIT]
-
+            published=True,
+            datetime__lte=datetime.now()
+        ).order_by("-datetime")[:settings.RSS_LIMIT]
