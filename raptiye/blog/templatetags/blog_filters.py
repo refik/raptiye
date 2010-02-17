@@ -17,7 +17,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-from calendar import LocaleTextCalendar
 from datetime import date
 import HTMLParser
 
@@ -26,7 +25,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 
 from raptiye.blog.models import Entry, Link
-from raptiye.extra.webcal import WebCalendar
+from raptiye.blog.webcal import WebCalendar
 
 register = template.Library()
 
