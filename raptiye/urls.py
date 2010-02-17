@@ -26,7 +26,6 @@ admin.autodiscover()
 feeds = {
     'latest': RSSLatestEntries,
     'alatest': AtomLatestEntries,
-    # 'entries_with_tag': RSSEntriesWithTag,
 }
 
 urlpatterns = patterns('',
@@ -39,20 +38,8 @@ urlpatterns = patterns('',
     # blog page
     (r'^blog/', include('raptiye.blog.urls')),
 
-    # comment related stuff
-    # (r'^comment/', include('raptiye.comments.urls')),
-
     # feed of latest entries
     url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, name="rss_feed"),
-
-    # poll related stuff
-    # (r'^polls/', include('raptiye.polls.urls')),
-    
-    # tag related stuff
-    (r'^tags/', include('raptiye.tags.urls')),
-
-    # users related stuff like login, register
-    # (r'^users/', include('raptiye.users.urls')),
 )
 
 if settings.DEBUG:

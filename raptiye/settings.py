@@ -171,7 +171,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.doc.XViewMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
 )
 
 ROOT_URLCONF = 'raptiye.urls'
@@ -182,7 +181,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.request",
-    'django.contrib.messages.context_processors.messages',
 )
 
 TEMPLATE_DIRS = (
@@ -203,13 +201,8 @@ INSTALLED_APPS = (
     'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
     'raptiye.blog',
-    # 'raptiye.comments',
     'raptiye.contrib.flatpages',
-    # 'raptiye.polls',
-    'raptiye.tags',
-    # 'raptiye.users',
 )
 
 try:
