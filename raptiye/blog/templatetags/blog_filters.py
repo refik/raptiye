@@ -39,7 +39,7 @@ def construct_calendar():
     wc = WebCalendar(today.year, today.month, today.day, Entry.objects, "datetime", settings.LOCALES['tr'])
     return wc.render("calendar_table", "/blog", "ulink")
 
-@register.inclusion_tag('blog/pagination.html', takes_context=True)
+@register.inclusion_tag('pagination.html', takes_context=True)
 def paginator(context, adjacent_pages=2):
     """
     To be used in conjunction with the object_list generic view.
@@ -70,7 +70,7 @@ def paginator(context, adjacent_pages=2):
         "query_string": params.urlencode(),
     }
 
-@register.inclusion_tag('blog/links.html')
+@register.inclusion_tag('links.html')
 def links():
     return {'links': Link.objects.all()}
 
@@ -94,7 +94,7 @@ def emotions(entry):
 
     return entry
 
-@register.inclusion_tag("blog/twitter.html")
+@register.inclusion_tag("twitter.html")
 def twitter():
     """
     Gets the latest Twitter status updates of the blog author

@@ -29,7 +29,7 @@ from raptiye.blog.models import Entry
 def index(request):
     return redirect("blog", permanent=True)
 
-def blog(request, template_name="blog/homepage.html"):
+def blog(request, template_name="homepage.html"):
     params = {
         "queryset": get_latest_entries(),
         "template_name": template_name,
@@ -40,7 +40,7 @@ def blog(request, template_name="blog/homepage.html"):
     
     return object_list(request, **params)
 
-def show_post(request, year, month, day, slug, template_name="blog/detail.html"):
+def show_post(request, year, month, day, slug, template_name="detail.html"):
     params = {
         "year": year,
         "month": month,
@@ -56,7 +56,7 @@ def show_post(request, year, month, day, slug, template_name="blog/detail.html")
     
     return object_detail(request, **params)
 
-def search(request, template_name="blog/search.html"):
+def search(request, template_name="search.html"):
     "Search against all entries using the given keywords"
 
     keywords = request.GET.get("keywords", "")

@@ -1,4 +1,4 @@
-{% extends "blog/index.html" %}
+{% extends "index.html" %}
 
 {% comment %}
     raptiye
@@ -26,7 +26,7 @@
     {% regroup entry_list|dictsortreversed:"sticky" by sticky as ordered_event_list %}
 
     <div class="grid_6 alpha">
-        {% include "blog/sidebar.html" %}
+        {% include "sidebar.html" %}
     </div>
 
     <div class="grid_10 omega">
