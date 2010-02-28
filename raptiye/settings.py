@@ -21,10 +21,10 @@ from datetime import date
 import os, sys
 
 try:
-	import django
+    import django
 except ImportError:
-	sys.stderr.write("django couldn't be found.")
-	sys.exit(1)
+    sys.stderr.write("django couldn't be found.")
+    sys.exit(1)
 
 DOCUMENT_ROOT = os.path.abspath(os.path.dirname(__file__))
 DJANGO_DIR = os.path.abspath(os.path.dirname(django.__file__))
