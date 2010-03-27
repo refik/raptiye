@@ -1,4 +1,4 @@
-{% extends "blog/base.html" %}
+{% extends "base.html" %}
 
 {% comment %}
     raptiye
@@ -20,7 +20,7 @@
 
 {% load blog_filters %}
 
-{% block title %}hata @ {{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+{% block title %}sayfa bulunamadı @ {% project_name %} | {% project_subtitle %}{% endblock %}
 
 {% block body %}
 	<div class="ps_error">

@@ -1,4 +1,4 @@
-{% extends "blog/index.html" %}
+{% extends "index.html" %}
 
 {% comment %}
     raptiye
@@ -27,24 +27,25 @@
         {% include "sidebar.html" %}
     </div>
     <div class="grid_10 omega">
-        {% for entry in entry_list %}
-            <div class="blog_entry_container vertical_first">
-                <div class="blog_entry">
-                    <h2 class="no_bottom_margin">Arama Sonuçları ({{ entry_list|length }})</h2>
-                    <span class="small">Arama yaparken kullandığınız kelimeler: <strong><em>{{ keywords }}</em></strong></span>
-                </div>
+        <div class="blog_entry_container vertical_first">
+            <div class="blog_entry">
+                <h2 class="no_bottom_margin">Arama Sonuçları ({{ entry_list|length }})</h2>
+                <span class="small">Arama yaparken kullandığınız kelimeler: <strong><em>{{ keywords }}</em></strong></span>
             </div>
+        </div>
 
+        {% for entry in entry_list %}
             <div class="blog_entry_container{% if forloop.last %} vertical_last{% endif %}">
                 <div class="blog_entry">
                     <div class="blog_entry_title">
-                        <h2>
-                            <a href="{% url show_post entry.datetime.year, entry.datetime.month, entry.datetime.day, entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
+                        <h2 class="no_bottom_margin">
+                            <a href="{% url show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
                         </h2>
                         <div class="smallplus">
                             {% include "tags_of_entry.html" %}
                         </div>
                     </div>
+
                     <div class="blog_entry_content blog_text">
                         {% if entry.content|exceeds_limit %}
                             {{ entry.content|safe|truncatewords_html:150 }}
@@ -52,14 +53,16 @@
                             {{ entry.content|safe }}
                         {% endif %}
                     </div>
+
                     <div class="blog_entry_footer">
                         <div class="align_left small">
                             {{ entry.datetime|date:"H:i @ d.m.Y, l" }}
                         </div>
                         <div class="align_right small">
-                            {% include "blog/share_on_social.html" %}
+                            {% include "share_on_social.html" %}
                         </div>
                     </div>
+
                     <div class="clear"></div>
                 </div>
             </div>

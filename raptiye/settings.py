@@ -31,7 +31,7 @@ DJANGO_DIR = os.path.abspath(os.path.dirname(django.__file__))
 
 
 
-# --- GENERIC SETTINGS --------------
+# --- GENERIC SETTINGS ------------
 
 PROJECT_NAME = u"raptiye"
 VERSION = '2.1'
@@ -110,7 +110,7 @@ INTERNAL_IPS = ()
 
 
 
-# --- STANDARD DJANGO SETTINGS --------------
+# --- STANDARD DJANGO SETTINGS ----
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG

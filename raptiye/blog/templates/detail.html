@@ -38,15 +38,17 @@
                         {% include "tags_of_entry.html" %}
                     </div>
                 </div>
+
                 <div class="blog_entry_content blog_text">
                     {{ entry.content|safe }}
                 </div>
+
                 <div class="blog_entry_footer">
                     <div class="align_left small">
                         {{ entry.datetime|date:"H:i @ d.m.Y, l" }}
                     </div>
                     <div class="align_right small">
-                        {% include "blog/share_on_social.html" %}
+                        {% include "share_on_social.html" %}
                     </div>
                 </div>
                 <div class="clear"></div>
