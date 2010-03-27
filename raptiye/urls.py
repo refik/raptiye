@@ -15,18 +15,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-from django.conf.urls.defaults import *
 from django.conf import settings
+from django.conf.urls.defaults import *
 from django.contrib import admin
 
-from raptiye.blog.feeds import *
-
 admin.autodiscover()
-
-feeds = {
-    'latest': RSSLatestEntries,
-    'alatest': AtomLatestEntries,
-}
 
 urlpatterns = patterns('',
     # homepage view
@@ -38,8 +31,8 @@ urlpatterns = patterns('',
     # blog page
     (r'^blog/', include('raptiye.blog.urls')),
 
-    # feed of latest entries
-    url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, name="rss_feed"),
+    # tags
+    (r'^tags/', include('raptiye.tags.urls')),
 )
 
 if settings.DEBUG:
