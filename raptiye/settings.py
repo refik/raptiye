@@ -55,7 +55,14 @@ AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 
 
-# --- TWITTER SETTINGS --------------
+# --- TAG SETTINGS ----------------
+
+FORCE_LOWERCASE_TAGS = True
+MAX_TAG_LENGTH = 50
+
+
+
+# --- TWITTER SETTINGS ------------
 
 POST_TO_TWITTER = False
 ENABLE_TWITTER_BOX = False
@@ -176,8 +183,10 @@ INSTALLED_APPS = (
     'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'tagging',
     'raptiye.blog',
     'raptiye.contrib.flatpages',
+    'raptiye.tags',
 )
 
 try:

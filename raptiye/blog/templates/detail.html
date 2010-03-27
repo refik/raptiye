@@ -31,7 +31,12 @@
         <div class="blog_entry_container vertical_first vertical_last">
             <div class="blog_entry">
                 <div class="blog_entry_title">
-                    <h2>{{ entry.title }}</h2>
+                    <h2 class="no_bottom_margin">
+                        {{ entry.title }}
+                    </h2>
+                    <div class="smallplus">
+                        {% include "tags_of_entry.html" %}
+                    </div>
                 </div>
                 <div class="blog_entry_content blog_text">
                     {{ entry.content|safe }}
