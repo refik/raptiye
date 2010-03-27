@@ -57,7 +57,6 @@ AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 # --- TWITTER SETTINGS --------------
 
-POST_TO_TWITTER = False
 ENABLE_TWITTER_BOX = False
 TWITTER_USERNAME = ""
 TWITTER_PASSWORD = ""
