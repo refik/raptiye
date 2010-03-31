@@ -35,9 +35,12 @@
                 <div class="blog_entry_container{% if forloop.first %} vertical_first{% endif %}{% if forloop.last and not entry.sticky %} vertical_last{% endif %}">
                     <div class="blog_entry">
                         <div class="blog_entry_title">
-                            <h2>
-                                <a href="{% url show_post entry.datetime.year, entry.datetime.month, entry.datetime.day, entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
+                            <h2 class="no_bottom_margin">
+                                <a href="{% url show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
                             </h2>
+                            <div class="smallplus">
+                                {% include "tags/tags_of_entry.html" %}
+                            </div>
                         </div>
 
                         <div class="blog_entry_content blog_text">
@@ -50,7 +53,7 @@
 
                         <div class="blog_entry_more blog_text">
                             &raquo;
-                            <a href="{% url show_post entry.datetime.year, entry.datetime.month, entry.datetime.day, entry.slug %}" class="ulink">Devamını okumak için tıklayın..</a>
+                            <a href="{% url show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" class="ulink">Devamını okumak için tıklayın..</a>
                             &laquo;
                         </div>
 
@@ -59,7 +62,7 @@
                                 {{ entry.datetime|date:"H:i @ d.m.Y, l" }}
                             </div>
                             <div class="align_right small">
-                                {% include "blog/share_on_social.html" %}
+                                {% include "share_on_social.html" %}
                             </div>
                         </div>
 

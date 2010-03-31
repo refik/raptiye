@@ -23,6 +23,9 @@ from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
 
+import tagging
+from tagging.fields import TagField
+
 __all__ = ("Entry", "Link")
 
 class Entry(models.Model):
@@ -43,6 +46,7 @@ class Entry(models.Model):
     published = models.BooleanField(_(u"Published"), default=False)
     comments_enabled = models.BooleanField(_(u"Comments Enabled"), default=True)
     slug = models.SlugField(_(u"URL"), max_length=100)
+    tags = TagField(_(u"Tags"), help_text=_(u"Seperated by commas"))
 
     def __unicode__(self):
         return self.title

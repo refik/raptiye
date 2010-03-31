@@ -31,7 +31,7 @@ DJANGO_DIR = os.path.abspath(os.path.dirname(django.__file__))
 
 
 
-# --- GENERIC SETTINGS --------------
+# --- GENERIC SETTINGS ------------
 
 PROJECT_NAME = u"raptiye"
 VERSION = '2.1'
@@ -55,7 +55,14 @@ AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 
 
-# --- TWITTER SETTINGS --------------
+# --- TAG SETTINGS ----------------
+
+FORCE_LOWERCASE_TAGS = True
+MAX_TAG_LENGTH = 50
+
+
+
+# --- TWITTER SETTINGS ------------
 
 ENABLE_TWITTER_BOX = False
 TWITTER_USERNAME = ""
@@ -102,7 +109,7 @@ INTERNAL_IPS = ()
 
 
 
-# --- STANDARD DJANGO SETTINGS --------------
+# --- STANDARD DJANGO SETTINGS ----
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -175,6 +182,7 @@ INSTALLED_APPS = (
     'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'tagging',
     'raptiye.blog',
     'raptiye.contrib.flatpages',
 )

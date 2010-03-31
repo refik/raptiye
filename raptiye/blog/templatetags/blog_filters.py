@@ -67,7 +67,7 @@ def paginator(context, adjacent_pages=2):
         'has_previous': context['has_previous'],
         'show_first': 1 not in page_numbers,
         'show_last': context['pages'] not in page_numbers,
-        "query_string": params.urlencode(),
+        'query_string': params.urlencode(),
     }
 
 @register.inclusion_tag('links.html')

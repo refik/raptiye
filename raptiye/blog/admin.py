@@ -20,6 +20,7 @@
 from django.conf import settings
 from django.contrib import admin
 
+from raptiye.blog.forms import EntryForm
 from raptiye.blog.models import *
 
 class EntryAdmin(admin.ModelAdmin):
@@ -27,14 +28,14 @@ class EntryAdmin(admin.ModelAdmin):
     date_hierarchy = "datetime"
     fieldsets = (
         (None, {
-            "fields": ("title", "datetime", "content",
+            "fields": ("title", "datetime", "content", "tags",
                 ("comments_enabled", "sticky", "published"), "language", "slug"),
         }),
     )
+    form = EntryForm
     list_display = ("title", "datetime", "sticky", "published")
     list_filter = ("published", "sticky")
     list_per_page = settings.ADMIN_LIST_PER_PAGE
-    model = Entry
     ordering = ("-datetime", "title")
     prepopulated_fields = {"slug": ("title",)}
     radio_fields = {'language': admin.HORIZONTAL}

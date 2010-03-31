@@ -1,3 +1,5 @@
+# coding: utf-8
+# 
 # raptiye
 # Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
@@ -15,24 +17,15 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-from django.conf import settings
-from django.conf.urls.defaults import *
-from django.contrib import admin
+from django import forms
 
-admin.autodiscover()
+from tagging.forms import TagField
 
-urlpatterns = patterns('',
-    # homepage view
-    url(r'^$', 'raptiye.blog.views.index', name="index"),
+from raptiye.blog.models import Entry
+from raptiye.blog.widgets import AutoCompleteTagInput
 
-    # admin page
-    (r'^admin/', include(admin.site.urls)),
+class EntryForm(forms.ModelForm):
+    tags = TagField(widget=AutoCompleteTagInput(model=Entry), required=False)
 
-    # blog page
-    (r'^blog/', include('raptiye.blog.urls')),
-)
-
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    )
+    class Meta:
+        model = Entry

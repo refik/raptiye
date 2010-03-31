@@ -17,46 +17,68 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-import locale
-from datetime import datetime
-
 from django.conf import settings
-from django.contrib.sites.models import Site
-from django.contrib.syndication.feeds import Feed
+from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
-from django.utils.feedgenerator import Atom1Feed
+from django.shortcuts import get_object_or_404
+
+from tagging.models import Tag, TaggedItem
 
 from raptiye.blog.functions import get_latest_entries
 
+__all__ = ("RSS", "RSSLatestEntries", "RSSEntriesTaggedWith")
+
 class RSS(Feed):
-    language = u"en"
+    title = settings.PROJECT_NAME
     title_template = "blog/feeds/latest_title.html"
+    description = settings.PROJECT_SUBTITLE
     description_template = "blog/feeds/latest_description.html"
 
-    def title(self):
-        return settings.PROJECT_NAME
-
-    def description(self):
-        return settings.PROJECT_SUBTITLE
-
     def link(self):
-        site = Site.objects.get_current()
-        return "http://%s" % site.domain
-
-    def item_link(self, item):
-        # TODO: place the correct link here!
-        return reverse("blog")
-
-    def item_pubdate(self, item):
-        # setting locale
-        locale.setlocale(locale.LC_ALL, settings.LOCALES["en"])
-        return item.datetime
+        return reverse("index")
 
 class RSSLatestEntries(RSS):
     def items(self):
         return get_latest_entries()[:settings.RSS_LIMIT]
 
-class AtomLatestEntries(RSSLatestEntries):
-    feed_type = Atom1Feed
-    subtitle = RSS.description
+    def item_title(self, item):
+        return item.title
 
+    def item_description(self, item):
+        return item.content
+
+    def item_link(self, item):
+        return reverse("show_post", args=[
+            item.datetime.year,
+            item.datetime.month,
+            item.datetime.day,
+            item.slug
+        ])
+
+class RSSEntriesTaggedWith(RSS):
+    """
+    Renders the latest N entries tagged with a given tag.
+
+    Sample URL: /feeds/entries_tagged_with/tag/
+
+    """
+
+    def get_object(self, request, tag):
+        return get_object_or_404(Tag, name=tag)
+
+    def items(self, item):
+        return TaggedItem.objects.get_by_model(get_latest_entries(), item)[:settings.RSS_LIMIT]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.content
+
+    def item_link(self, item):
+        return reverse("show_post", args=[
+            item.datetime.year,
+            item.datetime.month,
+            item.datetime.day,
+            item.slug
+        ])
