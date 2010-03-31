@@ -54,6 +54,12 @@
                         {% endif %}
                     </div>
 
+                    <div class="blog_entry_more blog_text">
+                        &raquo;
+                        <a href="{% url show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" class="ulink">Devamını okumak için tıklayın..</a>
+                        &laquo;
+                    </div>
+
                     <div class="blog_entry_footer">
                         <div class="align_left small">
                             {{ entry.datetime|date:"H:i @ d.m.Y, l" }}
