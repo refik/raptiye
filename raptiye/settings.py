@@ -186,7 +186,6 @@ INSTALLED_APPS = (
     'tagging',
     'raptiye.blog',
     'raptiye.contrib.flatpages',
-    'raptiye.tags',
 )
 
 try:

@@ -30,9 +30,6 @@ urlpatterns = patterns('',
 
     # blog page
     (r'^blog/', include('raptiye.blog.urls')),
-
-    # tags
-    (r'^tags/', include('raptiye.tags.urls')),
 )
 
 if settings.DEBUG:

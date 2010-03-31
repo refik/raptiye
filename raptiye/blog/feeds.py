@@ -20,10 +20,13 @@
 from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
+
+from tagging.models import Tag, TaggedItem
 
 from raptiye.blog.functions import get_latest_entries
 
-__all__ = ("RSS", "RSSLatestEntries")
+__all__ = ("RSS", "RSSLatestEntries", "RSSEntriesTaggedWith")
 
 class RSS(Feed):
     title = settings.PROJECT_NAME
@@ -37,6 +40,34 @@ class RSS(Feed):
 class RSSLatestEntries(RSS):
     def items(self):
         return get_latest_entries()[:settings.RSS_LIMIT]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.content
+
+    def item_link(self, item):
+        return reverse("show_post", args=[
+            item.datetime.year,
+            item.datetime.month,
+            item.datetime.day,
+            item.slug
+        ])
+
+class RSSEntriesTaggedWith(RSS):
+    """
+    Renders the latest N entries tagged with a given tag.
+
+    Sample URL: /feeds/entries_tagged_with/tag/
+
+    """
+
+    def get_object(self, request, tag):
+        return get_object_or_404(Tag, name=tag)
+
+    def items(self, item):
+        return TaggedItem.objects.get_by_model(get_latest_entries(), item)[:settings.RSS_LIMIT]
 
     def item_title(self, item):
         return item.title

@@ -29,7 +29,7 @@
     <div class="grid_10 omega">
         <div class="blog_entry_container vertical_first">
             <div class="blog_entry">
-                <h2 class="no_bottom_margin">{{ tag }} ile Etiketlenmiş Yazılar ({{ entry_list|length }})</h2>
+                <h2 class="no_bottom_margin">{{ tag }} ile Etiketlenmiş Yazılar ({{ paginator.count }})</h2>
                 <!-- <span class="small">Bu etiketle alakalı olabilecek diğer etiketler: <strong><em>hede</em></strong></span> -->
             </div>
         </div>
@@ -42,7 +42,7 @@
                             <a href="{% url show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
                         </h2>
                         <div class="smallplus">
-                            {% include "tags_of_entry.html" %}
+                            {% include "tags/tags_of_entry.html" %}
                         </div>
                     </div>
 

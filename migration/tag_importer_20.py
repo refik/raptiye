@@ -31,3 +31,7 @@ for relation in tag_relation_list:
 for relation in tag_relations.iteritems():
     entry = Entry.objects.get(id=relation[0])
     entry.tags = ", ".join([tags[id] for id in relation[1]])
+    entry.save()
+
+cur.execute("drop table blog_entry_tags")
+cur.execute("drop table tags_tag")

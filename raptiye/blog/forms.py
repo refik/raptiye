@@ -1,3 +1,5 @@
+# coding: utf-8
+# 
 # raptiye
 # Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
@@ -15,15 +17,15 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-from django.conf.urls.defaults import *
+from django import forms
 
-from raptiye.tags.feeds import RSSEntriesTaggedWith
+from tagging.forms import TagField
 
-urlpatterns = patterns('raptiye.tags.views',
-    url(r'^(?P<tag>[^/]+)/$', 'entries_tagged_with', name='entries_tagged_with'),
-)
+from raptiye.blog.models import Entry
+from raptiye.blog.widgets import AutoCompleteTagInput
 
-# feeds
-urlpatterns += patterns('',
-    url(r'^feeds/(?P<tag>[^/]+)/$', RSSEntriesTaggedWith(), name="rss_entries_tagged_with"),
-)
+class EntryForm(forms.ModelForm):
+    tags = TagField(widget=AutoCompleteTagInput(model=Entry), required=False)
+
+    class Meta:
+        model = Entry

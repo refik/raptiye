@@ -23,6 +23,8 @@ from django.template import RequestContext
 from django.views.generic.date_based import object_detail
 from django.views.generic.list_detail import object_list
 
+from tagging.views import tagged_object_list
+
 from raptiye.blog.functions import *
 from raptiye.blog.models import Entry
 
@@ -37,7 +39,7 @@ def blog(request, template_name="homepage.html"):
         "page": request.GET.get("page", 1),
         "template_object_name": "entry",
     }
-    
+
     return object_list(request, **params)
 
 def show_post(request, year, month, day, slug, template_name="detail.html"):
@@ -73,3 +75,18 @@ def search(request, template_name="search.html"):
     }
 
     return object_list(request, **params)
+
+def entries_tagged_with(request, tag, template_name="tags/entries_tagged_with.html"):
+    params = {
+        "queryset_or_model": get_latest_entries(),
+        "tag": tag,
+        "template_name": template_name,
+        "paginate_by": settings.ENTRIES_PER_PAGE,
+        "page": request.GET.get("page", 1),
+        "template_object_name": "entry",
+        # FIXME: the following line results as an AttributeError due to bug #179
+        # (http://code.google.com/p/django-tagging/issues/detail?id=179)
+        # "related_tags": True,
+    }
+
+    return tagged_object_list(request, **params)

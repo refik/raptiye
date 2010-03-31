@@ -33,7 +33,11 @@ urlpatterns = patterns('raptiye.blog.views',
 
     # feeds
     (r'^feeds/latest/$', RSSLatestEntries()),
+    url(r'^feeds/(?P<tag>[^/]+)/$', RSSEntriesTaggedWith(), name="rss_entries_tagged_with"),
 
     # search against entries
     url(r'^search/$', 'search', name='search'),
+    
+    # tags
+    url(r'^tags/(?P<tag>[^/]+)/$', 'entries_tagged_with', name='entries_tagged_with'),
 )

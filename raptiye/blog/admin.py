@@ -20,6 +20,7 @@
 from django.conf import settings
 from django.contrib import admin
 
+from raptiye.blog.forms import EntryForm
 from raptiye.blog.models import *
 from raptiye.extra.tinyurl import shorten_url
 
@@ -28,14 +29,14 @@ class EntryAdmin(admin.ModelAdmin):
     date_hierarchy = "datetime"
     fieldsets = (
         (None, {
-            "fields": ("title", "datetime", "content",
+            "fields": ("title", "datetime", "content", "tags",
                 ("comments_enabled", "sticky", "published"), "language", "slug"),
         }),
     )
+    form = EntryForm
     list_display = ("title", "datetime", "sticky", "published")
     list_filter = ("published", "sticky")
     list_per_page = settings.ADMIN_LIST_PER_PAGE
-    model = Entry
     ordering = ("-datetime", "title")
     prepopulated_fields = {"slug": ("title",)}
     radio_fields = {'language': admin.HORIZONTAL}
@@ -46,18 +47,6 @@ class EntryAdmin(admin.ModelAdmin):
     class Media:
         # js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
         pass
-
-    def save_model(self, request, obj, form, change):
-        obj.save()
-
-        if settings.POST_TO_TWITTER and obj.published:
-            import twitter
-
-            try:
-                api = twitter.Api(username=settings.TWITTER_USERNAME, password=settings.TWITTER_PASSWORD, input_encoding="utf8")
-                api.PostUpdate(u"%s (%s)" % (obj.title, shorten_url(obj.get_full_url())))
-            except:
-                pass
 
 admin.site.register(Entry, EntryAdmin)
 

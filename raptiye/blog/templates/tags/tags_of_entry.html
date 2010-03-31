@@ -20,9 +20,11 @@
 
 {% tags_for_object entry as tag_list %}
 
-<span class="bold grey">etiketler:</span>
-{% for tag in tag_list %}
-    <div class="tag_cloud_item inline">
-        <a href="{% url entries_tagged_with tag %}" title="{{ tag }} ile etiketlenmiş yazıları görüntülemek için tıklayın!" class="grey">{{ tag }}</a>
-    </div>
-{% endfor %}
+{% if tag_list %}
+    <span class="bold grey">etiketler:</span>
+    {% for tag in tag_list %}
+        <div class="tag_cloud_item inline">
+            <a href="{% url entries_tagged_with tag %}" title="{{ tag }} ile etiketlenmiş yazıları görüntülemek için tıklayın!" class="grey">{{ tag }}</a>
+        </div>
+    {% endfor %}
+{% endif %}
