@@ -17,8 +17,12 @@ tag_list = cur.execute("select * from tags_tag").fetchall()
 tags = {}
 
 for tag in tag_list:
-    tags[tag[0]] = tag[1] if tag[1] != u"Debian GNU/Linux" else u"debian"
-    tags[tag[0]] = tag[1] if tag[1] != u"Işık Üniversitesi" else u"ışık üniversitesi"
+    if tag[1] == u"Debian GNU/Linux":
+        tags[tag[0]] = u"debian"
+    elif tag[1] == u"Işık Üniversitesi":
+        tags[tag[0]] = u"ışık üniversitesi"
+    else:
+        tags[tag[0]] = tag[1]
 
 tag_relation_list = cur.execute("select entry_id, tag_id from blog_entry_tags").fetchall()
 tag_relations = {}
