@@ -18,6 +18,7 @@ tags = {}
 
 for tag in tag_list:
     tags[tag[0]] = tag[1] if tag[1] != u"Debian GNU/Linux" else u"debian"
+    tags[tag[0]] = tag[1] if tag[1] != u"Işık Üniversitesi" else u"ışık üniversitesi"
 
 tag_relation_list = cur.execute("select entry_id, tag_id from blog_entry_tags").fetchall()
 tag_relations = {}

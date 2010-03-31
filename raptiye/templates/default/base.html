@@ -28,14 +28,22 @@
         <meta name="author" content="Alper KANAT">
         <meta name="google-site-verification" content="wUnIOVucgFXwrlqACuiFLX65kAsy3aNanqLs9_yXxOQ">
         <link rel="icon" href="/media/images/favicon.png" type="image/png">
+        
         {% block styles %}{% endblock %}
-        <link href="{% rss_url %}" rel="alternate" type="application/rss+xml" title="raptiye rss feed">
+        
+        <link href="{% rss_url %}" rel="alternate" type="application/rss+xml" title="raptiye rss kaynağı">
+        
+        {% block additional_rss %}
+            {# extend this block to include rss urls #}
+        {% endblock %}
+        
         {# OpenID Delegation Start #}
             <link rel="openid.server" href="http://openid.claimid.com/server">
             <link rel="openid.delegate" href="http://openid.claimid.com/tunix">
         {# OpenID Delegation End #}
+        
         {% block scripts %}{% endblock %}
-        <script type="text/javascript" src="/media/template/js/raptiye.js"></script>
+        
         {% if not debug %}
             {# Google Analytics JS Code Start #}
                 <script type="text/javascript">
@@ -48,6 +56,7 @@
                 </script>
             {# Google Analytics JS Code End #}
         {% endif %}
+        
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>

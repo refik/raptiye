@@ -20,6 +20,10 @@
 
 {% load blog_filters %}
 
+{% block additional_rss %}
+    <link href="{% url rss_entries_tagged_with tag %}" rel="alternate" type="application/rss+xml" title="{{ tag }} ile etiketlenmiş yazılar">
+{% endblock %}
+
 {% block title %}{{ tag }} ile etiketlenmiş yazılar @ gunluk.{% project_name %} | {% project_subtitle %}{% endblock %}
 
 {% block content %}
@@ -29,8 +33,14 @@
     <div class="grid_10 omega">
         <div class="blog_entry_container vertical_first">
             <div class="blog_entry">
-                <h2 class="no_bottom_margin">{{ tag }} ile Etiketlenmiş Yazılar ({{ paginator.count }})</h2>
+                <h2 class="no_bottom_margin align_left">{{ tag }} ile Etiketlenmiş Yazılar ({{ paginator.count }})</h2>
+                <div class="tag_feed_rss_icon align_right">
+                    <a href="{% url rss_entries_tagged_with tag %}" title="{{ tag }} ile etiketlenmiş yazıları RSS ile takip etmek için tıklayın!">
+                        <img src="{{ MEDIA_URL|default:'/media/' }}template/images/social/rss_sidebar.png">
+                    </a>
+                </div>
                 <!-- <span class="small">Bu etiketle alakalı olabilecek diğer etiketler: <strong><em>hede</em></strong></span> -->
+                <div class="clear"></div>
             </div>
         </div>
 

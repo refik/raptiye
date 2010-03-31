@@ -227,6 +227,11 @@ blockquote {
     padding-right: 5px;
 }
 
+.tag_feed_rss_icon {
+    margin-top: 2px;
+    margin-bottom: -4px;
+}
+
 .align_left {
     float: left;
 }
