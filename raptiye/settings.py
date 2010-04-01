@@ -34,7 +34,7 @@ DJANGO_DIR = os.path.abspath(os.path.dirname(django.__file__))
 # --- GENERIC SETTINGS ------------
 
 PROJECT_NAME = u"raptiye"
-VERSION = '2.1.1'
+VERSION = '2.1.2'
 PROJECT_SUBTITLE = u"Bilgi Paylaştıkça Çoğalır!"
 
 COLORIZE_CODE = False
