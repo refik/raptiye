@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "index.html" %}
 
 {% comment %}
     raptiye
@@ -20,17 +20,44 @@
 
 {% load blog_filters %}
 
-{% block title %}sunucu hatası @ {{ mainpage.title }} | {{ mainpage.subtitle }}{% endblock %}
+{% block title %}sunucu hatası @ {% project_name %} | {% project_subtitle %}{% endblock %}
 
-{% block body %}
-	<div class="ps_error">
-		<img src="/media/images/warning.png" align="absmiddle">
-		<h2>oh heinz!.. sunucu hatası?!</h2>
-		<br><br><br>
-		<div class="ps_error_content">
-			<h3>şanslısınız..</h3>
-			<br>
-			muhtemelen benim mükemmel programcılığımdaki bu hatayı görmek siz zavallı insan evladına kısmet olmayacak.. bu zevki tatmayı (sayın başbakanımızın deyimiyle) velev ki gördüyseniz bana haber vermeyen (--> O) böyle olsun.. :)
-		</div>
-	</div>
+{% block content %}
+    <div class="grid_6 alpha">
+        {% include "sidebar.html" %}
+    </div>
+
+    <div class="grid_10 omega">
+        <div class="blog_entry_container">
+            <div class="blog_entry">
+                <div class="align_left">
+                    <h2 class="no_bottom_margin">Sunucu Hatası (500)</h2>
+                </div>
+
+                <div class="align_right">
+                    <img src="{{ MEDIA_URL|default:'/media/' }}template/images/404.png">
+                </div>
+
+                <div class="both_sides_cleared small">
+                    <p>
+                        {% project_name %}, sunucudan kaynaklanan bir hata nedeniyle yaptığınız sayfa isteğine
+                        cevap veremiyor. Hatayla ilgili detaylı bir e-posta, geliştirici takımına
+                        iletildi.
+                    </p>
+
+                    <p>
+                        Biz hata üzerinde çalışırken, dilerseniz <a href="{% url index %}" class="ulink">ana 
+                        sayfaya</a> gidebilir ya da sol taraftaki etiketlerden birini seçerek gezintinize 
+                        kaldığınız yerden devam edebilirsiniz.
+                    </p>
+
+                    <p class="no_bottom_margin">
+                        Anlayışınız için teşekkür ederiz!
+                    </p>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

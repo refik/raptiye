@@ -303,3 +303,7 @@ blockquote {
 .vertical_last, .no_bottom_margin {
     margin-bottom: 0 !important;
 }
+
+.both_sides_cleared {
+    clear: both;
+}

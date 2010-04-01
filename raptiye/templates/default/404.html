@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "index.html" %}
 
 {% comment %}
     raptiye
@@ -22,15 +22,38 @@
 
 {% block title %}sayfa bulunamadı @ {% project_name %} | {% project_subtitle %}{% endblock %}
 
-{% block body %}
-	<div class="ps_error">
-		<img src="/media/images/warning.png" align="absmiddle">
-		<h2>genel kültür sayfasına hoş geldiniz..</h2>
-		<br><br><br>
-		<div class="ps_error_content">
-			<h3>nedir bu meşhur 404?</h3>
-			<br>
-			kullanıcının siteyi kurcalamaya başladığı anda sunucunun silkinmesi ve kullanıcının aradığı şeyin bu civarlarda olmadığını kendisine bildirmesidir..
-		</div>
-	</div>
+{% block content %}
+    <div class="grid_6 alpha">
+        {% include "sidebar.html" %}
+    </div>
+
+    <div class="grid_10 omega">
+        <div class="blog_entry_container">
+            <div class="blog_entry">
+                <div class="align_left">
+                    <h2 class="no_bottom_margin">Aradığınız Sayfa Bulunamadı (404)</h2>
+                </div>
+
+                <div class="align_right">
+                    <img src="{{ MEDIA_URL|default:'/media/' }}template/images/404.png">
+                </div>
+
+                <div class="both_sides_cleared small">
+                    <p>
+                        Aradığınız sayfalara ulaşılamıyor. {% project_name %} dışındaki bir bağlantıdan 
+                        bu sayfaya ulaşmaya çalışıyorsanız lütfen bağlantıyı sağlayan siteyle iletişime 
+                        geçerek ya doğru bağlantıyı sağlamalarını ya da bağlantıyı sitelerinden 
+                        kaldırmalarını isteyiniz.
+                    </p>
+
+                    <p class="no_bottom_margin">
+                        Dilerseniz <a href="{% url index %}" class="ulink">ana sayfaya</a> gidebilir ya da sol taraftaki etiketlerden birini 
+                        seçerek gezintinize kaldığınız yerden devam edebilirsiniz.
+                    </p>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
