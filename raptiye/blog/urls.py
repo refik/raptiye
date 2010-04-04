@@ -37,7 +37,10 @@ urlpatterns = patterns('raptiye.blog.views',
 
     # search against entries
     url(r'^search/$', 'search', name='search'),
-    
+
+    # show preview for markitup!
+    (r'^show_preview/$', 'show_preview'),
+
     # tags
     url(r'^tags/(?P<tag>[^/]+)/$', 'entries_tagged_with', name='entries_tagged_with'),
 )

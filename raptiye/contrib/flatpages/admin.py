@@ -1,37 +1,31 @@
+# coding: utf-8
+# 
+# raptiye
+# Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+# 
+
 from django import forms
-from django.forms import ValidationError
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
+from raptiye.contrib.flatpages.forms import FlatPageForm
 from raptiye.contrib.flatpages.models import FlatPage
 
-class FlatpageForm(forms.ModelForm):
-    url = forms.RegexField(label=_("URL"), max_length=100, regex=r'^[-\w/]+$',
-        help_text = _("Example: '/about/contact/'. Make sure to have leading"
-            " and trailing slashes."),
-        error_message = _("This value must contain only letters, numbers,"
-            " underscores, dashes or slashes."))
-    content = forms.CharField(widget=forms.Textarea(attrs={"style": "width: 900px; height: 600px"}))
-
-    def clean_url(self):
-        """
-        Checks if url has trailing slash and raises 
-        ValidationError if not..
-
-        """
-        
-        data = self.cleaned_data["url"]
-        
-        if data[-1] != "/":
-            raise ValidationError(_(u"You should add a trailing slash at the end of the url."))
-        
-        return data
-
-    class Meta:
-        model = FlatPage
-
 class FlatPageAdmin(admin.ModelAdmin):
-    form = FlatpageForm
+    form = FlatPageForm
     fieldsets = (
         (None, {'fields': ('url', 'title', 'content', 'sites', 'lang', 'show_on_homepage')}),
         (_('Advanced options'), {'classes': ('collapse',), 'fields': ('enable_comments', 'registration_required', 'template_name')}),
@@ -39,9 +33,5 @@ class FlatPageAdmin(admin.ModelAdmin):
     list_display = ('url', 'title', 'show_flag', 'show_on_homepage')
     list_filter = ('sites', 'enable_comments', 'registration_required', 'lang', 'show_on_homepage')
     search_fields = ('url', 'title')
-
-    class Media:
-        # js = ("common/fckeditor/fckeditor.js", "common/fckeditor_inclusion.js")
-        pass
 
 admin.site.register(FlatPage, FlatPageAdmin)

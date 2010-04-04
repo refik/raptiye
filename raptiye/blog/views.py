@@ -18,6 +18,7 @@
 # 
 
 from django.conf import settings
+from django.http import Http404
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.views.generic.date_based import object_detail
@@ -30,6 +31,11 @@ from raptiye.blog.models import Entry
 
 def index(request):
     return redirect("blog", permanent=True)
+
+def show_preview(request, template_name="preview.html"):
+    if request.is_ajax():
+        return render_to_response(template_name, context_instance=RequestContext(request))
+    raise Http404
 
 def blog(request, template_name="homepage.html"):
     params = {

@@ -25,6 +25,31 @@ from tagging.models import Tag
 
 from raptiye.blog.models import Entry
 
+__all__ = ("MarkItUpInput", "AutoCompleteTagInput")
+
+class MarkItUpInput(forms.Textarea):
+    def __init__(self, *args, **kwargs):
+        super(MarkItUpInput, self).__init__(*args, **kwargs)
+
+    class Media:
+        css = {
+            "screen": (
+                "css/markitup/skins/default/style.css",
+                "css/markitup/sets/default/style.css",
+            )
+        }
+
+        js = (
+            "js/markitup/jquery.markitup.pack.js",
+            "js/markitup/sets/default/set.js",
+        )
+
+    def render(self, name, value, attrs=None):
+        output = super(MarkItUpInput, self).render(name, value, attrs)
+        return output + mark_safe(u'''<script type="text/javascript" charset="utf-8">
+            $("#id_%s").markItUp(mySettings)
+        </script>''' % name)
+
 class AutoCompleteTagInput(forms.TextInput):
     def __init__(self, *args, **kwargs):
         if kwargs.has_key("model"):
@@ -37,12 +62,11 @@ class AutoCompleteTagInput(forms.TextInput):
 
     class Media:
         css = {
-            "screen": ("template/css/autoSuggest.css",)
+            "screen": ("css/autoSuggest.css",)
         }
 
         js = (
-            "template/js/jquery.js",
-            "template/js/jquery.autoSuggest-packed.js"
+            "js/jquery.autoSuggest-packed.js",
         )
 
     def render(self, name, value, attrs=None):

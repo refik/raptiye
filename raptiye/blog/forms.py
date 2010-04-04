@@ -22,10 +22,11 @@ from django import forms
 from tagging.forms import TagField
 
 from raptiye.blog.models import Entry
-from raptiye.blog.widgets import AutoCompleteTagInput
+from raptiye.blog.widgets import *
 
 class EntryForm(forms.ModelForm):
     tags = TagField(widget=AutoCompleteTagInput(model=Entry), required=False)
+    content = forms.CharField(widget=MarkItUpInput)
 
     class Meta:
         model = Entry
