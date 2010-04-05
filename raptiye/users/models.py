@@ -22,22 +22,21 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class UserProfile(models.Model):
-	"""
-	Stores additional information about the users..
+    """
+    Stores additional information about the users..
 
-	"""
-	
-	user = models.ForeignKey(User, related_name='profile', verbose_name=u"User")
-	avatar = models.URLField(u"Avatar", default=settings.DEFAULT_AVATAR)
-	web_site = models.URLField(u"Web Site", blank=True)
-	activation_key = models.CharField(u"Activation Code", max_length=100, blank=True)
-	last_modified = models.DateTimeField(u"Last Modified Date", auto_now=True)
-	openid = models.URLField(u"OpenID", blank=True, null=True, unique=True)
-	
-	def __unicode__(self):
-		return "User Profile of %s" % self.user.username
+    """
 
-	class Meta:
-		verbose_name = u"User Profile"
-		verbose_name_plural = u"User Profiles"
+    user = models.ForeignKey(User, related_name='profile', verbose_name=u"User")
+    avatar = models.URLField(u"Avatar", default=settings.DEFAULT_AVATAR)
+    web_site = models.URLField(u"Web Site", blank=True)
+    activation_key = models.CharField(u"Activation Code", max_length=100, blank=True)
+    last_modified = models.DateTimeField(u"Last Modified Date", auto_now=True)
+    openid = models.URLField(u"OpenID", blank=True, null=True, unique=True)
 
+    def __unicode__(self):
+        return "User Profile of %s" % self.user.username
+
+    class Meta:
+        verbose_name = u"User Profile"
+        verbose_name_plural = u"User Profiles"
