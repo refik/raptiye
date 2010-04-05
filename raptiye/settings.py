@@ -51,7 +51,7 @@ BIRTH_DATE = date(1984, 05, 16)
 # --- ADMIN SETTINGS --------------
 
 ADMIN_LIST_PER_PAGE = 20
-AUTH_PROFILE_MODULE = 'users.UserProfile'
+# AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 
 
