@@ -6,6 +6,7 @@ REQUIREMENTS
 ----------------
 
 * django (>= 1.1)
+* django-tagging
 * python-imaging
 * python-openid (optional)
 * python-*sql (optional when using sqlite)
