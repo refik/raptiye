@@ -17,27 +17,14 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-from django.conf import settings
 from django.conf.urls.defaults import *
+from django.core.urlresolvers import reverse
 
 urlpatterns = patterns('raptiye.users.views',
-	# openid complete page
-	url(r'^openid/complete/$', 'openid_complete', name="openid_complete"),
-	# register page
-	url(r'^register/$', 'register', name='registration'),
-	# login page
-	url(r'^login/$', 'user_login', name='login_page'),
-	# logout page
-	url(r'^logout/$', 'user_logout', name='logout_page'),
-	# forgotten password page
-	url(r'^forgotten_password/$', 'forgotten_password', name='forgotten_password'),
-	# activation page
-	url(r'^(?P<username>[\w\d]+)/activate/(?P<key>[\w\d]+)/$', 'activation', name='activation_page'),
-	# gravatar request
-	url(r'^(?P<username>[\w\d]+)/profile/gravatar/$', 'gravatar', name='gravatar_request'),
-	# profile page
-	url(r'^(?P<username>[\w\d]+)/profile/$', 'profile', name='profile_page'),
-	# profile page notification removal
-	url(r'^(?P<username>[\w\d]+)/profile/notification/remove/$', 'notification_remove', name='notification_removal'),
 )
 
+# builtin views
+urlpatterns += patterns('django.contrib.auth.views',
+    url(r'^login/$', 'login', kwargs={'template_name': 'login.html'}, name='login'),
+    url(r'^logout/$', 'logout', kwargs={'next_page': reverse('index')}, name='logout'),
+)

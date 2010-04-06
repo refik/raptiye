@@ -22,14 +22,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # homepage view
     url(r'^$', 'raptiye.blog.views.index', name="index"),
 
-    # admin page
     (r'^admin/', include(admin.site.urls)),
-
-    # blog page
     (r'^blog/', include('raptiye.blog.urls')),
+    (r'^users/', include('raptiye.users.urls')),
 )
 
 if settings.DEBUG:

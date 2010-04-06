@@ -17,11 +17,23 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
+import hashlib
 from random import sample
-import sha, string
+import sha
+import string
+import urllib
 
 from django.conf import settings
 
 def create_activation_key():
 	choices = list(string.letters + string.digits)
 	return sha.new(settings.SECRET_KEY[:20] + "".join(sample(choices, 5))).hexdigest()
+
+def get_gravatar(email, default, size=50):
+    gravatar_url = "http://www.gravatar.com/avatar.php?"
+    gravatar_url += urllib.urlencode({
+        "gravatar_id": hashlib.md5(email).hexdigest(),
+        "default": default,
+        "size": str(size)
+    })
+    return gravatar_url

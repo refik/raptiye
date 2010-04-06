@@ -1,3 +1,5 @@
+# coding: utf-8
+# 
 # raptiye
 # Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
 # 
@@ -14,4 +16,3 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
-

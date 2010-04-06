@@ -24,12 +24,12 @@
 
     &raquo; <a href="#{# {% url profile_page request.user.username %} #}" title="profilinizi görmek ve değiştirmek için tıklayın.." class="link">profilim</a>
     <br>
-    &raquo; <a href="#{# {% url logout_page %}?next={{ request.path }} #}" title="çıkış yapmak için tıklayın.." class="link">çıkış</a>
+    &raquo; <a href="{% url logout %}?next={{ request.path }}" title="çıkış yapmak için tıklayın.." class="link">çıkış</a>
 {% else %}
     &raquo; <a href="#{# {% url forgotten_password %} #}" title="raptiye hesabınızın şifresini hatırlamıyorsanız tıklayın.." class="link">şifremi unuttum</a>
     <br>
     &raquo; <a href="#{# {% url registration %} #}" title="raptiye'ye kaydolmak için tıklayın.." class="link">kaydol</a>
     <br>
-    &raquo; <a href="#{# {% url login_page %}?next={{ request.path }} #}" title="raptiye hesabınızla giriş yapmak için tıklayın.." class="link">giriş</a>
+    &raquo; <a href="{% url login %}?next={{ request.path }}" title="raptiye hesabınızla giriş yapmak için tıklayın.." class="link">giriş</a>
 {% endif %}
 

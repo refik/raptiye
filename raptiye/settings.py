@@ -101,6 +101,7 @@ FILE_CHARSET = 'utf-8'
 
 LOGIN_URL = "/users/login/"
 LOGOUT_URL = "/users/logout/"
+DEFAULT_AVATAR = lambda: MEDIA_URL + "images/default_avatar.png"
 
 # URL Pattern Naming used here..
 REDIRECT_URL = "blog"
@@ -185,6 +186,7 @@ INSTALLED_APPS = (
     'tagging',
     'raptiye.blog',
     'raptiye.contrib.flatpages',
+    # 'raptiye.users',
 )
 
 try:
