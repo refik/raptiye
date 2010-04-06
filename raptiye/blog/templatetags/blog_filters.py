@@ -19,10 +19,12 @@
 
 from datetime import date
 import HTMLParser
+import re
 
 from django import template
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.utils.safestring import mark_safe
 
 from raptiye.blog.models import Entry, Link
 from raptiye.blog.webcal import WebCalendar
@@ -102,10 +104,9 @@ def twitter():
 
     """
 
-    if settings.ENABLE_TWITTER_BOX and settings.TWITTER_USERNAME != "" and settings.TWITTER_PASSWORD != "":
-        import twitter
-
+    if settings.ENABLE_TWITTER_BOX:
         try:
+            import twitter
             api = twitter.Api(username=settings.TWITTER_USERNAME, password=settings.TWITTER_PASSWORD)
             latest_updates_of_user = [status.GetText() for status in api.GetUserTimeline()]
             return {"latest_updates": latest_updates_of_user[:settings.TWITTER_LIMIT]}
@@ -113,6 +114,25 @@ def twitter():
             pass
 
     return {"latest_updates": None}
+
+@register.filter
+def twitter_specials(tweet):
+    isReply = lambda s: s.startswith("@")
+    isHashTag = lambda s: s.startswith("#")
+    specials = re.findall("@[^\s]+|#[^\s]+", tweet)
+    unique_specials = set(specials)
+
+    for tag in unique_specials:
+        linked_tag = tag
+
+        if isReply(tag):
+            linked_tag = '<a href="http://twitter.com/%s/" target="_blank">%s</a>' % (tag.replace("@", ""), tag)
+        elif isHashTag(tag):
+            linked_tag = '<a href="http://twitter.com/search?q=%s" target="_blank">%s</a>' % (tag, tag)
+
+        tweet = tweet.replace(tag, linked_tag)
+
+    return mark_safe(tweet)
 
 @register.filter
 def exceeds_limit(entry):

@@ -181,7 +181,7 @@ blockquote {
     margin-bottom: 10px;
 }
 
-.blog_entry_content li:before {
+.blog_entry_content li:before, li.arrowed:before {
     content: "» ";
 }
 
@@ -232,6 +232,10 @@ blockquote {
     margin-bottom: -4px;
 }
 
+.twitter_item {
+    margin-bottom: 7px;
+}
+
 .align_left {
     float: left;
 }
@@ -256,7 +260,11 @@ blockquote {
 	font-weight: bold;
 }
 
-.underline {
+.italic, .twitter_item a {
+    font-style: italic;
+}
+
+.underline, .ulink, .twitter_item a {
     text-decoration: underline;
 }
 
@@ -280,11 +288,7 @@ blockquote {
     display: inline;
 }
 
-.ulink {
-    text-decoration: underline;
-}
-
-.ulink:hover {
+.ulink:hover, .twitter_item a:hover {
     text-decoration: none;
 }
 
