@@ -95,7 +95,7 @@ LOCALES = {
 
 CSRF_COOKIE_DOMAIN = ".raptiye.org"
 
-DEFAULT_CHARSET='utf8'
+DEFAULT_CHARSET='utf-8'
 DEFAULT_CONTENT_TYPE = 'text/html'
 FILE_CHARSET = 'utf-8'
 
@@ -163,10 +163,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.request",
+    "django.core.context_processors.csrf",
 )
 
 TEMPLATE_DIRS = (
-    "%s/templates/default/" % DOCUMENT_ROOT,
+    "%s/templates/default" % DOCUMENT_ROOT,
 )
 
 TEMPLATE_LOADERS = (
