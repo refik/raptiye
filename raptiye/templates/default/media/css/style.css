@@ -232,8 +232,40 @@ blockquote {
     margin-bottom: -4px;
 }
 
+#users_form {
+    border-collapse: separate;
+    border-spacing: 20px 0;
+}
+
+#users_form .field_error {
+    margin-top: 3px;
+    padding: 3px 8px 3px 8px;
+    max-width: 250px;
+    background-color: #990000;
+    border: 1px solid #333;
+    color: white;
+}
+
+#users_form_error {
+    margin: 20px auto;
+    padding: 3px 8px 3px 8px;
+    width: 400px;
+    background-color: #990000;
+    border: 1px solid #333;
+    color: white;
+}
+
+#users_form_buttons {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .align_left {
     float: left;
+}
+
+.align_center {
+    margin: 0 auto;
 }
 
 .align_right {

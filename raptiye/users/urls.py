@@ -25,6 +25,19 @@ urlpatterns = patterns('raptiye.users.views',
 
 # builtin views
 urlpatterns += patterns('django.contrib.auth.views',
-    url(r'^login/$', 'login', kwargs={'template_name': 'login.html'}, name='login'),
-    url(r'^logout/$', 'logout', kwargs={'next_page': reverse('index')}, name='logout'),
+    url(r'^login/$', 'login', {
+        'template_name': 'login.html'
+    }, name='login'),
+    url(r'^logout/$', 'logout', {
+        'next_page': reverse('index')
+    }, name='logout'),
+    url(r'^reset/password/$', 'password_reset', {
+        'template_name': 'password_reset_form.html',
+        'email_template_name': 'password_reset_email.html',
+        'post_reset_redirect': reverse('blog:index')
+    }, name='password_reset'),
+    url(r'^reset/password/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'password_reset_confirm', {
+        'template_name': 'password_reset_confirm.html',
+        'post_reset_redirect': reverse('blog:index')
+    }, name='password_reset_confirm'),
 )
