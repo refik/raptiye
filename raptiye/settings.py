@@ -82,6 +82,7 @@ EMAIL_INFO_ADDRESS_EN = ""
 # EMAIL_PORT = 
 EMAIL_SUBJECT_PREFIX = u""
 EMAIL_USE_TLS = True
+SERVER_EMAIL = ""
 
 LANGUAGES = (
     ("tr", "tr"),
@@ -101,6 +102,7 @@ FILE_CHARSET = 'utf-8'
 
 LOGIN_URL = "/users/login/"
 LOGOUT_URL = "/users/logout/"
+LOGIN_REDIRECT_URL = "/"
 DEFAULT_AVATAR = lambda: MEDIA_URL + "images/default_avatar.png"
 
 # URL Pattern Naming used here..
@@ -137,21 +139,20 @@ SITE_ID = 1
 USE_I18N = True
 
 MEDIA_ROOT = '%s/media/' % DOCUMENT_ROOT
-
 MEDIA_URL = '/media/'
-
 ADMIN_MEDIA_PREFIX = '/media/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ''
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.doc.XViewMiddleware',
-    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
@@ -181,7 +182,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',
     'tagging',
