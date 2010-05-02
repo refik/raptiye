@@ -18,18 +18,17 @@
 
 {% if request.user.is_authenticated %}
     {% if request.user.is_superuser %}
-        &raquo; <a href="/admin" title="yönetim paneline gitmek için tıklayın.." class="link">yönetim paneli</a>
+        &raquo; <a href="{% url admin:index %}" title="yönetim paneline gitmek için tıklayın..">yönetim paneli</a>
         <br>
     {% endif %}
 
-    &raquo; <a href="#{# {% url profile_page request.user.username %} #}" title="profilinizi görmek ve değiştirmek için tıklayın.." class="link">profilim</a>
+    &raquo; <a href="#{# {% url profile_page request.user.username %} #}" title="profilinizi görmek ve değiştirmek için tıklayın..">profilim</a>
     <br>
-    &raquo; <a href="{% url logout %}?next={{ request.path }}" title="çıkış yapmak için tıklayın.." class="link">çıkış</a>
+    &raquo; <a href="{% url users:logout %}?next={{ request.path }}" title="çıkış yapmak için tıklayın..">çıkış</a>
 {% else %}
-    &raquo; <a href="#{# {% url forgotten_password %} #}" title="raptiye hesabınızın şifresini hatırlamıyorsanız tıklayın.." class="link">şifremi unuttum</a>
+    &raquo; <a href="{% url users:password_reset %}" title="raptiye hesabınızın şifresini hatırlamıyorsanız tıklayın..">şifremi unuttum</a>
     <br>
-    &raquo; <a href="#{# {% url registration %} #}" title="raptiye'ye kaydolmak için tıklayın.." class="link">kaydol</a>
+    &raquo; <a href="#{# {% url registration %} #}" title="raptiye'ye kaydolmak için tıklayın..">kaydol</a>
     <br>
-    &raquo; <a href="{% url login %}?next={{ request.path }}" title="raptiye hesabınızla giriş yapmak için tıklayın.." class="link">giriş</a>
+    &raquo; <a href="{% url users:login %}?next={{ request.path }}" title="raptiye hesabınızla giriş yapmak için tıklayın..">giriş</a>
 {% endif %}
-

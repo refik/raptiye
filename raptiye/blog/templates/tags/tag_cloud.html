@@ -21,6 +21,6 @@
 {% tag_cloud_for_model blog.Entry as tag_cloud_for_entries with steps=28 min_count=3 distribution=log %}
 
 {% for tag in tag_cloud_for_entries %}
-    <a href="{% url entries_tagged_with tag %}" title="{{ tag }} ile etiketlenmiş yazıları görüntülemek için tıklayın!" 
+    <a href="{% url blog:entries_tagged_with tag %}" title="{{ tag }} ile etiketlenmiş yazıları görüntülemek için tıklayın!" 
         style="font-size: {{ tag.font_size }}px">{{ tag }}</a>
 {% endfor %}

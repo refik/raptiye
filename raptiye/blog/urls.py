@@ -23,7 +23,7 @@ from raptiye.blog.feeds import *
 
 urlpatterns = patterns('raptiye.blog.views',
     # main page of blog
-    url(r'^$', 'blog', name='blog'),
+    url(r'^$', 'blog', name='index'),
 
     # archives for blogs..
     # url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$', 'get_entries_for_day', name='entries_on_date'),

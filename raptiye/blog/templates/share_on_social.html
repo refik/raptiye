@@ -31,7 +31,7 @@
     </script>
 {% endblock %}
 
-{% url show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug as entry_url %}
+{% url blog:show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug as entry_url %}
 
 Paylaş:
 

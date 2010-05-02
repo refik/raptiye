@@ -25,8 +25,8 @@ urlpatterns = patterns('',
     url(r'^$', 'raptiye.blog.views.index', name="index"),
 
     (r'^admin/', include(admin.site.urls)),
-    (r'^blog/', include('raptiye.blog.urls')),
-    (r'^users/', include('raptiye.users.urls')),
+    (r'^blog/', include('raptiye.blog.urls', namespace='blog', app_name='blog')),
+    (r'^users/', include('raptiye.users.urls', namespace='users', app_name='users')),
 )
 
 if settings.DEBUG:

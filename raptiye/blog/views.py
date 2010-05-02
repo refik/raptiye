@@ -30,7 +30,7 @@ from raptiye.blog.functions import *
 from raptiye.blog.models import Entry
 
 def index(request):
-    return redirect("blog", permanent=True)
+    return redirect("blog:index", permanent=True)
 
 def show_preview(request, template_name="preview.html"):
     if request.is_ajax():

@@ -39,7 +39,7 @@
                 <div class="blog_entry">
                     <div class="blog_entry_title">
                         <h2 class="no_bottom_margin">
-                            <a href="{% url show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
+                            <a href="{% url blog:show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
                         </h2>
                         <div class="smallplus">
                             {% include "tags/tags_of_entry.html" %}
@@ -56,7 +56,7 @@
 
                     <div class="blog_entry_more blog_text">
                         &raquo;
-                        <a href="{% url show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" class="ulink">Devamını okumak için tıklayın..</a>
+                        <a href="{% url blog:show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" class="ulink">Devamını okumak için tıklayın..</a>
                         &laquo;
                     </div>
 

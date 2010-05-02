@@ -48,7 +48,7 @@ class RSSLatestEntries(RSS):
         return item.content
 
     def item_link(self, item):
-        return reverse("show_post", args=[
+        return reverse("blog:show_post", args=[
             item.datetime.year,
             item.datetime.month,
             item.datetime.day,
@@ -76,7 +76,7 @@ class RSSEntriesTaggedWith(RSS):
         return item.content
 
     def item_link(self, item):
-        return reverse("show_post", args=[
+        return reverse("blog:show_post", args=[
             item.datetime.year,
             item.datetime.month,
             item.datetime.day,

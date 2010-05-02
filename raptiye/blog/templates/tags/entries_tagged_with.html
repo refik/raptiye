@@ -21,7 +21,7 @@
 {% load blog_filters %}
 
 {% block additional_rss %}
-    <link href="{% url rss_entries_tagged_with tag %}" rel="alternate" type="application/rss+xml" title="{{ tag }} ile etiketlenmiş yazılar">
+    <link href="{% url blog:rss_entries_tagged_with tag %}" rel="alternate" type="application/rss+xml" title="{{ tag }} ile etiketlenmiş yazılar">
 {% endblock %}
 
 {% block title %}{{ tag }} ile etiketlenmiş yazılar @ gunluk.{% project_name %} | {% project_subtitle %}{% endblock %}
@@ -35,7 +35,7 @@
             <div class="blog_entry">
                 <h2 class="no_bottom_margin align_left">{{ tag }} ile Etiketlenmiş Yazılar ({{ paginator.count }})</h2>
                 <div class="tag_feed_rss_icon align_right">
-                    <a href="{% url rss_entries_tagged_with tag %}" title="{{ tag }} ile etiketlenmiş yazıları RSS ile takip etmek için tıklayın!">
+                    <a href="{% url blog:rss_entries_tagged_with tag %}" title="{{ tag }} ile etiketlenmiş yazıları RSS ile takip etmek için tıklayın!">
                         <img src="{{ MEDIA_URL|default:'/media/' }}template/images/social/rss_sidebar.png">
                     </a>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="blog_entry">
                     <div class="blog_entry_title">
                         <h2 class="no_bottom_margin">
-                            <a href="{% url show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
+                            <a href="{% url blog:show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" title="Yazının tamamını okumak için buraya tıklayın.">{{ entry.title }}</a>
                         </h2>
                         <div class="smallplus">
                             {% include "tags/tags_of_entry.html" %}
@@ -66,7 +66,7 @@
 
                     <div class="blog_entry_more blog_text">
                         &raquo;
-                        <a href="{% url show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" class="ulink">Devamını okumak için tıklayın..</a>
+                        <a href="{% url blog:show_post entry.datetime.year,entry.datetime.month,entry.datetime.day,entry.slug %}" class="ulink">Devamını okumak için tıklayın..</a>
                         &laquo;
                     </div>
 
