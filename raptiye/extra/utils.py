@@ -17,8 +17,21 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 # 
 
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.core import urlresolvers
 
-def being_confirmed(request, template_name='being_confirmed.html'):
-    return render_to_response(template_name, context_instance=RequestContext(request))
+class lazy_string(object):
+    """
+    Returns the string representation of an object lazily.
+    
+    """
+
+    def __init__(self, func, *args, **kwargs):
+        self.func = func
+        self.args = args
+        self.kwargs = kwargs
+
+    def __str__(self):
+        return self.func(*self.args, **self.kwargs)
+
+def reverse(*args, **kwargs):
+    return lazy_string(urlresolvers.reverse, *args, **kwargs)
