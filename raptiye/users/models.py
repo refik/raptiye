@@ -34,7 +34,7 @@ class UserProfile(models.Model):
     last_modified = models.DateTimeField(u"Last Modified Date", auto_now=True)
 
     def __unicode__(self):
-        return "User Profile of %s" % self.user.username
+        return "User Profile of %s" % self.user
 
     class Meta:
         get_latest_by = "last_modified"
