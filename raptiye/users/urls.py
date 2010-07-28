@@ -19,11 +19,15 @@
 
 from django.conf.urls.defaults import *
 from django.core.urlresolvers import reverse
+from django.views.generic.simple import direct_to_template
 
 from raptiye.extra.utils import reverse as lazy_reverse
 
 urlpatterns = patterns('raptiye.users.views',
-    url(r'^reset/password/being/confirmed/$', 'being_confirmed', name='being_confirmed'),
+    url(r'^reset/password/being/confirmed/$', direct_to_template,
+        {'template': 'password_reset_being_confirmed.html'}, name='password_reset_being_confirmed'),
+    url(r'^reset/password/complete/$', direct_to_template,
+        {'template': 'password_reset_complete.html'}, name='password_reset_complete'),
 )
 
 # builtin views with custom parameters
@@ -37,10 +41,10 @@ urlpatterns += patterns('django.contrib.auth.views',
     url(r'^reset/password/$', 'password_reset', {
         'template_name': 'password_reset_form.html',
         'email_template_name': 'password_reset_email.html',
-        'post_reset_redirect': lazy_reverse("users:being_confirmed")
+        'post_reset_redirect': lazy_reverse('users:password_reset_being_confirmed')
     }, name='password_reset'),
     url(r'^reset/password/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'password_reset_confirm', {
         'template_name': 'password_reset_confirm.html',
-        'post_reset_redirect': reverse('blog:index')
+        'post_reset_redirect': lazy_reverse('users:password_reset_complete')
     }, name='password_reset_confirm'),
 )
