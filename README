@@ -7,9 +7,13 @@ REQUIREMENTS
 
 * django (>= 1.1)
 * python-imaging
+* django-tagging
+* django-registration (optional)
+* django-profiles (optional)
 * python-openid (optional)
 * python-*sql (optional when using sqlite)
 * BeautifulSoup (optional when using colorizing)
+* python-twitter (optional)
 
 NOTES ON DEPLOYMENT
 -----------------------
