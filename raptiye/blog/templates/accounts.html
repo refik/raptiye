@@ -28,7 +28,7 @@
 {% else %}
     &raquo; <a href="{% url users:password_reset %}" title="raptiye hesabınızın şifresini hatırlamıyorsanız tıklayın..">şifremi unuttum</a>
     <br>
-    &raquo; <a href="#{# {% url registration %} #}" title="raptiye'ye kaydolmak için tıklayın..">kaydol</a>
+    &raquo; <a href="{% url users:registration %}" title="raptiye'ye kaydolmak için tıklayın..">kaydol</a>
     <br>
     &raquo; <a href="{% url users:login %}?next={{ request.path }}" title="raptiye hesabınızla giriş yapmak için tıklayın..">giriş</a>
 {% endif %}

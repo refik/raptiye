@@ -48,3 +48,18 @@ urlpatterns += patterns('django.contrib.auth.views',
         'post_reset_redirect': lazy_reverse('users:password_reset_complete')
     }, name='password_reset_confirm'),
 )
+
+# adding urls for django-registration and
+# not using its internal urls.py because of above block
+urlpatterns += patterns('registration.views',
+    # Activation keys get matched by \w+ instead of the more specific
+    # [a-fA-F0-9]{40} because a bad activation key should still get to the view;
+    # that way it can return a sensible "invalid key" message instead of a
+    # confusing 404.
+    url(r'^activate/(?P<activation_key>\w+)/$', 'activate', name='activate'),
+    url(r'^register/$', 'register', {
+        'success_url': lazy_reverse('users:registration_complete'),
+    }, name='registration'),
+    url(r'^register/complete/$', direct_to_template,
+        {'template': 'registration/registration_complete.html'}, name='registration_complete'),
+)

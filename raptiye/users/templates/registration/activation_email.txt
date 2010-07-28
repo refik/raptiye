@@ -1,0 +1,19 @@
+Merhaba,
+
+Bu e-posta'yı, {{ site.name }}'ye yaptığınız yeni kullanıcı hesabının aktivasyonu
+için alıyorsunuz.
+
+Aşağıdaki bağlantıya tıklayarak yeni kullanıcı hesabınızın aktivasyon işlemini 
+tamamlayabilirsiniz.
+
+http://{{ site.domain }}/users/activate/{{ activation_key }}/
+
+Eğer bu isteğin tarafınızdan yapılmadığını düşünüyorsanız, gelen e-posta'yı
+önemsemeyebilir, tekrarı halinde bilgi@{{ site.domain }} adresine e-posta atabilirsiniz.
+
+Aktivasyon bağlantısının geçerlilik süresi, bu e-posta'nın tarafınıza ulaşmasından
+itibaren {{ expiration_days }} gündür.
+
+Ziyaretiniz ve ilginiz için teşekkürler!
+
+{{ site.name }} ekibi
