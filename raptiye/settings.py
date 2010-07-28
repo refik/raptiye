@@ -51,7 +51,6 @@ BIRTH_DATE = date(1984, 05, 16)
 # --- ADMIN SETTINGS --------------
 
 ADMIN_LIST_PER_PAGE = 20
-# AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 
 
@@ -68,6 +67,15 @@ ENABLE_TWITTER_BOX = False
 TWITTER_USERNAME = ""
 TWITTER_PASSWORD = ""
 TWITTER_LIMIT = 5
+
+
+
+# --- USER ACCOUNT SETTINGS -------
+
+# AUTH_PROFILE_MODULE = 'users.UserProfile'
+
+# used by django-registration
+# ACCOUNT_ACTIVATION_DAYS = 7
 
 
 
@@ -183,6 +191,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'tagging',
+    # 'registration',
     'raptiye.blog',
     'raptiye.contrib.flatpages',
     # 'raptiye.users',

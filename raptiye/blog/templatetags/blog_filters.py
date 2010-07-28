@@ -180,6 +180,12 @@ def code_colorizer(entry):
 
     return entry
 
+@register.filter
+def is_installed(app):
+    if app in settings.INSTALLED_APPS:
+        return True
+    return False
+
 @register.simple_tag
 def project_name():
     return settings.PROJECT_NAME
