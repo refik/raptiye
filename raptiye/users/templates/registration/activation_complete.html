@@ -1,0 +1,53 @@
+{% extends "index.html" %}
+
+{% comment %}
+    raptiye
+    Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+{% endcomment %}
+
+{% load blog_filters %}
+
+{% block title %}yeni kullanıcı kaydı başarılı @ {% project_name %} | {% project_subtitle %}{% endblock %}
+
+{% block content %}
+    <div class="grid_6 alpha">
+        {% include "sidebar.html" %}
+    </div>
+
+    <div class="grid_10 omega">
+        <div class="blog_entry_container vertical_first vertical_last">
+            <div class="blog_entry">
+                <div class="align_left">
+                    <h2>Teşekkürler!</h2>
+                </div>
+
+                <div class="align_right">
+                    <img src="{{ MEDIA_URL|default:'/media/' }}template/images/ok.png">
+                </div>
+
+                <div class="both_sides_cleared small">
+                    <p>
+                        Yeni kullanıcı kaydınız için gerekli olan aktivasyon adımını başarıyla tamamladınız! Artık {% project_name %}'de dilediğiniz gibi yorum yazabilir, ilgilendiğiniz yazıları takip edebilir ve her şeyden öncelikli olarak haberdar olabilirsiniz.
+                    </p>
+
+                    <p class="no_bottom_margin">
+                        <a href="{% url index %}" class="ulink">Buraya</a> tıklayarak ana sayfaya dönebilirsiniz.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

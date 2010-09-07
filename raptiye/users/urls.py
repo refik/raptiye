@@ -19,9 +19,8 @@
 
 from django.conf.urls.defaults import *
 from django.core.urlresolvers import reverse
+from django.utils.functional import lazy
 from django.views.generic.simple import direct_to_template
-
-from raptiye.extra.utils import reverse as lazy_reverse
 
 urlpatterns = patterns('raptiye.users.views',
     url(r'^reset/password/being/confirmed/$', direct_to_template,
@@ -41,25 +40,33 @@ urlpatterns += patterns('django.contrib.auth.views',
     url(r'^reset/password/$', 'password_reset', {
         'template_name': 'password_reset_form.html',
         'email_template_name': 'password_reset_email.html',
-        'post_reset_redirect': lazy_reverse('users:password_reset_being_confirmed')
+        'post_reset_redirect': lazy(reverse, str)('users:password_reset_being_confirmed')
     }, name='password_reset'),
     url(r'^reset/password/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'password_reset_confirm', {
         'template_name': 'password_reset_confirm.html',
-        'post_reset_redirect': lazy_reverse('users:password_reset_complete')
-    }, name='password_reset_confirm'),
+        'post_reset_redirect': lazy(reverse, str)('users:password_reset_complete')
+    }, name='password_reset_confirm')
 )
 
 # adding urls for django-registration and
 # not using its internal urls.py because of above block
 urlpatterns += patterns('registration.views',
+    url(r'^activate/complete/$', direct_to_template, {
+        'template': 'registration/activation_complete.html'
+    }, name='registration_activation_complete'),
     # Activation keys get matched by \w+ instead of the more specific
     # [a-fA-F0-9]{40} because a bad activation key should still get to the view;
     # that way it can return a sensible "invalid key" message instead of a
     # confusing 404.
-    url(r'^activate/(?P<activation_key>\w+)/$', 'activate', name='activate'),
+    url(r'^activate/(?P<activation_key>\w+)/$', 'activate', {
+        'backend': 'registration.backends.default.DefaultBackend',
+        'success_url': lazy(reverse, str)('users:registration_activation_complete')
+    }, name='activate'),
     url(r'^register/$', 'register', {
-        'success_url': lazy_reverse('users:registration_complete'),
+        'backend': 'registration.backends.default.DefaultBackend',
+        'success_url': lazy(reverse, str)('users:registration_complete')
     }, name='registration'),
-    url(r'^register/complete/$', direct_to_template,
-        {'template': 'registration/registration_complete.html'}, name='registration_complete'),
+    url(r'^register/complete/$', direct_to_template, {
+        'template': 'registration/registration_complete.html'
+    }, name='registration_complete')
 )
