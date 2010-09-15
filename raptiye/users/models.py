@@ -30,7 +30,7 @@ class UserProfile(models.Model):
     """
 
     user = models.OneToOneField(User, related_name='profile', verbose_name=u"User")
-    avatar = models.URLField(u"Avatar", default=settings.DEFAULT_AVATAR())
+    avatar = models.URLField(u"Avatar", default=settings.DEFAULT_AVATAR)
     web_site = models.URLField(u"Web Site", blank=True)
     comments_count = models.PositiveIntegerField(u"Comments Count", default=0, editable=False)
     subscribed_entries = models.ManyToManyField(Entry, related_name="subscribed_users", verbose_name=u"Subscribed Entries", 

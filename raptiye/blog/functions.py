@@ -20,11 +20,17 @@
 # nice or_ interface instead of a | b - amazing.. :)
 import operator
 
+from django.conf import settings
 from django.db.models import Q
 
 from raptiye.blog.models import Entry
 
-__all__ = ["get_latest_entries", "search_against_entries"]
+__all__ = ["is_app_installed", "get_latest_entries", "search_against_entries"]
+
+def is_app_installed(app):
+    if app in settings.INSTALLED_APPS:
+        return True
+    return False
 
 def get_latest_entries(language="tr", include_stickies=True):
     if include_stickies:

@@ -22,6 +22,8 @@ from django.core.urlresolvers import reverse
 from django.utils.functional import lazy
 from django.views.generic.simple import direct_to_template
 
+from raptiye.blog.functions import is_app_installed
+
 urlpatterns = patterns('raptiye.users.views',
     url(r'^reset/password/being/confirmed/$', direct_to_template,
         {'template': 'password_reset_being_confirmed.html'}, name='password_reset_being_confirmed'),
@@ -35,7 +37,7 @@ urlpatterns += patterns('django.contrib.auth.views',
         'template_name': 'login.html'
     }, name='login'),
     url(r'^logout/$', 'logout', {
-        'next_page': reverse('index')
+        'template_name': 'logout.html'
     }, name='logout'),
     url(r'^reset/password/$', 'password_reset', {
         'template_name': 'password_reset_form.html',
@@ -48,25 +50,26 @@ urlpatterns += patterns('django.contrib.auth.views',
     }, name='password_reset_confirm')
 )
 
-# adding urls for django-registration and
-# not using its internal urls.py because of above block
-urlpatterns += patterns('registration.views',
-    url(r'^activate/complete/$', direct_to_template, {
-        'template': 'registration/activation_complete.html'
-    }, name='registration_activation_complete'),
-    # Activation keys get matched by \w+ instead of the more specific
-    # [a-fA-F0-9]{40} because a bad activation key should still get to the view;
-    # that way it can return a sensible "invalid key" message instead of a
-    # confusing 404.
-    url(r'^activate/(?P<activation_key>\w+)/$', 'activate', {
-        'backend': 'registration.backends.default.DefaultBackend',
-        'success_url': lazy(reverse, str)('users:registration_activation_complete')
-    }, name='activate'),
-    url(r'^register/$', 'register', {
-        'backend': 'registration.backends.default.DefaultBackend',
-        'success_url': lazy(reverse, str)('users:registration_complete')
-    }, name='registration'),
-    url(r'^register/complete/$', direct_to_template, {
-        'template': 'registration/registration_complete.html'
-    }, name='registration_complete')
-)
+if is_app_installed("registration"):
+    # adding urls for django-registration and
+    # not using its internal urls.py because of above block
+    urlpatterns += patterns('registration.views',
+        url(r'^activate/complete/$', direct_to_template, {
+            'template': 'registration/activation_complete.html'
+        }, name='registration_activation_complete'),
+        # Activation keys get matched by \w+ instead of the more specific
+        # [a-fA-F0-9]{40} because a bad activation key should still get to the view;
+        # that way it can return a sensible "invalid key" message instead of a
+        # confusing 404.
+        url(r'^activate/(?P<activation_key>\w+)/$', 'activate', {
+            'backend': 'registration.backends.default.DefaultBackend',
+            'success_url': lazy(reverse, str)('users:registration_activation_complete')
+        }, name='activate'),
+        url(r'^register/$', 'register', {
+            'backend': 'registration.backends.default.DefaultBackend',
+            'success_url': lazy(reverse, str)('users:registration_complete')
+        }, name='registration'),
+        url(r'^register/complete/$', direct_to_template, {
+            'template': 'registration/registration_complete.html'
+        }, name='registration_complete')
+    )

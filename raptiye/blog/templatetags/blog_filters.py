@@ -24,6 +24,7 @@ from django import template
 from django.conf import settings
 from django.contrib.sites.models import Site
 
+from raptiye.blog.functions import is_app_installed
 from raptiye.blog.models import Entry, Link
 from raptiye.blog.webcal import WebCalendar
 
@@ -182,9 +183,7 @@ def code_colorizer(entry):
 
 @register.filter
 def is_installed(app):
-    if app in settings.INSTALLED_APPS:
-        return True
-    return False
+    return is_app_installed(app)
 
 @register.simple_tag
 def project_name():

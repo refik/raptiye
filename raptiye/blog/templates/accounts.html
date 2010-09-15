@@ -16,19 +16,28 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
+{% load blog_filters %}
+
 {% if request.user.is_authenticated %}
     {% if request.user.is_superuser %}
         &raquo; <a href="{% url admin:index %}" title="yönetim paneline gitmek için tıklayın..">yönetim paneli</a>
         <br>
     {% endif %}
 
-    &raquo; <a href="#{# {% url profile_page request.user.username %} #}" title="profilinizi görmek ve değiştirmek için tıklayın..">profilim</a>
-    <br>
+    {% if "profiles"|is_installed %}
+        &raquo; <a href="#{# {% url profile_page request.user.username %} #}" title="profilinizi görmek ve değiştirmek için tıklayın..">profilim</a>
+        <br>
+    {% endif %}
+
     &raquo; <a href="{% url users:logout %}?next={{ request.path }}" title="çıkış yapmak için tıklayın..">çıkış</a>
 {% else %}
     &raquo; <a href="{% url users:password_reset %}" title="raptiye hesabınızın şifresini hatırlamıyorsanız tıklayın..">şifremi unuttum</a>
     <br>
-    &raquo; <a href="{% url users:registration %}" title="raptiye'ye kaydolmak için tıklayın..">kaydol</a>
-    <br>
+
+    {% if "registration"|is_installed %}
+        &raquo; <a href="{% url users:registration %}" title="raptiye'ye kaydolmak için tıklayın..">kaydol</a>
+        <br>
+    {% endif %}
+
     &raquo; <a href="{% url users:login %}?next={{ request.path }}" title="raptiye hesabınızla giriş yapmak için tıklayın..">giriş</a>
 {% endif %}

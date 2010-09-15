@@ -18,16 +18,7 @@
 # 
 
 import hashlib
-from random import sample
-import sha
-import string
 import urllib
-
-from django.conf import settings
-
-def create_activation_key():
-	choices = list(string.letters + string.digits)
-	return sha.new(settings.SECRET_KEY[:20] + "".join(sample(choices, 5))).hexdigest()
 
 def get_gravatar(email, default, size=50):
     gravatar_url = "http://www.gravatar.com/avatar.php?"

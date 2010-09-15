@@ -192,6 +192,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'tagging',
     # 'registration',
+    # 'profiles',
     'raptiye.blog',
     'raptiye.contrib.flatpages',
     # 'raptiye.users',
