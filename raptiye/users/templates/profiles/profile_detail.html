@@ -1,0 +1,110 @@
+{% extends "index.html" %}
+
+{% comment %}
+    raptiye
+    Copyright (C) 2009  Alper KANAT <alperkanat@raptiye.org>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+{% endcomment %}
+
+{% load blog_filters %}
+
+{% block title %}{{ profile.user }} @ {% project_name %} | {% project_subtitle %}{% endblock %}
+
+{% block content %}
+    <div class="grid_6 alpha">
+        {% include "sidebar.html" %}
+    </div>
+
+    <div class="grid_10 omega">
+        <div class="blog_entry_container vertical_first vertical_last">
+            <div class="blog_entry">
+                <div id="profile_body">
+                    <img src="{{ profile.avatar }}" id="profile_avatar" class="align_right" 
+                        alt="{{ profile.user }} adlı kullanıcının avatar resmi" title="{{ profile.user }}">
+
+                    <h2 class="no_bottom_margin">
+                        {% if profile.user.get_full_name %}
+                            {{ profile.user.get_full_name }} ({{ profile.user }})
+                        {% else %}
+                            {{ profile.user }}
+                        {% endif %}
+                    </h2>
+
+                    {% if profile.user.is_superuser %}
+                    <div class="smallplus">
+                        [yetki resmi] yetkili kullanıcı
+                    </div>
+                    {% endif %}
+
+                    <div id="profile_info" class="small">
+                        {% if profile.web_site %}
+                        <p class="no_bottom_margin">
+                            <strong>Web Sitesi:</strong>
+                            <a href="{{ profile.web_site }}"  class="ulink" target="_blank"
+                                title="{{ profile.user }} kullanıcısının sitesini ziyaret etmek için tıklayınız.">
+                                {{ profile.web_site }}
+                            </a>
+                        </p>
+                        {% endif %}
+
+                        <p class="no_bottom_margin">
+                            <strong>Yorum Sayısı:</strong>
+                            {{ profile.comments_count }}
+                            {# TODO: fill comment counts #}
+                        </p>
+
+                        <p class="no_bottom_margin">
+                            <strong>Üyelik Tarihi:</strong>
+                            {{ profile.user.date_joined|date:'d.m.Y, H:i' }}
+                        </p>
+
+                        <p class="no_bottom_margin">
+                            <strong>Son Giriş Tarihi:</strong>
+                            {{ profile.user.last_login|date:'d.m.Y, H:i' }}
+                        </p>
+                    </div>
+
+                    <div id="profile_stats" class="small">
+                        {# TODO: comment table #}
+
+                        {% with profile.subscribed_entries.all|slice:":5" as subscribed_entries %}
+                            {% if subscribed_entries %}
+                                <table id="subscribed_entries_of_user" class="statics_table">
+                                    <thead>
+                                        <th>Takip Ettiği Son 5 Yazı</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for entry in subscribed_entries %}
+                                            <tr{% if forloop.counter|divisibleby:"2" %} class="table_dark_row"{% endif %}>
+                                                <td class="smallplus">
+                                                    <a href="{{ entry.get_url }}" title="{{ entry.title }} adlı yazıyı okumak için tıklayınız."
+                                                        class="ulink">
+                                                        {{ entry.title }}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+
+                    <div class="both_sides_cleared"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -51,8 +51,6 @@ urlpatterns += patterns('django.contrib.auth.views',
 )
 
 if is_app_installed("registration"):
-    # adding urls for django-registration and
-    # not using its internal urls.py because of above block
     urlpatterns += patterns('registration.views',
         url(r'^activate/complete/$', direct_to_template, {
             'template': 'registration/activation_complete.html'
@@ -72,4 +70,12 @@ if is_app_installed("registration"):
         url(r'^register/complete/$', direct_to_template, {
             'template': 'registration/registration_complete.html'
         }, name='registration_complete')
+    )
+
+if is_app_installed("profiles"):
+    urlpatterns += patterns('profiles.views',
+        # url(r'^create/$', 'create_profile', name='profiles_create_profile'),
+        # url(r'^edit/$', 'edit_profile', name='profiles_edit_profile'),
+        url(r'^(?P<username>\w+)/$', 'profile_detail', name='profiles_profile_detail'),
+        # url(r'^$', views.profile_list, name='profiles_profile_list')
     )

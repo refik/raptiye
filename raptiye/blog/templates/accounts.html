@@ -25,7 +25,7 @@
     {% endif %}
 
     {% if "profiles"|is_installed %}
-        &raquo; <a href="#{# {% url profile_page request.user.username %} #}" title="profilinizi görmek ve değiştirmek için tıklayın..">profilim</a>
+        &raquo; <a href="{% url users:profiles_profile_detail user.username %}" title="profilinizi görmek ve değiştirmek için tıklayın..">profilim</a>
         <br>
     {% endif %}
 

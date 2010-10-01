@@ -51,6 +51,14 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title
 
+    def get_url(self):
+        return reverse("blog:show_post", args=[
+            self.datetime.year,
+            self.datetime.month,
+            self.datetime.day,
+            self.slug
+        ])
+
     class Meta:
         get_latest_by = "datetime"
         ordering = ["-datetime", "title", "content"]

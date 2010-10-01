@@ -260,6 +260,34 @@ blockquote {
     margin-bottom: 10px;
 }
 
+#profile_avatar {
+    width: 80px;
+    height: 80px;
+    border: 1px solid black;
+}
+
+#profile_info, #profile_stats, #subscribed_entries_of_user {
+    margin-top: 20px;
+}
+
+.statics_table {
+    width: 100%;
+    text-align: left;
+}
+
+.statics_table th {
+    padding-bottom: 5px;
+}
+
+.statics_table tr.table_dark_row {
+    background-color: #eee;
+}
+
+.statics_table td {
+    padding: 3px 5px 3px 5px;
+    border: 1px solid #ccc;
+}
+
 .align_left {
     float: left;
 }

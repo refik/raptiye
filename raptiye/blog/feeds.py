@@ -37,10 +37,6 @@ class RSS(Feed):
     def link(self):
         return reverse("index")
 
-class RSSLatestEntries(RSS):
-    def items(self):
-        return get_latest_entries()[:settings.RSS_LIMIT]
-
     def item_title(self, item):
         return item.title
 
@@ -48,12 +44,11 @@ class RSSLatestEntries(RSS):
         return item.content
 
     def item_link(self, item):
-        return reverse("blog:show_post", args=[
-            item.datetime.year,
-            item.datetime.month,
-            item.datetime.day,
-            item.slug
-        ])
+        return item.get_url()
+
+class RSSLatestEntries(RSS):
+    def items(self):
+        return get_latest_entries()[:settings.RSS_LIMIT]
 
 class RSSEntriesTaggedWith(RSS):
     """
@@ -68,17 +63,3 @@ class RSSEntriesTaggedWith(RSS):
 
     def items(self, item):
         return TaggedItem.objects.get_by_model(get_latest_entries(), item)[:settings.RSS_LIMIT]
-
-    def item_title(self, item):
-        return item.title
-
-    def item_description(self, item):
-        return item.content
-
-    def item_link(self, item):
-        return reverse("blog:show_post", args=[
-            item.datetime.year,
-            item.datetime.month,
-            item.datetime.day,
-            item.slug
-        ])
