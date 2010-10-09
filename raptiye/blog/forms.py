@@ -26,7 +26,7 @@ from raptiye.blog.widgets import *
 
 class EntryForm(forms.ModelForm):
     tags = TagField(widget=AutoCompleteTagInput(model=Entry), required=False)
-    content = forms.CharField(widget=MarkItUpInput)
+    content = forms.CharField(widget=CKEditorInput)
 
     class Meta:
         model = Entry

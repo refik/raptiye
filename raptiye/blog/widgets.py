@@ -25,7 +25,29 @@ from tagging.models import Tag
 
 from raptiye.blog.models import Entry
 
-__all__ = ("MarkItUpInput", "AutoCompleteTagInput")
+__all__ = ("CKEditorInput", "MarkItUpInput", "AutoCompleteTagInput")
+
+class CKEditorInput(forms.Textarea):
+    def __init__(self, *args, **kwargs):
+        super(CKEditorInput, self).__init__(*args, **kwargs)
+
+    class Media:
+        css = {
+            "screen": (
+                "js/ckeditor/raptiye_ckeditor.css",
+            )
+        }
+
+        js = (
+            "js/ckeditor/ckeditor.js",
+            "js/ckeditor/config.js",
+        )
+
+    def render(self, name, value, attrs=None):
+        output = super(CKEditorInput, self).render(name, value, attrs)
+        return output + mark_safe(u'''<script type="text/javascript" charset="utf-8">
+            CKEDITOR.replace("id_%s")
+        </script>''' % name)
 
 class MarkItUpInput(forms.Textarea):
     def __init__(self, *args, **kwargs):
@@ -40,6 +62,7 @@ class MarkItUpInput(forms.Textarea):
         }
 
         js = (
+            "template/js/jquery.js",
             "js/markitup/jquery.markitup.pack.js",
             "js/markitup/sets/default/set.js",
         )
@@ -66,6 +89,7 @@ class AutoCompleteTagInput(forms.TextInput):
         }
 
         js = (
+            "template/js/jquery.js",
             "js/jquery.autoSuggest-packed.js",
         )
 
@@ -82,7 +106,7 @@ class AutoCompleteTagInput(forms.TextInput):
                 "emptyText": "%s",
                 "neverSubmit": true
             })
-            
+
             $("form").submit(function() {
                 $("<input>").attr({
                     "name": "%s",

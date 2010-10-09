@@ -43,10 +43,6 @@ class EntryAdmin(admin.ModelAdmin):
     save_on_top = True
     search_fields = ("title", "content")
 
-    class Media:
-        # js = ("js/fckeditor/fckeditor.js", "js/fckeditor_inclusion.js")
-        pass
-
 admin.site.register(Entry, EntryAdmin)
 
 class LinkAdmin(admin.ModelAdmin):
