@@ -7,4 +7,5 @@
 *tmproj
 local_settings.py
 ._*
+.DS_Store
 
