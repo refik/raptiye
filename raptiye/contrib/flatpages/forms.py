@@ -22,10 +22,10 @@ from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 from raptiye.contrib.flatpages.models import FlatPage
-from raptiye.blog.widgets import MarkItUpInput
+from raptiye.blog.widgets import CKEditorInput
 
 class FlatPageForm(forms.ModelForm):
-    content = forms.CharField(widget=MarkItUpInput(), required=False)
+    content = forms.CharField(widget=CKEditorInput, required=False)
     url = forms.RegexField(label=_("URL"), max_length=100, regex=r'^[-\w/]+$',
         help_text = _("Example: '/about/contact/'. Make sure to have leading"
             " and trailing slashes."),
