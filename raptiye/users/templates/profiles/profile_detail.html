@@ -42,10 +42,24 @@
                         {% endif %}
                     </h2>
 
-                    {% if profile.user.is_superuser %}
-                    <div class="smallplus">
-                        [yetki resmi] yetkili kullanıcı
-                    </div>
+                    {% if profile.user.is_superuser or user == profile.user %}
+                        <div id="profile_action_container">
+                            {% if profile.user.is_superuser %}
+                                <div class="smallplus align_left profile_action_link">
+                                    <img src="{{ MEDIA_URL|default:'/media/' }}template/images/superuser.png">
+                                    yetkili kullanıcı
+                                </div>
+                            {% endif %}
+
+                            {% if user == profile.user %}
+                                <div class="smallplus align_left profile_action_link">
+                                    <a href="#" title="profilinizi düzenlemek için tıklayın" class="nolink">
+                                        <img src="{{ MEDIA_URL|default:'/media/' }}template/images/edit.png">
+                                        düzenle
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
                     {% endif %}
 
                     <div id="profile_info" class="small">
@@ -76,31 +90,35 @@
                         </p>
                     </div>
 
-                    <div id="profile_stats" class="small">
-                        {# TODO: comment table #}
+                    {% with profile.subscribed_entries.all|slice:":5" as subscribed_entries %}
+                        {% if subscribed_entries %}
+                            <div id="profile_stats" class="small">
+                                {% if "django.contrib.comments"|is_installed %}
+                                    [comments box here]
+                                {% endif %}
 
-                        {% with profile.subscribed_entries.all|slice:":5" as subscribed_entries %}
-                            {% if subscribed_entries %}
-                                <table id="subscribed_entries_of_user" class="statics_table">
-                                    <thead>
-                                        <th>Takip Ettiği Son 5 Yazı</th>
-                                    </thead>
-                                    <tbody>
-                                        {% for entry in subscribed_entries %}
-                                            <tr{% if forloop.counter|divisibleby:"2" %} class="table_dark_row"{% endif %}>
-                                                <td class="smallplus">
-                                                    <a href="{{ entry.get_url }}" title="{{ entry.title }} adlı yazıyı okumak için tıklayınız."
-                                                        class="ulink">
-                                                        {{ entry.title }}
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            {% endif %}
-                        {% endwith %}
-                    </div>
+                                {% if subscribed_entries %}
+                                    <table id="subscribed_entries_of_user" class="statics_table">
+                                        <thead>
+                                            <th>Takip Ettiği Son 5 Yazı</th>
+                                        </thead>
+                                        <tbody>
+                                            {% for entry in subscribed_entries %}
+                                                <tr{% if forloop.counter|divisibleby:"2" %} class="table_dark_row"{% endif %}>
+                                                    <td class="smallplus">
+                                                        <a href="{{ entry.get_url }}" title="{{ entry.title }} adlı yazıyı okumak için tıklayınız."
+                                                            class="ulink">
+                                                            {{ entry.title }}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
 
                     <div class="both_sides_cleared"></div>
                 </div>

@@ -270,6 +270,14 @@ blockquote {
     margin-top: 20px;
 }
 
+#profile_action_container {
+    margin-bottom: 40px;
+}
+
+.profile_action_link {
+    margin-right: 20px;
+}
+
 .statics_table {
     width: 100%;
     text-align: left;
@@ -345,6 +353,14 @@ blockquote {
 }
 
 .ulink:hover {
+    text-decoration: none;
+}
+
+.nolink {
+    text-decoration: none;
+}
+
+.nolink:hover {
     text-decoration: none;
 }
 
