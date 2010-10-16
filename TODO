@@ -1,0 +1,38 @@
+Important changes to remember:
+
+ - master
+ |
+ `--> calendar needs improvement
+ `--> monthly/yearly pages needed with calendar support
+ `--> server configuration scripts needs to be included to the code base
+ |
+ - 2.2 (users branch)
+ |
+ `--> edit migration script to drop unnecessary tables regarding users branch
+ `--> removal of subscribed entries needed (using starts and ajax calls)
+ `--> all ajax calls should be backed up with normal request & responses
+ `--> profile edit page needed
+ `--> profile avatar code needed (gravatar support etc.) for various resolutions
+ `--> add "show all" for subscribed entries (js would be fine?)
+ |
+ - 2.3 (comments branch)
+ |
+ `--> create branch :)
+ |
+ - 2.4 (social branch)
+ |
+ `--> create branch :)
+ `--> twitter support needed
+ |    `--> twitter box
+ |    `--> announce in twitter after first publishment and optional update publishment
+ `--> facebook support needed
+ `--> openid/oauth support needed for single signon
+ |
+ - 2.5 (admin branch)
+ |
+ `--> grappelli?
+ `--> move settings for raptiye to admin panel
+ |
+ - 2.6 (template branch)
+ |
+ `--> templates should be easily changable maybe through admin panel using some app?
