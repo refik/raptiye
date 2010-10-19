@@ -25,6 +25,9 @@ urlpatterns = patterns('',
     # homepage view
     url(r'^$', 'raptiye.blog.views.index', name="index"),
 
+    # file browser
+    (r'^admin/filebrowser/', include('filebrowser.urls')),
+
     # admin page
     (r'^admin/', include(admin.site.urls)),
 

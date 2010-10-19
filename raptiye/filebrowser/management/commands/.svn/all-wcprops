@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/610/trunk/filebrowser/management/commands
+END
+fb_version_remove.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/610/trunk/filebrowser/management/commands/fb_version_remove.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/577/trunk/filebrowser/management/commands/__init__.py
+END
+fb_version_generate.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/607/trunk/filebrowser/management/commands/fb_version_generate.py
+END

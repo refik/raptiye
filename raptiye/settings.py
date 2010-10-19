@@ -187,6 +187,7 @@ INSTALLED_APPS = (
     'tagging',
     'raptiye.blog',
     'raptiye.contrib.flatpages',
+    'raptiye.filebrowser',
 )
 
 try:
