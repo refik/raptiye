@@ -25,7 +25,9 @@ from raptiye.contrib.flatpages.forms import FlatPageForm
 from raptiye.contrib.flatpages.models import FlatPage
 
 class FlatPageAdmin(admin.ModelAdmin):
-    form = FlatPageForm
+    class Media:
+        js = ['/media/admin/tinymce/jscripts/tiny_mce/tiny_mce.js', '/media/admin/tinymce_setup/tinymce_setup.js']
+#    form = FlatPageForm
     fieldsets = (
         (None, {'fields': ('url', 'title', 'content', 'sites', 'lang', 'show_on_homepage')}),
         (_('Advanced options'), {'classes': ('collapse',), 'fields': ('enable_comments', 'registration_required', 'template_name')}),
