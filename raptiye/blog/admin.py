@@ -24,15 +24,17 @@ from raptiye.blog.forms import EntryForm
 from raptiye.blog.models import *
 
 class EntryAdmin(admin.ModelAdmin):
+    class Media:
+        js = ['/media/admin/tinymce/jscripts/tiny_mce/tiny_mce.js', '/media/admin/tinymce_setup/tinymce_setup.js']
     actions_on_bottom = True
     date_hierarchy = "datetime"
     fieldsets = (
         (None, {
-            "fields": ("title", "datetime", "content", "tags",
+            "fields": ("title", "datetime" ,"content", "tags",
                 ("comments_enabled", "sticky", "published"), "language", "slug"),
         }),
     )
-    form = EntryForm
+#    form = EntryForm
     list_display = ("title", "datetime", "sticky", "published")
     list_filter = ("published", "sticky")
     list_per_page = settings.ADMIN_LIST_PER_PAGE
