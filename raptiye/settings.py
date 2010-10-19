@@ -161,6 +161,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
+    'django.contrib.messages.context_processors.messages',
     "django.core.context_processors.request",
     "raptiye.grappelli.context_processors.admin_template_path",
 )
@@ -178,6 +179,10 @@ TEMPLATE_LOADERS = (
 
 INSTALLED_APPS = (
     'raptiye.grappelli',
+    'raptiye.admin_tools',
+    'raptiye.admin_tools.theming',
+    'raptiye.admin_tools.menu',
+    'raptiye.admin_tools.dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
