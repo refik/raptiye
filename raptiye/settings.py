@@ -111,7 +111,7 @@ INTERNAL_IPS = ()
 
 # --- STANDARD DJANGO SETTINGS ----
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -162,6 +162,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.request",
+    "raptiye.grappelli.context_processors.admin_template_path",
 )
 
 TEMPLATE_DIRS = (
@@ -176,6 +177,7 @@ TEMPLATE_LOADERS = (
 )
 
 INSTALLED_APPS = (
+    'raptiye.grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -30,6 +30,9 @@ urlpatterns = patterns('',
 
     # blog page
     (r'^blog/', include('raptiye.blog.urls')),
+
+    # grappelli
+    (r'^grappelli/', include('grappelli.urls')),
 )
 
 if settings.DEBUG:
