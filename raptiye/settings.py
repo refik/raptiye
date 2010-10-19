@@ -102,6 +102,9 @@ FILE_CHARSET = 'utf-8'
 LOGIN_URL = "/users/login/"
 LOGOUT_URL = "/users/logout/"
 
+ADMIN_TOOLS_INDEX_DASHBOARD = 'raptiye.dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'raptiye.dashboard.CustomAppIndexDashboard'
+
 # URL Pattern Naming used here..
 REDIRECT_URL = "blog"
 
@@ -179,10 +182,10 @@ TEMPLATE_LOADERS = (
 
 INSTALLED_APPS = (
     'raptiye.grappelli',
-    'raptiye.admin_tools',
-    'raptiye.admin_tools.theming',
-    'raptiye.admin_tools.menu',
-    'raptiye.admin_tools.dashboard',
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

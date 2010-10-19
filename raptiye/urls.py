@@ -31,11 +31,14 @@ urlpatterns = patterns('',
     # admin page
     (r'^admin/', include(admin.site.urls)),
 
+    # admin tools
+    url(r'^admin_tools/', include('admin_tools.urls')),
+
     # blog page
     (r'^blog/', include('raptiye.blog.urls')),
 
     # grappelli
-    (r'^grappelli/', include('grappelli.urls')),
+    (r'^grappelli/', include('raptiye.grappelli.urls')),
 )
 
 if settings.DEBUG:
