@@ -21,6 +21,7 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
+from raptiye.filebrowser.fields import FileBrowseField
 from django.utils.translation import ugettext_lazy as _
 
 import tagging
@@ -47,6 +48,7 @@ class Entry(models.Model):
     comments_enabled = models.BooleanField(_(u"Comments Enabled"), default=True)
     slug = models.SlugField(_(u"URL"), max_length=100)
     tags = TagField(_(u"Tags"), help_text=_(u"Seperated by commas"))
+    testPicture = FileBrowseField(_("Picture"),max_length=200)
 
     def __unicode__(self):
         return self.title

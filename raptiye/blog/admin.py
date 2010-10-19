@@ -31,7 +31,7 @@ class EntryAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             "fields": ("title", "datetime" ,"content", "tags",
-                ("comments_enabled", "sticky", "published"), "language", "slug"),
+                ("comments_enabled", "sticky", "published"), "language", "slug", "testPicture"),
         }),
     )
 #    form = EntryForm
